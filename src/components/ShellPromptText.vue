@@ -22,7 +22,7 @@ export default {
 
 <style scoped>
 .user {
-  color: green;
+  color: lime;
 }
 .separator {
   color: white;
