@@ -1,0 +1,33 @@
+<template>
+    <span class="user">aurere-d</span>
+    <span class="separator">:</span>
+    <template v-for="dir in path" :key="dir">
+      <span class="directory">{{ dir }}</span>
+      <span class="separator">/</span>
+    </template>
+    <span class="separator">$</span>
+</template>
+
+<script>
+export default {
+  name: "ShellPromptText",
+  props: {
+    path: {
+      type: Array,
+      required: true
+    }
+  },
+};
+</script>
+
+<style scoped>
+.user {
+  color: green;
+}
+.separator {
+  color: white;
+}
+.directory {
+  color: cyan;
+}
+</style>

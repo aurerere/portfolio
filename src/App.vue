@@ -1,26 +1,47 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <ShellContainer/>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import ShellContainer from "@/components/ShellContainer";
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    ShellContainer
   }
 }
 </script>
 
 <style>
+html {
+  color-scheme: dark;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background: black;
+}
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: monospace;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  color: white;
+  padding: 20px;
+  font-size: 20px;
+}
+p {
+  margin: 0;
+}
+
+::-moz-selection {
+  color: black;
+  background: white;
+}
+
+::selection {
+  color: black;
+  background: white;
 }
 </style>
