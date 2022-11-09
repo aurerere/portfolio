@@ -3,7 +3,7 @@
     <template v-for="command in history" :key="command">
       <ShellPromptText :path="command.path" /> {{ command.input }}
       <br v-if="command.result"/>
-      <span class="command">{{ command.result }}</span>
+      <ShellResultParser v-if="command.result" :result="command.result"/>
       <br />
     </template>
   </p>
@@ -11,23 +11,32 @@
     <p>
       <ShellPromptText :path="path"/>
     </p>
-    <input id="prompt" autofocus autocomplete="off" spellcheck="false" v-model="input">
+    <input
+      id="prompt"
+      autofocus
+      @keydown="inputArrowHooker"
+      autocomplete="off"
+      spellcheck="false"
+      v-model="input">
   </form>
-  <p v-else><span class="loader">{{ loader }}</span></p>
+  <p v-else><span class="loader">{{ loader }}</span> Loading</p>
 
 </template>
 
 <script>
 import ShellPromptText from "@/components/ShellPromptText";
 import commands from "@/utils/commands";
+import ShellResultParser from "@/components/ShellResultParser";
+
 export default {
   name: "ShellContainer",
-  components: { ShellPromptText },
+  components: { ShellResultParser, ShellPromptText },
   data() {
     return {
       loading: false,
       input: '',
       loader: '|',
+      stackState: -1,
     };
   },
   computed: {
@@ -36,8 +45,10 @@ export default {
     },
     history() {
       return this.$store.state.history;
-    }
-
+    },
+    previousCmdStack() {
+      return this.$store.state.previousCmdStack;
+    },
   },
   methods: {
     async runCommand() {
@@ -46,7 +57,10 @@ export default {
       const command = this.input.split(' ')[0].toLowerCase();
       const args = this.input.split(' ').slice(1);
 
-      this.$store.commit('pushHistory', {path: this.path, input: this.input})
+      this.$store.commit('pushHistory', {path: this.path, input: this.input});
+      this.input.trim() ?
+        this.$store.commit('pushPreviousCmd', this.input) :
+        null;
 
       if (commands[command]) {
         const result = await commands[command](...args);
@@ -55,10 +69,11 @@ export default {
       }
       else {
         if (this.input.trim())
-          this.$store.commit('setResult', 'Unknown command, type \'help\' for a list of available commands');
+          this.$store.commit('setResult', `Unknown command '${command}', type 'help' for a list of available commands`);
       }
 
       this.input = '';
+      this.stackState = -1;
       this.setLoading(false);
     },
     setLoading(is) {
@@ -84,6 +99,24 @@ export default {
       }
       else {
         clearInterval(this.interval)
+      }
+    },
+    inputArrowHooker(e) {
+      if (e.key === 'ArrowUp') {
+        if (this.stackState + 1 < this.previousCmdStack.length) {
+          this.stackState++;
+          this.input = this.previousCmdStack[this.stackState];
+        }
+      }
+      else if (e.key === 'ArrowDown') {
+        if (this.stackState > 0) {
+          this.stackState--;
+          this.input = this.previousCmdStack[this.stackState];
+        }
+        else if (this.stackState === 0) {
+          this.stackState--;
+          this.input = '';
+        }
       }
     }
   },
@@ -116,9 +149,10 @@ input {
   padding: 0;
   margin: 0;
   min-width: 100px;
+  caret-color: lime;
 }
 
 .loader {
-  color: yellow;
+  color: gray;
 }
 </style>

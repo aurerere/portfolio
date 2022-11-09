@@ -6,10 +6,10 @@ export default {
     return 'ok';
   },
   'ping': async () => {
-    return new Promise((resolve ) => {
+    return new Promise((resolve) => {
       setTimeout(() => {
         resolve('pong')
       }, 1000)
     })
-  }
+  },
 }

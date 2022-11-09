@@ -13,7 +13,6 @@ export default {
   name: "ShellPromptText",
   props: {
     path: {
-      type: Array,
       required: true
     }
   },
