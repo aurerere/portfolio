@@ -5,6 +5,7 @@ export default createStore({
     history: [],
     previousCmdStack: [],
     path: ['~'],
+    cleared: false,
   },
   getters: {
   },
@@ -13,17 +14,21 @@ export default createStore({
       state.history.push(cmd)
     },
     cls(state) {
-      state.history = []
+      state.history = [];
+      state.cleared = true;
     },
     setResult(state, res) {
       state.history[state.history.length - 1].result = res
     },
-    pushPreviousCmd(state, cmd) {
+    pushCmdStack(state, cmd) {
       if (state.previousCmdStack.includes(cmd)) {
         state.previousCmdStack
           .splice(state.previousCmdStack.indexOf(cmd), 1)
       }
       state.previousCmdStack.unshift(cmd)
+    },
+    setPath(state, path) {
+      state.path = path
     }
   },
   actions: {

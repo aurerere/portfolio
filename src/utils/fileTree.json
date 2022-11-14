@@ -1,0 +1,22 @@
+{
+  "~": {
+    "type": "folder",
+    "children": {
+      "projects": {
+        "type": "folder",
+        "children": {
+          "loading": true
+        }
+      },
+      "github": {
+        "type": "app"
+      },
+      "linkedin": {
+        "type": "app"
+      },
+      "contact": {
+        "type": "file"
+      }
+    }
+  }
+}

@@ -1,4 +1,5 @@
 <template>
+  <ShellWelcome v-if="!cleared"/>
   <p>
     <template v-for="command in history" :key="command">
       <ShellPromptText :path="command.path" /> {{ command.input }}
@@ -25,12 +26,13 @@
 
 <script>
 import ShellPromptText from "@/components/ShellPromptText";
-import commands from "@/utils/commands";
+import runCommand from "@/utils/commands";
 import ShellResultParser from "@/components/ShellResultParser";
+import ShellWelcome from "@/components/ShellWelcome";
 
 export default {
   name: "ShellContainer",
-  components: { ShellResultParser, ShellPromptText },
+  components: {ShellWelcome, ShellResultParser, ShellPromptText },
   data() {
     return {
       loading: false,
@@ -49,29 +51,14 @@ export default {
     previousCmdStack() {
       return this.$store.state.previousCmdStack;
     },
+    cleared() {
+      return this.$store.state.cleared;
+    },
   },
   methods: {
     async runCommand() {
       this.setLoading(true)
-
-      const command = this.input.split(' ')[0].toLowerCase();
-      const args = this.input.split(' ').slice(1);
-
-      this.$store.commit('pushHistory', {path: this.path, input: this.input});
-      this.input.trim() ?
-        this.$store.commit('pushPreviousCmd', this.input) :
-        null;
-
-      if (commands[command]) {
-        const result = await commands[command](...args);
-        if (result !== "ok")
-          this.$store.commit('setResult', result)
-      }
-      else {
-        if (this.input.trim())
-          this.$store.commit('setResult', `Unknown command '${command}', type 'help' for a list of available commands`);
-      }
-
+      await runCommand(this.input);
       this.input = '';
       this.stackState = -1;
       this.setLoading(false);
@@ -103,12 +90,14 @@ export default {
     },
     inputArrowHooker(e) {
       if (e.key === 'ArrowUp') {
+        e.preventDefault()
         if (this.stackState + 1 < this.previousCmdStack.length) {
           this.stackState++;
           this.input = this.previousCmdStack[this.stackState];
         }
       }
       else if (e.key === 'ArrowDown') {
+        e.preventDefault()
         if (this.stackState > 0) {
           this.stackState--;
           this.input = this.previousCmdStack[this.stackState];
@@ -139,7 +128,7 @@ form {
 }
 
 input {
-  background: black;
+  background: transparent;
   color: white;
   border: none;
   outline: none;

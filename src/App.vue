@@ -21,7 +21,7 @@ html {
 body {
   margin: 0;
   padding: 0;
-  background: black;
+  background: #1e1f22;
 }
 #app {
   font-family: monospace;
@@ -33,6 +33,7 @@ body {
 }
 p {
   margin: 0;
+  word-wrap: break-word;
 }
 
 ::-moz-selection {

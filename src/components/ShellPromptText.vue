@@ -1,5 +1,5 @@
 <template>
-    <span class="user">aurere-d</span>
+    <span class="user">aureliendumay.me</span>
     <span class="separator">:</span>
     <template v-for="dir in path" :key="dir">
       <span class="directory">{{ dir }}</span>
