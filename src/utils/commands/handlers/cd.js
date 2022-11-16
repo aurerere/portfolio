@@ -1,30 +1,31 @@
 import store from "@/store";
 import ls from "@/utils/commands/handlers/ls";
+import parsePath from "@/utils/misc/parsePath";
 
 export default function cd(to='')
 {
-    let path = store.state.path;
-    let toArray = to.split('/');
+    const path = parsePath(to);
 
-    console.log(toArray)
-
-    if (toArray.length === 1 && toArray[0] === '')
+    if (!to)
         return "ok";
 
-    for (let i = 0; i < toArray.length; i++)
-    {
-        if (toArray[i] === '..') {
-            if (path.length > 1)
-                path.pop();
-            else
-                return "cd: cannot go back from root";
-        }
-        else if (toArray[i] === '.')
-            continue;
-        else if (ls(path)[toArray[i]])
-            path.push(toArray[i]);
-        else
-            return `cd: no such file or directory: '${to}'`;
+    if (!path)
+        return {
+            component: 'error',
+            content: "[cd] cannot go back from home."
+        };
+
+    const content = ls(path);
+
+    if (content.component === "error") {
+        let message = content.exists ?
+            `[cd] ${content.name} is not a directory.` :
+            `[cd] no such file or directory: '${content.name}'.`;
+
+        return {
+            component: "error",
+            content: message
+        };
     }
 
     store.commit('setPath', path);

@@ -5,7 +5,7 @@
       <ShellPromptText :path="command.path" /> {{ command.input }}
       <br v-if="command.result"/>
       <ShellResultParser v-if="command.result" :result="command.result"/>
-      <br />
+      <br v-if="!command.result"/>
     </template>
   </p>
   <form @submit.prevent="runCommand" v-if="!loading">
@@ -15,7 +15,7 @@
     <input
       id="prompt"
       autofocus
-      @keydown="inputArrowHooker"
+      @keydown.up.down.prevent="inputArrowHooker"
       autocomplete="off"
       spellcheck="false"
       v-model="input">
@@ -90,14 +90,12 @@ export default {
     },
     inputArrowHooker(e) {
       if (e.key === 'ArrowUp') {
-        e.preventDefault()
         if (this.stackState + 1 < this.previousCmdStack.length) {
           this.stackState++;
           this.input = this.previousCmdStack[this.stackState];
         }
       }
       else if (e.key === 'ArrowDown') {
-        e.preventDefault()
         if (this.stackState > 0) {
           this.stackState--;
           this.input = this.previousCmdStack[this.stackState];
@@ -107,7 +105,7 @@ export default {
           this.input = '';
         }
       }
-    }
+    },
   },
   updated() {
     const prompt = document.getElementById('prompt');
@@ -115,7 +113,7 @@ export default {
       prompt.focus();
       prompt.scrollIntoView();
     }
-  }
+  },
 };
 </script>
 

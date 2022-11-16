@@ -1,23 +1,27 @@
 import store from "@/store";
 import ls from "@/utils/commands/handlers/ls";
 import cd from "@/utils/commands/handlers/cd";
+import cat from "@/utils/commands/handlers/cat";
 
-const commands = {
-    'cls': () => {
+const commands = new function() {
+    this['cls'] = () => {
         store.commit('cls')
         return 'ok';
-    },
-    'ping': async () => {
+    };
+    this['ping'] = async () => {
         return new Promise((resolve) => {
             setTimeout(() => {
                 resolve('pong')
             }, 1000)
         })
-    },
-    'ls': () => {return {component: "ls", content: ls()}},
-    'help': () => 'cls, ping, help',
-    'cd': (to) => cd(to),
-    'exit': () => window.close()
+    };
+    this['ls'] = (args) => ls(args ? args : undefined);
+    this['dir'] = this['ls'];
+    this['help'] = () => 'cls, ping, help';
+    this['cd'] = (to) => cd(to);
+    this['exit'] = () => window.close();
+    this['clear'] = this['cls'];
+    this['cat'] = (file) => cat(file);
 }
 
 export default async function runCommand(input)
@@ -43,6 +47,6 @@ export default async function runCommand(input)
     else
         store.commit(
             'setResult',
-            `Unknown command '${command}'. Type 'help' for the list of available commands`
+            { component: 'error', content: `Unknown command '${command}'. Type 'help' for the list of available commands`}
         );
 }

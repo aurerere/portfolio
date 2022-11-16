@@ -14,8 +14,9 @@
       "linkedin": {
         "type": "app"
       },
-      "contact": {
-        "type": "file"
+      "contact.txt": {
+        "type": "file",
+        "content": "aure.dumay@gmail.com \n https://www.linkedin.com/in/aureliendumay/"
       }
     }
   }
