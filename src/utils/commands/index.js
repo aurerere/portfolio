@@ -2,6 +2,7 @@ import store from "@/store";
 import ls from "@/utils/commands/handlers/ls";
 import cd from "@/utils/commands/handlers/cd";
 import cat from "@/utils/commands/handlers/cat";
+import parsePath from "@/utils/misc/parsePath";
 
 const commands = new function() {
     this['cls'] = () => {
@@ -26,6 +27,19 @@ const commands = new function() {
 
 export default async function runCommand(input)
 {
+    // if (input.trim().startsWith('./' || '.')) {
+    //     const path = parsePath(input.trim().slice(2));
+    //     let file = ls(path);
+    //     if (file.component === 'error') {
+    //         if (ls(path).exists) {
+    //
+    //         }
+    //         else {
+    //
+    //         }
+    //     }
+    // }
+
     const command = input.split(' ')[0].toLowerCase();
     const args = input.split(' ').slice(1);
     const path = [...store.state.path];
