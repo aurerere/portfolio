@@ -31,7 +31,9 @@ export default function ls(relativePath=store.state.path)
                 component: "error",
                 content: message,
                 name: path[i],
-                exists: !!content[path[i]]
+                exists: !!content[path[i]],
+                fileType: content[path[i]] ? content[path[i]].type : null,
+                fileContent: content[path[i]] ? content[path[i]].content : null
             };
         }
     }

@@ -2,7 +2,9 @@ import store from "@/store";
 import ls from "@/utils/commands/handlers/ls";
 import cd from "@/utils/commands/handlers/cd";
 import cat from "@/utils/commands/handlers/cat";
-import parsePath from "@/utils/misc/parsePath";
+import exe from "@/utils/commands/handlers/exe";
+
+//todo: promptParser & commandParser
 
 const commands = new function() {
     this['cls'] = () => {
@@ -23,42 +25,37 @@ const commands = new function() {
     this['exit'] = () => window.close();
     this['clear'] = this['cls'];
     this['cat'] = (file) => cat(file);
+    this['execute'] = (file) => exe(file);
 }
 
 export default async function runCommand(input)
 {
-    // if (input.trim().startsWith('./' || '.')) {
-    //     const path = parsePath(input.trim().slice(2));
-    //     let file = ls(path);
-    //     if (file.component === 'error') {
-    //         if (ls(path).exists) {
-    //
-    //         }
-    //         else {
-    //
-    //         }
-    //     }
-    // }
-
-    const command = input.split(' ')[0].toLowerCase();
-    const args = input.split(' ').slice(1);
     const path = [...store.state.path];
-
     store.commit('pushHistory', {path, input: input});
-
-    if (!input.trim()) {
-        return;
-    }
-
     store.commit('pushCmdStack', input);
+    let result;
+    let command;
 
-    if (commands[command]) {
-        const result = await commands[command](...args);
-        // 'ok' is the returned value if nothing needs to be printed
-        if (result !== "ok")
-            store.commit('setResult', result)
+    if (input.trim().startsWith('.'))
+        result = await commands['execute'](input.trim());
+
+    else {
+        command = input.split(' ')[0].toLowerCase();
+        const args = input.split(' ').slice(1);
+
+        if (!input.trim()) {
+            return;
+        }
+
+        if (commands[command.trim()]) {
+            result = await commands[command.trim()](...args);
+        }
     }
-    else
+
+    // 'ok' is the returned value if nothing needs to be printed
+    if (result !== "ok" && result)
+        store.commit('setResult', result)
+    else if (!result)
         store.commit(
             'setResult',
             { component: 'error', content: `Unknown command '${command}'. Type 'help' for the list of available commands`}

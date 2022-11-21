@@ -9,10 +9,12 @@
         }
       },
       "github": {
-        "type": "app"
+        "type": "app",
+        "content": "window.open('https://github.com/aurerere', \"_blank\");"
       },
       "linkedin": {
-        "type": "app"
+        "type": "app",
+        "content": "window.open('https://www.linkedin.com/in/aureliendumay/', \"_blank\");"
       },
       "contact.txt": {
         "type": "file",

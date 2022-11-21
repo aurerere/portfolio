@@ -23,7 +23,7 @@ export default function cat(relativePath)
             content: `[cat] no such file: '${file}'.`
         };
 
-    if (content.type !== "file")
+    if (content.type === "folder")
         return {
             component: 'error',
             content: `[cat] ${file} is a directory.`
