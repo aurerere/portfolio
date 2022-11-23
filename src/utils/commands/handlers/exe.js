@@ -3,9 +3,6 @@ import ls from "@/utils/commands/handlers/ls";
 
 export default function exe(path)
 {
-    if (/^\.[^/.]/gm.test(path))
-        path = path.substr(1);
-
     const file = parsePath(path);
 
     const { fileContent, exists, fileType } = ls(file);

@@ -142,4 +142,8 @@ input {
 .loader {
   color: gray;
 }
+
+p {
+  white-space: pre;
+}
 </style>

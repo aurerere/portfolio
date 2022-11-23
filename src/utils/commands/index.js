@@ -28,6 +28,13 @@ const commands = new function() {
     this['execute'] = (file) => exe(file);
 }
 
+
+
+// async function promptParser(input)
+// {
+//     let commands = input.split('"');
+// }
+
 export default async function runCommand(input)
 {
     const path = [...store.state.path];
@@ -36,16 +43,22 @@ export default async function runCommand(input)
     let result;
     let command;
 
-    if (input.trim().startsWith('.'))
+    if (input.trim().startsWith('./') || input.trim().startsWith('../'))
         result = await commands['execute'](input.trim());
 
     else {
-        command = input.split(' ')[0].toLowerCase();
-        const args = input.split(' ').slice(1);
+        command = input.trim().split(' ')[0].toLowerCase();
+        const args = input.trim().split(' ').slice(1);
 
         if (!input.trim()) {
             return;
         }
+
+        for (let i = 0; i < args.length; i++)
+            if (!args[i]) {
+                args.splice(i, 1);
+                --i;
+            }
 
         if (commands[command.trim()]) {
             result = await commands[command.trim()](...args);
