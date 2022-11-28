@@ -4,8 +4,6 @@ import cd from "@/utils/commands/handlers/cd";
 import cat from "@/utils/commands/handlers/cat";
 import exe from "@/utils/commands/handlers/exe";
 
-//todo: promptParser & commandParser
-
 const commands = new function() {
     this['cls'] = () => {
         store.commit('cls')
@@ -27,13 +25,6 @@ const commands = new function() {
     this['cat'] = (file) => cat(file);
     this['execute'] = (file) => exe(file);
 }
-
-
-
-// async function promptParser(input)
-// {
-//     let commands = input.split('"');
-// }
 
 export default async function runCommand(input)
 {

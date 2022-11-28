@@ -8,6 +8,10 @@
           "loading": true
         }
       },
+      "info.txt": {
+        "type": "file",
+        "content": "Aurélien DUMAY's informations\n---\nmail: aure.dumay@gmail.com\nphone number: 06 74 77 87 43\nlinkedin: https://www.linkedin.com/in/aureliendumay/\ngithub: https://github.com/aurerere\n---"
+      },
       "github": {
         "type": "app",
         "content": "window.open('https://github.com/aurerere', \"_blank\");"
@@ -16,9 +20,9 @@
         "type": "app",
         "content": "window.open('https://www.linkedin.com/in/aureliendumay/', \"_blank\");"
       },
-      "contact.txt": {
-        "type": "file",
-        "content": "aure.dumay@gmail.com\nhttps://www.linkedin.com/in/aureliendumay/"
+      "mailme": {
+        "type": "app",
+        "content": "window.open('mailto:aure.dumay@gmail.com');"
       }
     }
   }

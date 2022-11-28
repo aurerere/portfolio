@@ -7,15 +7,30 @@ export default function exe(path)
 
     const { fileContent, exists, fileType } = ls(file);
 
-    console.log(fileContent, exists, fileType);
-
-    if (exists && fileType === "app") {
+    if (fileType === "app") {
         eval(fileContent);
         return "ok";
     }
-    else
+    else if (fileType === "folder" || path === "./")
         return {
             component: "error",
-            content: `[execute] "${path}" is not an executable file`
+            content: `"${path}" is a directory`
         };
+    else if (exists)
+        return {
+            component: "error",
+            content: `"${path}" is not an executable file`
+        };
+    else if (exists === undefined) {
+        return {
+            component: "error",
+            content: `cannot back from home`
+        };
+    }
+    else {
+        return {
+            component: "error",
+            content: `no such file: "${path}"`
+        };
+    }
 }
