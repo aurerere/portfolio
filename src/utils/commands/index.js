@@ -7,6 +7,7 @@ import exe from "@/utils/commands/handlers/exe";
 //todo: fix cat
 //todo: finish parser
 //todo: fix commands takes only one argument
+//todo: fix the text wrapping (it does not break lines for commands responses)
 
 const commands = new function() {
     this['cls'] = () => {
