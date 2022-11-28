@@ -5,7 +5,12 @@
       "projects": {
         "type": "folder",
         "children": {
-          "loading": true
+          "hotkeys.help": {
+            "type": "folder",
+            "children": {
+
+            }
+          }
         }
       },
       "info.txt": {

@@ -11,27 +11,32 @@ export default function cat(relativePath)
         : relativePath
     ;
 
-    const file = path.pop();
+    const file = parsePath(path);
 
-    const content = ls(path).content[file];
+    const { fileContent, exists, fileType } = ls(file);
 
-    console.log(ls(path));
-
-    if (!content)
+    if (fileType !== "app") {
         return {
-            component: 'error',
-            content: `[cat] no such file: '${file}'.`
+            component: 'cat',
+            content: fileContent,
+            name: file
         };
-
-    if (content.type === "folder")
+    }
+    else if (fileType === "folder" || relativePath === "./" || relativePath === ".")
         return {
-            component: 'error',
-            content: `[cat] ${file} is a directory.`
+            component: "error",
+            content: `"${relativePath}" is a directory`
         };
-
-    return {
-        component: 'cat',
-        content: content.content,
-        name: file
-    };
+    else if (exists === undefined) {
+        return {
+            component: "error",
+            content: `cannot back from home`
+        };
+    }
+    else {
+        return {
+            component: "error",
+            content: `no such file: "${relativePath}"`
+        };
+    }
 }

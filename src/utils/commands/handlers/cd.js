@@ -19,8 +19,8 @@ export default function cd(to='')
 
     if (content.component === "error") {
         let message = content.exists ?
-            `[cd] ${content.name} is not a directory.` :
-            `[cd] no such directory: '${content.name}'.`;
+            `[cd] '${to}' is not a directory.` :
+            `[cd] no such directory: '${to}'.`;
 
         return {
             component: "error",

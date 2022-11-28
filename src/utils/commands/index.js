@@ -4,6 +4,10 @@ import cd from "@/utils/commands/handlers/cd";
 import cat from "@/utils/commands/handlers/cat";
 import exe from "@/utils/commands/handlers/exe";
 
+//todo: fix cat
+//todo: finish parser
+//todo: fix commands takes only one argument
+
 const commands = new function() {
     this['cls'] = () => {
         store.commit('cls')
