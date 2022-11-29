@@ -26,4 +26,8 @@ export const commands = new function() {
     this['cat'] = (file) => cat(file);
     this['execute'] = (file) => exe(file);
     this['echo'] = (...args) => echo(...args);
+    this['github'] = () => this['execute']('~/github')
+    this['mailme'] = () => this['execute']('~/mailme')
+    this['linkedin'] = () => this['execute']('~/linkedin')
+    this['pwd'] = () => store.state.path.join('/').replace('~', '/home/aureliendumay.me')
 }
