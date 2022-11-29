@@ -23,7 +23,7 @@ export default async function execute(parsedInput)
         if (result !== "ok" && result) {
             results.push(result);
 
-            if (result.error)
+            if (result.component === "error")
                 break;
         }
         else if (!result) {

@@ -12,15 +12,15 @@ export default function cd(to='')
     if (!path)
         return {
             component: 'error',
-            content: "[cd] cannot go back from home."
+            content: "[error] cannot go back from home."
         };
 
     const content = ls(path);
 
     if (content.component === "error") {
         let message = content.exists ?
-            `[cd] '${path.join("/")}' is not a directory.` :
-            `[cd] no such directory: '${path.join("/")}'.`;
+            `[error] '${path.join("/")}' is not a directory.` :
+            `[error] no such directory: '${path.join("/")}'.`;
 
         return {
             component: "error",
