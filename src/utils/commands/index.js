@@ -19,7 +19,7 @@ export const commands = new function() {
     };
     this['ls'] = (args) => ls(args ? args : undefined);
     this['dir'] = this['ls'];
-    this['help'] = () => 'cls, ping, help';
+    this['help'] = () => 'Not yet written... You can still explore.';
     this['cd'] = (to) => cd(to);
     this['exit'] = () => window.close();
     this['clear'] = this['cls'];
