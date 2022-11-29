@@ -19,8 +19,8 @@ export default function cd(to='')
 
     if (content.component === "error") {
         let message = content.exists ?
-            `[error] '${path.join("/")}' is not a directory.` :
-            `[error] no such directory: '${path.join("/")}'.`;
+            `[error] "${path.join("/")}" is not a directory.` :
+            `[error] no such directory: "${path.join("/")}".`;
 
         return {
             component: "error",
