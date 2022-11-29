@@ -4,7 +4,9 @@
     <template v-for="command in history" :key="command">
       <ShellPromptText :path="command.path" /> {{ command.input }}
       <br v-if="command.result"/>
-      <ShellResultParser v-if="command.result" :result="command.result"/>
+      <template v-for="part in command.result" v-bind:key="part">
+        <ShellResultParser v-if="part" :result="part"/>
+      </template>
       <br v-if="!command.result"/>
     </template>
   </p>
@@ -20,24 +22,24 @@
       spellcheck="false"
       v-model="input">
   </form>
-  <p v-else><span class="loader">{{ loader }}</span> Loading</p>
+  <ShellLoadingIndicator v-else/>
 
 </template>
 
 <script>
 import ShellPromptText from "@/components/ShellPromptText";
-import runCommand from "@/utils/commands";
+import runCommand from "@/utils/commands/compute/parse";
 import ShellResultParser from "@/components/ShellResultParser";
 import ShellWelcome from "@/components/ShellWelcome";
+import ShellLoadingIndicator from "@/components/ShellLoadingIndicator.vue";
 
 export default {
   name: "ShellContainer",
-  components: {ShellWelcome, ShellResultParser, ShellPromptText },
+  components: {ShellLoadingIndicator, ShellWelcome, ShellResultParser, ShellPromptText },
   data() {
     return {
       loading: false,
       input: '',
-      loader: '|',
       stackState: -1,
     };
   },
@@ -57,36 +59,11 @@ export default {
   },
   methods: {
     async runCommand() {
-      this.setLoading(true)
+      this.loading = true;
       await runCommand(this.input);
       this.input = '';
       this.stackState = -1;
-      this.setLoading(false);
-    },
-    setLoading(is) {
-      this.loading = is
-      if (is) {
-        this.loader = '|'
-        this.interval = setInterval(() => {
-          switch (this.loader) {
-            case '|':
-              this.loader = '/'
-              break;
-            case '/':
-              this.loader = '-'
-              break;
-            case '-':
-              this.loader = '\\'
-              break;
-            case '\\':
-              this.loader = '|'
-              break;
-          }
-        }, 100)
-      }
-      else {
-        clearInterval(this.interval)
-      }
+      this.loading = false;
     },
     inputArrowHooker(e) {
       if (e.key === 'ArrowUp') {
@@ -111,8 +88,8 @@ export default {
     const prompt = document.getElementById('prompt');
     if (prompt) {
       prompt.focus();
-      prompt.scrollIntoView();
     }
+    window.scrollTo(0, document.body.scrollHeight);
   },
 };
 </script>

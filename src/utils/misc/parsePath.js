@@ -2,7 +2,10 @@ import store from "@/store";
 
 export default function parsePath(relativePath)
 {
-    relativePath = relativePath.split(/\/|\\/gm);
+    if (relativePath.startsWith('/'))
+        return false;
+
+    relativePath = relativePath.split("/");
 
     let path = [...store.state.path];
 

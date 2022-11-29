@@ -9,7 +9,7 @@ export default function cd(to='')
     if (!to)
         return "ok";
 
-    if (!path || to === "/")
+    if (!path)
         return {
             component: 'error',
             content: "[cd] cannot go back from home."
@@ -19,8 +19,8 @@ export default function cd(to='')
 
     if (content.component === "error") {
         let message = content.exists ?
-            `[cd] '${to}' is not a directory.` :
-            `[cd] no such directory: '${to}'.`;
+            `[cd] '${path.join("/")}' is not a directory.` :
+            `[cd] no such directory: '${path.join("/")}'.`;
 
         return {
             component: "error",

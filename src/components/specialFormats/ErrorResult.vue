@@ -1,5 +1,5 @@
 <template>
-  <span class="err-title">Error:</span> <span>{{ result }}</span><br>
+  <span v-for="line in result.split('\n')" v-bind:key="line">{{ line }}<br></span>
 </template>
 
 <script>
@@ -18,7 +18,9 @@ export default {
 span {
   color: lightcoral;
   word-wrap: break-word;
+  white-space: break-spaces;
 }
+
 .err-title {
   text-decoration: underline;
 }

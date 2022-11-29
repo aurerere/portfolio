@@ -21,11 +21,13 @@ export default createStore({
       state.history[state.history.length - 1].result = res
     },
     pushCmdStack(state, cmd) {
-      if (state.previousCmdStack.includes(cmd)) {
-        state.previousCmdStack
-          .splice(state.previousCmdStack.indexOf(cmd), 1)
+      if (cmd.trim()) {
+        if (state.previousCmdStack.includes(cmd)) {
+          state.previousCmdStack
+              .splice(state.previousCmdStack.indexOf(cmd), 1)
+        }
+        state.previousCmdStack.unshift(cmd)
       }
-      state.previousCmdStack.unshift(cmd)
     },
     setPath(state, path) {
       state.path = path

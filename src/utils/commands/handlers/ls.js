@@ -14,7 +14,7 @@ export default function ls(relativePath=store.state.path)
     if (!path)
         return {
             component: 'error',
-            content: "[ls] cannot go back from home, permission denied."
+            content: "[error] cannot go back from home, permission denied."
         }
 
     for (let i = 1; i < path.length; i++)
@@ -24,8 +24,8 @@ export default function ls(relativePath=store.state.path)
 
         else {
             let message = content[path[i]] ?
-                `[ls] ${path[i]} is not a directory.` :
-                `[ls] no such file or directory: '${path[i]}'.`;
+                `[error] ${path.join('/')} is not a directory.` :
+                `[error] no such file or directory: '${path.join('/')}'.`;
 
             return {
                 component: "error",

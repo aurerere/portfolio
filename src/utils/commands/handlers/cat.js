@@ -6,16 +6,11 @@ export default function cat(relativePath)
     if (!relativePath)
         return "ok"
 
-    const path = typeof relativePath === "string"
-        ? parsePath(relativePath)
-        : relativePath
-    ;
-
-    const file = parsePath(path);
+    const file = parsePath(relativePath);
 
     const { fileContent, exists, fileType } = ls(file);
 
-    if (fileType !== "app") {
+    if (exists && fileType !== "folder") {
         return {
             component: 'cat',
             content: fileContent,
@@ -25,18 +20,18 @@ export default function cat(relativePath)
     else if (fileType === "folder" || relativePath === "./" || relativePath === ".")
         return {
             component: "error",
-            content: `"${relativePath}" is a directory`
+            content: `[error] "${file.join('/')}" is a directory`
         };
     else if (exists === undefined) {
         return {
             component: "error",
-            content: `cannot back from home`
+            content: `[error] cannot back from home`
         };
     }
     else {
         return {
             component: "error",
-            content: `no such file: "${relativePath}"`
+            content: `[error] no such file: "${file.join('/')}"`
         };
     }
 }

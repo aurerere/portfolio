@@ -7,14 +7,14 @@
   </template>
   <br><br>
   <span class="flex">
-    <span class="grey">| NAME {{ " ".repeat(winWidth - 4) }} | TYPE</span>
+    <span class="grey">| NAME {{ " ".repeat(winWidth - (winWidth > 4 ? 4 : 0))}} | TYPE</span>
   </span>
   <span class="grey">{{ "~".repeat(winWidth + 11) }}</span><br>
   <template v-for="(key, name) in result" v-bind:key="key">
     <span>
       <span class="grey">| </span>
       <span :class="'filename ' + key['type']">{{ name }}</span>
-      <span class="grey">{{ " " + "-".repeat(winWidth - name.length) + " "}}</span>
+      <span class="grey">{{ " " + "-".repeat(winWidth - (winWidth > name.length ? name.length : winWidth)) + " "}}</span>
     </span>
     <span class="grey">| </span>
     <span>{{ typesDict[key['type']] }}</span><br>

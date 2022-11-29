@@ -14,6 +14,10 @@
       v-else-if="result['component'] === 'cat'"
       :result="result['content']"
     />
+    <EchoResult
+      v-else-if="result['component'] === 'echo'"
+      :result="result['content']"
+    />
   </template>
 </template>
 
@@ -21,16 +25,14 @@
 import LsResult from "@/components/specialFormats/LsResult.vue";
 import ErrorResult from "@/components/specialFormats/ErrorResult";
 import CatResult from "@/components/specialFormats/CatResult";
+import EchoResult from "@/components/specialFormats/EchoResult.vue";
 
 export default {
   name: "ShellResultParser",
-  components: {LsResult, ErrorResult, CatResult},
+  components: {EchoResult, LsResult, ErrorResult, CatResult},
   props: {
     result: [String, Object],
   },
-  mounted() {
-    console.log(this.result);
-  }
 };
 </script>
 
