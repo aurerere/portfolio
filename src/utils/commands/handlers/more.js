@@ -1,7 +1,7 @@
 import parsePath from "@/utils/misc/parsePath";
 import ls from "@/utils/commands/handlers/ls";
 
-export default function cat(relativePath)
+export default function more(relativePath)
 {
     if (!relativePath)
         return "ok"
@@ -12,7 +12,7 @@ export default function cat(relativePath)
 
     if (exists && fileType !== "folder") {
         return {
-            component: 'cat',
+            component: 'more',
             content: fileContent,
             name: file
         };
@@ -31,7 +31,7 @@ export default function cat(relativePath)
     else {
         return {
             component: "error",
-            content: `[error] no such file: "${file.join('/')}"`
+            content: `[error] no such file: "${file.join('/').replace('~', '/home/aureliendumay.me')}"`
         };
     }
 }

@@ -10,8 +10,8 @@
       v-else-if="result['component'] === 'error'"
       :result="result['content']"
     />
-    <CatResult
-      v-else-if="result['component'] === 'cat'"
+    <MoreResult
+      v-else-if="result['component'] === 'more'"
       :result="result['content']"
     />
     <EchoResult
@@ -24,12 +24,12 @@
 <script>
 import LsResult from "@/components/specialFormats/LsResult.vue";
 import ErrorResult from "@/components/specialFormats/ErrorResult";
-import CatResult from "@/components/specialFormats/CatResult";
+import MoreResult from "@/components/specialFormats/MoreResult.vue";
 import EchoResult from "@/components/specialFormats/EchoResult.vue";
 
 export default {
   name: "ShellResultParser",
-  components: {EchoResult, LsResult, ErrorResult, CatResult},
+  components: {EchoResult, LsResult, ErrorResult, MoreResult},
   props: {
     result: [String, Object],
   },

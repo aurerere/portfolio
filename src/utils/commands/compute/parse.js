@@ -94,7 +94,5 @@ export default async function runCommand(input)
             }]
         );
 
-
-
     return await execute(commands);
 }

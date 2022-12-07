@@ -6,7 +6,7 @@
 
 <script>
 export default {
-  name: "CatResult",
+  name: "MoreResult",
   props: {
     result: {
       type: String,

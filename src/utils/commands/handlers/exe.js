@@ -14,12 +14,12 @@ export default function exe(path)
     else if (fileType === "folder" || path === "./")
         return {
             component: "error",
-            content: `"${path}" is a directory`
+            content: `"${path.replace('~', '/home/aureliendumay.me')}" is a directory`
         };
     else if (exists)
         return {
             component: "error",
-            content: `"${path}" is not an executable file`
+            content: `"${path.replace('~', '/home/aureliendumay.me')}" is not an executable file`
         };
     else if (exists === undefined) {
         return {
@@ -30,7 +30,7 @@ export default function exe(path)
     else {
         return {
             component: "error",
-            content: `no such file: "${path}"`
+            content: `no such file: "${path.replace('~', '/home/aureliendumay.me')}"`
         };
     }
 }

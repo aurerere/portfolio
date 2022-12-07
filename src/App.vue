@@ -45,4 +45,22 @@ p {
   color: black;
   background: white;
 }
+
+@keyframes maximes {
+  0% {
+    color: #ff0000;
+  }
+  25% {
+    color: #00ff00;
+  }
+  50% {
+    color: #0000ff;
+  }
+  75% {
+    color: #ffff00;
+  }
+  100% {
+    color: #ff00ff;
+  }
+}
 </style>

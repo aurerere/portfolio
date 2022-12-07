@@ -24,8 +24,8 @@ export default function ls(relativePath=store.state.path)
 
         else {
             let message = content[path[i]] ?
-                `[error] ${path.join('/')} is not a directory.` :
-                `[error] no such file or directory: '${path.join('/')}'.`;
+                `[error] ${path.join('/').replace('~', '/home/aureliendumay.me')} is not a directory.` :
+                `[error] no such file or directory: '${path.join('/').replace('~', '/home/aureliendumay.me')}'.`;
 
             return {
                 component: "error",
