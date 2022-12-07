@@ -9,9 +9,9 @@ export default async function execute(parsedInput)
     for (let i = 0; i < parsedInput.length; ++i)
     {
         result = undefined;
-        command = parsedInput[i][0];
+        command = parsedInput[i][0].toLowerCase();
         parsedInput[i].shift();
-        args = parsedInput[i]
+        args = parsedInput[i];
 
         if (command.startsWith('./') || command.startsWith('../') || command.startsWith('/'))
             result = await commands['execute'](command.trim());

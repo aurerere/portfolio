@@ -2,7 +2,7 @@
   <ShellWelcome v-if="!cleared"/>
   <p>
     <template v-for="command in history" :key="command">
-      <ShellPromptText :path="command.path" /> {{ command.input }}
+      <ShellPromptText :path="command.path"/> {{ command.input }}
       <br v-if="command.result"/>
       <template v-for="part in command.result" v-bind:key="part">
         <ShellResultParser v-if="part" :result="part"/>

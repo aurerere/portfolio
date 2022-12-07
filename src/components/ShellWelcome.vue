@@ -15,12 +15,12 @@
 </template>
 
 <script>
-import runCommand from "@/utils/commands";
+import parse from "@/utils/commands/compute/parse";
 export default {
   name: "ShellWelcome",
   methods: {
     help() {
-      runCommand('help');
+      parse('help');
     }
   }
 }
