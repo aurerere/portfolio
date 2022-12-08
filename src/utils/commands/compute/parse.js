@@ -49,13 +49,23 @@ export default async function runCommand(input)
                         commands[commandIndex].push("");
                     }
                     break;
+                case ">":
+                    return store.commit(
+                        "setResult",
+                        [{
+                            component: "error",
+                            content: `\n${input}\n${' '.repeat(i)}^\n[Syntax error] Unhandled operator.\n`
+                        }]
+                    )
                 case "|":
+                case ";":
                 case "&":
-                    if ((i + 1 < input.length && input[i + 1] === "&") || input[i] === "|") {
-                        if ((commands[commandIndex].length === 1 && commands[commandIndex][0] === "") ||
-                            (input.startsWith('|') || input.startsWith('&&')) ||
-                            (input.endsWith('|') || input.endsWith("&&"))
-                        )
+                    // can be optimized
+                    if ((input[i] === '&' && i + 1 < input.length && input[i + 1] === "&") ||
+                        (input[i] === "|" && i + 1 < input.length && input[i + 1] !== "|") ||
+                        (input[i] !== "&" && input[i] !== "|"))
+                    {
+                        if ((commands[commandIndex].length === 1 && commands[commandIndex][0] === ""))
                             return store.commit(
                                 "setResult",
                                 [{
@@ -76,7 +86,13 @@ export default async function runCommand(input)
                             ++i;
                     }
                     else {
-                        commands[commandIndex][idx] += input[i];
+                        return store.commit(
+                            "setResult",
+                            [{
+                                component: "error",
+                                content: `\n${input}\n${' '.repeat(i)}^\n[Syntax error] Unhandled operator.\n`
+                            }]
+                        )
                     }
                     break;
                 default:

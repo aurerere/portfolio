@@ -1,5 +1,4 @@
 import store from "@/store";
-import fileTree from "../../../../public/fileTree.json";
 import parsePath from "@/utils/misc/parsePath";
 
 export default function ls(relativePath=store.state.path)
@@ -9,6 +8,7 @@ export default function ls(relativePath=store.state.path)
       : relativePath
     ;
 
+    let fileTree = store.state.fileTree;
     let content = fileTree["~"].children;
 
     if (!path)

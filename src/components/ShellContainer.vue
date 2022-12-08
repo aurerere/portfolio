@@ -38,7 +38,7 @@ export default {
   components: {ShellLoadingIndicator, ShellWelcome, ShellResultParser, ShellPromptText },
   data() {
     return {
-      loading: false,
+      loading: true,
       input: '',
       stackState: -1,
     };
@@ -83,6 +83,14 @@ export default {
         }
       }
     },
+  },
+  mounted() {
+    fetch('/fileTree.json')
+      .then(response => response.json())
+      .then(data => {
+        this.$store.commit('setFileTree', data);
+        this.loading = false;
+      });
   },
   updated() {
     const prompt = document.getElementById('prompt');

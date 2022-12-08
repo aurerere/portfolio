@@ -2,6 +2,7 @@ import { createStore } from 'vuex'
 
 export default createStore({
   state: {
+    fileTree: null,
     history: [],
     previousCmdStack: [],
     path: ['~'],
@@ -31,6 +32,9 @@ export default createStore({
     },
     setPath(state, path) {
       state.path = path
+    },
+    setFileTree(state, fileTree) {
+        state.fileTree = fileTree
     }
   },
   actions: {

@@ -13,6 +13,14 @@
           }
         }
       },
+      ".bash_profile": {
+        "type": "file",
+        "realPath": "/home/.bash_profile"
+      },
+      "cv_fr.pdf": {
+        "type": "file",
+        "realPath": "/home/cv_fr.pdf"
+      },
       "info.txt": {
         "type": "file",
         "realPath": "/home/info.txt"
@@ -21,25 +29,17 @@
         "type": "file",
         "realPath": "/home/it handles spaces lesssgo.txt"
       },
-      ".bash_profile": {
-        "type": "file",
-        "realPath": "/home/.bash_profile.txt"
-      },
-      "cv_fr.pdf": {
-        "type": "file",
-        "realPath": "/home/cv_fr.pdf"
-      },
       "github": {
         "type": "app",
-        "realPath": "/home/github.txt"
+        "realPath": "/home/github"
       },
       "linkedin": {
         "type": "app",
-        "realPath": "/home/linkedin.txt"
+        "realPath": "/home/linkedin"
       },
       "mailme": {
         "type": "app",
-        "realPath": "/home/mailme.txt"
+        "realPath": "/home/mailme"
       }
     }
   }
