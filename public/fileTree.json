@@ -1,0 +1,46 @@
+{
+  "~": {
+    "type": "folder",
+    "children": {
+      "projects": {
+        "type": "folder",
+        "children": {
+          "hotkeys.help": {
+            "type": "folder",
+            "children": {
+
+            }
+          }
+        }
+      },
+      "info.txt": {
+        "type": "file",
+        "realPath": "/home/info.txt"
+      },
+      "it handles spaces lesssgo.txt": {
+        "type": "file",
+        "realPath": "/home/it handles spaces lesssgo.txt"
+      },
+      ".bash_profile": {
+        "type": "file",
+        "realPath": "/home/.bash_profile.txt"
+      },
+      "cv_fr.pdf": {
+        "type": "file",
+        "realPath": "/home/cv_fr.pdf"
+      },
+      "github": {
+        "type": "app",
+        "realPath": "/home/github.txt"
+      },
+      "linkedin": {
+        "type": "app",
+        "realPath": "/home/linkedin.txt"
+      },
+      "mailme": {
+        "type": "app",
+        "realPath": "/home/mailme.txt"
+      }
+    }
+  }
+}

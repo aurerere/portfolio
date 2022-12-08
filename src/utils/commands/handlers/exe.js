@@ -1,13 +1,16 @@
 import parsePath from "@/utils/misc/parsePath";
 import ls from "@/utils/commands/handlers/ls";
 
-export default function exe(path)
+export default async function exe(path)
 {
     const file = parsePath(path);
 
-    const { fileContent, exists, fileType } = ls(file);
+    const { filePath, exists, fileType } = ls(file);
 
     if (fileType === "app") {
+        const response = await fetch(filePath);
+        const fileContent = await response.text();
+
         eval(fileContent);
         return "ok";
     }

@@ -1,5 +1,5 @@
 import store from "@/store";
-import fileTree from "@/utils/fileTree.json";
+import fileTree from "../../../../public/fileTree.json";
 import parsePath from "@/utils/misc/parsePath";
 
 export default function ls(relativePath=store.state.path)
@@ -33,7 +33,7 @@ export default function ls(relativePath=store.state.path)
                 name: path[i],
                 exists: !!content[path[i]],
                 fileType: content[path[i]] ? content[path[i]].type : null,
-                fileContent: content[path[i]] ? content[path[i]].content : null
+                filePath: content[path[i]] ? content[path[i]]['realPath'] : null
             };
         }
     }

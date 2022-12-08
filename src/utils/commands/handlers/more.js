@@ -1,16 +1,19 @@
 import parsePath from "@/utils/misc/parsePath";
 import ls from "@/utils/commands/handlers/ls";
 
-export default function more(relativePath)
+export default async function more(relativePath)
 {
     if (!relativePath)
         return "ok"
 
     const file = parsePath(relativePath);
 
-    const { fileContent, exists, fileType } = ls(file);
+    const { filePath, exists, fileType } = ls(file);
 
     if (exists && fileType !== "folder") {
+        const response = await fetch(filePath);
+        const fileContent = await response.text();
+
         return {
             component: 'more',
             content: fileContent,

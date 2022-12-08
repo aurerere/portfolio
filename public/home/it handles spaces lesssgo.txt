@@ -1,0 +1,2 @@
+It is a bit ugly but it works :p
+You should try to do multiple commands in one line.
