@@ -1,6 +1,8 @@
 import store from "@/store";
 import execute from "@/utils/commands/compute/execute";
 
+//todo: comment
+//todo: On améliore aussi pck c cheum
 export default async function runCommand(input)
 {
     const path = [...store.state.path];
@@ -60,11 +62,23 @@ export default async function runCommand(input)
                 case "|":
                 case ";":
                 case "&":
-                    // can be optimized
-                    if ((input[i] === '&' && i + 1 < input.length && input[i + 1] === "&") ||
-                        (input[i] === "|" && i + 1 < input.length && input[i + 1] !== "|") ||
-                        (input[i] !== "&" && input[i] !== "|"))
-                    {
+                    if (input[i] === '&' && (i + 1 >= input.length || input[i + 1] !== "&"))
+                        return store.commit(
+                            "setResult",
+                            [{
+                                component: "error",
+                                content: `\n${input}\n${' '.repeat(i)}^\n[Syntax error] Unhandled operator.\n`
+                            }]
+                        )
+                    if (i + 1 >= input.length)
+                        return store.commit(
+                            "setResult",
+                            [{
+                                component: "error",
+                                content: `\n${input}\n${' '.repeat(i)}^\n[Syntax error] Unexpected operator, no following command.\n`
+                            }]
+                        )
+                    else {
                         if ((commands[commandIndex].length === 1 && commands[commandIndex][0] === ""))
                             return store.commit(
                                 "setResult",
@@ -84,15 +98,6 @@ export default async function runCommand(input)
 
                         if (input[i] === "&")
                             ++i;
-                    }
-                    else {
-                        return store.commit(
-                            "setResult",
-                            [{
-                                component: "error",
-                                content: `\n${input}\n${' '.repeat(i)}^\n[Syntax error] Unhandled operator.\n`
-                            }]
-                        )
                     }
                     break;
                 default:
