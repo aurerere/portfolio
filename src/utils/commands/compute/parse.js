@@ -75,7 +75,8 @@ export default async function runCommand(input)
                             "setResult",
                             [{
                                 component: "error",
-                                content: `\n${input}\n${' '.repeat(i)}^\n[Syntax error] Unexpected operator, no following command.\n`
+                                content: `\n${input}\n${' '
+                                    .repeat(i)}^\n[Syntax error] A command is expected after a separator.\n`
                             }]
                         )
                     else {

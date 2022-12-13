@@ -12,6 +12,7 @@ import bleuenn from "@/utils/commands/handlers/bleuenn";
 import iandry from "@/utils/commands/handlers/iandry";
 import maximes from "@/utils/commands/handlers/maximes";
 import open from "@/utils/commands/handlers/open";
+import forbidden from "@/utils/commands/handlers/forbidden";
 
 export default new function()
 {
@@ -42,4 +43,13 @@ export default new function()
     this['github'] = () => exe('~/github');
     this['mailme'] = () => exe('~/mailme');
     this['linkedin'] = () => exe('~/linkedin');
+
+    // FORBIDDEN ---------------------------------------------------------------
+    this['rm'] = () => forbidden();
+    this['rmdir'] = () => forbidden();
+    this['mkdir'] = () => forbidden();
+    this['touch'] = () => forbidden();
+    this['cp'] = () => forbidden();
+    this['mv'] = () => forbidden();
+    this['sudo'] = () => forbidden();
 }
