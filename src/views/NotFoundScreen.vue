@@ -2,7 +2,7 @@
   <div>
     <h1>404</h1>
     <p>not found</p>
-    <h3>Access to my Portfolio</h3>
+    <h3>My Portfolio</h3>
     <router-link to="/">&#62; fun version</router-link>
     <router-link to="/formal">&#62; formal version</router-link>
   </div>

@@ -5,9 +5,26 @@ import store from "./store";
 
 import './assets/main.css';
 
+/* import the fontawesome core */
+import { library } from '@fortawesome/fontawesome-svg-core'
+
+/* import font awesome icon component */
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+
+/* import specific icons */
+import {faFileCode, faAddressCard, faFaceGrinTears, faEnvelope, faUserCheck} from '@fortawesome/free-solid-svg-icons'
+
 const app = createApp(App);
 
 app.use(router);
 app.use(store);
+
+library.add(faFileCode);
+library.add(faAddressCard);
+library.add(faFaceGrinTears);
+library.add(faEnvelope);
+library.add(faUserCheck);
+
+app.component('font-awesome-icon', FontAwesomeIcon);
 
 app.mount('#app');
