@@ -12,7 +12,8 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 /* import specific icons */
-import {faFileCode, faAddressCard, faFaceGrinTears, faEnvelope, faUserCheck} from '@fortawesome/free-solid-svg-icons'
+import {faFileCode, faAddressCard, faFaceGrinTears, faEnvelope, faUserCheck, faFile} from '@fortawesome/free-solid-svg-icons';
+import {faGithub, faLinkedin} from "@fortawesome/free-brands-svg-icons";
 
 const app = createApp(App);
 
@@ -24,6 +25,9 @@ library.add(faAddressCard);
 library.add(faFaceGrinTears);
 library.add(faEnvelope);
 library.add(faUserCheck);
+library.add(faFile);
+library.add(faLinkedin);
+library.add(faGithub);
 
 app.component('font-awesome-icon', FontAwesomeIcon);
 

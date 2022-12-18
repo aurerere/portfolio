@@ -12,6 +12,11 @@ const router = createRouter({
     {
       path: '/formal',
       name: 'formal',
+      component: () => import('../views/FormalViewSoon.vue')
+    },
+    {
+      path: '/formal-dev',
+      name: 'formal-dev',
       component: () => import('../views/FormalView.vue')
     },
     {
