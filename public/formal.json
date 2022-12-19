@@ -23,8 +23,8 @@
       "en": "Hello;"
     },
     "txt": {
-      "en": "My name is Aurélien I am a student in digital transformation at the\n              <a class=\"external\" href=\"https://www.epitech.eu/digital/\" target=\"_blank\">“Epitech digital school”</a>,\n              looking for a <span class=\"green\">4 to 6 month internship in web development (fullstack) from <i>January-February</i> to <i>June-July</i></span>.",
-      "fr": "Je m'appelle Aurélien et je suis étudiant en transformation digitale à\n              <a class=\"external\" href=\"https://www.epitech.eu/digital/\" target=\"_blank\">“Epitech digital school”</a> ;\n             je cherche un <span class=\"green\">stage de 4 à 6 mois en développement web (fullstack) de <i>Janvier-Février</i> à <i>Juin-Juillet</i></span>."
+      "en": "My name is Aurélien and I am a student in digital transformation at the\n              <a class=\"external\" href=\"https://www.epitech.eu/digital/\" target=\"_blank\">“Epitech digital school”</a>\n              looking for a <span class=\"green\">4 to 6 month internship in web development (fullstack) from <i>January-February</i> to <i>June-July</i></span>.",
+      "fr": "Je m'appelle Aurélien, je suis étudiant en transformation digitale à\n              <a class=\"external\" href=\"https://www.epitech.eu/digital/\" target=\"_blank\">“Epitech digital school”</a>. \n             Je cherche un <span class=\"green\">stage de 4 à 6 mois en développement web (fullstack) de <i>Janvier-Février</i> à <i>Juin-Juillet</i></span>."
     },
     "btn": {
       "fr": "Voir mon CV",

@@ -99,6 +99,10 @@ export default {
 </script>
 
 <style scoped>
+:root {
+  --padding: 48px
+}
+
 #formal {
   font-family: monospace;
   min-height: 100vh;
@@ -176,7 +180,6 @@ a.anchor:hover {
 main {
   position: absolute;
   width: 100%;
-  top: 88px;
   padding: 24px 48px;
   box-sizing: border-box;
   z-index: 0;
@@ -193,7 +196,7 @@ main {
   display: flex;
   flex-direction: column;
   width: 100%;
-  min-height: calc(100vh - 88px - 48px);
+  height: calc(100vh - 48px);
   box-sizing: border-box;
   gap: 48px;
   justify-content: space-between;
@@ -331,7 +334,10 @@ main {
   }
   .image-wrapper {
     height: 30%;
-    border-radius: 0 80px;
+    border-radius: 80px 0;
+  }
+  .image {
+    border-radius: 80px 0;
   }
   h1, h2 {
     font-size: 2rem;
