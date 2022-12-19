@@ -36,6 +36,9 @@ export default {
 </script>
 
 <style scoped>
+p {
+  font-family: monospace;
+}
 .moving-pipe {
   color: gray;
 }

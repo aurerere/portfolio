@@ -45,3 +45,24 @@ p {
     color: #ff00ff;
   }
 }
+
+.green {
+  color: lime;
+}
+
+a.external {
+  text-decoration: none;
+  color: cyan;
+  font-size: 1.2rem;
+  white-space: nowrap;
+}
+
+a.external:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 1020px) {
+  a.external {
+    font-size: 1rem;
+  }
+}
