@@ -19,8 +19,8 @@
   },
   "presentation": {
     "title": {
-      "fr": "Bonjour;",
-      "en": "Hello;"
+      "fr": "Bonjour",
+      "en": "Hello"
     },
     "txt": {
       "en": "My name is Aurélien and I am a student in digital transformation at the\n              <a class=\"external\" href=\"https://www.epitech.eu/digital/\" target=\"_blank\">“Epitech digital school”</a>\n              looking for a <span class=\"green\">4 to 6 month internship in web development (fullstack) from <i>January-February</i> to <i>June-July</i></span>.",
@@ -30,5 +30,16 @@
       "fr": "Voir mon CV",
       "en": "See my resume"
     }
-  }
+  },
+  "projects": [
+    {
+      "thumbnail": "",
+      "name": "hotkeys.help",
+      "desc": {
+        "fr": "A collaborative open source website listing software with associated hotkeys & tips.",
+        "en": "Un site web collaboratif et open source listant les logiciels avec les raccourcis claviers & tips associés."
+      },
+      "tech": ["TypeScript", "ExpressJS"]
+    }
+  ]
 }

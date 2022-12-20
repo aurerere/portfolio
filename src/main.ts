@@ -19,7 +19,7 @@ import {
     faEnvelope,
     faUserCheck,
     faFile,
-    faBars
+    faBars, faXmark, faTerminal
 } from '@fortawesome/free-solid-svg-icons';
 import {faGithub, faLinkedin} from "@fortawesome/free-brands-svg-icons";
 
@@ -37,6 +37,8 @@ library.add(faFile);
 library.add(faLinkedin);
 library.add(faGithub);
 library.add(faBars);
+library.add(faXmark);
+library.add(faTerminal);
 
 app.component('font-awesome-icon', FontAwesomeIcon);
 

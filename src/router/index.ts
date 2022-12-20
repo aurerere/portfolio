@@ -10,12 +10,7 @@ const router = createRouter({
       component: ShellContainerView
     },
     {
-      path: '/formal.json',
-      name: 'formal.json',
-      component: () => import('../views/FormalViewSoon.vue')
-    },
-    {
-      path: '/formal-dev',
+      path: '/formal',
       name: 'formal-dev',
       component: () => import('../views/FormalView.vue')
     },

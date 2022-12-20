@@ -4,65 +4,75 @@
   </div>
   <div id="formal" v-else>
     <header>
-      <div class="left">
-        <router-link class="anchor" to="#">
-          <h1>Aurélien DUMAY</h1>
-        </router-link>
-      </div>
-      <div class="burger">
-        <font-awesome-icon icon="bars"/>
-      </div>
-      <div class="menu-right">
-        <router-link to="#presentation" class="anchor">
-          <font-awesome-icon icon="address-card"/>
-          {{ content.menu['presentation'][selectedLang] }}
-        </router-link>
-        <router-link to="#" class="anchor">
-          <font-awesome-icon icon="file-code"/>
-          {{ content.menu['projects'][selectedLang] }}
-        </router-link>
-        <router-link to="#" class="anchor">
-          <font-awesome-icon icon="envelope"/>
-          {{ content.menu['contact'][selectedLang] }}
-        </router-link>
-        <div class="lang" @click="selectedLang === 'fr' ? changeLang('en') : changeLang('fr')">
-          <div :class="selectedLang === 'fr' ? 'lang-opt selected' : 'lang-opt'">fr</div>
-          <div :class="selectedLang === 'en' ? 'lang-opt selected' : 'lang-opt'">en</div>
-          <div id="selector" :class="selectedLang"></div>
+      <div class="max">
+        <div class="left">
+          <router-link class="anchor" to="#">
+            <h1>Aurélien DUMAY</h1>
+          </router-link>
         </div>
-        <router-link to="/" class="button">{{ content.menu['nerd'][selectedLang] }}</router-link>
+        <div class="burger pointer" @click="open">
+          <font-awesome-icon icon="bars"/>
+        </div>
+        <div class="menu-right" id="menu">
+          <div class="close">
+            <p>Menu</p>
+            <font-awesome-icon icon="xmark" class="pointer" @click="close"/>
+          </div>
+          <router-link to="#presentation" class="anchor">
+            <font-awesome-icon icon="address-card"/>
+            {{ content.menu['presentation'][selectedLang] }}
+          </router-link>
+          <router-link to="#" class="anchor">
+            <font-awesome-icon icon="file-code"/>
+            {{ content.menu['projects'][selectedLang] }}
+          </router-link>
+          <router-link to="#" class="anchor">
+            <font-awesome-icon icon="envelope"/>
+            {{ content.menu['contact'][selectedLang] }}
+          </router-link>
+          <div class="lang" @click="selectedLang === 'fr' ? changeLang('en') : changeLang('fr')">
+            <div :class="selectedLang === 'fr' ? 'lang-opt selected' : 'lang-opt'">fr</div>
+            <div :class="selectedLang === 'en' ? 'lang-opt selected' : 'lang-opt'">en</div>
+            <div id="selector" :class="selectedLang"></div>
+          </div>
+          <router-link to="/" class="button">
+            <font-awesome-icon icon="terminal"/> {{ content.menu['nerd'][selectedLang] }}
+          </router-link>
+        </div>
       </div>
     </header>
     <main>
-      <div class="presentation" id="presentation">
-        <div class="pres-wrapper">
+      <div class="max-main">
+        <div class="presentation" id="presentation">
+          <div class="pres-wrapper">
 
-          <div class="pres-part image-wrapper">
-            <div class="pres-part image"></div>
-          </div>
-          <div class="pres-part">
-            <h2>{{ content['presentation'].title[selectedLang] }}</h2>
-            <p v-html="content['presentation']['txt'][selectedLang]"></p>
-            <div class="links">
-              <a href="./home/cv_fr.pdf" class="external" target="_blank">
-                &#62; <font-awesome-icon icon="fa-solid fa-file"/>
-                {{ content['presentation']['btn'][selectedLang] }}
-              </a>
-              <a href="https://www.linkedin.com/in/aureliendumay/" target="_blank" class="external">
-                &#62; <font-awesome-icon icon="fa-brands fa-linkedin"/> Linkedin
-              </a>
-              <a href="https://www.linkedin.com/in/aureliendumay/" target="_blank" class="external">
-                &#62; <font-awesome-icon icon="fa-brands fa-github"/> GitHub
-              </a>
+            <div class="pres-part image-wrapper">
+              <div class="pres-part image"></div>
+            </div>
+            <div class="pres-part">
+              <h2>{{ content['presentation'].title[selectedLang] }}</h2>
+              <p v-html="content['presentation']['txt'][selectedLang]"></p>
+              <div class="links">
+                <a href="/home/cv_fr.pdf" class="external" target="_blank">
+                  &#62; <font-awesome-icon icon="file"/>
+                  {{ content['presentation']['btn'][selectedLang] }}
+                </a>
+                <a href="https://www.linkedin.com/in/aureliendumay/" target="_blank" class="external">
+                  &#62; <font-awesome-icon icon="fa-brands fa-linkedin"/> Linkedin
+                </a>
+                <a href="https://www.linkedin.com/in/aureliendumay/" target="_blank" class="external">
+                  &#62; <font-awesome-icon icon="fa-brands fa-github"/> GitHub
+                </a>
+              </div>
             </div>
           </div>
+          <div class="sfm">
+            <p class="gray"> ↓ Scroll ↓ </p>
+          </div>
         </div>
-        <div class="sfm">
-          <p class="gray"> ↓ Scroll ↓ </p>
+        <div class="projects">
+          <h2>Projects</h2>
         </div>
-      </div>
-      <div class="projects">
-        <h2>Projects</h2>
       </div>
     </main>
   </div>
@@ -86,6 +96,12 @@ export default {
     changeLang(to) {
       this.selectedLang = to;
     },
+    open() {
+      document.getElementById('menu').classList.add('opened')
+    },
+    close() {
+      document.getElementById('menu').classList.remove('opened')
+    }
   },
   mounted() {
     fetch('./formal.json')
@@ -106,8 +122,13 @@ export default {
 #formal {
   font-family: monospace;
   min-height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
   white-space: normal;
   font-size: 1rem;
+  box-sizing: border-box;
 }
 
 .loading {
@@ -140,13 +161,29 @@ p {
 header {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   border-bottom: 1px solid lime;
+  background: #1e1f22;
   padding: 24px 48px;
-  width: 100vw;
+  width: 100%;
   box-sizing: border-box;
   position: fixed;
   z-index: 1;
+}
+
+.max {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 1500px;
+  align-items: center;
+}
+
+.max-main {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 1500px;
 }
 
 a {
@@ -183,6 +220,9 @@ main {
   padding: 24px 48px;
   box-sizing: border-box;
   z-index: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .links {
@@ -309,12 +349,55 @@ main {
 }
 
 .burger {
+  font-size: 1.5rem;
   display: none;
 }
 
+.close {
+  display: none;
+  width: 100%;
+  justify-content: space-between;
+  font-size: 1.6rem;
+  align-items: center;
+}
+
+.close p {
+  font-size: 1.6rem;
+  font-weight: 800;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
 @media (max-width: 1020px) {
+  .close {
+    display: flex;
+  }
+  .presentation {
+    margin-bottom: 48px;
+  }
   .menu-right {
-    display: none;
+    position: fixed;
+    flex-direction: column;
+    right: 24px;
+    box-sizing: border-box;
+    align-items: flex-start;
+    top: 24px;
+    background: #1e1f22;
+    padding: 24px;
+    border-radius: 12px;
+    transform-origin: top right;
+    transform: scale(0);
+    transition: .2s;
+    border: 1px solid lime;
+  }
+  .opened {
+    display: flex;
+    transform: scale(1);
+    transition: .2s;
+    top: 0;
+    right: 0;
   }
   .burger {
     display: block;
@@ -322,6 +405,7 @@ main {
   .pres-wrapper {
     flex-direction: column;
     justify-content: center;
+    gap: 24px;
   }
   main {
     padding: 20px;
