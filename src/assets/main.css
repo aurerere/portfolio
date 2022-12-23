@@ -1,2 +1,72 @@
-@import './base.css';
+html {
+    color-scheme: dark;
+}
 
+body {
+    margin: 0;
+    padding: 0;
+    background: #1e1f22;
+}
+
+#app {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+p {
+    margin: 0;
+    word-wrap: break-word;
+}
+
+::-moz-selection {
+    color: black;
+    background: white;
+}
+
+::selection {
+    color: black;
+    background: white;
+}
+
+@keyframes maximes {
+    0% {
+        color: #ff0000;
+    }
+    25% {
+        color: #00ff00;
+    }
+    50% {
+        color: #0000ff;
+    }
+    75% {
+        color: #ffff00;
+    }
+    100% {
+        color: #ff00ff;
+    }
+}
+
+.green {
+    font-weight: 800;
+}
+
+a.external {
+    text-decoration: none;
+    color: cyan;
+    font-size: 1.2rem;
+    white-space: nowrap;
+}
+
+a.external:hover {
+    text-decoration: underline;
+}
+
+@media (max-width: 1020px) {
+    a.external {
+        font-size: 1rem;
+    }
+}
+
+html {
+    scroll-behavior: smooth;
+}

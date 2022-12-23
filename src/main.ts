@@ -19,9 +19,9 @@ import {
     faEnvelope,
     faUserCheck,
     faFile,
-    faBars, faXmark, faTerminal
+    faBars, faXmark, faTerminal, faHeart, faListUl
 } from '@fortawesome/free-solid-svg-icons';
-import {faGithub, faLinkedin} from "@fortawesome/free-brands-svg-icons";
+import {faGithub, faLinkedin, faNodeJs} from "@fortawesome/free-brands-svg-icons";
 
 const app = createApp(App);
 
@@ -39,6 +39,10 @@ library.add(faGithub);
 library.add(faBars);
 library.add(faXmark);
 library.add(faTerminal);
+library.add(faHeart);
+library.add(faListUl);
+library.add(faNodeJs);
+
 
 app.component('font-awesome-icon', FontAwesomeIcon);
 

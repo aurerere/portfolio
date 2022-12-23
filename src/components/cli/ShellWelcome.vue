@@ -5,10 +5,10 @@
   / /| |/ / / / /_/ / __/  |/\__ \
  / ___ / /_/ / _, _/ /___   ___/ /
 /_/__|_\____/_/_|_/_____/  /____/
-  / ___// / / / ____/ /   / /
-  \__ \/ /_/ / __/ / /   / /
- ___/ / __  / /___/ /___/ /___
-/____/_/ /_/_____/_____/_____/v.0.1
+  / ____/ /   /  _/
+ / /   / /    / /
+/ /___/ /____/ /
+\____/_____/___/v.0.1
 </pre><br>
   <p>You can access the formal version <router-link to="/formal">here</router-link>.</p><br>
 <p>Type <span class="help" @click="help">'help'</span> for the list of available commands.</p><br>

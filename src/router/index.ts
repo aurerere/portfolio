@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import ShellContainerView from '../views/ShellContainerView.vue'
+import ShellContainerView from '../views/ShellView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -17,7 +17,7 @@ const router = createRouter({
     {
       path: "/:pathMatch(.*)*",
       name: '404',
-      component: () => import('../views/NotFoundScreen.vue')
+      component: () => import('../views/NotFoundView.vue')
     },
   ]
 })

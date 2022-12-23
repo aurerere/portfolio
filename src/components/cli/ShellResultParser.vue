@@ -22,10 +22,10 @@
 </template>
 
 <script>
-import LsResult from "@/components/shell/specialFormats/LsResult.vue";
-import ErrorResult from "@/components/shell/specialFormats/ErrorResult.vue";
-import MoreResult from "@/components/shell/specialFormats/MoreResult.vue";
-import EchoResult from "@/components/shell/specialFormats/EchoResult.vue";
+import LsResult from "@/components/cli/specialFormats/LsResult.vue";
+import ErrorResult from "@/components/cli/specialFormats/ErrorResult.vue";
+import MoreResult from "@/components/cli/specialFormats/MoreResult.vue";
+import EchoResult from "@/components/cli/specialFormats/EchoResult.vue";
 
 export default {
   name: "ShellResultParser",

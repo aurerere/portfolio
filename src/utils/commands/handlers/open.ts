@@ -5,14 +5,17 @@ import type {CommandResult, SimpleCommandResult} from "@/types";
 export default async function open(relativePath: string): Promise<SimpleCommandResult | CommandResult>
 {
     if (!relativePath)
-        return "ok"
+        return {
+            component: "error",
+            content: `[error] You need to specify a route`
+        }
 
     const file = parsePath(relativePath);
 
     if (!file)
         return {
             component: "error",
-            content: `cannot back from home`
+            content: `[error] cannot back from home`
         }
 
     const { filePath, exists, fileType } = ls(file).more;

@@ -2,34 +2,34 @@
   <div class="loading" v-if="loading">
     <ShellLoadingIndicator/>
   </div>
-  <div id="formal" v-else>
-    <header>
+  <div id="formal" v-else @click="mayCloseMenu">
+    <header ref="header">
       <div class="max">
         <div class="left">
-          <router-link class="anchor" to="#">
+          <a class="anchor" @click="scrollTo('presentation')">
             <h1>Aurélien DUMAY</h1>
-          </router-link>
+          </a>
         </div>
-        <div class="burger pointer" @click="open">
+        <div class="burger pointer" @click="open" ref="menuOpener">
           <font-awesome-icon icon="bars"/>
         </div>
-        <div class="menu-right" id="menu">
-          <div class="close">
+        <div class="menu-right" ref="menu">
+          <div class="title-close">
             <p>Menu</p>
-            <font-awesome-icon icon="xmark" class="pointer" @click="close"/>
+            <font-awesome-icon icon="xmark" @click="close" class="close"/>
           </div>
-          <router-link to="#presentation" class="anchor">
+          <a class="anchor active" @click="scrollTo('presentation')" ref="to-presentation">
             <font-awesome-icon icon="address-card"/>
             {{ content.menu['presentation'][selectedLang] }}
-          </router-link>
-          <router-link to="#" class="anchor">
+          </a>
+          <a class="anchor" @click="scrollTo('projects')" ref="to-projects">
             <font-awesome-icon icon="file-code"/>
             {{ content.menu['projects'][selectedLang] }}
-          </router-link>
-          <router-link to="#" class="anchor">
+          </a>
+          <a class="anchor" @click="scrollTo('contact')" ref="to-contact">
             <font-awesome-icon icon="envelope"/>
             {{ content.menu['contact'][selectedLang] }}
-          </router-link>
+          </a>
           <div class="lang" @click="selectedLang === 'fr' ? changeLang('en') : changeLang('fr')">
             <div :class="selectedLang === 'fr' ? 'lang-opt selected' : 'lang-opt'">fr</div>
             <div :class="selectedLang === 'en' ? 'lang-opt selected' : 'lang-opt'">en</div>
@@ -43,7 +43,7 @@
     </header>
     <main>
       <div class="max-main">
-        <div class="presentation" id="presentation">
+        <div class="presentation" ref="presentation">
           <div class="pres-wrapper">
 
             <div class="pres-part image-wrapper">
@@ -70,21 +70,44 @@
             <p class="gray"> ↓ Scroll ↓ </p>
           </div>
         </div>
-        <div class="projects">
+        <div class="part" ref="projects">
           <h2>Projects</h2>
+          <div class="project-grid">
+            <template v-for="project in content.projects" v-bind:key="project.name">
+              <FormalProjects
+                  :name="project.name"
+                  :desc="project.desc[selectedLang]"
+                  :thumbnail="project.image"
+                  :tags="project.tags"
+              />
+            </template>
+          </div>
+        </div>
+        <div class="part" ref="contact">
+          <h2>Contact</h2>
         </div>
       </div>
     </main>
+    <footer>
+      <div>
+        <p><b>{{ content.footer['love'][selectedLang] }}</b></p>
+        <p>{{ content.footer['cookies'][selectedLang] }}</p>
+        <a class="external" href="https://github.com/aurerere/portfolio" target="_blank">
+          <font-awesome-icon icon="fa-brands fa-github"/>/aurerere/portfolio
+        </a>
+      </div>
+    </footer>
   </div>
 </template>
 
 <script>
 import {FontAwesomeIcon} from "@fortawesome/vue-fontawesome";
-import ShellLoadingIndicator from "@/components/shell/ShellLoadingIndicator.vue";
+import ShellLoadingIndicator from "@/components/cli/ShellLoadingIndicator.vue";
+import FormalProjects from "@/components/formal/FormalProjects.vue";
 
 export default {
   name: "FormalView",
-  components: {ShellLoadingIndicator, FontAwesomeIcon},
+  components: {FormalProjects, ShellLoadingIndicator, FontAwesomeIcon},
   data() {
     return {
       selectedLang: 'fr',
@@ -97,10 +120,55 @@ export default {
       this.selectedLang = to;
     },
     open() {
-      document.getElementById('menu').classList.add('opened')
+      this.$refs.menu.classList.add('opened');
+      this.$refs.menuOpener.classList.add('opened')
     },
     close() {
-      document.getElementById('menu').classList.remove('opened')
+      this.$refs.menu.classList.remove('opened');
+      this.$refs.menuOpener.classList.remove('opened')
+    },
+    mayCloseMenu(e){
+      if (e.target.classList.contains('button'))
+        return;
+
+      const menu = this.$refs.menu;
+
+      if ((!menu.contains(e.target) && menu !== e.target) && !this.$refs.menuOpener.contains(e.target)) {
+        this.close();
+      }
+      else {
+        if (e.target.classList.contains('anchor')) {
+          this.close();
+        }
+      }
+
+    },
+    scrollTo(ref) {
+      let y = ref === 'presentation' ? 0 : this.$refs[ref].offsetTop - this.$refs.header.offsetHeight;
+      window.scroll(0, y)
+    },
+    scrollHook() {
+      let pos = window.pageYOffset;
+      let current = document.querySelector('.active');
+
+      if (pos > this.$refs['contact'].offsetTop - (3 * this.$refs.header.offsetHeight)) {
+        if (current !== this.$refs['to-contact']) {
+          current.classList.remove('active');
+          this.$refs['to-contact'].classList.add('active');
+        }
+      }
+      else if (pos > this.$refs['projects'].offsetTop - (3 * this.$refs.header.offsetHeight)) {
+        if (current !== this.$refs['to-projects']) {
+          current.classList.remove('active');
+          this.$refs['to-projects'].classList.add('active');
+        }
+      }
+      else {
+        if (current !== this.$refs['to-presentation']) {
+          current.classList.remove('active');
+          this.$refs['to-presentation'].classList.add('active');
+        }
+      }
     }
   },
   mounted() {
@@ -110,327 +178,17 @@ export default {
           this.content = r;
           this.loading = false;
         });
+  },
+  updated() {
+    document.removeEventListener('scroll', this.scrollHook);
+    document.addEventListener('scroll', this.scrollHook);
+  },
+  beforeUnmount() {
+    document.removeEventListener('scroll', this.scrollHook);
   }
 }
 </script>
 
 <style scoped>
-:root {
-  --padding: 48px
-}
-
-#formal {
-  font-family: monospace;
-  min-height: 100vh;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  white-space: normal;
-  font-size: 1rem;
-  box-sizing: border-box;
-}
-
-.loading {
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-h1, h2, h3, p {
-  margin-top: 0;
-  white-space: normal;
-}
-
-h1 {
-  font-size: 2rem;
-  margin: 0;
-}
-
-h2 {
-  font-size: 3rem;
-  margin-bottom: 12px;
-}
-
-p {
-  font-size: 1.2rem;
-}
-
-header {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-bottom: 1px solid lime;
-  background: #1e1f22;
-  padding: 24px 48px;
-  width: 100%;
-  box-sizing: border-box;
-  position: fixed;
-  z-index: 1;
-}
-
-.max {
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-  max-width: 1500px;
-  align-items: center;
-}
-
-.max-main {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  max-width: 1500px;
-}
-
-a {
-  white-space: nowrap;
-  text-decoration: none;
-}
-
-a.anchor {
-  color: white;
-}
-
-a.button {
-  color: #1e1f22;
-  background: white;
-  padding: 9px;
-  border-radius: 6px;
-  font-weight: 800;
-  display: inline-block;
-}
-
-a.anchor:hover {
-  color: cyan;
-}
-
-.menu-right {
-  display: flex;
-  align-items: center;
-  gap: 24px
-}
-
-main {
-  position: absolute;
-  width: 100%;
-  padding: 24px 48px;
-  box-sizing: border-box;
-  z-index: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.links {
-  display: flex;
-  align-items: center;
-  gap: 24px;
-  margin-top: 24px;
-}
-
-.presentation {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  height: calc(100vh - 48px);
-  box-sizing: border-box;
-  gap: 48px;
-  justify-content: space-between;
-  position: relative;
-  margin-bottom: 24px;
-}
-
-.pres-wrapper {
-  display: flex;
-  gap: 48px;
-  justify-content: space-between;
-  height: 100%;
-  position: absolute;
-  align-items: center;
-}
-
-.pres-part {
-  width: 50%;
-}
-
-.lang {
-  display: flex;
-  border-radius: 6px;
-  border: 1px solid white;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  padding: 9px;
-  gap: 18px;
-  cursor: pointer;
-}
-
-.lang-opt {
-  transition: .3s;
-}
-
-#selector {
-  position: absolute;
-  height: 100%;
-  width: 50%;
-  border-radius: 5px;
-  background: white;
-  transition: 0.3s;
-}
-
-.lang-opt {
-  z-index: 2;
-}
-
-.selected {
-  color: #1e1f22;
-}
-.fr {
-  left: 0;
-}
-.en {
-  left: 50%;
-}
-
-.gray {
-  color: gray;
-  font-weight: bold;
-}
-
-.sfm {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.2rem;
-  bottom: 0;
-  position: absolute;
-  width: 100%;
-  animation: sdm 1.5s ease-in-out infinite;
-}
-
-.image {
-  display: flex;
-  justify-content: center;
-  border-radius: 0 200px;
-  width: 100%;
-  height: 100%;
-  background-image: url("@/assets/hello.png");
-  background-repeat: no-repeat;
-  background-size: contain;
-  background-position-x: center;
-  position: absolute;
-}
-
-.image-wrapper {
-  display: flex;
-  justify-content: center;
-  border-radius: 0 200px;
-  height: 50%;
-  background-image: linear-gradient(90deg, rgba(0, 255, 255, 0.2), rgba(0, 255, 0, .2));
-  background-repeat: no-repeat;
-  background-size: contain;
-  position: relative;
-}
-
-@keyframes sdm {
-  0% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-5px);
-  }
-  100% {
-    transform: translateY(0);
-  }
-}
-
-.burger {
-  font-size: 1.5rem;
-  display: none;
-}
-
-.close {
-  display: none;
-  width: 100%;
-  justify-content: space-between;
-  font-size: 1.6rem;
-  align-items: center;
-}
-
-.close p {
-  font-size: 1.6rem;
-  font-weight: 800;
-}
-
-.pointer {
-  cursor: pointer;
-}
-
-@media (max-width: 1020px) {
-  .close {
-    display: flex;
-  }
-  .presentation {
-    margin-bottom: 48px;
-  }
-  .menu-right {
-    position: fixed;
-    flex-direction: column;
-    right: 24px;
-    box-sizing: border-box;
-    align-items: flex-start;
-    top: 24px;
-    background: #1e1f22;
-    padding: 24px;
-    border-radius: 12px;
-    transform-origin: top right;
-    transform: scale(0);
-    transition: .2s;
-    border: 1px solid lime;
-  }
-  .opened {
-    display: flex;
-    transform: scale(1);
-    transition: .2s;
-    top: 0;
-    right: 0;
-  }
-  .burger {
-    display: block;
-  }
-  .pres-wrapper {
-    flex-direction: column;
-    justify-content: center;
-    gap: 24px;
-  }
-  main {
-    padding: 20px;
-  }
-  header {
-    padding: 20px;
-  }
-  .links {
-    flex-wrap: wrap;
-  }
-  .image-wrapper {
-    height: 30%;
-    border-radius: 80px 0;
-  }
-  .image {
-    border-radius: 80px 0;
-  }
-  h1, h2 {
-    font-size: 2rem;
-  }
-  p, a {
-    font-size: 1rem;
-  }
-  .pres-part {
-    width: 100%;
-  }
-}
+@import "@/assets/formal.css";
 </style>

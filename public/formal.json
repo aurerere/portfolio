@@ -13,8 +13,8 @@
       "en": "Projects"
     },
     "nerd": {
-      "fr": "Version “nerd”",
-      "en": "“nerd” version"
+      "fr": "Version CLI",
+      "en": "CLI version"
     }
   },
   "presentation": {
@@ -27,19 +27,30 @@
       "fr": "Je m'appelle Aurélien, je suis étudiant en transformation digitale à\n              <a class=\"external\" href=\"https://www.epitech.eu/digital/\" target=\"_blank\">“Epitech digital school”</a>. \n             Je cherche un <span class=\"green\">stage de 4 à 6 mois en développement web (fullstack) de <i>Janvier-Février</i> à <i>Juin-Juillet</i></span>."
     },
     "btn": {
-      "fr": "Voir mon CV",
-      "en": "See my resume"
+      "fr": "CV",
+      "en": "Resume"
     }
   },
   "projects": [
     {
-      "thumbnail": "",
+      "image": "test",
       "name": "hotkeys.help",
       "desc": {
         "fr": "A collaborative open source website listing software with associated hotkeys & tips.",
         "en": "Un site web collaboratif et open source listant les logiciels avec les raccourcis claviers & tips associés."
       },
-      "tech": ["TypeScript", "ExpressJS"]
+      "tags": ["TypeScript", "ExpressJS"],
+      "done": false
     }
-  ]
+  ],
+  "footer": {
+    "love": {
+      "en": "Designed and developed with ❤️ by Aurélien DUMAY.",
+      "fr": "Conçu et développé avec ❤️ par Aurélien DUMAY."
+    },
+    "cookies": {
+      "en": "This website does not uses cookies.",
+      "fr": "Ce site n'utilise pas les cookies."
+    }
+  }
 }

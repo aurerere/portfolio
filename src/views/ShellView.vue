@@ -29,14 +29,14 @@
 </template>
 
 <script>
-import ShellLoadingIndicator from "@/components/shell/ShellLoadingIndicator.vue";
-import ShellWelcome from "@/components/shell/ShellWelcome.vue";
-import ShellResultParser from "@/components/shell/ShellResultParser.vue";
-import ShellPromptText from "@/components/shell/ShellPromptText.vue";
+import ShellLoadingIndicator from "@/components/cli/ShellLoadingIndicator.vue";
+import ShellWelcome from "@/components/cli/ShellWelcome.vue";
+import ShellResultParser from "@/components/cli/ShellResultParser.vue";
+import ShellPromptText from "@/components/cli/ShellPromptText.vue";
 import runCommand from "@/utils/commands/compute/parse";
 
 export default {
-  name: "ShellContainerView",
+  name: "ShellView",
   components: {ShellLoadingIndicator, ShellWelcome, ShellResultParser, ShellPromptText },
   data() {
     return {
