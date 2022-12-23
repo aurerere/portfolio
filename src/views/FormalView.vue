@@ -79,6 +79,8 @@
                   :desc="project.desc[selectedLang]"
                   :thumbnail="project.image"
                   :tags="project.tags"
+                  :lang="selectedLang"
+                  :done="project.done"
               />
             </template>
           </div>

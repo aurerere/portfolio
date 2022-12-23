@@ -36,10 +36,30 @@
       "image": "test",
       "name": "hotkeys.help",
       "desc": {
-        "fr": "A collaborative open source website listing software with associated hotkeys & tips.",
-        "en": "Un site web collaboratif et open source listant les logiciels avec les raccourcis claviers & tips associés."
+        "fr": "Un site web collaboratif et open source, listant des logiciels et les astuces & raccourcis claviers associés.",
+        "en": "A collaborative and open source website listing software and associated keyboard shortcuts & tips."
       },
-      "tags": ["TypeScript", "ExpressJS"],
+      "tags": ["TypeScript", "ExpressJS", "MySQL"],
+      "done": false
+    },
+    {
+      "image": "test",
+      "name": "Words Royale",
+      "desc": {
+        "fr": "Développé dans le cadre d'un projet de 2 jours initié en cours d'anglais, création d'un support pour le jeu des “quarts de singe”",
+        "en": "A collaborative and open source website listing software and associated keyboard shortcuts & tips."
+      },
+      "tags": ["VueJS"],
+      "done": true
+    },
+    {
+      "image": "test",
+      "name": "Vector UI",
+      "desc": {
+        "fr": "Développé dans le cadre d'un projet de 2 jours initié en cours d'anglais, création d'un support pour le jeu des “quarts de singe”",
+        "en": "A collaborative and open source website listing software and associated keyboard shortcuts & tips."
+      },
+      "tags": ["Figma"],
       "done": false
     }
   ],

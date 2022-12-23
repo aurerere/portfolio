@@ -1,5 +1,5 @@
 <template>
-  <span><font-awesome-icon :icon="getIcon(name)"/> {{ name }}</span>
+  <div><font-awesome-icon :icon="getIcon(name)"/> {{ name }}</div>
 </template>
 
 <script>
@@ -23,6 +23,10 @@ export default {
           return "fa-brands fa-node-js"
         case "Figma":
           return "fa-brands fa-figma"
+        case "TypeScript":
+          return "file"
+        case "MySQL":
+          return "database"
         default:
           return "list-ul"
       }
@@ -32,11 +36,14 @@ export default {
 </script>
 
 <style scoped>
-span {
+div {
   padding: 4px;
   background: #3f4148;
   border-radius: 4px;
-  margin: 6px 6px 0 0;
   word-break: keep-all;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }
 </style>

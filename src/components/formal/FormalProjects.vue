@@ -2,7 +2,10 @@
   <div class="wrapper">
     <div class="project-thumbnail" :style="'background-image: url(' + thumbnail + ')'"></div>
     <div class="content">
-      <h3>{{ name }}</h3>
+      <div class="title">
+        <h3>{{ name }}</h3>
+        <ProjectStatus :done="done" :lang="lang"/>
+      </div>
       <p>{{ desc }}</p>
 
       <div class="tags">
@@ -16,10 +19,11 @@
 
 <script>
 import ProjectTag from "@/components/formal/project/ProjectTag.vue";
+import ProjectStatus from "@/components/formal/project/ProjectStatus.vue";
 
 export default {
   name: "FormalProjects",
-  components: {ProjectTag},
+  components: {ProjectStatus, ProjectTag},
   props: {
     thumbnail: {
       required: true,
@@ -37,7 +41,14 @@ export default {
       required: true,
       type: Array
     },
-
+    done: {
+      required: true,
+      type: Boolean
+    },
+    lang: {
+      required: true,
+      type: String
+    }
   }
 }
 </script>
@@ -46,7 +57,6 @@ export default {
 @import "@/assets/formal.css";
 .wrapper {
   width: 100%;
-  height: 600px;
   box-sizing: border-box;
   border: 1px solid lime;
   border-radius: 12px;
@@ -55,19 +65,24 @@ p {
   font-size: 1rem;
 }
 .content {
+  display: flex;
+  flex-direction: column;
   padding: var(--12px);
+  gap: var(--12px);
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
 }
 
 .project-thumbnail {
   width: 100%;
-  height: 50%;
+  height: 250px;
   background-size: cover;
   background-repeat: no-repeat;
   background-position-x: center;
   border-radius: 12px 12px 0 0;
-}
-
-.tags {
-  margin-top: var(--24px);
 }
 </style>

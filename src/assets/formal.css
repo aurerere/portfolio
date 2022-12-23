@@ -237,6 +237,7 @@ main {
     margin-top: var(--24px);
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
+    grid-auto-rows: 1fr;
     gap: var(--48px);
 }
 .project {
@@ -271,6 +272,17 @@ footer * {
 }
 .close {
     cursor: pointer;
+}
+
+@media (max-width: 1220px) {
+    .project-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+@media (max-width: 800px) {
+    .project-grid {
+        grid-template-columns: 1fr;
+    }
 }
 @media (max-width: 1074px) {
     #formal {
