@@ -74,13 +74,14 @@
           <h2>Projects</h2>
           <div class="project-grid">
             <template v-for="project in content.projects" v-bind:key="project.name">
-              <FormalProjects
+              <FormalProject
                   :name="project.name"
                   :desc="project.desc[selectedLang]"
                   :thumbnail="project.image"
                   :tags="project.tags"
                   :lang="selectedLang"
                   :done="project.done"
+                  :links="project.links"
               />
             </template>
           </div>
@@ -105,11 +106,11 @@
 <script>
 import {FontAwesomeIcon} from "@fortawesome/vue-fontawesome";
 import ShellLoadingIndicator from "@/components/cli/ShellLoadingIndicator.vue";
-import FormalProjects from "@/components/formal/FormalProjects.vue";
+import FormalProject from "@/components/formal/FormalProject.vue";
 
 export default {
   name: "FormalView",
-  components: {FormalProjects, ShellLoadingIndicator, FontAwesomeIcon},
+  components: {FormalProject, ShellLoadingIndicator, FontAwesomeIcon},
   data() {
     return {
       selectedLang: 'fr',
@@ -123,11 +124,11 @@ export default {
     },
     open() {
       this.$refs.menu.classList.add('opened');
-      this.$refs.menuOpener.classList.add('opened')
+      this.$refs.menuOpener.classList.add('opened');
     },
     close() {
       this.$refs.menu.classList.remove('opened');
-      this.$refs.menuOpener.classList.remove('opened')
+      this.$refs.menuOpener.classList.remove('opened');
     },
     mayCloseMenu(e){
       if (e.target.classList.contains('button'))
@@ -147,7 +148,7 @@ export default {
     },
     scrollTo(ref) {
       let y = ref === 'presentation' ? 0 : this.$refs[ref].offsetTop - this.$refs.header.offsetHeight;
-      window.scroll(0, y)
+      window.scrollTo(0, y)
     },
     scrollHook() {
       let pos = window.pageYOffset;

@@ -13,6 +13,12 @@
           <ProjectTag :name="tag"/>
         </template>
       </div>
+
+      <div class="access">
+        <template v-for="link in links" v-bind:key="link">
+          <ProjectLink :link="link"/>
+        </template>
+      </div>
     </div>
   </div>
 </template>
@@ -20,10 +26,11 @@
 <script>
 import ProjectTag from "@/components/formal/project/ProjectTag.vue";
 import ProjectStatus from "@/components/formal/project/ProjectStatus.vue";
+import ProjectLink from "@/components/formal/project/ProjectLink.vue";
 
 export default {
-  name: "FormalProjects",
-  components: {ProjectStatus, ProjectTag},
+  name: "FormalProject",
+  components: {ProjectLink, ProjectStatus, ProjectTag},
   props: {
     thumbnail: {
       required: true,
@@ -48,6 +55,10 @@ export default {
     lang: {
       required: true,
       type: String
+    },
+    links: {
+      required: true,
+      type: Array
     }
   }
 }
