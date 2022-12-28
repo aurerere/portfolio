@@ -10,6 +10,42 @@
             "children": {
 
             }
+          },
+          "providenceprod.tv": {
+            "type": "folder",
+            "children": {
+              "thumbnail.png": {
+                "type": "file",
+                "realPath": "/home/projects/providenceprod.tv/thumbnail.png"
+              }
+            }
+          },
+          "vector-ui": {
+            "type": "folder",
+            "children": {
+              "thumbnail.png": {
+                "type": "file",
+                "realPath": "/home/projects/vector-ui/thumbnail.png"
+              }
+            }
+          },
+          "vector.wtf": {
+            "type": "folder",
+            "children": {
+              "thumbnail.png": {
+                "type": "file",
+                "realPath": "/home/projects/vector.wtf/thumbnail.png"
+              }
+            }
+          },
+          "words-royale": {
+            "type": "folder",
+            "children": {
+              "thumbnail.png": {
+                "type": "file",
+                "realPath": "/home/projects/words-royale/thumbnail.png"
+              }
+            }
           }
         }
       },

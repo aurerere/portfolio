@@ -43,44 +43,100 @@
       "done": false,
       "links": [
         {
-          "type": "result",
-          "url": ""
+          "icon": "fa-brands fa-github",
+          "url": "https://github.com/aurerere/api.hotkeys.help",
+          "fr": "Voir sur GitHub",
+          "en": "View on GitHub"
         }
       ]
     },
     {
-      "image": "test",
+      "image": "/home/projects/vector-ui/thumbnail.png",
+      "name": "Vector UI",
+      "desc": {
+        "fr": "Conception de l'interface utilisateur et de l'identité visuelle d'un logiciel d'aide à la pratique du jeu vidéo Minecraft™.",
+        "en": "Design of the user interface and visual identity of a Minecraft™ support software."
+      },
+      "tags": ["Design", "Figma", "Adobe Illustrator"],
+      "done": false,
+      "links": [
+        {
+          "icon": "fa-brands fa-figma",
+          "url": "https://www.figma.com/file/efQkiscKRcDrXkvaIcMX2f/Vector-UI?node-id=0%3A1&t=ukr2f1B8wpC2tJVf-1",
+          "fr": "Voir sur Figma",
+          "en": "View on Figma"
+        }
+      ]
+    },
+    {
+      "image": "/home/projects/vector.wtf/thumbnail.png",
+      "name": "vector.wtf",
+      "desc": {
+        "fr": "Réalisation de l'outil de vente, de support, et de gestion des licenses & des utilisateurs de Vector.",
+        "en": "Realization of the sales, support, and license & user management tool of Vector."
+      },
+      "tags": ["Design", "VueJS", "ExpressJS", "MySQL"],
+      "done": false,
+      "links": [
+        {
+          "icon": "",
+          "url": "https://vector.wtf",
+          "fr": "Voir le site",
+          "en": "View the website"
+        }
+      ]
+    },
+    {
+      "image": "/home/projects/words-royale/thumbnail.png",
       "name": "Words Royale",
       "desc": {
-        "fr": "Développé dans le cadre d'un projet de 2 jours initié en cours d'anglais, création d'un support pour le jeu des “quarts de singe”",
-        "en": "A collaborative and open source website listing software and associated keyboard shortcuts & tips."
+        "fr": "Développé dans le cadre d'un projet de 2 jours initié en cours d'anglais, création d'un support informatique pour jouer au jeu français des “quarts de singe”.",
+        "en": "Developed as part of a 2-day project initiated in English class, creation of a computer support to play the French game of “quarter monkeys”."
       },
       "tags": ["VueJS"],
       "done": true,
       "links": [
         {
-          "type": "result",
-          "url": ""
+          "icon": "fa-brands fa-github",
+          "url": "https://github.com/aurerere/words-royale",
+          "fr": "Voir sur GitHub",
+          "en": "View on GitHub"
         }
       ]
     },
     {
-      "image": "test",
-      "name": "Vector UI",
+      "image": "/home/projects/providenceprod.tv/thumbnail.png",
+      "name": "providenceprod.tv",
       "desc": {
-        "fr": "Développé dans le cadre d'un projet de 2 jours initié en cours d'anglais, création d'un support pour le jeu des “quarts de singe”",
-        "en": "A collaborative and open source website listing software and associated keyboard shortcuts & tips."
+        "fr": "Landing page dynamique répertoriant les projets d'une entreprise de production audiovisuelle.",
+        "en": "Dynamic landing page listing the projects of an audiovisual production company."
       },
-      "tags": ["Figma"],
-      "done": false,
+      "tags": ["VueJS", "AirTable API"],
+      "done": true,
       "links": [
         {
-          "type": "result",
-          "url": ""
+          "icon": "",
+          "url": "https://providenceprod.tv",
+          "fr": "Voir le site",
+          "en": "View the website"
         }
       ]
     }
   ],
+  "contact": {
+    "linkedin": {
+      "fr": "Par Linkedin",
+      "en": "By Linkedin"
+    },
+    "phone": {
+      "fr": "Par téléphone",
+      "en": "By phone"
+    },
+    "mail": {
+      "fr": "Par e-mail",
+      "en": "By e-mail"
+    }
+  },
   "footer": {
     "love": {
       "en": "Designed and developed with ❤️ by Aurélien DUMAY.",

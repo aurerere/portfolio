@@ -1,24 +1,25 @@
 <template>
   <div class="wrapper">
-    <div class="project-thumbnail" :style="'background-image: url(' + thumbnail + ')'"></div>
-    <div class="content">
-      <div class="title">
-        <h3>{{ name }}</h3>
-        <ProjectStatus :done="done" :lang="lang"/>
-      </div>
-      <p>{{ desc }}</p>
+    <div class="info">
+      <div class="project-thumbnail" :style="'background-image: url(' + thumbnail + ')'"></div>
+      <div class="content">
+        <div class="title">
+          <h3>{{ name }}</h3>
+          <ProjectStatus :done="done" :lang="lang"/>
+        </div>
+        <p>{{ desc }}</p>
 
-      <div class="tags">
-        <template v-for="tag in tags" v-bind:key="tag">
-          <ProjectTag :name="tag"/>
-        </template>
+        <div class="tags">
+          <template v-for="tag in tags" v-bind:key="tag">
+            <ProjectTag :name="tag"/>
+          </template>
+        </div>
       </div>
-
-      <div class="access">
-        <template v-for="link in links" v-bind:key="link">
-          <ProjectLink :link="link"/>
-        </template>
-      </div>
+    </div>
+    <div class="access">
+      <template v-for="link in links" v-bind:key="link">
+        <ProjectLink :url="link.url" :text="link[lang]" :icon="link.icon ? link.icon : 'earth-americas'"/>
+      </template>
     </div>
   </div>
 </template>
@@ -71,17 +72,20 @@ export default {
   box-sizing: border-box;
   border: 1px solid lime;
   border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 p {
   font-size: 1rem;
 }
 .content {
+  padding: var(--12px);
   display: flex;
   flex-direction: column;
-  padding: var(--12px);
+  justify-content: space-between;
   gap: var(--12px);
 }
-
 .tags {
   display: flex;
   flex-wrap: wrap;
@@ -95,5 +99,12 @@ p {
   background-repeat: no-repeat;
   background-position-x: center;
   border-radius: 12px 12px 0 0;
+}
+
+.access {
+  display: flex;
+  flex-wrap: wrap;
+  padding: var(--12px);
+  margin-bottom: var(--12px);
 }
 </style>

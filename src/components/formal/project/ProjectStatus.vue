@@ -1,7 +1,7 @@
 <template>
     <div>
       <font-awesome-icon :class="(done ? 'done': 'in-dev')" :icon="(done ? 'check': 'code')"/>
-      {{ done ? doneText[lang] : inDevText[lang] }}
+      <span>{{ done ? doneText[lang] : inDevText[lang] }}</span>
     </div>
 </template>
 
@@ -52,6 +52,9 @@ div {
   background: #3f4148;
   border-radius: 4px;
   width: fit-content;
+}
 
+span {
+  white-space: nowrap;
 }
 </style>

@@ -66,9 +66,9 @@
               </div>
             </div>
           </div>
-          <div class="sfm">
-            <p class="gray"> ↓ Scroll ↓ </p>
-          </div>
+        </div>
+        <div class="sfm" ref="sfm">
+          <p class="gray"> ↓ Scroll ↓ </p>
         </div>
         <div class="part" ref="projects">
           <h2>Projects</h2>
@@ -88,6 +88,26 @@
         </div>
         <div class="part" ref="contact">
           <h2>Contact</h2>
+          <div class="contact">
+            <div class="method">
+              <h3>{{ content['contact']['linkedin'][selectedLang] }}</h3>
+              <a href="https://linkedin.com/in/aureliendumay" class="external" target="_blank">
+                <p><font-awesome-icon icon="fa-brands fa-linkedin"/>/aureliendumay</p>
+              </a>
+            </div>
+            <div class="method">
+              <h3>{{ content['contact']['phone'][selectedLang] }}</h3>
+              <a href="tel:0674778743" class="external">
+                <p class="space-after-icon"><font-awesome-icon icon="phone"/> 06 74 77 87 43</p>
+              </a>
+            </div>
+            <div class="method">
+              <h3>{{ content['contact']['mail'][selectedLang] }}</h3>
+              <a href="mailto:aure.dumay@gmail.com" class="external">
+                <p class="space-after-icon"><font-awesome-icon icon="envelope"/> aure.dumay@gmail.com</p>
+              </a>
+            </div>
+          </div>
         </div>
       </div>
     </main>
@@ -121,6 +141,7 @@ export default {
   methods: {
     changeLang(to) {
       this.selectedLang = to;
+      document.querySelector('html').setAttribute("lang", to)
     },
     open() {
       this.$refs.menu.classList.add('opened');
@@ -154,22 +175,34 @@ export default {
       let pos = window.pageYOffset;
       let current = document.querySelector('.active');
 
+      if (this.$refs.menu.classList.contains('opened'))
+        this.close();
+
+      if (pos > 5)
+        this.$refs.sfm.classList.add('hidden')
+      else
+        this.$refs.sfm.classList.remove('hidden')
+
+
       if (pos > this.$refs['contact'].offsetTop - (3 * this.$refs.header.offsetHeight)) {
         if (current !== this.$refs['to-contact']) {
           current.classList.remove('active');
           this.$refs['to-contact'].classList.add('active');
+          document.title = "Contact - Aurélien DUMAY"
         }
       }
       else if (pos > this.$refs['projects'].offsetTop - (3 * this.$refs.header.offsetHeight)) {
         if (current !== this.$refs['to-projects']) {
           current.classList.remove('active');
           this.$refs['to-projects'].classList.add('active');
+          document.title = "Projects - Aurélien DUMAY"
         }
       }
       else {
         if (current !== this.$refs['to-presentation']) {
           current.classList.remove('active');
           this.$refs['to-presentation'].classList.add('active');
+          document.title = "Formal - Aurélien DUMAY";
         }
       }
     }
@@ -181,6 +214,9 @@ export default {
           this.content = r;
           this.loading = false;
         });
+
+    document.querySelector('html').setAttribute("lang", 'fr');
+    document.title = "Formal - Aurélien DUMAY";
   },
   updated() {
     document.removeEventListener('scroll', this.scrollHook);

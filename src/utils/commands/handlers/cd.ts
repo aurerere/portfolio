@@ -13,7 +13,7 @@ export default function cd(to: string=''): CommandResult | SimpleCommandResult
     if (!path)
         return {
             component: 'error',
-            content: "[error] cannot go back from home."
+            content: "cannot back from 'aureliendumay.me'"
         };
 
     const content = ls(path);

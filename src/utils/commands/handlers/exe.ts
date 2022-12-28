@@ -10,7 +10,7 @@ export default async function exe(path: string): Promise<CommandResult | SimpleC
     if (!file)
         return {
             component: "error",
-            content: `cannot back from home`
+            content: `cannot back from 'aureliendumay.me'`
         };
 
     const { filePath, exists, fileType } = ls(file).more;

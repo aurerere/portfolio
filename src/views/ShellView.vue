@@ -93,6 +93,9 @@ export default {
         this.$store.commit('setFileTree', data);
         this.loading = false;
       });
+
+    document.querySelector('html').setAttribute("lang", 'en');
+    document.title = "CLI - Aurélien DUMAY";
   },
   updated() {
     const prompt = document.getElementById('prompt');

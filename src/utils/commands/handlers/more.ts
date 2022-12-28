@@ -12,7 +12,7 @@ export default async function more(relativePath: string): Promise<SimpleCommandR
     if (!file)
         return {
             component: "error",
-            content: `cannot back from home`
+            content: `[error] cannot back from 'aureliendumay.me'`
         }
 
     const { filePath, exists, fileType } = ls(file).more;

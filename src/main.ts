@@ -19,7 +19,18 @@ import {
     faEnvelope,
     faUserCheck,
     faFile,
-    faBars, faXmark, faTerminal, faHeart, faListUl, faCheck, faCode, faDatabase
+    faBars,
+    faXmark,
+    faTerminal,
+    faHeart,
+    faCheck,
+    faCode,
+    faDatabase,
+    faEarthAmerica,
+    faTag,
+    faPenNib,
+    faBezierCurve,
+    faPhone
 } from '@fortawesome/free-solid-svg-icons';
 import {faFigma, faGithub, faLinkedin, faNodeJs, faVuejs} from "@fortawesome/free-brands-svg-icons";
 
@@ -40,13 +51,17 @@ library.add(faBars);
 library.add(faXmark);
 library.add(faTerminal);
 library.add(faHeart);
-library.add(faListUl);
+library.add(faTag);
 library.add(faNodeJs);
 library.add(faVuejs);
 library.add(faFigma);
 library.add(faCheck);
 library.add(faCode);
+library.add(faPenNib);
+library.add(faBezierCurve);
 library.add(faDatabase);
+library.add(faEarthAmerica);
+library.add(faPhone);
 
 
 app.component('font-awesome-icon', FontAwesomeIcon);

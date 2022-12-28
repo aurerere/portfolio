@@ -1,5 +1,5 @@
 <template>
-  <div><font-awesome-icon :icon="getIcon(name)"/> {{ name }}</div>
+  <div><font-awesome-icon :icon="getIcon(name)"/> <span>{{ name }}</span></div>
 </template>
 
 <script>
@@ -27,8 +27,12 @@ export default {
           return "file"
         case "MySQL":
           return "database"
+        case "Design":
+          return "pen-nib"
+        case "Adobe Illustrator":
+          return "bezier-curve"
         default:
-          return "list-ul"
+          return "tag"
       }
     }
   }
@@ -45,5 +49,8 @@ div {
   display: flex;
   align-items: center;
   gap: 6px;
+}
+span {
+  white-space: nowrap;
 }
 </style>

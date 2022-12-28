@@ -118,14 +118,12 @@ main {
     box-sizing: border-box;
     gap: var(--48px);
     justify-content: space-between;
-    position: relative;
 }
 .pres-wrapper {
     display: flex;
     gap: var(--48px);
     justify-content: space-between;
     height: 100%;
-    position: absolute;
     align-items: center;
 }
 .pres-part {
@@ -170,11 +168,20 @@ main {
     display: flex;
     align-items: center;
     justify-content: center;
+    left: 0;
     font-size: 1.2rem;
     bottom: var(--48px);
-    position: absolute;
+    position: fixed;
     width: 100%;
+    transition: .2s;
+    transform: scale(1);
+}
+.sfm p {
     animation: sdm 1.5s ease-in-out infinite;
+}
+.sfm.hidden {
+    transform: scale(0);
+    transition: .2s;
 }
 .image {
     display: flex;
@@ -231,7 +238,6 @@ main {
 .part {
     box-sizing: border-box;
     padding: var(--48px) 0;
-    min-height: calc(100vh - 2 * (var(--24px)));
 }
 .project-grid {
     margin-top: var(--24px);
@@ -273,6 +279,30 @@ footer * {
 .close {
     cursor: pointer;
 }
+.contact {
+    margin-top: var(--24px);
+    display: flex;
+    flex-direction: column;
+    gap: var(--48px);
+}
+
+.method {
+    border-bottom: 1px solid lime;
+    background: #1c1c20;
+    padding: var(--48px);
+    border-radius: 12px 12px 0 0;
+}
+
+.method p {
+    display: flex;
+    align-items: center;
+}
+.method a {
+    display: inline-block;
+}
+.space-after-icon {
+    gap: 12px;
+}
 
 @media (max-width: 1220px) {
     .project-grid {
@@ -290,6 +320,9 @@ footer * {
     }
     .title-close {
         display: flex;
+    }
+    .image-wrapper {
+        display: none;
     }
     .menu-right {
         position: fixed;

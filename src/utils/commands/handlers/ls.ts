@@ -22,7 +22,7 @@ export default function ls(relativePath: Array<string> | string = store.state.pa
     if (!path)
         return {
             component: 'error',
-            content: "[error] cannot go back from home, permission denied."
+            content: "cannot back from 'aureliendumay.me'"
         }
 
 
