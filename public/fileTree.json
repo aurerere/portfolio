@@ -8,7 +8,10 @@
           "hotkeys.help": {
             "type": "folder",
             "children": {
-
+              "thumbnail.png": {
+                "type": "file",
+                "realPath": "/home/projects/hotkeys.help/thumbnail.png"
+              }
             }
           },
           "providenceprod.tv": {

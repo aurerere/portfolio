@@ -3,7 +3,7 @@ import execute from "./execute";
 
 
 //todo: comment
-//todo: On améliore aussi pck c cheum
+//todo: improve
 export default async function runCommand(input: string): Promise<any>
 {
     const path = [...store.state.path];
@@ -63,6 +63,14 @@ export default async function runCommand(input: string): Promise<any>
                 case "|":
                 case ";":
                 case "&":
+                    if ((commands[commandIndex].length === 1 && commands[commandIndex][0] === ""))
+                        return store.commit(
+                            "setResult",
+                            [{
+                                component: "error",
+                                content: `\n${input}\n${' '.repeat(i)}^\n[Syntax error] Unexpected operator.\n`
+                            }]
+                        )
                     if (input[i] === '&' && (i + 1 >= input.length || input[i + 1] !== "&"))
                         return store.commit(
                             "setResult",
@@ -71,25 +79,21 @@ export default async function runCommand(input: string): Promise<any>
                                 content: `\n${input}\n${' '.repeat(i)}^\n[Syntax error] Unhandled operator.\n`
                             }]
                         )
-                    if (i + 1 >= input.length)
-                        return store.commit(
-                            "setResult",
-                            [{
-                                component: "error",
-                                content: `\n${input}\n${' '
-                                    .repeat(i)}^\n[Syntax error] A command is expected after a separator.\n`
-                            }]
-                        )
-                    else {
-                        if ((commands[commandIndex].length === 1 && commands[commandIndex][0] === ""))
+                    if ((input[i] !== '&' && i + 1 >= input.length) || (input[i] === '&' && i + 2 >= input.length)) {
+                        if (input[i] !== ';') {
                             return store.commit(
                                 "setResult",
                                 [{
                                     component: "error",
-                                    content: `\n${input}\n${' '.repeat(i)}^\n[Syntax error] Unexpected operator.\n`
+                                    content: `\n${input}\n${' '
+                                        .repeat(input[i] !== '&' ? i : i + 1)
+                                    }^\n[Syntax error] Something is expected after this.\n`
                                 }]
                             )
-
+                        }
+                        return await execute(commands)
+                    }
+                    else {
                         if (commands[commandIndex][idx] === "")
                             commands[commandIndex].pop();
 

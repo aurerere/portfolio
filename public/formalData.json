@@ -33,7 +33,7 @@
   },
   "projects": [
     {
-      "image": "test",
+      "image": "/home/projects/hotkeys.help/thumbnail.png",
       "name": "hotkeys.help",
       "desc": {
         "fr": "Un site web collaboratif et open source, listant des logiciels et les astuces & raccourcis claviers associés.",

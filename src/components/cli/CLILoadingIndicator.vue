@@ -4,7 +4,7 @@
 
 <script>
 export default {
-  name: "ShellLoadingIndicator",
+  name: "CLILoadingIndicator",
   data() {
     return {
       movingPipe: '|',

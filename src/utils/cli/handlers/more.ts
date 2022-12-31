@@ -1,11 +1,14 @@
-import parsePath from "../compute/parsePath";
+import parsePath from "../parsers/parsePath";
 import ls from "./ls";
 import type {CommandResult, SimpleCommandResult} from "@/types";
 
 export default async function more(relativePath: string): Promise<SimpleCommandResult | CommandResult>
 {
     if (!relativePath)
-        return "ok"
+        return {
+            component: "error",
+            content: `[error] Usage: more <path>`
+        }
 
     const file = parsePath(relativePath);
 

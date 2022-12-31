@@ -1,6 +1,6 @@
 <template>
   <div class="loading" v-if="loading">
-    <ShellLoadingIndicator/>
+    <CLILoadingIndicator/>
   </div>
   <div id="formal" v-else @click="mayCloseMenu">
     <header ref="header">
@@ -125,12 +125,12 @@
 
 <script>
 import {FontAwesomeIcon} from "@fortawesome/vue-fontawesome";
-import ShellLoadingIndicator from "@/components/cli/ShellLoadingIndicator.vue";
 import FormalProject from "@/components/formal/FormalProject.vue";
+import CLILoadingIndicator from "@/components/cli/CLILoadingIndicator.vue";
 
 export default {
   name: "FormalView",
-  components: {FormalProject, ShellLoadingIndicator, FontAwesomeIcon},
+  components: {CLILoadingIndicator, FormalProject, FontAwesomeIcon},
   data() {
     return {
       selectedLang: 'fr',
@@ -208,7 +208,7 @@ export default {
     }
   },
   mounted() {
-    fetch('./formal.json')
+    fetch('./formalData.json')
         .then(r => r.json())
         .then(r => {
           this.content = r;

@@ -1,5 +1,5 @@
 import store from "@/store";
-import commands from "@/utils/commands";
+import commands from "@/utils/cli";
 
 export default async function execute(parsedInput: Array<Array<string>>): Promise<void>
 {

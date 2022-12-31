@@ -13,6 +13,7 @@ export default createStore<State>({
     },
     mutations: {
         pushHistory(state, cmd) {
+            console.log(cmd)
             state.history.push(cmd)
         },
         cls(state) {
@@ -20,7 +21,8 @@ export default createStore<State>({
             state.cleared = true;
         },
         setResult(state, res) {
-            state.history[state.history.length - 1].result = res
+            if (state.history.length > 0)
+                state.history[state.history.length - 1].result = res;
         },
         pushCmdStack(state, cmd) {
             if (cmd.trim()) {

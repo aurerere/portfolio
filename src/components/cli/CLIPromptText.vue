@@ -10,7 +10,7 @@
 
 <script>
 export default {
-  name: "ShellPromptText",
+  name: "CLIPromptText",
   props: {
     path: {
       required: true

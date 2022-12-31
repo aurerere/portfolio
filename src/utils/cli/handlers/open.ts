@@ -1,4 +1,4 @@
-import parsePath from "../compute/parsePath";
+import parsePath from "../parsers/parsePath";
 import ls from "./ls";
 import type {CommandResult, SimpleCommandResult} from "@/types";
 
@@ -7,7 +7,7 @@ export default async function open(relativePath: string): Promise<SimpleCommandR
     if (!relativePath)
         return {
             component: "error",
-            content: `[error] You need to specify a route`
+            content: `[error] Usage: open <path>`
         }
 
     const file = parsePath(relativePath);

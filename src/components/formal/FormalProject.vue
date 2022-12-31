@@ -1,7 +1,9 @@
 <template>
   <div class="wrapper">
     <div class="info">
-      <div class="project-thumbnail" :style="'background-image: url(' + thumbnail + ')'"></div>
+      <div class="project-thumbnail">
+        <img :src="thumbnail" alt="project-ilustration">
+      </div>
       <div class="content">
         <div class="title">
           <h3>{{ name }}</h3>
@@ -95,9 +97,15 @@ p {
 .project-thumbnail {
   width: 100%;
   height: 250px;
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position-x: center;
+  border-radius: 12px 12px 0 0;
+}
+
+.project-thumbnail img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  image-rendering: crisp-edges;
   border-radius: 12px 12px 0 0;
 }
 

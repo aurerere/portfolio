@@ -1,19 +1,19 @@
 <template>
   <div id="terminal">
-    <ShellWelcome v-if="!cleared"/>
+    <CLIWelcome v-if="!cleared"/>
     <p>
       <template v-for="command in history" :key="command">
-        <ShellPromptText :path="command.path"/> {{ command.input }}
+        <CLIPromptText :path="command.path"/> {{ command.input }}
         <br v-if="command.result"/>
         <template v-for="part in command.result" v-bind:key="part">
-          <ShellResultParser v-if="part" :result="part"/>
+          <CLIResultParser v-if="part" :result="part"/>
         </template>
         <br v-if="!command.result"/>
       </template>
     </p>
     <form @submit.prevent="runCommand" v-if="!loading">
       <p>
-        <ShellPromptText :path="path"/>
+        <CLIPromptText :path="path"/>
       </p>
       <input
         id="prompt"
@@ -23,21 +23,26 @@
         spellcheck="false"
         v-model="input">
     </form>
-    <ShellLoadingIndicator v-else/>
+    <CLILoadingIndicator v-else/>
   </div>
 
 </template>
 
 <script>
-import ShellLoadingIndicator from "@/components/cli/ShellLoadingIndicator.vue";
-import ShellWelcome from "@/components/cli/ShellWelcome.vue";
-import ShellResultParser from "@/components/cli/ShellResultParser.vue";
-import ShellPromptText from "@/components/cli/ShellPromptText.vue";
-import runCommand from "@/utils/commands/compute/parse";
+import runCommand from "@/utils/cli/parsers";
+import CLIWelcome from "@/components/cli/CLIWelcome.vue";
+import CLIPromptText from "@/components/cli/CLIPromptText.vue";
+import CLIResultParser from "@/components/cli/CLIResultParser.vue";
+import CLILoadingIndicator from "@/components/cli/CLILoadingIndicator.vue";
 
 export default {
-  name: "ShellView",
-  components: {ShellLoadingIndicator, ShellWelcome, ShellResultParser, ShellPromptText },
+  name: "CLIView",
+  components: {
+    CLILoadingIndicator,
+    CLIResultParser,
+    CLIPromptText,
+    CLIWelcome
+  },
   data() {
     return {
       loading: true,

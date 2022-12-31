@@ -15,8 +15,8 @@ export type State = {
 }
 
 export type Command = {
-    path: Array<string>,
-    input: string,
+    path?: Array<string>,
+    input?: string,
     result: Array<CommandResult>,
 }
 
@@ -26,4 +26,4 @@ export type CommandResult = {
     more?: any
 }
 
-export type SimpleCommandResult = string;
+export type SimpleCommandResult = "ok";

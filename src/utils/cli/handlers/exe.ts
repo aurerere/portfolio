@@ -1,4 +1,4 @@
-import parsePath from "../compute/parsePath";
+import parsePath from "../parsers/parsePath";
 import ls from "./ls";
 import type {CommandResult, SimpleCommandResult} from "@/types";
 

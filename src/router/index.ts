@@ -1,22 +1,22 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import ShellContainerView from '../views/ShellView.vue'
+import CLIView from '../views/CLIView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: '/',
-      name: 'home',
-      component: ShellContainerView
+      name: 'CLIView',
+      component: CLIView
     },
     {
       path: '/formal',
-      name: 'formal-dev',
+      name: 'FormalView',
       component: () => import('../views/FormalView.vue')
     },
     {
       path: "/:pathMatch(.*)*",
-      name: '404',
+      name: 'NotFoundView',
       component: () => import('../views/NotFoundView.vue')
     },
   ]

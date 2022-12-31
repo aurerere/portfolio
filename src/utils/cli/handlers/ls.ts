@@ -1,5 +1,5 @@
 import store from "../../../store";
-import parsePath from "../compute/parsePath";
+import parsePath from "../parsers/parsePath";
 import type {CommandResult} from "@/types";
 
 export default function ls(relativePath: Array<string> | string = store.state.path): CommandResult

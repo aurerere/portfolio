@@ -15,9 +15,9 @@
 </template>
 
 <script>
-import parse from "@/utils/commands/compute/parse";
+import parse from "@/utils/cli/parsers";
 export default {
-  name: "ShellWelcome",
+  name: "CLIWelcome",
   methods: {
     help() {
       parse('help');

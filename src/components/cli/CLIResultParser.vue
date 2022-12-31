@@ -28,7 +28,7 @@ import MoreResult from "@/components/cli/specialFormats/MoreResult.vue";
 import EchoResult from "@/components/cli/specialFormats/EchoResult.vue";
 
 export default {
-  name: "ShellResultParser",
+  name: "CLIResultParser",
   components: {EchoResult, LsResult, ErrorResult, MoreResult},
   props: {
     result: [String, Object],
