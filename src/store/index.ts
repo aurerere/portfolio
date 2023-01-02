@@ -1,5 +1,5 @@
 import { createStore } from 'vuex';
-import type {State} from "@/types";
+import type { State } from "@/types";
 
 export default createStore<State>({
     state: {
@@ -13,7 +13,6 @@ export default createStore<State>({
     },
     mutations: {
         pushHistory(state, cmd) {
-            console.log(cmd)
             state.history.push(cmd)
         },
         cls(state) {
@@ -23,6 +22,15 @@ export default createStore<State>({
         setResult(state, res) {
             if (state.history.length > 0)
                 state.history[state.history.length - 1].result = res;
+            else
+                state.history.push({result: res})
+        },
+        pushResult(state, resPart) {
+            if (state.history.length > 0)
+                state.history[state.history.length - 1].result.push(resPart);
+            else {
+                state.history.push({result: [resPart]})
+            }
         },
         pushCmdStack(state, cmd) {
             if (cmd.trim()) {

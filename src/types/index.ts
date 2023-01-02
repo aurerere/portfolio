@@ -1,8 +1,8 @@
 type FileTree = {
     [key: string]: {
-        children?: FileTree;
         type: "folder" | "file" | "app";
-        realPath: string;
+        children?: FileTree;
+        realPath?: string;
     }
 }
 
@@ -26,4 +26,4 @@ export type CommandResult = {
     more?: any
 }
 
-export type SimpleCommandResult = "ok";
+export type SimpleCommandResult = string;

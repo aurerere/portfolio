@@ -1,4 +1,4 @@
-import parsePath from "../parsers/parsePath";
+import parsePath from "../runCommand/parsePath";
 import ls from "./ls";
 import type {CommandResult, SimpleCommandResult} from "@/types";
 
@@ -6,7 +6,6 @@ export default async function exe(path: string): Promise<CommandResult | SimpleC
 {
     const file = parsePath(path);
 
-    console.log(file);
     if (!file)
         return {
             component: "error",

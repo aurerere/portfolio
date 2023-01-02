@@ -2,7 +2,7 @@
   <div class="wrapper">
     <div class="info">
       <div class="project-thumbnail">
-        <img :src="thumbnail" alt="project-ilustration">
+        <img :src="thumbnail" alt="project illustration">
       </div>
       <div class="content">
         <div class="title">

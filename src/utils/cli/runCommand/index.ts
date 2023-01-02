@@ -7,7 +7,7 @@ import execute from "./execute";
 export default async function runCommand(input: string): Promise<any>
 {
     const path = [...store.state.path];
-    store.commit('pushHistory', {path, input: input});
+    store.commit('pushHistory', {path, input: input, result: []});
     store.commit('pushCmdStack', input);
 
     input = input.trim();
