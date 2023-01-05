@@ -76,6 +76,7 @@ export default {
   border-radius: 12px;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
   justify-content: space-between;
 }
 p {
@@ -97,7 +98,6 @@ p {
 .project-thumbnail {
   width: 100%;
   height: 250px;
-  border-radius: 12px 12px 0 0;
 }
 
 .project-thumbnail img {
@@ -106,7 +106,6 @@ p {
   object-fit: cover;
   object-position: center;
   image-rendering: crisp-edges;
-  border-radius: 12px 12px 0 0;
 }
 
 .access {

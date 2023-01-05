@@ -40,6 +40,7 @@ import CLIWelcome from "@/components/cli/CLIWelcome.vue";
 import CLIPromptText from "@/components/cli/CLIPromptText.vue";
 import CLIResultParser from "@/components/cli/CLIResultParser.vue";
 import CLILoadingIndicator from "@/components/cli/CLILoadingIndicator.vue";
+import cls from "@/utils/cli/commands/cls";
 
 export default {
   name: "CLIView",
@@ -115,8 +116,7 @@ export default {
       if (e.key === 'l') {
         if (this.isControlDown && !this.isShiftDown) {
           e.preventDefault();
-          this.input = 'cls'
-          this.runCommand(true)
+          cls();
         }
       }
 
