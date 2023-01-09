@@ -17,7 +17,7 @@
       <p>
         <CLIPromptText :path="path"/>
         <span
-            @keydown.enter.prevent="runCommand(false)"
+            @keydown.enter.prevent="enterHooker(false)"
             @keydown.up.down.prevent="inputArrowHooker"
             @keydown.tab.prevent
             @paste="pasteHooker"
@@ -35,12 +35,18 @@
 </template>
 
 <script>
-import runCommand from "@/utils/cli/runCommand";
 import CLIWelcome from "@/components/cli/CLIWelcome.vue";
 import CLIPromptText from "@/components/cli/CLIPromptText.vue";
 import CLIResultParser from "@/components/cli/CLIResultParser.vue";
 import CLILoadingIndicator from "@/components/cli/CLILoadingIndicator.vue";
-import cls from "@/utils/cli/commands/cls";
+
+// Methods
+import enterHooker from "@/utils/cli/CLIViewMethods/enterHooker";
+import inputArrowHooker from "@/utils/cli/CLIViewMethods/inputArrowHooker";
+import onKeyDown from "@/utils/cli/CLIViewMethods/onKeyDown";
+import onKeyUp from "@/utils/cli/CLIViewMethods/onKeyUp";
+import pasteHooker from "@/utils/cli/CLIViewMethods/pasteHooker";
+import promptFocusCaretEnd from "@/utils/cli/CLIViewMethods/promptFocusCaretEnd";
 
 export default {
   name: "CLIView",
@@ -57,7 +63,9 @@ export default {
       input: '',
       stackState: -1,
       isShiftDown: false,
-      isControlDown: false
+      isControlDown: false,
+      isCommandDown: false,
+      platform: null
     };
   },
   computed: {
@@ -79,132 +87,27 @@ export default {
     },
   },
   methods: {
-    async runCommand(auto)
-    {
-      if (auto === false)
-        this.input = this.$refs.prompt.innerText;
-
-      this.loading = true;
-      await runCommand(this.input);
-      this.input = '';
-      this.stackState = -1;
-      this.loading = false;
-    },
-    inputArrowHooker(e)
-    {
-      if (e.key === 'ArrowUp') {
-        if (this.stackState + 1 < this.previousCmdStack.length) {
-          this.stackState++;
-          this.$refs.prompt.innerText = this.previousCmdStack[this.stackState];
-          this.promptFocusCaretEnd();
-        }
-      }
-      else if (e.key === 'ArrowDown') {
-        if (this.stackState > 0) {
-          this.stackState--;
-          this.$refs.prompt.innerText = this.previousCmdStack[this.stackState];
-          this.promptFocusCaretEnd();
-        }
-        else if (this.stackState === 0) {
-          this.stackState--;
-          this.$refs.prompt.innerText = '';
-        }
-      }
-    },
-    onKeyDown(e)
-    {
-      if (e.key === 'l') {
-        if (this.isControlDown && !this.isShiftDown) {
-          e.preventDefault();
-          cls();
-        }
-      }
-
-      if (e.key === 'Control') { // Need to modify that for macOS support
-        this.isControlDown = true;
-        return;
-      }
-
-      window.scrollTo(0, document.body.scrollHeight);
-      if (document.activeElement !== this.$refs.prompt) {
-        if (e.key === 'Shift') {
-          this.isShiftDown = true;
-          return;
-        }
-
-        if (e.key.startsWith('Arrow'))
-          if (this.isShiftDown)
-            return;
-
-        if (!this.loading && !(this.isControlDown && e.key === 'c')) {
-          this.promptFocusCaretEnd();
-          window.scrollTo(0, document.body.scrollHeight);
-        }
-      }
-    },
-    onKeyUp(e)
-    {
-      if (e.key === 'Shift')
-        this.isShiftDown = false;
-
-      if (e.key === 'Control')
-        this.isControlDown = false;
-    },
-    // tabHooker(e) {
-    //   console.log(e)
-    // }
-    async pasteHooker(e)
-    {
-      const data = e.clipboardData.getData('Text').replaceAll('\r', '');
-
-      if (data.includes('\n')) {
-        const inputs = data.split('\n');
-
-        for (let i = 0; i < inputs.length - 1; i++) {
-          this.input = inputs[i]
-          await this.runCommand(true)
-        }
-
-        this.$refs.prompt.innerText = inputs[inputs.length - 1];
-      }
-      else {
-        this.$refs.prompt.innerText += data;
-      }
-
-      e.preventDefault();
-      this.promptFocusCaretEnd();
-    },
-    promptFocusCaretEnd() {
-      const target = this.$refs.prompt;
-
-      //https://stackoverflow.com/questions/1125292/how-to-move-cursor-to-end-of-contenteditable-entity
-      const range = document.createRange();
-      const sel = window.getSelection();
-      range.selectNodeContents(target);
-      range.collapse(false);
-      sel.removeAllRanges();
-      sel.addRange(range);
-      target.focus();
-      range.detach(); // optimization
-
-      // set scroll to the end if multiline
-      target.scrollTop = target.scrollHeight;
-    }
+    enterHooker,
+    inputArrowHooker,
+    onKeyDown,
+    onKeyUp,
+    pasteHooker,
+    promptFocusCaretEnd
   },
   mounted()
   {
     fetch('/fileTree.json')
-        .then(response => response.json())
-        .then(data => {
-          this.$store.commit('setFileTree', {"~": { type: "folder", children: data }});
-          this.loading = false;
-        });
+      .then(response => response.json())
+      .then(data => {
+        this.$store.commit('setFileTree', {"~": { type: "folder", children: data }});
+        document.addEventListener('keydown', this.onKeyDown)
+        document.addEventListener('keyup', this.onKeyUp);
+        this.loading = false;
+      });
 
-    document.querySelector('html').setAttribute("lang", 'en');
-    document.title = "CLI - Aurélien DUMAY";
-
-    document.addEventListener('keydown', this.onKeyDown)
-    document.addEventListener('keyup', this.onKeyUp);
+      this.platform = navigator.platform;
+      document.title = "CLI - Aurélien DUMAY";
+      document.querySelector('html').setAttribute("lang", 'en');
   },
   updated()
   {
@@ -261,5 +164,6 @@ p, a, span {
 
 [contenteditable] {
   outline: none;
+  white-space: pre;
 }
 </style>
