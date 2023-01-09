@@ -1,18 +1,18 @@
 import ls from "./commands/ls";
-import cd from "@/utils/cli/commands/cd";
-import more from "@/utils/cli/commands/more";
-import exe from "@/utils/cli/commands/exe";
-import echo from "@/utils/cli/commands/echo";
-import pwd from "@/utils/cli/commands/pwd";
-import help from "@/utils/cli/commands/help";
-import ping from "@/utils/cli/commands/ping";
-import cls from "@/utils/cli/commands/cls";
-import djo from "@/utils/cli/commands/djo";
-import bleuenn from "@/utils/cli/commands/bleuenn";
-import iandry from "@/utils/cli/commands/iandry";
-import maximes from "@/utils/cli/commands/maximes";
-import open from "@/utils/cli/commands/open";
-import forbidden from "@/utils/cli/commands/forbidden";
+import cd from "./commands/cd";
+import more from "./commands/more";
+import exe from "./commands/exe";
+import echo from "./commands/echo";
+import pwd from "./commands/pwd";
+import help from "./commands/help";
+import ping from "./commands/ping";
+import cls from "./commands/cls";
+import djo from "./commands/djo";
+import bleuenn from "./commands/bleuenn";
+import iandry from "./commands/iandry";
+import maximes from "./commands/maximes";
+import open from "./commands/open";
+import forbidden from "./commands/forbidden";
 
 
 const commands: {[index: string]: Function} = {

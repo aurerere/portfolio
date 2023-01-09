@@ -1,4 +1,4 @@
-import insertAtCaretLocation from "@/utils/cli/CLIViewMethods/insertAtCaretLocation";
+import insertAtCaretLocation from "@/utils/CLIViewMethods/insertAtCaretLocation";
 
 export default async function pasteHooker(this: any, e: ClipboardEvent): Promise<void>
 {

@@ -1,4 +1,4 @@
-import store from "../../../store";
+import store from "../../store";
 import ls from "./ls";
 import parsePath from "../runCommand/parsePath";
 import type {CommandResult, SimpleCommandResult} from "@/types";

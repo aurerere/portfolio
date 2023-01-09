@@ -41,12 +41,12 @@ import CLIResultParser from "@/components/cli/CLIResultParser.vue";
 import CLILoadingIndicator from "@/components/cli/CLILoadingIndicator.vue";
 
 // Methods
-import enterHooker from "@/utils/cli/CLIViewMethods/enterHooker";
-import inputArrowHooker from "@/utils/cli/CLIViewMethods/inputArrowHooker";
-import onKeyDown from "@/utils/cli/CLIViewMethods/onKeyDown";
-import onKeyUp from "@/utils/cli/CLIViewMethods/onKeyUp";
-import pasteHooker from "@/utils/cli/CLIViewMethods/pasteHooker";
-import promptFocusCaretEnd from "@/utils/cli/CLIViewMethods/promptFocusCaretEnd";
+import enterHooker from "@/utils/CLIViewMethods/enterHooker";
+import inputArrowHooker from "@/utils/CLIViewMethods/inputArrowHooker";
+import onKeyDown from "@/utils/CLIViewMethods/onKeyDown";
+import onKeyUp from "@/utils/CLIViewMethods/onKeyUp";
+import pasteHooker from "@/utils/CLIViewMethods/pasteHooker";
+import promptFocusCaretEnd from "@/utils/CLIViewMethods/promptFocusCaretEnd";
 
 export default {
   name: "CLIView",

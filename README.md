@@ -57,8 +57,8 @@ Here is an example of a valid file tree structure:
 
 > ℹ️ elements of type `app` correspond to JavaScript code that will be called with `eval()`
 ### Commands
-- `src/utils/cli/commands` contains one file for each CLI command. These command files should export a function that is linked to the command name in a commands constant in the file `src/utils/cli/index.ts`.
-- The function is imported and linked to the command name in the `commands` const (`src/utils/cli/index.ts`)
+- `src/cli/commands` contains one file for each CLI command. These command files should export a function that is linked to the command name in a commands constant in the file `src/utils/CLICompute/index.ts`.
+- The function is imported and linked to the command name in the `commands` const (`src/cli/index.ts`)
 - It needs to return `"ok"` if there is no response, a `String` if the response is plain text and an object with the type `CommandResult` if the response should be displayed using a special component
     ```ts
     type CommandResult = {

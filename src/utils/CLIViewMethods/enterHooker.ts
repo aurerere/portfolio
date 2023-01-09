@@ -1,4 +1,4 @@
-import runCommand from "@/utils/cli/runCommand";
+import runCommand from "@/cli/runCommand";
 
 export default async function enterHooker(this: any, auto:boolean=true): Promise<void>
 {

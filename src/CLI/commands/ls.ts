@@ -1,4 +1,4 @@
-import store from "../../../store";
+import store from "../../store";
 import parsePath from "../runCommand/parsePath";
 import type {CommandResult} from "@/types";
 

@@ -17,12 +17,12 @@ Type <span class="help" @click="help">'help'</span> for the list of available co
 </template>
 
 <script>
-import parse from "@/utils/cli/runCommand";
+import runCommand from "@/cli/runCommand";
 export default {
   name: "CLIWelcome",
   methods: {
     help() {
-      parse('help');
+      runCommand('help');
     }
   }
 }
