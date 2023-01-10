@@ -10,9 +10,20 @@ export default function onKeyDown(this: any, e: KeyboardEvent): void
         }
     }
 
-    if (e.key === 'Control') { // Need to modify that for macOS support
+    if (e.key === 'Control') {
         this.isControlDown = true;
+
+        if (this.deviceInfo.keyboardLayout === 'default') {
+            this.isControlOrCommandDown = true
+        }
+
         return;
+    }
+
+    if (e.key === 'Meta') {
+        if (this.deviceInfo.keyboardLayout === 'apple') {
+            this.isControlOrCommandDown = true;
+        }
     }
 
     window.scrollTo(0, document.body.scrollHeight);
@@ -26,7 +37,7 @@ export default function onKeyDown(this: any, e: KeyboardEvent): void
             if (this.isShiftDown)
                 return;
 
-        if (!this.loading && !(this.isControlDown && e.key === 'c')) {
+        if (!this.loading && !(this.isControlOrCommandDown && e.key === 'c')) {
             this.promptFocusCaretEnd();
             window.scrollTo(0, document.body.scrollHeight);
         }

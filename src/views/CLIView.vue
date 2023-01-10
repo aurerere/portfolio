@@ -47,6 +47,7 @@ import onKeyDown from "@/utils/CLIViewMethods/onKeyDown";
 import onKeyUp from "@/utils/CLIViewMethods/onKeyUp";
 import pasteHooker from "@/utils/CLIViewMethods/pasteHooker";
 import promptFocusCaretEnd from "@/utils/CLIViewMethods/promptFocusCaretEnd";
+import getDeviceInfo from "@/utils/CLIViewMethods/getDeviceInfo";
 
 export default {
   name: "CLIView",
@@ -63,9 +64,9 @@ export default {
       input: '',
       stackState: -1,
       isShiftDown: false,
+      isControlOrCommandDown: false, // control by default, command for macOS users
       isControlDown: false,
-      isCommandDown: false,
-      platform: null
+      deviceInfo: null,
     };
   },
   computed: {
@@ -92,7 +93,8 @@ export default {
     onKeyDown,
     onKeyUp,
     pasteHooker,
-    promptFocusCaretEnd
+    promptFocusCaretEnd,
+    getDeviceInfo
   },
   mounted()
   {
@@ -102,6 +104,7 @@ export default {
         this.$store.commit('setFileTree', {"~": { type: "folder", children: data }});
         document.addEventListener('keydown', this.onKeyDown)
         document.addEventListener('keyup', this.onKeyUp);
+        this.deviceInfo = this.getDeviceInfo();
         this.loading = false;
       });
 

@@ -27,7 +27,7 @@ export default {
   name: "LsResult",
   data() {
     return {
-      winWidth: window.innerWidth / 30
+      winWidth: window.innerWidth > 420 ? window.innerWidth / 30 : window.innerWidth / 15,
     }
   },
   props: {
@@ -49,7 +49,7 @@ export default {
   },
   methods: {
     handleResize() {
-      this.winWidth = window.innerWidth / 30;
+      this.winWidth = window.innerWidth > 420 ? window.innerWidth / 30 : window.innerWidth / 12
     }
   },
   mounted() {

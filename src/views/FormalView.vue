@@ -172,6 +172,8 @@ export default {
       document.querySelector('html').setAttribute("lang", 'en');
       this.selectedLang = 'en';
     }
+
+    document.querySelector('html').style.scrollBehavior = 'smooth';
   },
   updated() {
     document.removeEventListener('scroll', this.scrollHook);
@@ -179,6 +181,7 @@ export default {
   },
   beforeUnmount() {
     document.removeEventListener('scroll', this.scrollHook);
+    document.querySelector('html').style.scrollBehavior = 'auto';
   }
 }
 </script>
