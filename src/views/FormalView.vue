@@ -6,27 +6,27 @@
     <header ref="header">
       <div class="max">
         <div class="left">
-          <a class="anchor" @click="scrollTo('presentation')">
+          <a class="anchor" @click="scrollToSection('presentation')">
             <h1>Aurélien DUMAY</h1>
           </a>
         </div>
-        <div class="burger pointer" @click="open" ref="menuOpener">
+        <div class="burger pointer" @click="openMenu" ref="menuOpener">
           <font-awesome-icon icon="bars"/>
         </div>
         <div class="menu-right" ref="menu">
           <div class="title-close">
             <p>Menu</p>
-            <font-awesome-icon icon="xmark" @click="close" class="close"/>
+            <font-awesome-icon icon="xmark" @click="closeMenu" class="close"/>
           </div>
-          <a class="anchor active" @click="scrollTo('presentation')" ref="to-presentation">
+          <a class="anchor active" @click="scrollToSection('presentation')" ref="to-presentation">
             <font-awesome-icon icon="address-card"/>
             {{ content.menu['presentation'][selectedLang] }}
           </a>
-          <a class="anchor" @click="scrollTo('projects')" ref="to-projects">
+          <a class="anchor" @click="scrollToSection('projects')" ref="to-projects">
             <font-awesome-icon icon="file-code"/>
             {{ content.menu['projects'][selectedLang] }}
           </a>
-          <a class="anchor" @click="scrollTo('contact')" ref="to-contact">
+          <a class="anchor" @click="scrollToSection('contact')" ref="to-contact">
             <font-awesome-icon icon="envelope"/>
             {{ content.menu['contact'][selectedLang] }}
           </a>
@@ -60,7 +60,7 @@
                 <a href="https://www.linkedin.com/in/aureliendumay/" target="_blank" class="external">
                   &#62; <font-awesome-icon icon="fa-brands fa-linkedin"/> Linkedin
                 </a>
-                <a href="https://www.linkedin.com/in/aureliendumay/" target="_blank" class="external">
+                <a href="https://github.com/aurerere/" target="_blank" class="external">
                   &#62; <font-awesome-icon icon="fa-brands fa-github"/> GitHub
                 </a>
               </div>
@@ -75,13 +75,13 @@
           <div class="project-grid">
             <template v-for="project in content.projects" v-bind:key="project.name">
               <FormalProject
-                  :name="project.name"
-                  :desc="project.desc[selectedLang]"
-                  :thumbnail="project.image"
-                  :tags="project.tags"
-                  :lang="selectedLang"
-                  :done="project.done"
-                  :links="project.links"
+                :name="project.name"
+                :desc="project.desc[selectedLang]"
+                :thumbnail="project.image"
+                :tags="project.tags"
+                :lang="selectedLang"
+                :done="project.done"
+                :links="project.links"
               />
             </template>
           </div>
@@ -128,95 +128,50 @@ import {FontAwesomeIcon} from "@fortawesome/vue-fontawesome";
 import FormalProject from "@/components/formal/FormalProject.vue";
 import CLILoadingIndicator from "@/components/cli/CLILoadingIndicator.vue";
 
+// Methods
+import changeLang from "@/utils/FormalViewMethods/changeLang";
+import openMenu from "@/utils/FormalViewMethods/openMenu";
+import closeMenu from "@/utils/FormalViewMethods/closeMenu";
+import mayCloseMenu from "@/utils/FormalViewMethods/mayCloseMenu";
+import scrollToSection from "@/utils/FormalViewMethods/scrollToSection";
+import scrollHook from "@/utils/FormalViewMethods/scrollHook";
+
 export default {
   name: "FormalView",
   components: {CLILoadingIndicator, FormalProject, FontAwesomeIcon},
   data() {
     return {
-      selectedLang: 'fr',
+      selectedLang: '',
       content: null,
       loading: true,
     };
   },
   methods: {
-    changeLang(to) {
-      this.selectedLang = to;
-      document.querySelector('html').setAttribute("lang", to)
-    },
-    open() {
-      this.$refs.menu.classList.add('opened');
-      this.$refs.menuOpener.classList.add('opened');
-    },
-    close() {
-      this.$refs.menu.classList.remove('opened');
-      this.$refs.menuOpener.classList.remove('opened');
-    },
-    mayCloseMenu(e){
-      if (e.target.classList.contains('button'))
-        return;
-
-      const menu = this.$refs.menu;
-
-      if ((!menu.contains(e.target) && menu !== e.target) && !this.$refs.menuOpener.contains(e.target)) {
-        this.close();
-      }
-      else {
-        if (e.target.classList.contains('anchor')) {
-          this.close();
-        }
-      }
-
-    },
-    scrollTo(ref) {
-      let y = ref === 'presentation' ? 0 : this.$refs[ref].offsetTop - this.$refs.header.offsetHeight;
-      window.scrollTo(0, y)
-    },
-    scrollHook() {
-      let pos = window.pageYOffset;
-      let current = document.querySelector('.active');
-
-      if (this.$refs.menu.classList.contains('opened'))
-        this.close();
-
-      if (pos > 5)
-        this.$refs.sfm.classList.add('hidden')
-      else
-        this.$refs.sfm.classList.remove('hidden')
-
-
-      if (pos > this.$refs['contact'].offsetTop - (3 * this.$refs.header.offsetHeight)) {
-        if (current !== this.$refs['to-contact']) {
-          current.classList.remove('active');
-          this.$refs['to-contact'].classList.add('active');
-          document.title = "Contact - Aurélien DUMAY"
-        }
-      }
-      else if (pos > this.$refs['projects'].offsetTop - (3 * this.$refs.header.offsetHeight)) {
-        if (current !== this.$refs['to-projects']) {
-          current.classList.remove('active');
-          this.$refs['to-projects'].classList.add('active');
-          document.title = "Projects - Aurélien DUMAY"
-        }
-      }
-      else {
-        if (current !== this.$refs['to-presentation']) {
-          current.classList.remove('active');
-          this.$refs['to-presentation'].classList.add('active');
-          document.title = "Formal - Aurélien DUMAY";
-        }
-      }
-    }
+    changeLang,
+    openMenu,
+    closeMenu,
+    mayCloseMenu,
+    scrollToSection,
+    scrollHook
   },
   mounted() {
     fetch('./formalData.json')
-        .then(r => r.json())
-        .then(r => {
-          this.content = r;
-          this.loading = false;
-        });
+      .then(r => r.json())
+      .then(r => {
+        this.content = r;
+        this.loading = false;
+      });
 
-    document.querySelector('html').setAttribute("lang", 'fr');
     document.title = "Formal - Aurélien DUMAY";
+
+    if (navigator.language.startsWith('fr-')) {
+      document.querySelector('html').setAttribute("lang", 'fr');
+      this.selectedLang = 'fr';
+    }
+    else {
+      document.querySelector('html').setAttribute("lang", 'en');
+      this.selectedLang = 'en';
+    }
   },
   updated() {
     document.removeEventListener('scroll', this.scrollHook);

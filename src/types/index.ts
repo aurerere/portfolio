@@ -27,3 +27,7 @@ export type CommandResult = {
 }
 
 export type SimpleCommandResult = string;
+
+export interface ClickEvent extends MouseEvent {
+    target: HTMLElement;
+}

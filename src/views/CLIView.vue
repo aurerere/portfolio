@@ -105,8 +105,7 @@ export default {
         this.loading = false;
       });
 
-      this.platform = navigator.platform;
-      document.title = "CLI - Aurélien DUMAY";
+      document.title = "cli - Aurélien DUMAY";
       document.querySelector('html').setAttribute("lang", 'en');
   },
   updated()

@@ -64,7 +64,7 @@ Here is an example of a valid file tree structure:
     type CommandResult = {
         component: string,
         content: any, // each component can have a different way to display content, so the type is not always the same
-        more?: any // (optional) - additional information that may be needed if the function is used in a context other than a CLI command.
+        more?: any // (optional) - additional information that may be needed if the function is used in a context other than a cli command.
     }
     ```
   As an example, this is how to call the error component 

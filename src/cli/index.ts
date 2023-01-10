@@ -1,21 +1,21 @@
-import ls from "./commands/ls";
-import cd from "./commands/cd";
-import more from "./commands/more";
-import exe from "./commands/exe";
-import echo from "./commands/echo";
-import pwd from "./commands/pwd";
-import help from "./commands/help";
-import ping from "./commands/ping";
-import cls from "./commands/cls";
-import djo from "./commands/djo";
-import bleuenn from "./commands/bleuenn";
-import iandry from "./commands/iandry";
-import maximes from "./commands/maximes";
-import open from "./commands/open";
-import forbidden from "./commands/forbidden";
+import ls from "@/cli/commands/ls";
+import cd from "@/cli/commands/cd";
+import more from "@/cli/commands/more";
+import exe from "@/cli/commands/exe";
+import echo from "@/cli/commands/echo";
+import pwd from "@/cli/commands/pwd";
+import help from "@/cli/commands/help";
+import ping from "@/cli/commands/ping";
+import cls from "@/cli/commands/cls";
+import djo from "@/cli/commands/djo";
+import bleuenn from "@/cli/commands/bleuenn";
+import iandry from "@/cli/commands/iandry";
+import maximes from "@/cli/commands/maximes";
+import open from "@/cli/commands/open";
+import forbidden from "@/cli/commands/forbidden";
 
 
-const commands: {[index: string]: Function} = {
+const commands: {[name: string]: Function} = {
     'cls': () => cls(),
     'ls': (path: string | undefined) => ls(path),
     'help': () => help(),

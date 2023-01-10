@@ -1,3 +1,4 @@
+// @ts-ignore
 import cls from "@/cli/commands/cls";
 
 export default function onKeyDown(this: any, e: KeyboardEvent): void
