@@ -13,6 +13,7 @@ import iandry from "@/cli/commands/iandry";
 import maximes from "@/cli/commands/maximes";
 import open from "@/cli/commands/open";
 import forbidden from "@/cli/commands/forbidden";
+import corentin from "@/cli/commands/corentin";
 
 
 const commands: {[name: string]: Function} = {
@@ -26,6 +27,7 @@ const commands: {[name: string]: Function} = {
     'bleuenn': () => bleuenn(),
     'iandry': () => iandry(),
     'maximes': () => maximes(),
+    'corentin': () => corentin(),
     'open': (path: string)  => open(path),
 
     // ASYNC -------------------------------------------------------------------
