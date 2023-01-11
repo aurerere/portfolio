@@ -3,7 +3,7 @@ import cls from "@/cli/commands/cls";
 
 export default function onKeyDown(this: any, e: KeyboardEvent): void
 {
-    if (e.key === 'l') {
+    if (e.key.toLowerCase() === 'l') {
         if (this.isControlDown && !this.isShiftDown) {
             e.preventDefault();
             cls();
@@ -26,7 +26,6 @@ export default function onKeyDown(this: any, e: KeyboardEvent): void
         }
     }
 
-    window.scrollTo(0, document.body.scrollHeight);
     if (document.activeElement !== this.$refs.prompt) {
         if (e.key === 'Shift') {
             this.isShiftDown = true;
@@ -37,7 +36,7 @@ export default function onKeyDown(this: any, e: KeyboardEvent): void
             if (this.isShiftDown)
                 return;
 
-        if (!this.loading && !(this.isControlOrCommandDown && e.key === 'c')) {
+        if (!this.loading && !(this.isControlOrCommandDown && e.key.toLowerCase() === 'c')) {
             this.promptFocusCaretEnd();
             window.scrollTo(0, document.body.scrollHeight);
         }

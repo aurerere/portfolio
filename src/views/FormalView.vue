@@ -53,7 +53,7 @@
               <h2>{{ content['presentation'].title[selectedLang] }}</h2>
               <p v-html="content['presentation']['txt'][selectedLang]"></p>
               <div class="links">
-                <a href="/home/cv_fr.pdf" class="external" target="_blank">
+                <a :href="content['presentation']['cv-url'][selectedLang]" class="external" target="_blank">
                   &#62; <font-awesome-icon icon="file"/>
                   {{ content['presentation']['btn'][selectedLang] }}
                 </a>

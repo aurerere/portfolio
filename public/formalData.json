@@ -29,6 +29,10 @@
     "btn": {
       "fr": "CV",
       "en": "Resume"
+    },
+    "cv-url": {
+      "en": "/home/cv_en.pdf",
+      "fr": "/home/cv_fr.pdf"
     }
   },
   "projects": [
