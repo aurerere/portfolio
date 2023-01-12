@@ -18,11 +18,9 @@ export default async function more(relativePath: string): Promise<SimpleCommandR
             content: `[error] cannot back from 'aureliendumay.me'`
         }
 
-    const { filePath, exists, fileType } = ls(file).more;
+    const { filePath, exists, isDir } = ls(file).more;
 
-    console.log('caca', ls(file))
-
-    if (exists && fileType !== "folder") {
+    if (exists && !isDir) {
         const response = await fetch(filePath);
         const fileContent = await response.text();
 
@@ -34,7 +32,7 @@ export default async function more(relativePath: string): Promise<SimpleCommandR
             }
         };
     }
-    else if (fileType === "folder" || relativePath === "./" || relativePath === ".")
+    else if (isDir || relativePath === "./" || relativePath === ".")
         return {
             component: "error",
             content: `[error] "${file.join('/')}" is a directory`

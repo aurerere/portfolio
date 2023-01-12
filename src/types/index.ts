@@ -1,4 +1,4 @@
-type FileTree = {
+export type FileTree = {
     [key: string]: "file" | "app" | FileTree
 }
 
