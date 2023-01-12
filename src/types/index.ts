@@ -1,9 +1,5 @@
 type FileTree = {
-    [key: string]: {
-        type: "folder" | "file" | "app";
-        children?: FileTree;
-        realPath?: string;
-    }
+    [key: string]: "file" | "app" | FileTree
 }
 
 export type State = {

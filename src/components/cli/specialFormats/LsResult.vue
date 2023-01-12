@@ -13,11 +13,11 @@
   <template v-for="(key, name) in result" v-bind:key="key">
     <span>
       <span class="grey">| </span>
-      <span :class="'filename ' + key['type']">{{ name }}</span>
+      <span :class="'filename ' + (typeof key === 'object' ? 'directory' : key)">{{ name }}</span>
       <span class="grey">{{ " " + "-".repeat(winWidth - (winWidth > name.length ? name.length : winWidth)) + " "}}</span>
     </span>
     <span class="grey">| </span>
-    <span>{{ typesDict[key['type']] }}</span><br>
+    <span>{{ typesDict[(typeof key === 'object' ? 'directory' : key)] }}</span><br>
   </template>
   <br>
 </template>

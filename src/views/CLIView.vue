@@ -101,7 +101,7 @@ export default {
     fetch('/fileTree.json')
       .then(response => response.json())
       .then(data => {
-        this.$store.commit('setFileTree', {"~": { type: "folder", children: data }});
+        this.$store.commit('setFileTree', {"~": data});
         document.addEventListener('keydown', this.onKeyDown)
         document.addEventListener('keyup', this.onKeyUp);
         this.deviceInfo = this.getDeviceInfo();
@@ -118,7 +118,8 @@ export default {
     if (prompt)
       prompt.focus();
 
-    window.scrollTo(0, document.body.scrollHeight);
+    if (this.deviceInfo !== null && this.deviceInfo.device === "desktop")
+      window.scrollTo(0, document.body.scrollHeight);
   },
   beforeUnmount()
   {
@@ -157,6 +158,8 @@ p, a, span {
 
 .prompt {
   caret-color: lime;
+  word-wrap: break-word;
+  white-space: break-spaces;
 }
 
 .prompt-wrapper {
@@ -166,6 +169,5 @@ p, a, span {
 
 [contenteditable] {
   outline: none;
-  white-space: pre;
 }
 </style>

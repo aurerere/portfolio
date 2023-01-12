@@ -20,6 +20,8 @@ export default async function more(relativePath: string): Promise<SimpleCommandR
 
     const { filePath, exists, fileType } = ls(file).more;
 
+    console.log('caca', ls(file))
+
     if (exists && fileType !== "folder") {
         const response = await fetch(filePath);
         const fileContent = await response.text();

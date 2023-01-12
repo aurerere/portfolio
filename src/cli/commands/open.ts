@@ -7,7 +7,7 @@ export default async function open(relativePath: string): Promise<SimpleCommandR
     if (!relativePath)
         return {
             component: "error",
-            content: `[error] Usage: open <path>`
+            content: '[error] Usage: xdg-open <path>'
         }
 
     const file = parsePath(relativePath);

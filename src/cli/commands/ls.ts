@@ -17,7 +17,7 @@ export default function ls(relativePath: Array<string> | string = store.state.pa
             content: "[error] Internal."
         }
 
-    let content = fileTree['~'].children;
+    let element = fileTree['~'];
 
     if (!path)
         return {
@@ -26,36 +26,70 @@ export default function ls(relativePath: Array<string> | string = store.state.pa
         }
 
 
-    for (let i = 1; i < path.length; i++)
+    for (let i = 1; i < path.length + 1; i++)
     {
-        if (content) {
-            if (content[path[i]] && content[path[i]].type === "folder")
-                content = content[path[i]].children;
+        if (typeof element === "object") {
+            element = element[path[i]];
+        }
 
-            else {
-                const message = content[path[i]] ?
-                    `[error] ${path.join('/').replace('~', '/home/aureliendumay.me')} is not a directory.` :
-                    `[error] no such file or directory: '${path.join('/').replace('~', '/home/aureliendumay.me')}'.`;
-
+        else {
+            if (i !== path.length || typeof element === "undefined")
                 return {
                     component: "error",
-                    content: message,
+                    content:
+                        `[error] no such file or directory: '${path.join('/').replace('~', '/home/aureliendumay.me')}'.`
+                }
+
+            else {
+                console.log(element)
+                return {
+                    component: "error",
+                    content: `[error] ${path.join('/').replace('~', '/home/aureliendumay.me')} is not a directory.`,
                     more: {
                         name: path[i],
-                        exists: !!content[path[i]],
-                        fileType: content[path[i]] ? content[path[i]].type : null,
-                        filePath: content[path[i]] ? content[path[i]]['realPath'] : null
+                        fileType: element,
+                        filePath: path.join('/').replace('~', '/home')
                     }
                 };
             }
         }
-        else {
-            return {
-                component: "error",
-                content: `[error] Internal.`
-            };
-        }
     }
+    // for (let i = 1; i < path.length; i++)
+    // {
+    //     if (content) {
+    //         if (typeof content === "object") {
+    //             content = content[path[i]];
+    //             continue;
+    //         }
+    //
+    //         let message;
+    //
+    //         if (typeof content === "undefined")
+    //             message =
+    //                 `[error] no such file or directory: '${path.join('/').replace('~', '/home/aureliendumay.me')}'.`;
+    //
+    //         else if (typeof content === "string")
+    //             message =
+    //                 `[error] ${path.join('/').replace('~', '/home/aureliendumay.me')} is not a directory.`;
+    //
+    //         return {
+    //             component: "error",
+    //             content: message,
+    //             more: {
+    //                 name: path[i],
+    //                 exists: !!content,
+    //                 fileType: content ? content : null,
+    //                 filePath: path.join('/').replace('~', '/home')
+    //             }
+    //         };
+    //     }
+    //     else {
+    //         return {
+    //             component: "error",
+    //             content: `[error] Internal.`
+    //         };
+    //     }
+    // }
 
-    return { component: "ls", content, more: {path} };
+    return { component: "ls", content: element, more: {path} };
 }

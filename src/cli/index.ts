@@ -28,7 +28,7 @@ const commands: {[name: string]: Function} = {
     'iandry': () => iandry(),
     'maximes': () => maximes(),
     'corentin': () => corentin(),
-    'open': (path: string)  => open(path),
+    'xdg-open': (path: string)  => open(path),
 
     // ASYNC -------------------------------------------------------------------
     'more': async (path: string) => await more(path),
@@ -54,5 +54,6 @@ const commands: {[name: string]: Function} = {
 commands['dir'] = commands['ls'];
 commands['clear'] = commands['cls'];
 commands['cat'] = commands['more'];
+commands['open'] = commands['xdg-open'];
 
 export default commands;
