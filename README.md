@@ -27,33 +27,22 @@ To set up the portfolio, you will need to create a file named `fileTree.json` in
 This file should contain a file tree structure that follows the type specified below:
 ```ts
 type FileTree = {
-    [key: string]: {
-        type: "folder" | "file" | "app";
-        children?: FileTree; // only if it is a folder
-        realPath?: string; // only if it is a file -> corresponds to the actual path from /public
-    }
+    [key: string]: "file" | "app" | FileTree
 }
 ```
 Here is an example of a valid file tree structure:
 
 ```json
 {
-  "projects": {
-    "type": "folder",
-    "children": {
-      "project1": {
-        "type": "folder",
-        "children": {
-          "thumbnail.png": {
-            "type": "file",
-            "realpath": "/assets/thumbnail.png"
-          }
+    "projects": {
+        "project1": {
+            "thumbnail.png": "file"
         }
-      }
     }
-  }
 }
 ```
+
+> ⚠️ The real file structure needs to correspond to the JSON file tree. <br> As an example `fileTree.json["projects"]["project1"]["thumbnail.png"]` should point to a file named `thumbnail.png` in the `/public/home/projects/project1` directory.
 
 > ℹ️ elements of type `app` correspond to JavaScript code that will be called with `eval()`
 ### Commands
