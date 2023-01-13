@@ -17,7 +17,7 @@
       <span class="grey">{{ " " + "-".repeat(winWidth - (winWidth > name.length ? name.length : winWidth)) + " "}}</span>
     </span>
     <span class="grey">| </span>
-    <span>{{ typesDict[(typeof key === 'object' ? 'directory' : key)] }}</span><br>
+    <span>{{ typeof key === 'string' ? typesDict[key] : 'DIR' }}</span><br>
   </template>
   <br>
 </template>
@@ -42,7 +42,6 @@ export default {
     typesDict: {
       default: () => ({
         'file': 'FILE',
-        'folder': 'DIR',
         'app': 'APP'
       })
     }
@@ -68,7 +67,6 @@ export default {
   flex-wrap: wrap;
 }
 .filename {
-  color: cyan;
   white-space: pre;
   width: 50%;
   max-width: 500px;

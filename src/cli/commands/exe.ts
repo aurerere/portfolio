@@ -14,6 +14,8 @@ export default async function exe(path: string): Promise<CommandResult | SimpleC
 
     const { filePath, exists, fileType } = ls(file).more;
 
+    console.log(fileType);
+
     if (fileType === "app") {
         const response = await fetch(filePath);
         const fileContent = await response.text();

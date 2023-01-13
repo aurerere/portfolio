@@ -59,7 +59,7 @@ export default function ls(relativePath: Array<string> | string = store.state.pa
                         content: `[error] no such file or directory: '${
                             path.join('/').replace('~', '/home/aureliendumay.me')
                         }'.`,
-                        more: { exists: false, name: null, fileType: null, filePath: null }
+                        more: { exists: false, name: null, fileType: 'folder', filePath: null }
                     }
                 }
             }
