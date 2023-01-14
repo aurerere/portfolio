@@ -10,30 +10,28 @@ export default async function open(relativePath: string): Promise<SimpleCommandR
             content: '[error] Usage: xdg-open <path>'
         }
 
-    const file = parsePath(relativePath);
+    const { realPath, exists, isDir, path, invalidPath } = ls(relativePath).more;
 
-    if (!file)
+    if (invalidPath)
         return {
             component: "error",
             content: `[error] cannot back from 'aureliendumay.me'`
         }
 
-    const { filePath, exists, fileType } = ls(file).more;
-
-    if (exists && fileType !== "folder") {
-        window.open(filePath, "", "width=1000,height=2000");
+    if (exists && !isDir) {
+        window.open(realPath, "", "width=1000,height=2000");
         return "ok";
     }
-    else if (fileType === "folder" || relativePath === "./" || relativePath === ".")
+    else if (isDir)
         return {
             component: "error",
-            content: `[error] "${file.join('/')
+            content: `[error] "${path.join('/')
                 .replace('~', '/home/aureliendumay.me')}" is a directory`
         };
     else {
         return {
             component: "error",
-            content: `[error] no such file: "${file.join('/')
+            content: `[error] no such file: "${path.join('/')
                 .replace('~', '/home/aureliendumay.me')}"`
         };
     }

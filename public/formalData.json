@@ -76,8 +76,8 @@
       "image": "/home/projects/vector.wtf/thumbnail.png",
       "name": "vector.wtf",
       "desc": {
-        "fr": "Réalisation de l'outil de vente, de support, et de gestion des licenses & des utilisateurs de Vector.",
-        "en": "Realization of the sales, support, and license & user management tool of Vector."
+        "fr": "Réalisation de l'outil de vente, de support et de gestion des licences & utilisateurs de Vector.",
+        "en": "Realization of the sales, support and management tool for Vector licenses and users."
       },
       "tags": ["Design", "VueJS", "ExpressJS", "MySQL"],
       "done": false,

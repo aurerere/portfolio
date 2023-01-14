@@ -33,7 +33,6 @@ const commands: {[name: string]: Function} = {
     // ASYNC -------------------------------------------------------------------
     'more': async (path: string) => await more(path),
     'ping': async () => await ping(),
-    'execute': async (path: string) => await exe(path),
 
     // ENV VARIABLES -----------------------------------------------------------
     'github': () => exe('~/github'),
@@ -55,5 +54,6 @@ commands['dir'] = commands['ls'];
 commands['clear'] = commands['cls'];
 commands['cat'] = commands['more'];
 commands['open'] = commands['xdg-open'];
+commands['less'] = commands['more'];
 
 export default commands;

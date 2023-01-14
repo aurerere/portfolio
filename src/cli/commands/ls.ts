@@ -1,8 +1,8 @@
 import store from "../../store";
 import parsePath from "../runCommand/parsePath";
-import type { CommandResult, FileTree } from "@/types";
+import type {FileTree, LsResult, ExistsLsMore, InvalidPathLsMore, DoesNotExistsLsMore} from "@/types";
 
-export default function ls(relativePath: Array<string> | string = store.state.path): CommandResult
+export default function ls(relativePath: Array<string> | string = store.state.path): LsResult
 {
     // if the function is called with a command with the path as an arg,
     // we have to parse the path otherwise it is called with the current path already parsed
@@ -11,19 +11,22 @@ export default function ls(relativePath: Array<string> | string = store.state.pa
       : relativePath
     ;
 
-    // if the parser returned false it means that the path is invalid
-    if (!path)
-        return {
-            component: 'error',
-            content: "cannot back from 'aureliendumay.me'"
-        }
-
     const fileTree: FileTree | null = store.state.fileTree;
 
-    if (fileTree === null)
+    // if the parser returned false it means that the path is invalid
+    if (!path || fileTree === null)
         return {
-            component: "error",
-            content: "[error] Internal."
+            component: 'error',
+            content: fileTree !== null ? "[error] cannot back from 'aureliendumay.me'" : "[error] Internal.",
+            more: <InvalidPathLsMore> {
+                invalidPath: true,
+                path: null,
+                isDir: null,
+                exists: null,
+                name: null,
+                fileType: null,
+                realPath: null
+            }
         }
 
     // we set the path at the root of the file tree
@@ -42,14 +45,17 @@ export default function ls(relativePath: Array<string> | string = store.state.pa
                 // we need to check if it is the last element of the path because we use the more part of the returned
                 // value in cd(), more(), open() and a file can't have children
                 if (element[path[i]] && i === path.length - 1)
-                    return {
+                    return <LsResult> {
                         component: "error",
                         content: `[error] ${path.join('/').replace('~', '/home/aureliendumay.me')} is not a directory.`,
-                        more: {
+                        more: <ExistsLsMore> {
+                            invalidPath: false,
+                            path,
+                            isDir: false,
                             exists: true,
                             name: path[i],
-                            fileType: element,
-                            filePath: path.join('/').replace('~', '/home')
+                            fileType: element[path[i]],
+                            realPath: path.join('/').replace('~', '/home')
                         }
                     };
 
@@ -59,12 +65,33 @@ export default function ls(relativePath: Array<string> | string = store.state.pa
                         content: `[error] no such file or directory: '${
                             path.join('/').replace('~', '/home/aureliendumay.me')
                         }'.`,
-                        more: { exists: false, name: null, fileType: 'folder', filePath: null }
+                        more: <DoesNotExistsLsMore> {
+                            invalidPath: false,
+                            path,
+                            isDir: false,
+                            exists: false,
+                            name: null,
+                            fileType: null,
+                            realPath: null
+                        }
                     }
                 }
             }
         }
     }
 
-    return { component: "ls", content: element, more: {path, isDir: true} };
+    // the element is a directory
+    return {
+        component: "ls",
+        content: element,
+        more: <ExistsLsMore> {
+            invalidPath: false,
+            path,
+            isDir: true,
+            exists: true,
+            name: null,
+            fileType: null,
+            realPath: path.join('/').replace('~', '/home')
+        }
+    };
 }

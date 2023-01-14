@@ -1,6 +1,5 @@
-import parsePath from "../runCommand/parsePath";
 import ls from "./ls";
-import type {CommandResult, SimpleCommandResult} from "@/types";
+import type {CommandResult, LsResult, SimpleCommandResult} from "@/types";
 
 export default async function more(relativePath: string): Promise<SimpleCommandResult | CommandResult>
 {
@@ -10,37 +9,33 @@ export default async function more(relativePath: string): Promise<SimpleCommandR
             content: `[error] Usage: more <path>`
         }
 
-    const file = parsePath(relativePath);
+    const { realPath, exists, isDir, invalidPath, path, name }: LsResult["more"] = ls(relativePath).more;
 
-    if (!file)
+    if (invalidPath)
         return {
             component: "error",
             content: `[error] cannot back from 'aureliendumay.me'`
         }
 
-    const { filePath, exists, isDir } = ls(file).more;
-
     if (exists && !isDir) {
-        const response = await fetch(filePath);
+        const response = await fetch(realPath);
         const fileContent = await response.text();
 
         return {
             component: 'more',
             content: fileContent,
-            more: {
-                name: file
-            }
+            more: { name }
         };
     }
-    else if (isDir || relativePath === "./" || relativePath === ".")
+    else if (isDir)
         return {
             component: "error",
-            content: `[error] "${file.join('/')}" is a directory`
+            content: `[error] "${path.join('/').replace('~', '/home/aureliendumay.me')}" is a directory`
         };
     else {
         return {
             component: "error",
-            content: `[error] no such file: "${file.join('/').replace('~', '/home/aureliendumay.me')}"`
+            content: `[error] no such file: "${path.join('/').replace('~', '/home/aureliendumay.me')}"`
         };
     }
 }

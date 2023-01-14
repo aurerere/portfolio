@@ -1,42 +1,52 @@
-import parsePath from "../runCommand/parsePath";
 import ls from "./ls";
 import type {CommandResult, SimpleCommandResult} from "@/types";
+import type {LsResult} from "@/types";
 
-export default async function exe(path: string): Promise<CommandResult | SimpleCommandResult>
+export default async function exe(relativePath: string): Promise<CommandResult | SimpleCommandResult>
 {
-    const file = parsePath(path);
+    const { invalidPath, realPath, exists, fileType, isDir, path }: LsResult["more"] = ls(relativePath).more;
 
-    if (!file)
+    if (invalidPath)
         return {
             component: "error",
-            content: `cannot back from 'aureliendumay.me'`
+            content: `[error] cannot back from 'aureliendumay.me'`
+        }
+
+    if (!exists)
+        return {
+            component: "error",
+            content: `[error] no such file: "${
+                path?.join('/').replace('~', '/home/aureliendumay.me')
+            }"`
         };
 
-    const { filePath, exists, fileType } = ls(file).more;
+    if (isDir)
+        return {
+            component: "error",
+            content: `"${
+                path?.join('/').replace('~', '/home/aureliendumay.me')
+            }" is a directory`
+        };
 
-    console.log(fileType);
+    if (fileType !== "executable")
+        return {
+            component: "error",
+            content: `"${
+                path?.join('/').replace('~', '/home/aureliendumay.me')
+            }" is not an executable file`
+        };
 
-    if (fileType === "app") {
-        const response = await fetch(filePath);
+    else {
+        // Fetch the js app "source code"
+        const response = await fetch(realPath);
         const fileContent = await response.text();
 
-        eval(fileContent);
+        // eval the js app "source code"
+        const res = eval(fileContent);
+
+        console.log(res);
+
         return "ok";
     }
-    else if (fileType === "folder" || path === "./")
-        return {
-            component: "error",
-            content: `"${path.replace('~', '/home/aureliendumay.me')}" is a directory`
-        };
-    else if (exists)
-        return {
-            component: "error",
-            content: `"${path.replace('~', '/home/aureliendumay.me')}" is not an executable file`
-        };
-    else {
-        return {
-            component: "error",
-            content: `no such file: "${path.replace('~', '/home/aureliendumay.me')}"`
-        };
-    }
+
 }

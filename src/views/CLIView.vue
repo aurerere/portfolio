@@ -48,6 +48,7 @@ import onKeyUp from "@/utils/CLIViewMethods/onKeyUp";
 import pasteHooker from "@/utils/CLIViewMethods/pasteHooker";
 import promptFocusCaretEnd from "@/utils/CLIViewMethods/promptFocusCaretEnd";
 import getDeviceInfo from "@/utils/CLIViewMethods/getDeviceInfo";
+import onBlur from "@/utils/CLIViewMethods/onBlur";
 
 export default {
   name: "CLIView",
@@ -94,7 +95,8 @@ export default {
     onKeyUp,
     pasteHooker,
     promptFocusCaretEnd,
-    getDeviceInfo
+    getDeviceInfo,
+    onBlur
   },
   mounted()
   {
@@ -102,7 +104,8 @@ export default {
       .then(response => response.json())
       .then(data => {
         this.$store.commit('setFileTree', {"~": data});
-        document.addEventListener('keydown', this.onKeyDown)
+        document.addEventListener('visibilitychange', this.onBlur);
+        document.addEventListener('keydown', this.onKeyDown);
         document.addEventListener('keyup', this.onKeyUp);
         this.deviceInfo = this.getDeviceInfo();
         this.loading = false;
@@ -123,8 +126,9 @@ export default {
   },
   beforeUnmount()
   {
-    document.removeEventListener('keydown', this.onKeyDown)
+    document.removeEventListener('visibilitychange', this.onKeyDown);
     document.removeEventListener('keyup', this.onKeyUp);
+    document.removeEventListener('focus', this.onBlur);
   }
 };
 </script>

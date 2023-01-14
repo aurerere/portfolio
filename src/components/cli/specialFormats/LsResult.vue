@@ -2,22 +2,18 @@
   <br>
   <span class="grey">Directory: </span>
   <template v-for="dir in path" :key="dir">
-    <span class="directory">{{ dir }}</span>
+    <span class="cyan">{{ dir }}</span>
     <span class="separator">/</span>
   </template>
-  <br><br>
-  <span class="flex">
-    <span class="grey">| NAME {{ " ".repeat(winWidth - (winWidth > 4 ? 4 : 0))}} | TYPE</span>
-  </span>
-  <span class="grey">{{ "~".repeat(winWidth + 11) }}</span><br>
+  <br>
+  <br>
+  <span class="grey bold">NAME {{ " ".repeat(getLongestName() - 4) }} TYPE</span><br>
   <template v-for="(key, name) in result" v-bind:key="key">
     <span>
-      <span class="grey">| </span>
-      <span :class="'filename ' + (typeof key === 'object' ? 'directory' : key)">{{ name }}</span>
-      <span class="grey">{{ " " + "-".repeat(winWidth - (winWidth > name.length ? name.length : winWidth)) + " "}}</span>
+      <span :class="'filename ' + (typeof key === 'object' ? 'directory' : key)">{{ name }} </span>
     </span>
-    <span class="grey">| </span>
-    <span>{{ typeof key === 'string' ? typesDict[key] : 'DIR' }}</span><br>
+    <span class="grey">{{" " + "-".repeat(getLongestName() - name.length)}} </span>
+    <span class="grey">&nbsp;{{ typeof key === 'string' ? (typesDict[key] ? typesDict[key] : key) : 'dir' }}</span><br>
   </template>
   <br>
 </template>
@@ -25,11 +21,15 @@
 <script>
 export default {
   name: "LsResult",
-  data() {
-    return {
-      winWidth: window.innerWidth > 420 ? window.innerWidth / 30 : window.innerWidth / 15,
-    }
-  },
+  data: () => ({
+    typesDict: {
+      any: 'file',
+      executable: 'executable',
+      img: 'file(media)',
+      doc: 'file(document)'
+    },
+    longestName: 0
+  }),
   props: {
     result: {
       type: Object,
@@ -39,23 +39,20 @@ export default {
       type: Array,
       required: true
     },
-    typesDict: {
-      default: () => ({
-        'file': 'FILE',
-        'app': 'APP'
-      })
-    }
   },
   methods: {
-    handleResize() {
-      this.winWidth = window.innerWidth > 420 ? window.innerWidth / 30 : window.innerWidth / 12
+    getLongestName() {
+      let longest = 0;
+      for (let name in this.result) {
+        if (name.length > longest) {
+          longest = name.length;
+        }
+      }
+      return longest;
     }
   },
-  mounted() {
-    window.addEventListener('resize', this.handleResize);
-  },
-  beforeUnmount() {
-    window.removeEventListener('resize', this.handleResize);
+  beforeMount() {
+    this.longestName = this.getLongestName();
   }
 }
 </script>
@@ -71,17 +68,37 @@ export default {
   width: 50%;
   max-width: 500px;
 }
+.cyan {
+  color: #00ffff;
+}
 .grey {
   color: darkgray;
   white-space: pre;
 }
+.darkgrey {
+  color: #4a4a4a;
+  white-space: pre;
+}
 .directory {
   color: cyan;
+  font-weight: bold;
 }
-.app {
+
+.doc {
+  color: orange;
+}
+
+.executable {
   color: lime;
+  font-weight: bold;
 }
 .file {
   color: white;
+}
+.img{
+  color: magenta;
+}
+.bold {
+  font-weight: bold;
 }
 </style>

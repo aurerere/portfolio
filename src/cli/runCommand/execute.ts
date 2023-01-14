@@ -1,5 +1,6 @@
 import store from "@/store";
 import commands from "@/cli";
+import exe from "@/cli/commands/exe";
 
 export default async function execute(parsedInput: Array<Array<string>>): Promise<void>
 {
@@ -13,7 +14,7 @@ export default async function execute(parsedInput: Array<Array<string>>): Promis
         args = parsedInput[i];
 
         if (command.startsWith('./') || command.startsWith('../') || command.startsWith('/'))
-            result = await commands['execute'](command.trim());
+            result = await exe(command.trim());
 
         else if (commands[command])
             result = await commands[command](...args)

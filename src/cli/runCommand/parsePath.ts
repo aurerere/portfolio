@@ -5,16 +5,16 @@ export default function parsePath(relativePath: string)
     if (relativePath.startsWith('/'))
         return false;
 
-    const fullPath = relativePath.split("/");
+    const relativePathArray = relativePath.split("/");
     const path = [...store.state.path];
 
-    if (fullPath[0] === "~")
-        return fullPath;
+    if (relativePathArray[0] === "~")
+        return relativePathArray;
 
     else {
-        for (let i = 0; i < fullPath.length; i++)
+        for (let i = 0; i < relativePathArray.length; i++)
         {
-            switch (fullPath[i]) {
+            switch (relativePathArray[i]) {
                 case "..":
                     if (path.length > 1)
                         path.pop();
@@ -24,9 +24,9 @@ export default function parsePath(relativePath: string)
                 case ".":
                     break;
                 default:
-                    if (!fullPath[i])
+                    if (!relativePathArray[i])
                         break;
-                    path.push(fullPath[i]);
+                    path.push(relativePathArray[i]);
             }
         }
     }
