@@ -15,12 +15,12 @@
   <template v-if="$parent.$data.deviceInfo && $parent.$data.deviceInfo.device === 'mobile'">
     <span class="red" >
       Warning: This interface is not optimized for touch devices,
-      it is recommended to visit the formal version (available at <router-link to="/formal">https://aureliendumay.me/formal</router-link>).
+      it is recommended to visit the formal version (available at <router-link to="/">https://aureliendumay.me/</router-link>).
     </span>
   </template>
   <template v-else>
     If your not used to this type of interface, you can access the formal version at
-    <router-link to="/formal">https://aureliendumay.me/formal</router-link>.
+    <router-link to="/">https://aureliendumay.me/</router-link>.
   </template>
   <br><br>
   Type <span class="help" @click="help">'help'</span> for the list of available commands.

@@ -27,7 +27,7 @@ To set up the portfolio, you will need to create a file named `fileTree.json` in
 This file should contain a file tree structure that follows the type specified below:
 ```ts
 type FileTree = {
-    [key: string]: "file" | "app" | FileTree
+    [key: string]: string | FileTree
 }
 ```
 Here is an example of a valid file tree structure:

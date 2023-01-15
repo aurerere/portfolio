@@ -18,6 +18,10 @@
       v-else-if="result['component'] === 'echo'"
       :result="result['content']"
     />
+    <HelpResult
+      v-else-if="result['component'] === 'help'"
+      :result="result['content']"
+    />
   </template>
 </template>
 
@@ -26,10 +30,11 @@ import LsResult from "@/components/cli/specialFormats/LsResult.vue";
 import ErrorResult from "@/components/cli/specialFormats/ErrorResult.vue";
 import MoreResult from "@/components/cli/specialFormats/MoreResult.vue";
 import EchoResult from "@/components/cli/specialFormats/EchoResult.vue";
+import HelpResult from "@/components/cli/specialFormats/HelpResult.vue";
 
 export default {
   name: "CLIResultParser",
-  components: {EchoResult, LsResult, ErrorResult, MoreResult},
+  components: {HelpResult, EchoResult, LsResult, ErrorResult, MoreResult},
   props: {
     result: [String, Object],
   },

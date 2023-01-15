@@ -61,3 +61,13 @@ export type InvalidPathLsMore = {
     realPath: null,
     fileType: null,
 }
+
+export interface HelpResult extends CommandResult {
+    component: "help",
+    content: {
+        [key: string]: {
+            args: Array<string>,
+            description: string,
+        }
+    }
+}

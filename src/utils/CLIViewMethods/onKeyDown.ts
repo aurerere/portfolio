@@ -10,6 +10,11 @@ export default function onKeyDown(this: any, e: KeyboardEvent): void
         }
     }
 
+    if (this.$refs.prompt.innerText !== this.input) {
+        this.input = this.$refs.prompt.innerText;
+        this.stackState = -1;
+    }
+
     if (e.key === 'Control') {
         this.isControlDown = true;
 

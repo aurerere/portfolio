@@ -30,7 +30,7 @@ export default function scrollHook(this: any)
         if (current !== this.$refs['to-presentation']) {
             current.classList.remove('active');
             this.$refs['to-presentation'].classList.add('active');
-            document.title = "Formal - Aurélien DUMAY";
+            document.title = "Portfolio - Aurélien DUMAY";
         }
     }
 }

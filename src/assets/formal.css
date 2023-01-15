@@ -75,7 +75,8 @@ a.anchor {
     color: white;
     transition: .5s;
 }
-a.button {
+.button {
+    cursor: pointer;
     color: #1e1f22;
     background: white;
     padding: 9px;
@@ -275,7 +276,7 @@ footer div {
 footer div a {
     width: fit-content;
 }
-footer * {
+footer *, footer .external {
     font-size: 12px;
 }
 .close {
@@ -385,7 +386,7 @@ footer * {
     .pres-part {
         width: 100%;
     }
-    footer * {
+    footer *, footer .external {
         font-size: 12px;
         text-align: center;
     }

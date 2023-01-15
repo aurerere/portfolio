@@ -24,7 +24,7 @@ export default {
   data: () => ({
     typesDict: {
       any: 'file',
-      executable: 'executable',
+      executable: 'file(executable)',
       img: 'file(media)',
       doc: 'file(document)'
     },

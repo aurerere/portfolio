@@ -3,8 +3,8 @@
     <h1>404</h1>
     <p>not found</p>
     <h3>My Portfolio</h3>
-    <router-link to="/">&#62; CLI version</router-link>
-    <router-link to="/formal">&#62; formal version</router-link>
+    <router-link to="/">&#62; formal version</router-link>
+    <router-link to="/cli">&#62; CLI version</router-link>
   </div>
 </template>
 

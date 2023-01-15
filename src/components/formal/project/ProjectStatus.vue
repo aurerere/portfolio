@@ -18,7 +18,7 @@ export default {
   data() {
     return {
       doneText: {
-        en: 'Done',
+        en: 'Completed',
         fr: 'Fini'
       },
       inDevText: {

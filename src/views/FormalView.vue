@@ -35,9 +35,9 @@
             <div :class="selectedLang === 'en' ? 'lang-opt selected' : 'lang-opt'">en</div>
             <div id="selector" :class="selectedLang"></div>
           </div>
-          <router-link to="/" class="button">
+          <div class="button" @click="runCLI">
             <font-awesome-icon icon="terminal"/> {{ content.menu['nerd'][selectedLang] }}
-          </router-link>
+          </div>
         </div>
       </div>
     </header>
@@ -71,7 +71,7 @@
           <p class="gray"> ↓ Scroll ↓ </p>
         </div>
         <div class="part" ref="projects">
-          <h2>Projects</h2>
+          <h2>{{ content.menu['projects'][selectedLang] }}</h2>
           <div class="project-grid">
             <template v-for="project in content.projects" v-bind:key="project.name">
               <FormalProject
@@ -97,8 +97,8 @@
             </div>
             <div class="method">
               <h3>{{ content['contact']['phone'][selectedLang] }}</h3>
-              <a href="tel:0674778743" class="external">
-                <p class="space-after-icon"><font-awesome-icon icon="phone"/> 06 74 77 87 43</p>
+              <a href="tel:+33674778743" class="external">
+                <p class="space-after-icon"><font-awesome-icon icon="phone"/> +33 6 74 77 87 43</p>
               </a>
             </div>
             <div class="method">
@@ -135,6 +135,7 @@ import closeMenu from "@/utils/FormalViewMethods/closeMenu";
 import mayCloseMenu from "@/utils/FormalViewMethods/mayCloseMenu";
 import scrollToSection from "@/utils/FormalViewMethods/scrollToSection";
 import scrollHook from "@/utils/FormalViewMethods/scrollHook";
+import runCLI from "@/utils/FormalViewMethods/runCLI";
 
 export default {
   name: "FormalView",
@@ -152,7 +153,8 @@ export default {
     closeMenu,
     mayCloseMenu,
     scrollToSection,
-    scrollHook
+    scrollHook,
+    runCLI
   },
   mounted() {
     fetch('./formalData.json')
@@ -162,7 +164,7 @@ export default {
         this.loading = false;
       });
 
-    document.title = "Formal - Aurélien DUMAY";
+    document.title = "Portfolio - Aurélien DUMAY";
 
     if (navigator.language.startsWith('fr-')) {
       document.querySelector('html').setAttribute("lang", 'fr');

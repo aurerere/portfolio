@@ -14,6 +14,7 @@ import maximes from "@/cli/commands/maximes";
 import open from "@/cli/commands/open";
 import forbidden from "@/cli/commands/forbidden";
 import corentin from "@/cli/commands/corentin";
+import exit from "@/cli/commands/exit";
 
 
 const commands: {[name: string]: Function} = {
@@ -33,6 +34,7 @@ const commands: {[name: string]: Function} = {
     // ASYNC -------------------------------------------------------------------
     'more': async (path: string) => await more(path),
     'ping': async () => await ping(),
+    'exit': async () => await exit(),
 
     // ENV VARIABLES -----------------------------------------------------------
     'github': () => exe('~/github'),
@@ -47,6 +49,7 @@ const commands: {[name: string]: Function} = {
     'cp': () => forbidden(),
     'mv': () => forbidden(),
     'sudo': () => forbidden(),
+    'chmod': () => forbidden(),
 }
 
 // ALIASES -----------------------------------------------------------------

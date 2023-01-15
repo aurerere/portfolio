@@ -29,7 +29,7 @@
       </span>
       </p>
     </div>
-    <CLILoadingIndicator v-else/>
+    <CLILoadingIndicator v-else style="margin-bottom: 20px"/>
   </div>
 
 </template>
@@ -63,6 +63,7 @@ export default {
     return {
       loading: true,
       input: '',
+      savedInput: '',
       stackState: -1,
       isShiftDown: false,
       isControlOrCommandDown: false, // control by default, command for macOS users
