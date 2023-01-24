@@ -6,24 +6,24 @@ export default function help(): HelpResult
         component: "help",
         content: {
             ls: {
-                args: ['[optional]path'],
-                description: 'List files and directories',
+                args: ['[optional]relativePath'],
+                description: 'Lists files and directories',
             },
             pwd: {
                 args: [],
-                description: 'Print working directory',
+                description: 'Displays the working directory path',
             },
             cd: {
-                args: ['path'],
-                description: 'Change directory',
+                args: ['relativePath'],
+                description: 'Sets the working directory to the specified path',
             },
             more: {
-                args: ['path'],
-                description: 'Show file content',
+                args: ['relativePath'],
+                description: 'Displays the contents of the file from the specified path',
             },
             'xdg-open': {
-                args: ['path'],
-                description: 'Open file with default application',
+                args: ['relativePath'],
+                description: 'Opens the file from the specified path with the default application (depending on its extension)',
             },
             echo: {
                 args: ['...text'],
@@ -31,11 +31,11 @@ export default function help(): HelpResult
             },
             clear: {
                 args: [],
-                description: 'Clear terminal',
+                description: 'Clears the CLI history',
             },
             exit: {
                 args: [],
-                description: 'Exit terminal',
+                description: 'Exits the CLI',
             }
         }
     }
