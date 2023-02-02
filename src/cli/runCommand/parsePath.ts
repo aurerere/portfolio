@@ -2,8 +2,9 @@ import store from "../../store";
 
 export default function parsePath(relativePath: string)
 {
-    console.log('here')
-    relativePath = relativePath.replace('/home/aureliendumay.me/', '~')
+    relativePath = relativePath.replace('/home/aureliendumay.me', '~')
+
+    console.log('rp: ',relativePath)
 
     if (relativePath.startsWith('/'))
         return false;
@@ -22,13 +23,14 @@ export default function parsePath(relativePath: string)
     else {
         for (let i = 0; i < relativePathArray.length; i++)
         {
-            console.log(relativePathArray[i])
             switch (relativePathArray[i]) {
                 case "..":
                     if (path.length > 1)
                         path.pop();
-                    else
+                    else {
+                        console.log('here2')
                         return false;
+                    }
                     break;
                 case ".":
                     break;

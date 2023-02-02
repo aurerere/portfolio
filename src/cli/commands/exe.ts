@@ -44,8 +44,6 @@ export default async function exe(relativePath: string): Promise<CommandResult |
         // eval the js app "source code"
         const res = eval(fileContent);
 
-        console.log(res);
-
         return "ok";
     }
 

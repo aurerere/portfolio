@@ -29,6 +29,10 @@ export default function help(): HelpResult
                 args: ['...text'],
                 description: 'Prints text',
             },
+            ping: {
+                args: [],
+                description: 'Promise simulation',
+            },
             clear: {
                 args: [],
                 description: 'Clears the CLI history',

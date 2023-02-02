@@ -10,11 +10,6 @@ export default function onKeyDown(this: any, e: KeyboardEvent): void
         }
     }
 
-    if (this.$refs.prompt.innerText !== this.input) {
-        this.input = this.$refs.prompt.innerText;
-        this.stackState = -1;
-    }
-
     if (e.key === 'Control') {
         this.isControlDown = true;
 
@@ -46,5 +41,18 @@ export default function onKeyDown(this: any, e: KeyboardEvent): void
             window.scrollTo(0, document.body.scrollHeight);
         }
     }
+    else {
+        if (this.$refs.prompt.innerText !== this.input) {
+            this.input = this.$refs.prompt.innerText;
+            this.stackState = -1;
+        }
 
+        if (e.key.startsWith('Arrow'))
+            return this.inputArrowHooker(e);
+
+        if (e.key.startsWith('Enter')) {
+            e.preventDefault();
+            return this.enterHooker(false);
+        }
+    }
 }

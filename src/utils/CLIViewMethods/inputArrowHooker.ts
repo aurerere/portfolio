@@ -1,6 +1,8 @@
 export default function inputArrowHooker(this: any, e: KeyboardEvent): void
 {
-    console.log('here')
+    if (e.key === 'ArrowUp' || e.key === 'ArrowDown')
+        e.preventDefault();
+
     if (e.key === 'ArrowUp') {
         if (this.stackState + 1 < this.previousCmdStack.length) {
             if (this.stackState === -1) {

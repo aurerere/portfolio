@@ -17,8 +17,6 @@
       <p>
         <CLIPromptText :path="path"/>
         <span
-            @keydown.enter.prevent="enterHooker(false)"
-            @keydown.up.down.prevent="inputArrowHooker"
             @keydown.tab.prevent
             @paste="pasteHooker"
             contenteditable="true"

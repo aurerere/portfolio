@@ -5,7 +5,6 @@ export default async function enterHooker(this: any, auto:boolean=true): Promise
     if (!auto)
         this.input = this.$refs.prompt.innerText;
 
-    console.log(this.$refs.prompt.innerText)
     this.loading = true;
     await runCommand(this.input);
     this.input = '';
