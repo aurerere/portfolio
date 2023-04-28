@@ -6,21 +6,22 @@
 
 <script>
 export default {
-  name: "MoreResult",
-  props: {
-    result: {
-      type: String,
-      required: true
+    name: "MoreResult",
+    props: {
+        result: {
+            type: String,
+            required: true
+        }
     }
-  }
 };
 </script>
 
 <style scoped>
 a {
-  color: white;
+    color: white;
 }
+
 a:hover {
-  text-decoration: none;
+    text-decoration: none;
 }
 </style>

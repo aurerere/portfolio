@@ -6,7 +6,7 @@ import echo from "@/cli/commands/echo";
 import pwd from "@/cli/commands/pwd";
 import help from "@/cli/commands/help";
 import ping from "@/cli/commands/ping";
-import cls from "@/cli/commands/cls";
+import clear from "@/cli/commands/clear";
 import djo from "@/cli/commands/djo";
 import bleuenn from "@/cli/commands/bleuenn";
 import iandry from "@/cli/commands/iandry";
@@ -18,7 +18,7 @@ import exit from "@/cli/commands/exit";
 
 
 const commands: {[name: string]: Function} = {
-    'cls': () => cls(),
+    'clear': () => clear(),
     'ls': (path: string | undefined) => ls(path),
     'help': () => help(),
     'pwd': () => pwd(),
@@ -29,6 +29,7 @@ const commands: {[name: string]: Function} = {
     'iandry': () => iandry(),
     'maximes': () => maximes(),
     'corentin': () => corentin(),
+    'sl': () => "flemme",
     'xdg-open': (path: string)  => open(path),
 
     // ASYNC -------------------------------------------------------------------
@@ -54,7 +55,8 @@ const commands: {[name: string]: Function} = {
 
 // ALIASES -----------------------------------------------------------------
 commands['dir'] = commands['ls'];
-commands['clear'] = commands['cls'];
+commands['c'] = commands['clear'];
+commands['cls'] = commands['clear'];
 commands['cat'] = commands['more'];
 commands['open'] = commands['xdg-open'];
 commands['less'] = commands['more'];

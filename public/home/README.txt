@@ -1,0 +1,1 @@
+My name is Aurélien and I am a student in digital transformation at the “Epitech digital school”, looking for a 4 to 6 month internship in web development (fullstack) from January-February to June-July.

@@ -4,8 +4,6 @@ export default function parsePath(relativePath: string)
 {
     relativePath = relativePath.replace('/home/aureliendumay.me', '~')
 
-    console.log('rp: ',relativePath)
-
     if (relativePath.startsWith('/'))
         return false;
 
@@ -28,7 +26,6 @@ export default function parsePath(relativePath: string)
                     if (path.length > 1)
                         path.pop();
                     else {
-                        console.log('here2')
                         return false;
                     }
                     break;

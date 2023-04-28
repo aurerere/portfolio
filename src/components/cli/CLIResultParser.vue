@@ -1,28 +1,28 @@
 <template>
-  <span class="command" v-if="typeof result === 'string'">{{ result }}<br></span>
-  <template v-else>
-    <LsResult
-      v-if="result['component'] === 'ls'"
-      :result="result['content']"
-      :path="result['more']['path']"
-    />
-    <ErrorResult
-      v-else-if="result['component'] === 'error'"
-      :result="result['content']"
-    />
-    <MoreResult
-      v-else-if="result['component'] === 'more'"
-      :result="result['content']"
-    />
-    <EchoResult
-      v-else-if="result['component'] === 'echo'"
-      :result="result['content']"
-    />
-    <HelpResult
-      v-else-if="result['component'] === 'help'"
-      :result="result['content']"
-    />
-  </template>
+    <span class="command" v-if="typeof result === 'string'">{{ result }}<br></span>
+    <template v-else>
+        <LsResult
+            v-if="result['component'] === 'ls'"
+            :result="result['content']"
+            :path="result['more']['path']"
+        />
+        <ErrorResult
+            v-else-if="result['component'] === 'error'"
+            :result="result['content']"
+        />
+        <MoreResult
+            v-else-if="result['component'] === 'more'"
+            :result="result['content']"
+        />
+        <EchoResult
+            v-else-if="result['component'] === 'echo'"
+            :result="result['content']"
+        />
+        <HelpResult
+            v-else-if="result['component'] === 'help'"
+            :result="result['content']"
+        />
+    </template>
 </template>
 
 <script>
@@ -33,11 +33,11 @@ import EchoResult from "@/components/cli/specialFormats/EchoResult.vue";
 import HelpResult from "@/components/cli/specialFormats/HelpResult.vue";
 
 export default {
-  name: "CLIResultParser",
-  components: {HelpResult, EchoResult, LsResult, ErrorResult, MoreResult},
-  props: {
-    result: [String, Object],
-  },
+    name: "CLIResultParser",
+    components: {HelpResult, EchoResult, LsResult, ErrorResult, MoreResult},
+    props: {
+        result: [String, Object],
+    },
 };
 </script>
 
