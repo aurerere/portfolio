@@ -1,7 +1,7 @@
 <template>
     <div>
-      <font-awesome-icon :class="(done ? 'done': 'in-dev')" :icon="(done ? 'check': 'code')"/>
-      <span>{{ done ? doneText[lang] : inDevText[lang] }}</span>
+        <font-awesome-icon :class="(done ? 'done': 'in-dev')" :icon="(done ? 'check': 'code')"/>
+        <span>{{ done ? doneText[lang] : inDevText[lang] }}</span>
     </div>
 </template>
 
@@ -9,52 +9,53 @@
 import {FontAwesomeIcon} from "@fortawesome/vue-fontawesome";
 
 export default {
-  name: "ProjectStatus",
-  components: {FontAwesomeIcon},
-  props: {
-    done: Boolean,
-    lang: String
-  },
-  data() {
-    return {
-      doneText: {
-        en: 'Completed',
-        fr: 'Fini'
-      },
-      inDevText: {
-        en: 'In development',
-        fr: 'En développement'
-      }
+    name: "ProjectStatus",
+    components: {FontAwesomeIcon},
+    props: {
+        done: Boolean,
+        lang: String
+    },
+    data() {
+        return {
+            doneText: {
+                en: 'Completed',
+                fr: 'Fini'
+            },
+            inDevText: {
+                en: 'In development',
+                fr: 'En développement'
+            }
+        }
     }
-  }
 }
 </script>
 
 <style scoped>
 .pastille {
-  height: 10px;
-  width: 10px;
-  border-radius: 4px;
+    height: 10px;
+    width: 10px;
+    border-radius: 4px;
 }
+
 .in-dev {
-  color: orange;
+    color: orange;
 }
 
 .done {
-  color: lime;
+    color: lime;
 }
 
 div {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  padding: 4px;
-  background: #3f4148;
-  border-radius: 4px;
-  width: fit-content;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px;
+    background: #3f4148;
+    border-radius: 4px;
+    width: fit-content;
 }
 
 span {
-  white-space: nowrap;
+    white-space: nowrap;
 }
 </style>

@@ -1,0 +1,8 @@
+
+[In development]
+
+A collaborative and open source website listing software and associated keyboard shortcuts & tips.
+
+Tags: TypeScript, ExpressJS, MySQL
+
+GitHub: https://github.com/aurerere/api.hotkeys.help

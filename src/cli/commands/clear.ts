@@ -1,9 +1,8 @@
 import store from "@/store";
-
 import type {SimpleCommandResult} from "@/types";
 
-export default function cls(): SimpleCommandResult
+export default function clear(): SimpleCommandResult
 {
-    store.commit('cls');
+    store.commit('clear');
     return "ok";
 }

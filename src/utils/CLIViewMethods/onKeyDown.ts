@@ -1,12 +1,12 @@
 // @ts-ignore
-import cls from "@/cli/commands/cls";
+import clear from "@/cli/commands/clear";
 
 export default function onKeyDown(this: any, e: KeyboardEvent): void
 {
     if (e.key.toLowerCase() === 'l') {
         if (this.isControlDown && !this.isShiftDown) {
             e.preventDefault();
-            cls();
+            clear();
         }
     }
 

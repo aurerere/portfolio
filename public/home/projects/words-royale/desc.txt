@@ -1,0 +1,8 @@
+
+[Done]
+
+Developed as part of a 2-day project initiated in English class, creation of a computer support to play the French game of “quarter monkeys”.
+
+Tags: VueJS
+
+GitHub: https://github.com/aurerere/words-royale

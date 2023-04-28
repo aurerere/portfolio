@@ -15,7 +15,7 @@ export default createStore<State>({
         pushHistory(state, cmd) {
             state.history.push(cmd)
         },
-        cls(state) {
+        clear(state) {
             state.history = [];
             state.cleared = true;
         },
