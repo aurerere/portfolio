@@ -23,8 +23,8 @@
       "en": "Hello"
     },
     "txt": {
-      "en": "My name is Aurélien and I am a student in digital transformation at <a class=\"external\" href=\"https://www.epitech.eu/digital/\" target=\"_blank\">“Epitech digital school”</a> looking for a <span class=\"green\">4 to 6 months internship in web development (fullstack) from <i>February 2023</i></span>.",
-      "fr": "Je m'appelle Aurélien, je suis étudiant en transformation digitale à <a class=\"external\" href=\"https://www.epitech.eu/digital/\" target=\"_blank\">“Epitech digital school”</a>. Je cherche un <span class=\"green\">stage de 4 à 6 mois en développement web (fullstack) à partir de <i>février 2023</i></span>."
+      "en": "My name is Aurélien and I am a student in digital transformation at <a class=\"external\" href=\"https://www.epitech.eu/digital/\" target=\"_blank\">“Epitech digital school”</a>.",
+      "fr": "Je m'appelle Aurélien, je suis étudiant en transformation digitale à <a class=\"external\" href=\"https://www.epitech.eu/digital/\" target=\"_blank\">“Epitech digital school”</a>."
     },
     "btn": {
       "fr": "CV",
