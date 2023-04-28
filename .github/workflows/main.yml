@@ -1,5 +1,5 @@
 # https://github.com/marketplace/actions/ftp-deploy
-name: 🚀 Deploy website on push
+name: 🚀 Deploy
 on:
   push:
     branches:
@@ -12,8 +12,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: 🚚 Checkout
-        uses: actions/checkout@v2
-      - name: Set up node
+        uses: actions/checkout@v3
+      - name: 🍃 Set up node
         uses: actions/setup-node@v3
         with:
           node-version: 19
