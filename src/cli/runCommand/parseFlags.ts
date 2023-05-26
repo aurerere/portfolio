@@ -1,4 +1,4 @@
-export default function parseArgs(args: Array<string>): [Array<string>, Array<string>]
+export default function parseFlags(args: Array<string>): [Array<string>, Array<string>]
 {
     const flags = [];
     const argv = [];

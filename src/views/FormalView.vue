@@ -92,6 +92,7 @@
                         </template>
                     </div>
                 </div>
+                <hr>
                 <div class="part" ref="contact">
                     <h2>Contact</h2>
                     <div class="contact">
@@ -144,13 +145,13 @@ import FormalProject from "@/components/formal/FormalProject.vue";
 import CLILoadingIndicator from "@/components/cli/CLILoadingIndicator.vue";
 
 // Methods
-import changeLang from "@/utils/FormalViewMethods/changeLang";
-import openMenu from "@/utils/FormalViewMethods/openMenu";
-import closeMenu from "@/utils/FormalViewMethods/closeMenu";
-import mayCloseMenu from "@/utils/FormalViewMethods/mayCloseMenu";
-import scrollToSection from "@/utils/FormalViewMethods/scrollToSection";
-import scrollHook from "@/utils/FormalViewMethods/scrollHook";
-import runCLI from "@/utils/FormalViewMethods/runCLI";
+import changeLang from "@/views/FormalViewMethods/changeLang";
+import openMenu from "@/views/FormalViewMethods/openMenu";
+import closeMenu from "@/views/FormalViewMethods/closeMenu";
+import mayCloseMenu from "@/views/FormalViewMethods/mayCloseMenu";
+import scrollToSection from "@/views/FormalViewMethods/scrollToSection";
+import scrollHook from "@/views/FormalViewMethods/scrollHook";
+import runCLI from "@/views/FormalViewMethods/runCLI";
 
 export default {
     name: "FormalView",

@@ -42,7 +42,7 @@ export default async function exe(relativePath: string): Promise<CommandResult |
         const fileContent = await response.text();
 
         // eval the js app "source code"
-        const res = eval(fileContent);
+        eval(fileContent);
 
         return "ok";
     }

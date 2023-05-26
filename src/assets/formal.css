@@ -238,7 +238,8 @@ main {
 }
 .part {
     box-sizing: border-box;
-    padding: var(--48px) 0;
+    padding: var(--24px) 0;
+    min-height: calc(100vh - var(--48px) - 70px);
 }
 .project-grid {
     margin-top: var(--24px);
@@ -277,7 +278,7 @@ footer div a {
     width: fit-content;
 }
 footer *, footer .external {
-    font-size: 12px;
+    font-size: 1rem;
 }
 .close {
     cursor: pointer;
@@ -306,7 +307,11 @@ footer *, footer .external {
 .space-after-icon {
     gap: 12px;
 }
-
+hr {
+    width: 100%;
+    margin: var(--48px) 0;
+    border: none;
+}
 @media (max-width: 1220px) {
     .project-grid {
         grid-template-columns: 1fr 1fr;
