@@ -1,8 +1,13 @@
 import store from "../../store";
 
+/**
+ * @description Translates a relative path into an absolute path
+ * @param relativePath the inputted path
+ * @return {false | string[]} an array representing the absolute path or false if the relative path is invalid
+ */
 export default function parsePath(relativePath: string)
 {
-    relativePath = relativePath.replace('/home/aureliendumay.me', '~')
+    relativePath = relativePath.replace('/home/aureliendumay.me', '~');
 
     if (relativePath.startsWith('/'))
         return false;

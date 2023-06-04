@@ -1,5 +1,4 @@
 import store from "@/store";
-import type {SimpleCommandResult} from "@/types";
 
 export default function pwd(): SimpleCommandResult
 {

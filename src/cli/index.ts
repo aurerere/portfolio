@@ -18,42 +18,42 @@ import exit from "@/cli/commands/exit";
 
 
 const commands: {[name: string]: Function} = {
-    'clear': () => clear(),
-    'ls': (path: string | undefined) => ls(path),
-    'help': () => help(),
-    'pwd': () => pwd(),
-    'cd': (path: string) => cd(path),
-    'echo': (...args: Array<string>) => echo(...args),
-    'djo': () => djo(),
-    'bleuenn': () => bleuenn(),
-    'iandry': () => iandry(),
-    'maximes': () => maximes(),
-    'corentin': () => corentin(),
-    'sl': () => "flemme",
-    'xdg-open': (path: string)  => open(path),
+    clear, // OK
+    ls,
+    help, // OK
+    pwd, // OK
+    cd, // OK
+    echo,
+    djo, // OK
+    bleuenn, // OK
+    iandry, // OK
+    maximes, // OK
+    corentin, // OK
+    'sl': () => "flemme", // OK
+    'xdg-open': open,
 
-    // ASYNC -------------------------------------------------------------------
-    'more': async (path: string) => await more(path),
+    // async
+    'more': async (args:any) => await more(args),
     'ping': async () => await ping(),
     'exit': async () => await exit(),
 
-    // ENV VARIABLES -----------------------------------------------------------
+    // env
     'github': () => exe('~/github'),
     'mailme': () => exe('~/mailme'),
     'linkedin': () => exe('~/linkedin'),
 
-    // FORBIDDEN ---------------------------------------------------------------
-    'rm': () => forbidden(),
-    'rmdir': () => forbidden(),
-    'mkdir': () => forbidden(),
-    'touch': () => forbidden(),
-    'cp': () => forbidden(),
-    'mv': () => forbidden(),
-    'sudo': () => forbidden(),
-    'chmod': () => forbidden(),
+    // forbidden :p
+    'rm': forbidden,
+    'rmdir': forbidden,
+    'mkdir': forbidden,
+    'touch': forbidden,
+    'cp': forbidden,
+    'mv': forbidden,
+    'sudo': forbidden,
+    'chmod': forbidden,
 }
 
-// ALIASES -----------------------------------------------------------------
+// aliases
 commands['dir'] = commands['ls'];
 commands['c'] = commands['clear'];
 commands['cls'] = commands['clear'];

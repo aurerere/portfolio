@@ -1,5 +1,3 @@
-import type { ClickEvent } from "@/types";
-
 export default function mayCloseMenu(this: any, e: ClickEvent): void
 {
     if (e.target.classList.contains('button'))

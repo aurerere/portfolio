@@ -1,12 +1,11 @@
 import ls from "./ls";
-import type {CommandResult, LsResult, SimpleCommandResult} from "@/types";
 
 export default async function more(relativePath: string): Promise<SimpleCommandResult | CommandResult>
 {
     if (!relativePath)
         return {
             component: "error",
-            content: `[error] Usage: more <path>`
+            content: "[error] Usage: more <path>"
         }
 
     const { realPath, exists, isDir, invalidPath, path, name }: LsResult["more"] = ls(relativePath).more;

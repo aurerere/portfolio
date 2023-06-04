@@ -1,7 +1,6 @@
 import store from "../../store";
 import ls from "./ls";
-import parsePath from "../runCommand/parsePath";
-import type {CommandResult, SimpleCommandResult} from "@/types";
+import parsePath from "../utils/parsePath";
 
 export default function cd(to: string=''): CommandResult | SimpleCommandResult
 {

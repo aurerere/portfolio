@@ -1,4 +1,3 @@
-import type { HelpResult } from "@/types";
 
 export default function help(): HelpResult
 {

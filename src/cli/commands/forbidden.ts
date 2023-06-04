@@ -1,5 +1,3 @@
-import type {CommandResult} from "@/types";
-
 export default function forbidden(): CommandResult
 {
     return {

@@ -1,4 +1,3 @@
-import type {CommandResult, SimpleCommandResult} from "@/types";
 
 export default function bleuenn(): SimpleCommandResult | CommandResult
 {

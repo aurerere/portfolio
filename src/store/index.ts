@@ -1,5 +1,4 @@
 import { createStore } from 'vuex';
-import type { State } from "@/types";
 
 export default createStore<State>({
     state: {
@@ -32,7 +31,7 @@ export default createStore<State>({
                 state.history.push({result: [resPart]})
             }
         },
-        pushCmdStack(state, cmd) {
+        pushInputStack(state, cmd) {
             if (cmd.trim()) {
                 if (state.previousCmdStack.includes(cmd)) {
                     state.previousCmdStack

@@ -31,7 +31,7 @@
 </template>
 
 <script>
-import runCommand from "@/cli/runCommand";
+import runCommand from "@/cli/run/parseInput";
 
 export default {
     name: "CLIWelcome",

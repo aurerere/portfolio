@@ -1,5 +1,3 @@
-import type {SimpleCommandResult} from "@/types";
-
 export default function iandry(): SimpleCommandResult
 {
     document.body.style.background = "#1e1f22";

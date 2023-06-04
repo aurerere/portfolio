@@ -1,9 +1,29 @@
 import store from "../../store";
-import parsePath from "../runCommand/parsePath";
-import type {FileTree, LsResult, ExistsLsMore, InvalidPathLsMore, DoesNotExistsLsMore} from "@/types";
+import parsePath from "../utils/parsePath";
 
-export default function ls(relativePath: Array<string> | string = store.state.path): LsResult
+export default function ls(parsedArgs: Array<Array<string>> = [[], [store.state.path.join('/')]]): LsResult
 {
+    const [flags, args] = parsedArgs;
+
+    if (args.length > 1)
+        return {
+            component: 'error',
+            content: "[error] ls: too many arguments",
+            more: <InvalidPathLsMore> {
+                invalidPath: true,
+                path: null,
+                isDir: null,
+                exists: null,
+                name: null,
+                fileType: null,
+                realPath: null
+            }
+        }
+
+    const relativePath = args[0];
+    console.log(relativePath);
+
+    console.log(relativePath)
     // if the function is called with a command with the path as an arg,
     // we have to parse the path otherwise it is called with the current path already parsed
     const path = typeof relativePath === "string"

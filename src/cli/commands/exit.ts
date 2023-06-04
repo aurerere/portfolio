@@ -1,5 +1,4 @@
 import sleep from "@/utils/sleep";
-import type { CommandResult } from "@/types";
 
 export default async function exit(): Promise<CommandResult>
 {

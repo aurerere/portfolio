@@ -1,6 +1,4 @@
 import ls from "./ls";
-import type {CommandResult, SimpleCommandResult} from "@/types";
-import type {LsResult} from "@/types";
 
 export default async function exe(relativePath: string): Promise<CommandResult | SimpleCommandResult>
 {

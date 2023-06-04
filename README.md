@@ -21,7 +21,7 @@
       $ npm run build
       ```
 ## CLI Setup
-### Filetree
+### File tree
 This CLI is designed to mimic a file system. <br>
 To set up the portfolio, you will need to create a file named `fileTree.json` in the `/public` directory. 
 This file should contain a file tree structure that follows the type specified below:
@@ -47,7 +47,7 @@ Here is an example of a valid file tree structure:
 > ℹ️ elements of type `app` correspond to JavaScript code that will be called with `eval()`
 ### Commands
 - `src/cli/commands` contains one file for each CLI command.
-- The function is imported and linked to the command name in the `commands` const (`src/cli/index.ts`)
+- The function is imported and linked to the command name in the `commands` const (`src/cli/parseInput.ts`)
 - It needs to return `"ok"` if there is no response, a `String` if the response is plain text and an object with the type `CommandResult` if the response should be displayed using a special component
     ```ts
     type CommandResult = {

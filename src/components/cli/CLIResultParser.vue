@@ -26,7 +26,7 @@
 </template>
 
 <script>
-import LsResult from "@/components/cli/specialFormats/LsResultV2.vue";
+import LsResult from "@/components/cli/specialFormats/LsResult.vue";
 import ErrorResult from "@/components/cli/specialFormats/ErrorResult.vue";
 import MoreResult from "@/components/cli/specialFormats/MoreResult.vue";
 import EchoResult from "@/components/cli/specialFormats/EchoResult.vue";

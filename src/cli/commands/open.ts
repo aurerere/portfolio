@@ -1,6 +1,5 @@
-import parsePath from "../runCommand/parsePath";
+import parsePath from "../utils/parsePath";
 import ls from "./ls";
-import type {CommandResult, SimpleCommandResult} from "@/types";
 
 export default async function open(relativePath: string): Promise<SimpleCommandResult | CommandResult>
 {

@@ -1,8 +1,12 @@
-export type FileTree = {
-    [key: string]: "file" | "executable" | "img" | FileTree
+type ParsedArgs = [string[], string[]];
+
+type FileTree = {
+    [key: string]: "any" | "executable" | "img" | "doc" | FileTree
 }
 
-export type State = {
+type FileTreeTravelerResult = {};
+
+type State = {
     fileTree: null | FileTree;
     history: Array<Command>,
     previousCmdStack: Array<string>,
@@ -10,29 +14,29 @@ export type State = {
     cleared: boolean,
 }
 
-export type Command = {
+type Command = {
     path?: Array<string>,
     input?: string,
     result: Array<CommandResult>,
 }
 
-export type CommandResult = {
+type CommandResult = {
     component: string,
     content: any,
     more?: any
 }
 
-export type SimpleCommandResult = string;
+type SimpleCommandResult = string;
 
-export interface ClickEvent extends MouseEvent {
+interface ClickEvent extends MouseEvent {
     target: HTMLElement;
 }
 
-export interface LsResult extends CommandResult {
+interface LsResult extends CommandResult {
     more: ExistsLsMore | InvalidPathLsMore | DoesNotExistsLsMore;
 }
 
-export type ExistsLsMore = {
+type ExistsLsMore = {
     invalidPath: false,
     path: string[],
     isDir: boolean,
@@ -42,7 +46,7 @@ export type ExistsLsMore = {
     fileType: "any" | "executable" | "img" | null,
 }
 
-export type DoesNotExistsLsMore = {
+type DoesNotExistsLsMore = {
     invalidPath: false,
     path: string[],
     isDir: false,
@@ -52,7 +56,7 @@ export type DoesNotExistsLsMore = {
     fileType: null,
 }
 
-export type InvalidPathLsMore = {
+type InvalidPathLsMore = {
     invalidPath: true,
     path: null,
     isDir: null,
@@ -62,7 +66,7 @@ export type InvalidPathLsMore = {
     fileType: null,
 }
 
-export interface HelpResult extends CommandResult {
+interface HelpResult extends CommandResult {
     component: "help",
     content: {
         [key: string]: {

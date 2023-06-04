@@ -1,4 +1,4 @@
-import runCommand from "@/cli/runCommand";
+import runCommand from "@/cli/run/parseInput";
 
 export default async function enterHooker(this: any, auto:boolean=true): Promise<void>
 {
