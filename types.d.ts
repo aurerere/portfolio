@@ -75,3 +75,46 @@ interface HelpResult extends CommandResult {
         }
     }
 }
+
+type LanguageSensitiveString = {fr: string, en: string};
+
+type ProjectLink = {
+    en: string,
+    fr: string,
+    icon: string,
+    url: string,
+}
+
+type Project = {
+    name: string,
+    done: boolean,
+    desc: LanguageSensitiveString,
+    thumbnail: string,
+    tags: string[],
+    links: ProjectLink[],
+}
+
+export type Content = {
+    menu: {
+        presentation: LanguageSensitiveString,
+        projects: LanguageSensitiveString,
+        contact: LanguageSensitiveString,
+        nerd: LanguageSensitiveString,
+    },
+    presentation: {
+        cv_btn: LanguageSensitiveString,
+        cv_url: LanguageSensitiveString,
+        title: LanguageSensitiveString,
+        subtitle: LanguageSensitiveString,
+    },
+    contact: {
+        linkedin: LanguageSensitiveString,
+        mail: LanguageSensitiveString,
+        phone: LanguageSensitiveString,
+    },
+    footer: {
+        cookies: LanguageSensitiveString,
+        credits: LanguageSensitiveString,
+    },
+    projects: Project[]
+}

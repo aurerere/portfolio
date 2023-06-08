@@ -1,5 +1,6 @@
 export default function scrollHook(this: any)
 {
+    console.log(this)
     const pos = window.pageYOffset;
     const current = document.querySelector('.active') as HTMLElement;
 

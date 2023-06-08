@@ -1,5 +1,55 @@
+<script lang="ts" setup>
+import {onBeforeUnmount, onMounted, onUpdated, ref} from "vue";
+
+import changeLang from "@/views/FormalViewMethods/changeLang";
+import openMenu from "@/views/FormalViewMethods/openMenu";
+import closeMenu from "@/views/FormalViewMethods/closeMenu";
+import mayCloseMenu from "@/views/FormalViewMethods/mayCloseMenu";
+import scrollToSection from "@/views/FormalViewMethods/scrollToSection";
+import scrollHook from "@/views/FormalViewMethods/scrollHook";
+import runCLI from "@/views/FormalViewMethods/runCLI";
+import CLILoadingIndicator from "@/components/cli/CLILoadingIndicator.vue";
+import FormalProject from "@/components/formal/FormalProject.vue";
+import type {Content} from "../../types";
+
+const loading = ref<boolean>(true);
+const selectedLang = ref<"fr"|"en">("fr");
+const content = ref<null | Content>(null);
+
+document.title = "Portfolio - Aurélien DUMAY";
+
+if (navigator.language.startsWith('fr-')) {
+    document.querySelector('html')?.setAttribute("lang", 'fr');
+    selectedLang.value = 'fr';
+}
+else {
+    document.querySelector('html')?.setAttribute("lang", 'en');
+    selectedLang.value = 'en';
+}
+
+onMounted(() => {
+    fetch('./formalData.json')
+        .then(r => r.json())
+        .then(r => {
+            content.value = r;
+            loading.value = false;
+        });
+});
+
+onUpdated(() => {
+    document.removeEventListener('scroll', scrollHook);
+    document.addEventListener('scroll', scrollHook);
+});
+
+onBeforeUnmount(() => {
+    document.removeEventListener('scroll', scrollHook);
+    document.body.style.scrollBehavior = 'auto';
+});
+
+</script>
+
 <template>
-    <div class="loading" v-if="loading">
+    <div class="loading" v-if="loading || content === null">
         <CLILoadingIndicator/>
     </div>
     <div id="formal" v-else @click="mayCloseMenu">
@@ -20,24 +70,24 @@
                     </div>
                     <a class="anchor active" @click="scrollToSection('presentation')" ref="to-presentation">
                         <font-awesome-icon icon="address-card"/>
-                        {{ content.menu['presentation'][selectedLang] }}
+                        {{ content.menu.presentation[selectedLang] }}
                     </a>
                     <a class="anchor" @click="scrollToSection('projects')" ref="to-projects">
                         <font-awesome-icon icon="file-code"/>
-                        {{ content.menu['projects'][selectedLang] }}
+                        {{ content.menu.projects[selectedLang] }}
                     </a>
                     <a class="anchor" @click="scrollToSection('contact')" ref="to-contact">
                         <font-awesome-icon icon="envelope"/>
-                        {{ content.menu['contact'][selectedLang] }}
+                        {{ content.menu.contact[selectedLang] }}
                     </a>
+                    <div class="button" @click="runCLI">
+                        <font-awesome-icon icon="terminal"/>
+                        {{ content.menu.nerd[selectedLang] }}
+                    </div>
                     <div class="lang" @click="selectedLang === 'fr' ? changeLang('en') : changeLang('fr')">
                         <div :class="selectedLang === 'fr' ? 'lang-opt selected' : 'lang-opt'">fr</div>
                         <div :class="selectedLang === 'en' ? 'lang-opt selected' : 'lang-opt'">en</div>
                         <div id="selector" :class="selectedLang"></div>
-                    </div>
-                    <div class="button" @click="runCLI">
-                        <font-awesome-icon icon="terminal"/>
-                        {{ content.menu['nerd'][selectedLang] }}
                     </div>
                 </div>
             </div>
@@ -138,70 +188,6 @@
         </footer>
     </div>
 </template>
-
-<script>
-import {FontAwesomeIcon} from "@fortawesome/vue-fontawesome";
-import FormalProject from "@/components/formal/FormalProject.vue";
-import CLILoadingIndicator from "@/components/cli/CLILoadingIndicator.vue";
-
-// Methods
-import changeLang from "@/views/FormalViewMethods/changeLang";
-import openMenu from "@/views/FormalViewMethods/openMenu";
-import closeMenu from "@/views/FormalViewMethods/closeMenu";
-import mayCloseMenu from "@/views/FormalViewMethods/mayCloseMenu";
-import scrollToSection from "@/views/FormalViewMethods/scrollToSection";
-import scrollHook from "@/views/FormalViewMethods/scrollHook";
-import runCLI from "@/views/FormalViewMethods/runCLI";
-
-export default {
-    name: "FormalView",
-    components: {CLILoadingIndicator, FormalProject, FontAwesomeIcon},
-    data() {
-        return {
-            selectedLang: '',
-            content: null,
-            loading: true,
-        };
-    },
-    methods: {
-        changeLang,
-        openMenu,
-        closeMenu,
-        mayCloseMenu,
-        scrollToSection,
-        scrollHook,
-        runCLI
-    },
-    mounted() {
-        fetch('./formalData.json')
-            .then(r => r.json())
-            .then(r => {
-                this.content = r;
-                this.loading = false;
-            });
-
-        document.title = "Portfolio - Aurélien DUMAY";
-
-        if (navigator.language.startsWith('fr-')) {
-            document.querySelector('html').setAttribute("lang", 'fr');
-            this.selectedLang = 'fr';
-        } else {
-            document.querySelector('html').setAttribute("lang", 'en');
-            this.selectedLang = 'en';
-        }
-
-        document.querySelector('html').style.scrollBehavior = 'smooth';
-    },
-    updated() {
-        document.removeEventListener('scroll', this.scrollHook);
-        document.addEventListener('scroll', this.scrollHook);
-    },
-    beforeUnmount() {
-        document.removeEventListener('scroll', this.scrollHook);
-        document.querySelector('html').style.scrollBehavior = 'auto';
-    }
-}
-</script>
 
 <style scoped>
 @import "@/assets/formal.css";
