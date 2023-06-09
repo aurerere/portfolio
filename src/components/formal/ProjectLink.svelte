@@ -1,7 +1,7 @@
 <script lang="ts">
 
-    let url: string;
-    let icon: string;
-    let text: { fr: string, en: string };
+    export let url: string;
+    export let icon: string;
+    export let text: { fr: string, en: string };
 
 </script>

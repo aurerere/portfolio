@@ -3,32 +3,27 @@
     import ProjectStatus from "./ProjectStatus.svelte";
     import ProjectLink from "./ProjectLink.svelte";
 
-    type Link = {
-        url: string;
-        icon: string;
-        text: { fr: string, en: string };
-    }
-
-    let thumbnail: string;
-    let name: string;
-    let description: string;
-    let tags: string[];
-    let done: boolean;
-    let links: Link[];
+    export let lang: Formal.Lang;
+    export let thumbnail: Formal.Project["thumbnail"];
+    export let name: Formal.Project["name"];
+    export let description: Formal.Project["description"];
+    export let tags: Formal.Project["tags"];
+    export let done: Formal.Project["done"];
+    export let links: Formal.Project["links"];
 </script>
 
 <div class="wrapper">
     <div class="info">
         <div class="project-thumbnail">
-            <img src={thumbnail} alt={name}>
+            <img src={thumbnail} alt={name[lang]}>
         </div>
         <div class="content">
             <div class="title">
-                <h3>{name}</h3>
-                <ProjectStatus done={done}/>
+                <h3>{name[lang]}</h3>
+                <ProjectStatus done={done} />
             </div>
 
-            <p>{description}</p>
+            <p>{description[lang]}</p>
 
             <div class="tags">
                 {#each tags as tag}

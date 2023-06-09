@@ -1,3 +1,3 @@
 <script lang="ts">
-    let tag: string;
+    export let tag: Formal.Project["tags"][number];
 </script>

@@ -1,3 +1,3 @@
 import { writable } from 'svelte/store';
 
-export const lang = writable<"fr" | "en">("en");
+export const Lang = writable<"fr" | "en">("en");

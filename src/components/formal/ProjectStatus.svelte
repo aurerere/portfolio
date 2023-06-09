@@ -1,7 +1,11 @@
 <script lang="ts">
     import {Fa} from "svelte-fa";
     import {faCheck, faCode} from "@fortawesome/free-solid-svg-icons";
-    import {lang} from "../../stores";
+    import {Lang} from "../../stores";
+
+    let lang: "fr" | "en";
+
+    Lang.subscribe(value => lang = value);
 
     const statusText = {
         done: {
@@ -14,7 +18,7 @@
         }
     }
 
-    let done: boolean;
+    export let done: Formal.Project["done"];
 </script>
 
 <div>
