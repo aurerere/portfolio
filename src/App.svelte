@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { Router, Route } from "svelte-routing";
+    import { Router, Route } from "svelte-navigator";
     import FormalView from "./views/FormalView.svelte";
     import CliView from "./views/CliView.svelte";
     import NotFoundView from "./views/NotFoundView.svelte";
@@ -8,7 +8,7 @@
 </script>
 
 <Router {url}>
-    <Route path="/" component={FormalView}/>
-    <Route path="/cli" component={CliView}/>
-    <Route component={NotFoundView}/>
+    <Route path="/"><FormalView/></Route>
+    <Route path="/cli"><CliView/></Route>
+    <Route><NotFoundView/></Route>
 </Router>

@@ -1,7 +1,5 @@
 <script lang="ts">
     import { Lang } from "../stores";
-
-    let lang: "fr" | "en" = "fr";
-
-    Lang.subscribe(value => lang = value);
+    import Project from "../components/formal/Project.svelte";
 </script>
+
