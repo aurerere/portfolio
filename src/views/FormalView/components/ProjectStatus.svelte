@@ -1,11 +1,7 @@
 <script lang="ts">
-    import {Fa} from "svelte-fa";
+    import Fa from "svelte-fa";
     import {faCheck, faCode} from "@fortawesome/free-solid-svg-icons";
     import {Lang} from "../../../stores";
-
-    let lang: "fr" | "en";
-
-    Lang.subscribe(value => lang = value);
 
     const statusText = {
         done: {
@@ -23,5 +19,5 @@
 
 <div>
     <Fa icon={done ? faCheck : faCode} class={done ? "done" : "in-dev"}/>
-    <span>{done ? statusText.done[lang] : statusText.inDev[lang]}</span>
+    <span>{done ? statusText.done[$Lang] : statusText.inDev[$Lang]}</span>
 </div>
