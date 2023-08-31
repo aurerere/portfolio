@@ -1,6 +1,6 @@
 <script lang="ts">
-    import { Lang } from "../../stores/formal";
-    import Project from "./components/Project.svelte";
+import { Lang } from "../../stores/formal";
+import Project from "./components/Project.svelte";
 </script>
 
 <main>
@@ -92,3 +92,8 @@
         justify-content: center;
     }
 </style>
+=======
+    import { Lang } from "../../stores";
+
+</script>
+>>>>>>> c820d25a663b5f67b564046bb334b5e10de59574

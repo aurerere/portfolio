@@ -2,9 +2,14 @@
     import { Router, Route } from "svelte-navigator";
     import FormalView from "./views/FormalView/FormalView.svelte";
     import CliView from "./views/CLIView/CliView.svelte";
-    import NotFoundView from "./views/NotFoundView.svelte";
+    import NotFoundView from "./views/NotFoundView/NotFoundView.svelte";
+    import { onMount } from "svelte";
 
     let url = window.location.pathname;
+
+    onMount(() => {
+        const lang = localStorage.getItem("lang");
+    });
 </script>
 
 <Router {url}>
