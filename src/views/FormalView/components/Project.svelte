@@ -3,7 +3,8 @@
     import ProjectStatus from "./ProjectStatus.svelte";
     import ProjectLink from "./ProjectLink.svelte";
 
-    export let lang: Formal.Lang;
+    import {Lang} from "../../../stores/formal";
+
     export let thumbnail: Formal.Project["thumbnail"];
     export let name: Formal.Project["name"];
     export let description: Formal.Project["description"];
@@ -15,15 +16,15 @@
 <div class="wrapper">
     <div class="info">
         <div class="project-thumbnail">
-            <img src={thumbnail} alt={name[lang]}>
+            <img src={thumbnail} alt={name[$Lang]}>
         </div>
         <div class="content">
             <div class="title">
-                <h3>{name[lang]}</h3>
-                <ProjectStatus done={done} />
+                <h3>{name[$Lang]}</h3>
+                <ProjectStatus done={done}/>
             </div>
 
-            <p>{description[lang]}</p>
+            <p>{description[$Lang]}</p>
 
             <div class="tags">
                 {#each tags as tag}
@@ -33,7 +34,7 @@
         </div>
         <div class="access">
             {#each links as link}
-                <ProjectLink url={link.url} icon={link.icon} text={link.text}/>
+                <ProjectLink url={link.url} icon={link.icon} text={link.text[$Lang]}/>
             {/each}
         </div>
     </div>
