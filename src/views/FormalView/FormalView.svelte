@@ -1,6 +1,6 @@
 <script lang="ts">
-import { Lang } from "../../stores/formal";
-import Project from "./components/Project.svelte";
+    import { Lang } from "../../stores/general";
+    import Project from "./components/Project.svelte";
 </script>
 
 <main>
@@ -17,14 +17,6 @@ import Project from "./components/Project.svelte";
 </main>
 
 <style>
-    :root {
-        --header-height: 48px;
-        --big-spacing: 48px;
-        --medium-spacing: 24px;
-        --small-spacing: 12px;
-        --micro-spacing: 6px;
-    }
-
     body {
         font-size: 1rem;
     }
@@ -92,8 +84,3 @@ import Project from "./components/Project.svelte";
         justify-content: center;
     }
 </style>
-=======
-    import { Lang } from "../../stores";
-
-</script>
->>>>>>> c820d25a663b5f67b564046bb334b5e10de59574

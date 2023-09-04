@@ -1,1 +1,45 @@
-test
+<script lang="ts">
+    import { link } from "svelte-navigator";
+    import { getDeviceInfo } from "../../../utils/functions";
+</script>
+
+<pre class="green">
+    ___   __  ______  _______ _____
+   /   | / / / / __ \/ ____( ) ___/
+  / /| |/ / / / /_/ / __/  |/\__ \
+ / ___ / /_/ / _, _/ /___   ___/ /
+/_/__|_\____/_/_|_/_____/  /____/
+  / ____/ /   /  _/
+ / /   / /    / /
+/ /___/ /____/ /
+\____/_____/___/v.2.0
+</pre>
+<p>
+    <br>
+    {#if getDeviceInfo().device === "mobile"}
+        <span class="red">
+            Warning: This interface is not optimized for touch devices,
+            it is recommended to visit the formal version (available at
+            <a use:link href="/">https://aureliendumay.me/</a>).
+        </span>
+    {:else}
+        If your not used to this type of interface, you can access the formal version at
+        <a use:link href="/">https://aureliendumay.me/</a>.
+    {/if}
+    <br><br>
+    Type <span class="help">'help'</span> for the list of available commands.
+    <br><br>
+</p>
+
+<style>
+    .help {
+        text-decoration: none;
+        color: cyan;
+        white-space: nowrap;
+        cursor: pointer;
+    }
+
+    .help:hover {
+        text-decoration: underline;
+    }
+</style>
