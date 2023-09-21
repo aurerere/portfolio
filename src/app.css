@@ -1,47 +1,47 @@
 :root {
-    --header-height: 48px;
-    --big-spacing: 48px;
-    --medium-spacing: 24px;
-    --small-spacing: 12px;
-    --micro-spacing: 6px;
+  --header-height: 48px;
+  --big-spacing: 48px;
+  --medium-spacing: 24px;
+  --small-spacing: 12px;
+  --micro-spacing: 6px;
 }
 
 ::-moz-selection {
-    color: black;
-    background: white;
+  color: black;
+  background: white;
 }
 
 ::selection {
-    color: black;
-    background: white;
+  color: black;
+  background: white;
 }
 
 html {
-    color-scheme: dark;
+  color-scheme: dark;
 }
 
 body {
-    margin: 0;
-    padding: 0;
-    background: #1e1f22;
-    font-family: monospace;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+  margin: 0;
+  padding: 0;
+  background: #1e1f22;
+  font-family: monospace;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-p {
-    margin: 0;
-    word-wrap: break-word;
+p, pre {
+  margin: 0;
+  word-wrap: break-word;
 }
 
 a {
-    text-decoration: none;
-    color: cyan;
-    white-space: nowrap;
+  text-decoration: none;
+  color: cyan;
+  white-space: nowrap;
 }
 
 a:hover {
-    text-decoration: underline;
+  text-decoration: underline;
 }
 
 .green {color: lime}

@@ -22,3 +22,27 @@ namespace Formal
         links: Link[];
     };
 }
+
+namespace CLI
+{
+    type HistoryElement = {
+        path: Path,
+        command: Command
+    }
+
+    type Path = string[];
+
+    type Command = {
+        input: string;
+        output: CommandResult[];
+    }
+
+    type CommandResult = StringCommandResult | ComponentDependentCommandResult;
+
+    type StringCommandResult = string;
+
+    type ComponentDependentCommandResult = {
+        component: string;
+        data: any;
+    }
+}

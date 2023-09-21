@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { link } from "svelte-navigator";
+    import { Link } from "svelte-routing";
     import { getDeviceInfo } from "../../../utils/functions";
 </script>
 
@@ -20,11 +20,11 @@
         <span class="red">
             Warning: This interface is not optimized for touch devices,
             it is recommended to visit the formal version (available at
-            <a use:link href="/">https://aureliendumay.me/</a>).
+            <Link to="/">https://aureliendumay.me/</Link>).
         </span>
     {:else}
         If your not used to this type of interface, you can access the formal version at
-        <a use:link href="/">https://aureliendumay.me/</a>.
+        <Link to="/">https://aureliendumay.me/</Link>.
     {/if}
     <br><br>
     Type <span class="help">'help'</span> for the list of available commands.
