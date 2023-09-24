@@ -1,3 +1,11 @@
+namespace Core
+{
+    type DeviceInfo = {
+        keyboard: "default" | "apple",
+        device: "desktop" | "mobile"
+    }
+}
+
 namespace Formal
 {
     type LanguageSensitiveString = {

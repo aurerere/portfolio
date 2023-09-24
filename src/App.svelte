@@ -2,6 +2,9 @@
     import {Router, Route} from "svelte-routing";
     import {onMount} from "svelte";
 
+    import {DeviceInfo} from "./stores";
+    import {getDeviceInfo} from "./utils/functions";
+
     import FormalView from "./views/FormalView/FormalView.svelte";
     import NotFoundView from "./views/NotFoundView/NotFoundView.svelte";
     import CLIView from "./views/CLIView/CLIView.svelte";
@@ -10,6 +13,7 @@
 
     onMount(() => {
         const lang = localStorage.getItem("lang");
+        $DeviceInfo = getDeviceInfo();
     });
 </script>
 

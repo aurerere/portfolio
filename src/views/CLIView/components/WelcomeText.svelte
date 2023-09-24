@@ -34,7 +34,7 @@
 <style>
     .help {
         text-decoration: none;
-        color: cyan;
+        color: var(--cyan);
         white-space: nowrap;
         cursor: pointer;
     }

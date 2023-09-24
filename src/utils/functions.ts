@@ -1,8 +1,8 @@
-export function getDeviceInfo(): { keyboard: "default" | "apple", device: "desktop" | "mobile" }
+export function getDeviceInfo(): Core.DeviceInfo
 {
     const userAgent = navigator.userAgent.toLowerCase();
-    let device: "desktop" | "mobile" = "mobile";
-    let keyboard: "default" | "apple" = "default";
+    let device: Core.DeviceInfo["device"] = "mobile";
+    let keyboard: Core.DeviceInfo["keyboard"] = "default";
 
     if (userAgent.indexOf('iphone') !== -1 || userAgent.indexOf('ipad') !== -1 || userAgent.indexOf('mac') !== -1)
         keyboard = "apple";
