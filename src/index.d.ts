@@ -1,8 +1,8 @@
 namespace Core
 {
     type DeviceInfo = {
-        keyboard: "default" | "apple",
-        device: "desktop" | "mobile"
+        keyboard: "default" | "apple";
+        device: "desktop" | "mobile";
     }
 }
 
@@ -34,22 +34,26 @@ namespace Formal
 namespace CLI
 {
     type HistoryElement = {
-        path: Path,
-        command: Command
+        path: string[];
+        command: Command;
     }
 
-    type Path = string[];
+    type BinInput = {
+        args: string[];
+        flags: Array<{
+            value: string,
+            followedBy: string | null
+        }>;
+    }
 
     type Command = {
         input: string;
-        output: CommandResult[];
+        output: BinOutput[];
     }
 
-    type CommandResult = StringCommandResult | ComponentDependentCommandResult;
+    type BinOutput = string | ComponentDependentBinOutput;
 
-    type StringCommandResult = string;
-
-    type ComponentDependentCommandResult = {
+    type ComponentDependentBinOutput = {
         component: string;
         data: any;
     }

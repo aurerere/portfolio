@@ -2,6 +2,7 @@
     import {afterUpdate, onMount} from "svelte";
 
     import {Cleared, DeviceInfo} from "../../stores";
+    import clear from "./cli/bin/clear";
 
     import WelcomeText from "./components/WelcomeText.svelte";
     import PromptText from "./components/PromptText.svelte";
@@ -18,23 +19,24 @@
     {
         const key = (e as KeyboardEvent).key;
 
-        switch (key) {
+        switch (key.toLowerCase()) {
             // Prevents the tab key from updating the focus
-            case "Tab":
+            case "tab":
                 e.preventDefault();
                 return;
-            case "L":
+            case "l":
+                console.log("here")
                 if (isControlDown && !isShiftDown) {
                     e.preventDefault();
                     clear();
                 }
                 return;
-            case "Control":
+            case "control":
                 isControlDown = true;
                 if ($DeviceInfo?.keyboard === "default")
                     isCommandDown = true;
                 return;
-            case "Meta":
+            case "meta":
                 if ($DeviceInfo?.keyboard === "apple")
                     isCommandDown = true;
                 return;
@@ -99,8 +101,6 @@
     <div class="prompt-wrapper" on:click={() => promptEl.focus()}>
         <PromptText/>
         <span
-            role="textbox"
-            tabindex="0"
             on:keydown={handleKeyDown}
             on:paste={handlePaste}
             bind:this={promptEl}
@@ -113,7 +113,7 @@
 
 <style>
     main {
-        padding: var(--medium-spacing);
+        padding: var(--medium-spacing) var(--medium-spacing) 0 var(--medium-spacing);
         font-size: 1rem;
         display: flex;
         flex-direction: column;

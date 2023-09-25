@@ -6,4 +6,5 @@ export const DeviceInfo = writable<Core.DeviceInfo | null>(null);
 // CLI
 export const Cleared = writable<boolean>(false);
 export const History = writable<CLI.HistoryElement[]>([]);
-export const CurrentPath = writable<CLI.Path>(["~"]);
+export const CurrentPath = writable<string[]>(["~"]);
+export const InputStack = writable<string[]>([]);
