@@ -36,6 +36,7 @@ namespace CLI
     type HistoryElement = {
         path: string[];
         command: Command;
+        cancelled: boolean;
     }
 
     type BinInput = {

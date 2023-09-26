@@ -1,5 +1,5 @@
 <script lang="ts">
-    import {afterUpdate, onMount} from "svelte";
+    import {afterUpdate} from "svelte";
 
     import {Cleared, DeviceInfo} from "../../stores";
     import clear from "./cli/bin/clear";
@@ -88,20 +88,18 @@
         if (promptEl)
             promptEl.focus();
     });
-
-    onMount(() => {
-    });
 </script>
 
+<svelte:window on:keydown={handleKeyDown}/>
 <main>
     {#if !$Cleared}
         <WelcomeText/>
     {/if}
     <!-- svelte-ignore a11y-no-static-element-interactions a11y-click-events-have-key-events -->
     <div class="prompt-wrapper" on:click={() => promptEl.focus()}>
-        <PromptText/>
-        <span
-            on:keydown={handleKeyDown}
+        <!-- Workaround: Using HTML comments to prevent unwanted spaces -->
+        <PromptText/><!--
+        --><span
             on:paste={handlePaste}
             bind:this={promptEl}
             contenteditable="true"
@@ -124,6 +122,9 @@
     .prompt {
         caret-color: lime;
         outline: none;
+        word-break: break-all;
+        word-wrap: break-word;
+        white-space: break-spaces;
     }
 
     .prompt-wrapper {
