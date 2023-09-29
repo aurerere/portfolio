@@ -10,7 +10,7 @@
 
     let inputEl: HTMLSpanElement;
 
-    let loading: boolean = true;
+    let loading: boolean = false;
 
     let isCommandDown: boolean = false;
     let isControlDown: boolean = false;
@@ -19,7 +19,7 @@
     let currentHistoryStackIndex: number = -1;
     let inputSavedValue: string = "";
 
-    function handleKeyDown(e: Event): void
+    async function handleKeyDown(e: Event): Promise<void>
     {
         const key = (e as KeyboardEvent).key;
 
@@ -29,7 +29,6 @@
                 e.preventDefault();
                 return;
             case "l":
-                console.log("here")
                 if (isControlDown && !isShiftDown) {
                     e.preventDefault();
                     clear();
@@ -65,6 +64,15 @@
             if (key === "ArrowUp" || key === "ArrowDown") {
                 e.preventDefault();
                 navigateThroughHistoryStack(key);
+            }
+
+            if (key === "Enter") {
+                e.preventDefault();
+                loading = true;
+                // run
+                inputEl.innerText = "";
+                currentHistoryStackIndex = -1;
+                loading = false;
             }
 
         }
@@ -161,7 +169,7 @@
     {/if}
 
     {#if (loading)}
-        <LoadingIndicator/>
+        <LoadingIndicator withMargin/>
     {:else}
         <!-- svelte-ignore a11y-no-static-element-interactions a11y-click-events-have-key-events -->
         <div class="prompt-wrapper" on:click={() => inputEl.focus()}>
