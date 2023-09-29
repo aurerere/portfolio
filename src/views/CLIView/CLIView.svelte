@@ -1,19 +1,23 @@
 <script lang="ts">
     import {afterUpdate} from "svelte";
 
-    import {Cleared, DeviceInfo} from "../../stores";
+    import {Cleared, DeviceInfo, InputHistoryStack} from "../../stores";
     import clear from "./cli/bin/clear";
 
     import WelcomeText from "./components/WelcomeText.svelte";
     import PromptText from "./components/PromptText.svelte";
+    import LoadingIndicator from "../../core/LoadingIndicator.svelte";
 
-    let promptEl: HTMLSpanElement;
+    let inputEl: HTMLSpanElement;
 
-    let loading: boolean = false;
+    let loading: boolean = true;
 
     let isCommandDown: boolean = false;
     let isControlDown: boolean = false;
     let isShiftDown: boolean = false;
+
+    let currentHistoryStackIndex: number = -1;
+    let inputSavedValue: string = "";
 
     function handleKeyDown(e: Event): void
     {
@@ -42,7 +46,7 @@
                 return;
         }
 
-        if (document.activeElement !== promptEl) {
+        if (document.activeElement !== inputEl) {
             if (key === "Shift")
                 isShiftDown = true;
 
@@ -50,16 +54,72 @@
                 return;
 
             if (!loading && (!isCommandDown && key !== "C")) {
-                focusPromptAndMoveCaretAtTheEnd();
+                focusInputAndMoveCaretAtTheEnd();
                 window.scrollTo(0, document.body.scrollHeight);
             }
         }
         else {
+            if (inputEl.innerText !== inputSavedValue)
+                currentHistoryStackIndex = -1;
+
+            if (key === "ArrowUp" || key === "ArrowDown") {
+                e.preventDefault();
+                navigateThroughHistoryStack(key);
+            }
 
         }
     }
 
-    function focusPromptAndMoveCaretAtTheEnd()
+    function handleKeyUp(e: Event): void
+    {
+        const key = (e as KeyboardEvent).key;
+
+        switch (key.toLowerCase()) {
+            case "shift":
+                isShiftDown = false;
+                return;
+            case "control":
+                isControlDown = false;
+                if ($DeviceInfo?.keyboard === "default")
+                    isCommandDown = false;
+                return;
+            case "meta":
+                if ($DeviceInfo?.keyboard === "apple")
+                    isCommandDown = false;
+                return;
+        }
+    }
+
+    function navigateThroughHistoryStack(key: "ArrowUp" | "ArrowDown")
+    {
+        if (key === "ArrowUp") {
+            if (currentHistoryStackIndex + 1 < $InputHistoryStack.length) {
+                if (currentHistoryStackIndex === -1)
+                    inputSavedValue = inputEl.innerText;
+
+                currentHistoryStackIndex++;
+
+                inputEl.innerText = $InputHistoryStack[currentHistoryStackIndex];
+            }
+        }
+        else {
+            if (currentHistoryStackIndex > 0) {
+                currentHistoryStackIndex--;
+
+                inputEl.innerText = $InputHistoryStack[currentHistoryStackIndex];
+            }
+            else if (currentHistoryStackIndex === 0) {
+                currentHistoryStackIndex--;
+
+                inputEl.innerText = inputSavedValue;
+            }
+        }
+
+        focusInputAndMoveCaretAtTheEnd();
+    }
+
+
+    function focusInputAndMoveCaretAtTheEnd()
     {
         //https://stackoverflow.com/questions/1125292/how-to-move-cursor-to-end-of-contenteditable-entity
         const range = document.createRange();
@@ -68,45 +128,54 @@
         if (!sel)
             return;
 
-        range.selectNodeContents(promptEl);
+        range.selectNodeContents(inputEl);
         range.collapse(false);
         sel.removeAllRanges();
         sel.addRange(range);
-        promptEl.focus();
+        inputEl.focus();
         range.detach(); // optimization
 
         // set scroll to the end if multiline
-        promptEl.scrollTop = promptEl.scrollHeight;
+        inputEl.scrollTop = inputEl.scrollHeight;
     }
 
-    function handlePaste()
+    async function handlePaste(e: ClipboardEvent)
     {
+        if (!e.clipboardData)
+            return;
+
+        const data = e.clipboardData.getData('Text').replaceAll('\r', '');
 
     }
 
     afterUpdate(() => {
-        if (promptEl)
-            promptEl.focus();
+        if (inputEl)
+            inputEl.focus();
     });
 </script>
 
-<svelte:window on:keydown={handleKeyDown}/>
+<svelte:window on:keydown={handleKeyDown} on:keyup={handleKeyUp}/>
 <main>
     {#if !$Cleared}
         <WelcomeText/>
     {/if}
-    <!-- svelte-ignore a11y-no-static-element-interactions a11y-click-events-have-key-events -->
-    <div class="prompt-wrapper" on:click={() => promptEl.focus()}>
-        <!-- Workaround: Using HTML comments to prevent unwanted spaces -->
-        <PromptText/><!--
-        --><span
-            on:paste={handlePaste}
-            bind:this={promptEl}
-            contenteditable="true"
-            spellcheck="false"
-            class="prompt"
-        ></span>
-    </div>
+
+    {#if (loading)}
+        <LoadingIndicator/>
+    {:else}
+        <!-- svelte-ignore a11y-no-static-element-interactions a11y-click-events-have-key-events -->
+        <div class="prompt-wrapper" on:click={() => inputEl.focus()}>
+            <!-- Workaround: Using HTML comments to prevent unwanted spaces -->
+            <PromptText/><!--
+            --><span
+                on:paste={handlePaste}
+                bind:this={inputEl}
+                contenteditable="true"
+                spellcheck="false"
+                class="input"
+            ></span>
+        </div>
+    {/if}
 </main>
 
 <style>
@@ -119,7 +188,7 @@
         min-height: 100vh;
     }
 
-    .prompt {
+    .input {
         caret-color: lime;
         outline: none;
         word-break: break-all;

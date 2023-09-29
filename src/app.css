@@ -7,6 +7,7 @@
     --green: lime;
     --cyan: cyan;
     --red: lightcoral;
+    --gray: rgb(128, 128, 128);
 }
 
 ::-moz-selection {
