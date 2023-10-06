@@ -1,24 +1,38 @@
 <script lang="ts">
     import {afterUpdate} from "svelte";
 
-    import {Cleared, DeviceInfo, InputHistoryStack} from "../../stores";
+    import {Cleared, CurrentPath, DeviceInfo, InputHistoryStack, PreviousCommands} from "../../stores";
     import clear from "./cli/bin/clear";
 
     import WelcomeText from "./components/WelcomeText.svelte";
     import PromptText from "./components/PromptText.svelte";
     import LoadingIndicator from "../../core/LoadingIndicator.svelte";
+    import run from "./cli/run";
+    import OutputParser from "./components/OutputParser.svelte";
 
+    // A span element with contenteditable property set to true -> gets input
     let inputEl: HTMLSpanElement;
 
+    // Disables the input when set to false
     let loading: boolean = false;
 
+    // To check if the command key is down -> control also enables it on windows and linux
     let isCommandDown: boolean = false;
+    // To check if the control key is down
     let isControlDown: boolean = false;
+    // To check if the shift key is down
     let isShiftDown: boolean = false;
 
+    // To navigate through the input history stack
     let currentHistoryStackIndex: number = -1;
+    // The last saved value -> saved when incrementing currentHistoryStackIndex
+    // and displayed when currentHistoryStackIndex is back to -1
     let inputSavedValue: string = "";
 
+    /**
+     * On key down anywhere on the page
+     * @param e
+     */
     async function handleKeyDown(e: Event): Promise<void>
     {
         const key = (e as KeyboardEvent).key;
@@ -28,36 +42,40 @@
             case "tab":
                 e.preventDefault();
                 return;
+            // May clear the history when control is pressed
             case "l":
                 if (isControlDown && !isShiftDown) {
                     e.preventDefault();
                     clear();
                 }
                 return;
+            // Sets isControlDown to true (and maybe isCommandDown too)
             case "control":
                 isControlDown = true;
                 if ($DeviceInfo?.keyboard === "default")
                     isCommandDown = true;
                 return;
+            // Sets isCommandDown to true on Apple devices
             case "meta":
                 if ($DeviceInfo?.keyboard === "apple")
                     isCommandDown = true;
                 return;
         }
 
+        // if the input is NOT focused
         if (document.activeElement !== inputEl) {
             if (key === "Shift")
                 isShiftDown = true;
 
-            if (key.startsWith("Arrow") && isShiftDown)
-                return;
-
+            // after a Copy action, focuses back the input
             if (!loading && (!isCommandDown && key !== "C")) {
                 focusInputAndMoveCaretAtTheEnd();
                 window.scrollTo(0, document.body.scrollHeight);
             }
         }
+        // if the input IS focused
         else {
+            // Sets the currentHistoryStackIndex back to -1 on previous input edition
             if (inputEl.innerText !== inputSavedValue)
                 currentHistoryStackIndex = -1;
 
@@ -66,11 +84,14 @@
                 navigateThroughHistoryStack(key);
             }
 
+            // RUNS A COMMAND
             if (key === "Enter") {
                 e.preventDefault();
+                // loading animation + disables the input
                 loading = true;
-                // run
-                inputEl.innerText = "";
+                // Runs the input (sends the current path)
+                await run(inputEl.innerText, $CurrentPath);
+                // So we need to reset the currentHistoryStackIndex
                 currentHistoryStackIndex = -1;
                 loading = false;
             }
@@ -102,6 +123,7 @@
     {
         if (key === "ArrowUp") {
             if (currentHistoryStackIndex + 1 < $InputHistoryStack.length) {
+                console.log("ca marche")
                 if (currentHistoryStackIndex === -1)
                     inputSavedValue = inputEl.innerText;
 
@@ -110,7 +132,8 @@
                 inputEl.innerText = $InputHistoryStack[currentHistoryStackIndex];
             }
         }
-        else {
+        else { // ArrowDown
+            console.log("here", currentHistoryStackIndex)
             if (currentHistoryStackIndex > 0) {
                 currentHistoryStackIndex--;
 
@@ -123,6 +146,7 @@
             }
         }
 
+        console.log(currentHistoryStackIndex)
         focusInputAndMoveCaretAtTheEnd();
     }
 
@@ -167,7 +191,17 @@
     {#if !$Cleared}
         <WelcomeText/>
     {/if}
-
+    {#each $PreviousCommands as previousElement, index (index)}
+        <div>
+            <PromptText path={previousElement.path}/><!--
+            --><span class="previous-input">{previousElement.command.input}</span>
+            {#if previousElement.command.output}
+                {#each previousElement.command.output as output, index (index)}
+                    <OutputParser {output}/>
+                {/each}
+            {/if}
+        </div>
+    {/each}
     {#if (loading)}
         <LoadingIndicator withMargin/>
     {:else}
@@ -207,5 +241,9 @@
     .prompt-wrapper {
         flex: 1;
         padding-bottom: var(--medium-spacing);
+    }
+
+    .previous-input {
+        white-space: pre;
     }
 </style>
