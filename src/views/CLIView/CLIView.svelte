@@ -1,7 +1,7 @@
 <script lang="ts">
     import {afterUpdate} from "svelte";
 
-    import {Cleared, CurrentPath, DeviceInfo, InputHistoryStack, PreviousCommands} from "../../stores";
+    import {Cleared, CurrentPath, DeviceInfo, InputHistoryStack, Loading, PreviousCommands} from "../../stores";
     import clear from "./cli/bin/clear";
 
     import WelcomeText from "./components/WelcomeText.svelte";
@@ -12,9 +12,6 @@
 
     // A span element with contenteditable property set to true -> gets input
     let inputEl: HTMLSpanElement;
-
-    // Disables the input when set to false
-    let loading: boolean = false;
 
     // To check if the command key is down -> control also enables it on windows and linux
     let isCommandDown: boolean = false;
@@ -68,7 +65,7 @@
                 isShiftDown = true;
 
             // after a Copy action, focuses back the input
-            if (!loading && (!isCommandDown && key !== "C")) {
+            if (!$Loading && (!isCommandDown && key !== "C")) {
                 focusInputAndMoveCaretAtTheEnd();
                 window.scrollTo(0, document.body.scrollHeight);
             }
@@ -87,13 +84,11 @@
             // RUNS A COMMAND
             if (key === "Enter") {
                 e.preventDefault();
-                // loading animation + disables the input
-                loading = true;
                 // Runs the input (sends the current path)
                 await run(inputEl.innerText, $CurrentPath);
                 // So we need to reset the currentHistoryStackIndex
                 currentHistoryStackIndex = -1;
-                loading = false;
+                inputEl.innerText = "";
             }
 
         }
@@ -122,32 +117,33 @@
     function navigateThroughHistoryStack(key: "ArrowUp" | "ArrowDown")
     {
         if (key === "ArrowUp") {
+            console.log(currentHistoryStackIndex)
             if (currentHistoryStackIndex + 1 < $InputHistoryStack.length) {
-                console.log("ca marche")
-                if (currentHistoryStackIndex === -1)
-                    inputSavedValue = inputEl.innerText;
-
+            //     if (currentHistoryStackIndex === -1)
+            //         inputSavedValue = inputEl.innerText;
+            //
                 currentHistoryStackIndex++;
-
+            //
+                console.log(currentHistoryStackIndex)
                 inputEl.innerText = $InputHistoryStack[currentHistoryStackIndex];
+                console.log(currentHistoryStackIndex, $InputHistoryStack.length)
             }
+            console.log("up", currentHistoryStackIndex)
         }
         else { // ArrowDown
-            console.log("here", currentHistoryStackIndex)
-            if (currentHistoryStackIndex > 0) {
+            if (currentHistoryStackIndex > -1) {
                 currentHistoryStackIndex--;
 
-                inputEl.innerText = $InputHistoryStack[currentHistoryStackIndex];
-            }
-            else if (currentHistoryStackIndex === 0) {
-                currentHistoryStackIndex--;
+                // if (currentHistoryStackIndex === -1)
+                //     inputEl.innerText = inputSavedValue;
+                // else
+                //     inputEl.innerText = $InputHistoryStack[currentHistoryStackIndex];
 
-                inputEl.innerText = inputSavedValue;
             }
+            console.log("down", currentHistoryStackIndex)
         }
 
-        console.log(currentHistoryStackIndex)
-        focusInputAndMoveCaretAtTheEnd();
+        // focusInputAndMoveCaretAtTheEnd();
     }
 
 
@@ -202,7 +198,7 @@
             {/if}
         </div>
     {/each}
-    {#if (loading)}
+    {#if ($Loading)}
         <LoadingIndicator withMargin/>
     {:else}
         <!-- svelte-ignore a11y-no-static-element-interactions a11y-click-events-have-key-events -->
