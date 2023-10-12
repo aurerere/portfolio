@@ -1,7 +1,7 @@
 <script lang="ts">
     import { Link } from "svelte-routing";
     import { getDeviceInfo } from "../../../utils/functions";
-    import run from "../cli/run";
+    import run from "../../../lib/cli/core/run";
     import {CurrentPath} from "../../../stores";
 </script>
 
@@ -30,6 +30,7 @@
     {/if}
     <br><br>
     Type
+    <!-- svelte-ignore a11y-no-static-element-interactions a11y-click-events-have-key-events -->
     <span class="help" on:click={() => run("help", $CurrentPath)}>'help'</span>
     for the list of available commands.
     <br><br>

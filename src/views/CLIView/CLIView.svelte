@@ -1,13 +1,13 @@
 <script lang="ts">
     import {afterUpdate} from "svelte";
 
-    import {Cleared, CurrentPath, DeviceInfo, InputHistoryStack, PreviousCommands} from "../../stores";
-    import clear from "./cli/bin/clear";
+    import {Cleared, CurrentPath, DeviceInfo, InputHistoryStack, ExecutionHistory} from "../../stores";
+    import clear from "../../lib/cli/bin/clear";
 
     import WelcomeText from "./components/WelcomeText.svelte";
     import PromptText from "./components/PromptText.svelte";
-    import LoadingIndicator from "../../core/LoadingIndicator.svelte";
-    import run from "./cli/run";
+    import LoadingIndicator from "../../lib/components/LoadingIndicator.svelte";
+    import run from "../../lib/cli/core/run";
     import OutputParser from "./components/OutputParser.svelte";
 
     // A span element with contenteditable property set to true -> gets input
@@ -37,6 +37,7 @@
     {
         const key = (e as KeyboardEvent).key;
 
+        // Whether the input is focused or not
         switch (key.toLowerCase()) {
             // Prevents the tab key from updating the focus
             case "tab":
@@ -60,15 +61,17 @@
                 if ($DeviceInfo?.keyboard === "apple")
                     isCommandDown = true;
                 return;
+            case "shift":
+                isShiftDown = true;
+                return;
         }
-
         // if the input is NOT focused
         if (document.activeElement !== inputEl) {
-            if (key === "Shift")
-                isShiftDown = true;
 
-            // after a Copy action, focuses back the input
-            if (!loading && (!isCommandDown && key !== "C")) {
+            const isCopyingText = isCommandDown && key.toLowerCase() === "C";
+            const isSelectingText = isShiftDown && key.startsWith("Arrow");
+
+            if (!loading && !isCopyingText && !isSelectingText) {
                 focusInputAndMoveCaretAtTheEnd();
                 window.scrollTo(0, document.body.scrollHeight);
             }
@@ -183,7 +186,7 @@
     {#if !$Cleared}
         <WelcomeText/>
     {/if}
-    {#each $PreviousCommands as previousElement, index (index)}
+    {#each $ExecutionHistory as previousElement, index (index)}
         <div>
             <PromptText path={previousElement.path}/><!--
             --><span class="previous-input">{previousElement.command.input}</span>

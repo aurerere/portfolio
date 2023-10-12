@@ -1,8 +1,8 @@
-import {Cleared, PreviousCommands} from "../../../../stores";
+import {Cleared, ExecutionHistory} from "../../../stores";
 
 export default function clear(payload?: CLI.BinInput): CLI.BinOutput
 {
-    PreviousCommands.set([]);
+    ExecutionHistory.set([]);
     Cleared.set(true);
     return "ok";
 }

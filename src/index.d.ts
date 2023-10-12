@@ -1,13 +1,11 @@
-namespace Core
-{
+namespace Core {
     type DeviceInfo = {
         keyboard: "default" | "apple";
         device: "desktop" | "mobile";
     }
 }
 
-namespace Formal
-{
+namespace Formal {
     type LanguageSensitiveString = {
         en: string;
         fr: string;
@@ -31,8 +29,11 @@ namespace Formal
     };
 }
 
-namespace CLI
-{
+namespace CLI {
+    type FileTree = {
+        [key: string]: string | FileTree
+    }
+
     type HistoryElement = {
         path: string[];
         command: Command;
@@ -56,6 +57,8 @@ namespace CLI
 
     type ComponentDependentBinOutput = {
         component: string;
-        data: any;
+        data: {
+            [key: string]: any
+        };
     }
 }
