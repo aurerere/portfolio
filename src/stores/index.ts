@@ -8,4 +8,3 @@ export const Cleared = writable<boolean>(false);
 export const CurrentPath = writable<string[]>(["~"]);
 export const PreviousCommands = writable<CLI.HistoryElement[]>([]);
 export const InputHistoryStack = writable<string[]>([]);
-export const Loading = writable<boolean>(false);
