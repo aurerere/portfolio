@@ -13,10 +13,13 @@ export default async function run(input: string, path: string[]): Promise<void>
     });
 
     InputHistoryStack.update(current => {
-        if (input.trim() !== "" && !current.includes(input))
-            current.push(input);
+        if (current.includes(input))
+            current.splice(current.indexOf(input), 1);
 
-        console.log(current)
+        if (input.trim() !== "")
+            current.unshift(input);
+
+        console.log("InputHistoryStack", current)
         return current;
     });
 }

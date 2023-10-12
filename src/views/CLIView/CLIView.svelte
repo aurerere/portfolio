@@ -76,7 +76,7 @@
         // if the input IS focused
         else {
             // Sets the currentHistoryStackIndex back to -1 on previous input edition
-            if (inputEl.innerText !== inputSavedValue)
+            if (currentHistoryStackIndex !== -1 && inputEl.innerText !== $InputHistoryStack[currentHistoryStackIndex])
                 currentHistoryStackIndex = -1;
 
             if (key === "ArrowUp" || key === "ArrowDown") {
@@ -123,30 +123,22 @@
     {
         if (key === "ArrowUp") {
             if (currentHistoryStackIndex + 1 < $InputHistoryStack.length) {
-                console.log("ca marche")
                 if (currentHistoryStackIndex === -1)
                     inputSavedValue = inputEl.innerText;
 
-                currentHistoryStackIndex++;
-
-                inputEl.innerText = $InputHistoryStack[currentHistoryStackIndex];
+                inputEl.innerText = $InputHistoryStack[++currentHistoryStackIndex];
             }
         }
         else { // ArrowDown
-            console.log("here", currentHistoryStackIndex)
-            if (currentHistoryStackIndex > 0) {
-                currentHistoryStackIndex--;
+            if (currentHistoryStackIndex > 0)
+                inputEl.innerText = $InputHistoryStack[--currentHistoryStackIndex];
 
-                inputEl.innerText = $InputHistoryStack[currentHistoryStackIndex];
-            }
             else if (currentHistoryStackIndex === 0) {
-                currentHistoryStackIndex--;
-
                 inputEl.innerText = inputSavedValue;
+                currentHistoryStackIndex = -1;
             }
         }
 
-        console.log(currentHistoryStackIndex)
         focusInputAndMoveCaretAtTheEnd();
     }
 
