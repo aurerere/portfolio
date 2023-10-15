@@ -6,9 +6,10 @@
 
     import WelcomeText from "./components/WelcomeText.svelte";
     import PromptText from "./components/PromptText.svelte";
-    import LoadingIndicator from "../../lib/components/LoadingIndicator.svelte";
-    import run from "../../lib/cli/core/run";
     import OutputParser from "./components/OutputParser.svelte";
+    import LoadingIndicator from "../../lib/components/LoadingIndicator.svelte";
+
+    import run from "../../lib/cli/core/run";
 
     // A span element with contenteditable property set to true -> gets input
     let inputEl: HTMLSpanElement;
