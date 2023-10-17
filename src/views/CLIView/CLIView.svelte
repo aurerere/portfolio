@@ -1,15 +1,15 @@
 <script lang="ts">
     import {afterUpdate} from "svelte";
 
-    import {Cleared, CurrentPath, DeviceInfo, InputHistoryStack, ExecutionHistory} from "../../stores";
-    import clear from "../../lib/cli/bin/clear";
+    import {Cleared, CurrentPath, DeviceInfo, InputHistoryStack, ExecutionHistory} from "@stores";
+    import clear from "@cli/bin/clear";
 
     import WelcomeText from "./components/WelcomeText.svelte";
     import PromptText from "./components/PromptText.svelte";
     import OutputParser from "./components/OutputParser.svelte";
-    import LoadingIndicator from "../../lib/components/LoadingIndicator.svelte";
+    import LoadingIndicator from "@core-components/LoadingIndicator.svelte";
 
-    import run from "../../lib/cli/core/run";
+    import run from "@cli/core/run";
 
     // A span element with contenteditable property set to true -> gets input
     let inputEl: HTMLSpanElement;

@@ -1,5 +1,5 @@
 <script lang="ts">
-    import {CurrentPath} from "../../../stores/";
+    import {CurrentPath} from "@stores";
 
     export let path: string[] = $CurrentPath;
 </script>

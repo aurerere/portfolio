@@ -1,4 +1,4 @@
-import {InputHistoryStack, ExecutionHistory, Loading} from "../../../stores";
+import {InputHistoryStack, ExecutionHistory} from "@stores";
 
 export default async function run(input: string, path: string[]): Promise<void>
 {

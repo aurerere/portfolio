@@ -1,7 +1,8 @@
 <script lang="ts">
-    import { Link } from "svelte-routing";
-    import { getDeviceInfo } from "@utils/functions";
-    import run from "../../../lib/cli/core/run";
+    import {Link} from "svelte-routing";
+
+    import {getDeviceInfo} from "@utils/functions";
+    import run from "@cli/core/run";
     import {CurrentPath} from "@stores";
 </script>
 

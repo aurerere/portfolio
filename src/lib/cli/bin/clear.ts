@@ -1,4 +1,4 @@
-import {Cleared, ExecutionHistory} from "../../../stores";
+import {Cleared, ExecutionHistory} from "@stores";
 
 export default function clear(payload?: CLI.BinInput): CLI.BinOutput
 {

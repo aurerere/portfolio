@@ -5,11 +5,12 @@
     "useDefineForClassFields": true,
     "module": "ESNext",
     "resolveJsonModule": true,
+    "baseUrl": ".",
     "paths": {
       "@cli/*": ["src/lib/cli/*"],
-      "@components/*": ["src/lib/components/*"],
+      "@core-components/*": ["src/lib/components/*"],
       "@utils/*": ["src/lib/utils/*"],
-      "@stores": ["src/stores/index"],
+      "@stores": ["src/stores/index"]
     },
     /**
      * Typecheck JS in `.svelte` and `.js` files by default.

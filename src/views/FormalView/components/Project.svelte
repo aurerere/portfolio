@@ -3,7 +3,7 @@
     import ProjectStatus from "./ProjectStatus.svelte";
     import ProjectLink from "./ProjectLink.svelte";
 
-    import {Lang} from "../../../stores";
+    import {Lang} from "@stores";
 
     export let thumbnail: Formal.Project["thumbnail"];
     export let name: Formal.Project["name"];
