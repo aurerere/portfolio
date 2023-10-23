@@ -69,7 +69,7 @@
         // if the input is NOT focused
         if (document.activeElement !== inputEl) {
 
-            const isCopyingText = isCommandDown && key.toLowerCase() === "C";
+            const isCopyingText = isCommandDown && key.toLowerCase() === "c";
             const isSelectingText = isShiftDown && key.startsWith("Arrow");
 
             if (!loading && !isCopyingText && !isSelectingText) {
@@ -125,7 +125,7 @@
 
     function navigateThroughHistoryStack(key: "ArrowUp" | "ArrowDown")
     {
-        if (key === "ArrowUp") {
+        if (key === "ArrowUp") { // moves backward in the input history
             if (currentHistoryStackIndex + 1 < $InputHistoryStack.length) {
                 if (currentHistoryStackIndex === -1)
                     inputSavedValue = inputEl.innerText;
@@ -133,7 +133,7 @@
                 inputEl.innerText = $InputHistoryStack[++currentHistoryStackIndex];
             }
         }
-        else { // ArrowDown
+        else { // ArrowDown - moves forward in the input history
             if (currentHistoryStackIndex > 0)
                 inputEl.innerText = $InputHistoryStack[--currentHistoryStackIndex];
 
@@ -174,6 +174,19 @@
 
         const data = e.clipboardData.getData('Text').replaceAll('\r', '');
 
+        if (data.includes('\n')) {
+            const inputs = data.split('\n');
+            const inputLastIdx = inputs.length - 1;
+
+            for (let i = 0; i < inputLastIdx; i++) {
+                await run(inputs[i], $CurrentPath);
+            }
+
+            inputEl.innerText = inputs[inputLastIdx];
+            focusInputAndMoveCaretAtTheEnd();
+        }
+
+        e.preventDefault();
     }
 
     afterUpdate(() => {

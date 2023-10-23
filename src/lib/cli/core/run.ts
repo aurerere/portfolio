@@ -1,8 +1,8 @@
 import {InputHistoryStack, ExecutionHistory} from "@stores";
+import parse from "@cli/core/parse";
 
 export default async function run(input: string, path: string[]): Promise<void>
 {
-
     ExecutionHistory.update(value => {
         value.push({
             path,
@@ -24,4 +24,5 @@ export default async function run(input: string, path: string[]): Promise<void>
         return value;
     });
 
+    const parsed = parse(input);
 }

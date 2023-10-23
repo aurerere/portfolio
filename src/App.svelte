@@ -2,8 +2,8 @@
     import {Router, Route} from "svelte-routing";
     import {onMount} from "svelte";
 
-    import {DeviceInfo} from "./stores";
-    import {getDeviceInfo} from "./lib/utils/functions";
+    import {DeviceInfo} from "@stores";
+    import {getDeviceInfo} from "@utils/functions";
 
     import FormalView from "./views/FormalView/FormalView.svelte";
     import NotFoundView from "./views/NotFoundView/NotFoundView.svelte";
