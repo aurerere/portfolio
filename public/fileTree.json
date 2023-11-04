@@ -1,0 +1,33 @@
+{
+  "projects": {
+    "hotkeys.help": {
+      "desc.txt": "txt",
+      "thumbnail.png": "png"
+    },
+    "providenceprod.tv": {
+      "desc.txt": "txt",
+      "thumbnail.png": "png"
+    },
+    "vector-ui": {
+      "desc.txt": "txt",
+      "thumbnail.png": "png"
+    },
+    "vector.wtf": {
+      "desc.txt": "txt",
+      "thumbnail.png": "png"
+    },
+    "words-royale": {
+      "desc.txt": "txt",
+      "thumbnail.png": "png"
+    }
+  },
+  ".bash_profile": ".bash_profile",
+  "ah ah.txt": "txt",
+  "cv_en.pdf": "pdf",
+  "cv_fr.pdf": "pdf",
+  "info.txt": "txt",
+  "README.txt": "txt",
+  "github": "bin",
+  "linkedin": "bin",
+  "mailme": "bin"
+}

@@ -60,6 +60,10 @@ a:hover {
     color: var(--cyan);
 }
 
+#cli {
+    word-break: break-all;
+    word-wrap: break-word;
+}
 
 /*
 @keyframes maximes {

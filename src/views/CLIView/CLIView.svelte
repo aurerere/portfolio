@@ -1,5 +1,5 @@
 <script lang="ts">
-    import {afterUpdate} from "svelte";
+    import {afterUpdate, onMount} from "svelte";
 
     import {Cleared, CurrentPath, DeviceInfo, InputHistoryStack, ExecutionHistory} from "@stores";
     import clear from "@cli/bin/clear";
@@ -10,6 +10,7 @@
     import LoadingIndicator from "@core-components/LoadingIndicator.svelte";
 
     import run from "@cli/core/run";
+    import {AURE_CLI_ASCII} from "@utils/const";
 
     // A span element with contenteditable property set to true -> gets input
     let inputEl: HTMLSpanElement;
@@ -94,7 +95,7 @@
                 // loading animation + disables the input
                 loading = true;
                 // Runs the input (sends the current path)
-                await run(inputEl.innerText, $CurrentPath);
+                await run(inputEl.innerText);
                 // So we need to reset the currentHistoryStackIndex
                 currentHistoryStackIndex = -1;
                 loading = false;
@@ -176,6 +177,10 @@
 
     }
 
+    onMount(() => {
+        console.info("%c" + AURE_CLI_ASCII + import.meta.env.VITE_VERSION, 'color: lime');
+    })
+
     afterUpdate(() => {
         if (inputEl)
             inputEl.focus();
@@ -183,16 +188,16 @@
 </script>
 
 <svelte:window on:keydown={handleKeyDown} on:keyup={handleKeyUp}/>
-<main>
+<main id="cli">
     {#if !$Cleared}
         <WelcomeText/>
     {/if}
     {#each $ExecutionHistory as previousElement, index (index)}
         <div>
             <PromptText path={previousElement.path}/><!--
-            --><span class="previous-input">{previousElement.command.input}</span>
-            {#if previousElement.command.output}
-                {#each previousElement.command.output as output, index (index)}
+            --><span class="previous-input">{previousElement.input}</span>
+            {#if previousElement.output}
+                {#each previousElement.output as output, index (index)}
                     <OutputParser {output}/>
                 {/each}
             {/if}

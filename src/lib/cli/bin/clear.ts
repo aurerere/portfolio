@@ -1,8 +1,8 @@
 import {Cleared, ExecutionHistory} from "@stores";
 
-export default function clear(payload?: CLI.BinInput): CLI.BinOutput
+export default function clear(): CLI.BinOutput
 {
     ExecutionHistory.set([]);
     Cleared.set(true);
-    return "ok";
+    return "";
 }

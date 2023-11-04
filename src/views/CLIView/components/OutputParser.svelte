@@ -3,9 +3,10 @@
 </script>
 
 {#if typeof output === "string"}
-    {#if output !== "ok"}
-        <span>{output}</span>
+    {#if output !== ""}
+        <br>
+        <pre>{output}</pre>
     {/if}
 {:else}
-
+    <svelte:component this={output.component} {...output.data}/>
 {/if}

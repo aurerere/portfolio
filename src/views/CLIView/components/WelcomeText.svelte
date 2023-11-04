@@ -2,20 +2,13 @@
     import {Link} from "svelte-routing";
 
     import {getDeviceInfo} from "@utils/functions";
+    import {AURE_CLI_ASCII} from "@utils/const";
     import run from "@cli/core/run";
     import {CurrentPath} from "@stores";
 </script>
 
 <pre class="green">
-    ___   __  ______  _______ _____
-   /   | / / / / __ \/ ____( ) ___/
-  / /| |/ / / / /_/ / __/  |/\__ \
- / ___ / /_/ / _, _/ /___   ___/ /
-/_/__|_\____/_/_|_/_____/  /____/
-  / ____/ /   /  _/
- / /   / /    / /
-/ /___/ /____/ /
-\____/_____/___/v.2.0
+{AURE_CLI_ASCII}{import.meta.env.VITE_VERSION}
 </pre>
 <p>
     <br>

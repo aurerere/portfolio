@@ -4,8 +4,8 @@ on:
   push:
     branches:
       - master
-
-    workflow_dispatch:
+    tags:
+      - 'v*'
 
 jobs:
   deploy:
@@ -16,13 +16,19 @@ jobs:
       - name: 🍃 Set up node
         uses: actions/setup-node@v3
         with:
-          node-version: 19
-          cache: 'npm'
-      - name: 🔨 Build Project
+          node-version: 20.x
+          cache: "npm"
+      - name: 📦 Install dependencies
+        run: npm install
+      - name: 🔎 Type check
+        id: check
+        run: npm run check
+      - name: 🏗️ Build
+        if: steps.check.outcome == 'success'
         run: |
-          npm install
+          export VITE_VERSION=git name-rev --tags --name-only $(git rev-parse HEAD)
           npm run build
-      - name: 📂 Sync files
+      - name: 🚀 Deploy
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
           server: ${{ secrets.FTP_SERVER }}

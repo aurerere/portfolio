@@ -1,3 +1,7 @@
+declare module '*.svelte' {
+    export { SvelteComponent as default };
+}
+
 namespace Core {
     type DeviceInfo = {
         keyboard: "default" | "apple";
@@ -34,31 +38,29 @@ namespace CLI {
         [key: string]: string | FileTree
     }
 
-    type HistoryElement = {
-        path: string[];
-        command: Command;
-        cancelled: boolean;
-    }
-
-    type BinInput = {
-        args: string[];
-        flags: Array<{
-            value: string,
-            followedBy: string | null
-        }>;
-    }
-
-    type Command = {
-        input: string;
-        output: BinOutput[];
-    }
-
     type BinOutput = string | ComponentDependentBinOutput;
 
     type ComponentDependentBinOutput = {
-        component: string;
+        component: typeof import("svelte").SvelteComponent<any>;
         data: {
             [key: string]: any
         };
+    }
+
+    type HistoryElement = {
+        path: string[];
+        input: string,
+        output: BinOutput[],
+        cancelled: boolean;
+    }
+
+    type Operator = ";" | "||";
+
+    type ParsedArgs = {
+        regular: string[],
+        options: Array<{
+            option: string,
+            potentialValue: string
+        }>
     }
 }

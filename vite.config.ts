@@ -12,5 +12,15 @@ export default defineConfig({
       '@utils': path.resolve('src/lib/utils/'),
       '@stores': path.resolve('src/stores/index')
     }
+  },
+  build: {
+    rollupOptions: {
+      output: {
+        assetFileNames: (assetInfo) => {
+          return "assets/" + assetInfo.name;
+        },
+        entryFileNames: 'assets/index.js',
+      }
+    }
   }
 })
