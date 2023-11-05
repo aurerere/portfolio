@@ -60,9 +60,17 @@ a:hover {
     color: var(--cyan);
 }
 
-#cli {
+#cli, #cli pre {
     word-break: break-all;
     word-wrap: break-word;
+}
+
+#cli pre {
+    white-space: break-spaces;
+}
+
+#cli a {
+    white-space: break-spaces;
 }
 
 /*

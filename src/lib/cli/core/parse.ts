@@ -52,7 +52,7 @@ export default function parse(input: string): (string[] | CLI.Operator)[]
                 case ";":
                     // unexpected as the first expression of the input
                     if (instructions[instructionIndex].length === 1 && instructions[instructionIndex][0] === "")
-                        throw new Error(`\n${input}\n${" ".repeat(i)}^\n[Syntax] Unexpected token`);
+                        throw new Error(`\n${input}\n${" ".repeat(i)}^ Unexpected token`);
 
                     // adds an instruction if it is not the last semicolon in the input
                     if (i < input.length -1) {
@@ -65,7 +65,7 @@ export default function parse(input: string): (string[] | CLI.Operator)[]
                 case "|":
                     // the simple pipe is not yet implemented -> checks this case
                     if (input[i + 1] !== "|")
-                        throw new Error(`\n${input}\n${" ".repeat(i)}^\n[Syntax] Not implemented.`);
+                        throw new Error(`\n${input}\n${" ".repeat(i)}^ Not implemented.`);
 
                     // checks if we got something after ||
                     if (i + 1 < input.length -1) {
@@ -80,7 +80,7 @@ export default function parse(input: string): (string[] | CLI.Operator)[]
                         throw new Error(
                             `\n${input}\n${
                                 " ".repeat(i + 2)
-                            }^\n[Syntax] A pipeline chain operator must be followed by a pipeline.`
+                            }^ A pipeline chain operator must be followed by a pipeline.`
                         );
 
                     break;
@@ -88,7 +88,7 @@ export default function parse(input: string): (string[] | CLI.Operator)[]
                 case "&":
                 case "(":
                 case ")":
-                    throw new Error(`\n${input}\n${" ".repeat(i)}^\n[Syntax] Not yet implemented.`);
+                    throw new Error(`\n${input}\n${" ".repeat(i)}^ Not yet implemented.`);
                 default:
                     (instructions[instructionIndex] as string[])[keywordInInstructionIndex] += input[i];
             }
@@ -96,7 +96,7 @@ export default function parse(input: string): (string[] | CLI.Operator)[]
     }
 
     if (inString)
-        throw new Error(`\n${input}\n${" ".repeat(input.length)}^\n[Syntax] Unclosed string`);
+        throw new Error(`\n${input}\n${" ".repeat(input.length)}^ Unclosed string`);
     
     return instructions;
 }

@@ -14,9 +14,8 @@
     <br>
     {#if getDeviceInfo().device === "mobile"}
         <span class="red">
-            Warning: This interface is not optimized for touch devices,
-            it is recommended to visit the formal version (available at
-            <Link to="/">https://aureliendumay.me/</Link>).
+            Warning: This interface is not optimized for touch devices, it is recommended to visit the formal version
+            (available at <Link to="/">https://aureliendumay.me/</Link>).
         </span>
     {:else}
         If your not used to this type of interface, you can access the formal version at
@@ -25,7 +24,7 @@
     <br><br>
     Type
     <!-- svelte-ignore a11y-no-static-element-interactions a11y-click-events-have-key-events -->
-    <span class="help" on:click={() => run("help", $CurrentPath)}>'help'</span>
+    <span class="help" on:click={() => run("help")}>'help'</span>
     for the list of available commands.
     <br><br>
 </p>

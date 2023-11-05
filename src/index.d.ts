@@ -57,7 +57,7 @@ namespace CLI {
     type Operator = ";" | "||";
 
     type ParsedArgs = {
-        regular: string[],
+        regularArgs: string[],
         options: Array<{
             option: string,
             potentialValue: string
