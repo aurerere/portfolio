@@ -51,8 +51,12 @@ export default function parse(input: string): (string[] | string)[]
                     break;
                 case ";":
                     // unexpected as the first expression of the input
-                    if (instructions[instructionIndex].length === 1 && instructions[instructionIndex][0] === "")
-                        throw new Error(`\n${input}\n${" ".repeat(i)}^ Unexpected token`);
+                    if (instructions[instructionIndex][keywordInInstructionIndex] === "") {
+                        if (instructions[instructionIndex].length === 1)
+                            throw new Error(`${input}\n${" ".repeat(i + 7)}^ Unexpected token`);
+                        else
+                            (instructions[instructionIndex] as string[]).pop();
+                    }
 
                     // adds an instruction if it is not the last semicolon in the input
                     if (i < input.length -1) {
@@ -65,7 +69,14 @@ export default function parse(input: string): (string[] | string)[]
                 case "|":
                     // the simple pipe is not yet implemented -> checks this case
                     if (input[i + 1] !== "|")
-                        throw new Error(`\n${input}\n${" ".repeat(i)}^ Not implemented.`);
+                        throw new Error(`${input}\n${" ".repeat(i + 7)}^ Not implemented.`);
+
+                    if (instructions[instructionIndex][keywordInInstructionIndex] === "") {
+                        if (instructions[instructionIndex].length === 1)
+                            throw new Error(`${input}\n${" ".repeat(i + 7)}^ Unexpected token`);
+                        else
+                            (instructions[instructionIndex] as string[]).pop();
+                    }
 
                     // checks if we got something after ||
                     if (i + 1 < input.length -1) {
@@ -78,8 +89,8 @@ export default function parse(input: string): (string[] | string)[]
                     }
                     else
                         throw new Error(
-                            `\n${input}\n${
-                                " ".repeat(i + 2)
+                            `${input}\n${
+                                " ".repeat(i + 9)
                             }^ A pipeline chain operator must be followed by a pipeline.`
                         );
 
@@ -88,7 +99,7 @@ export default function parse(input: string): (string[] | string)[]
                 case "&":
                 case "(":
                 case ")":
-                    throw new Error(`\n${input}\n${" ".repeat(i)}^ Not yet implemented.`);
+                    throw new Error(`${input}\n${" ".repeat(i + 7)}^ Not yet implemented.`);
                 default:
                     (instructions[instructionIndex] as string[])[keywordInInstructionIndex] += input[i];
             }
@@ -96,7 +107,7 @@ export default function parse(input: string): (string[] | string)[]
     }
 
     if (inString)
-        throw new Error(`\n${input}\n${" ".repeat(input.length)}^ Unclosed string`);
-    
+        throw new Error(`${input}\n${" ".repeat(input.length + 7)}^ Unclosed string`);
+
     return instructions;
 }

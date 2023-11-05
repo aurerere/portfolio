@@ -7,7 +7,7 @@ export default async function run(input: string): Promise<void>
 {
     let path: string[];
 
-    const unsubscribe = CurrentPath.subscribe(value => path = value);
+    const unsubscribe = CurrentPath.subscribe(value => path = [...value]);
     unsubscribe();
 
     ExecutionHistory.update(value => {
@@ -22,7 +22,6 @@ export default async function run(input: string): Promise<void>
         if (input.trim() !== "")
             value.unshift(input);
 
-        console.info("$InputHistoryStack", value)
         return value;
     });
 

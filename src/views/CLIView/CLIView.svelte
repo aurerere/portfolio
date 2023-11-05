@@ -1,7 +1,7 @@
 <script lang="ts">
     import {afterUpdate, onMount} from "svelte";
 
-    import {Cleared, CurrentPath, DeviceInfo, InputHistoryStack, ExecutionHistory} from "@stores";
+    import {Cleared, CurrentPath, DeviceInfo, InputHistoryStack, ExecutionHistory, FileTree} from "@stores";
     import clear from "@cli/bin/clear";
 
     import WelcomeText from "./components/WelcomeText.svelte";
@@ -16,7 +16,7 @@
     let inputEl: HTMLSpanElement;
 
     // Disables the input when set to false
-    let loading: boolean = false;
+    let loading: boolean = true;
 
     // To check if the command key is down -> control also enables it on windows and linux
     let isCommandDown: boolean = false;
@@ -190,8 +190,15 @@
         e.preventDefault();
     }
 
-    onMount(() => {
+    onMount(async () => {
         console.info("%c" + AURE_CLI_ASCII + import.meta.env.VITE_VERSION, 'color: lime');
+
+        try {
+            const res = await fetch("/fileTree.json");
+            $FileTree = await res.json() as CLI.FileTree;
+            loading = false;
+        }
+        catch (e) {}
     })
 
     afterUpdate(() => {
