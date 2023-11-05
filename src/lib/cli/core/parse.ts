@@ -1,4 +1,4 @@
-export default function parse(input: string): (string[] | CLI.Operator)[]
+export default function parse(input: string): (string[] | string)[]
 {
     input = input.trim();
 
