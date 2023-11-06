@@ -51,7 +51,7 @@
                     e.preventDefault();
                     clear();
                 }
-                return;
+                break;
             // Sets isControlDown to true (and maybe isCommandDown too)
             case "control":
                 isControlDown = true;
@@ -180,7 +180,7 @@
             const inputLastIdx = inputs.length - 1;
 
             for (let i = 0; i < inputLastIdx; i++) {
-                await run(inputs[i], $CurrentPath);
+                await run(inputs[i]);
             }
 
             inputEl.innerText = inputs[inputLastIdx];
@@ -202,8 +202,10 @@
     })
 
     afterUpdate(() => {
-        if (inputEl)
+        if (inputEl) {
+            window.scrollTo(0, document.body.scrollHeight);
             inputEl.focus();
+        }
     });
 </script>
 

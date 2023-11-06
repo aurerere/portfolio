@@ -19,6 +19,10 @@
     "words-royale": {
       "desc.txt": "txt",
       "thumbnail.png": "png"
+    },
+    "darapp": {
+      "desc.txt": "txt",
+      "thumbnail.png": "png"
     }
   },
   ".bash_profile": ".bash_profile",

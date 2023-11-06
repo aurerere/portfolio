@@ -37,12 +37,12 @@ export default async function run(input: string): Promise<void>
                 const args = parsed[i] as string[];
 
                 if (bin[binName]) {
-                    const res = bin[binName](args);
+                    const res = await bin[binName](args);
                     ExecutionHistory.update(value => {
-                        if (value.length > 0)
+                        if (value.length > 0 && !value[value.length -1].cancelled)
                             value[value.length - 1].output.push(res);
                         return value;
-                    })
+                    });
                 }
                 else {
                     handleError(new Error(binName + ": not found"));

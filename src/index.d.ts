@@ -4,32 +4,32 @@ declare module '*.svelte' {
 
 namespace Core {
     type DeviceInfo = {
-        keyboard: "default" | "apple";
-        device: "desktop" | "mobile";
+        keyboard: "default" | "apple",
+        device: "desktop" | "mobile",
     }
 }
 
 namespace Formal {
     type LanguageSensitiveString = {
-        en: string;
-        fr: string;
+        en: string,
+        fr: string,
     };
 
     type Lang = "fr" | "en";
 
     type Link = {
-        url: string;
-        icon: string;
-        text: LanguageSensitiveString;
+        url: string,
+        icon: string,
+        text: LanguageSensitiveString,
     };
 
     type Project = {
-        name: LanguageSensitiveString;
-        thumbnail: string;
-        description: LanguageSensitiveString;
-        tags: string[];
-        done: boolean;
-        links: Link[];
+        name: LanguageSensitiveString,
+        thumbnail: string,
+        description: LanguageSensitiveString,
+        tags: string[],
+        done: boolean,
+        links: Link[],
     };
 }
 
@@ -38,20 +38,18 @@ namespace CLI {
         [key: string]: string | FileTree
     }
 
-    type BinOutput = string | ComponentDependentBinOutput;
+    type BinOutput<T = { [key: string]: any }> = string | ComponentDependentBinOutput<T>;
 
-    type ComponentDependentBinOutput = {
-        component: typeof import("svelte").SvelteComponent<any>;
-        data: {
-            [key: string]: any
-        };
+    type ComponentDependentBinOutput<T> = {
+        component: typeof import("svelte").SvelteComponent<any>,
+        data: T,
     }
 
     type HistoryElement = {
-        path: string[];
+        path: string[],
         input: string,
         output: BinOutput[],
-        cancelled: boolean;
+        cancelled: boolean,
     }
 
     type Operator = ";" | "||";

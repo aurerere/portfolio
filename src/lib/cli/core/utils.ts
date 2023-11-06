@@ -65,31 +65,38 @@ export function parsePath(relativePath: string): string[]
     return path;
 }
 
-export function parseArgs(args: string[]): CLI.ParsedArgs
+export function parseArgs(args: string[], optionsTemplate?: string[]): CLI.ParsedArgs
 {
     const options: CLI.ParsedArgs["options"] = [];
     const regularArgs: CLI.ParsedArgs["regularArgs"] = [];
 
     for (let i = 0; i < args.length; i++) {
         if (args[i].startsWith("--")) {
+            if (optionsTemplate && !optionsTemplate.includes(args[i].substring(2)))
+                throw new Error("Invalid option '" + args[i].substring(2) + "'");
+
             options.push({
                 option: args[i].substring(2),
-                potentialValue: args[i + 1].startsWith("-") ? null : args[i + 1]
+                potentialValue: args[i + 1] && args[i + 1].startsWith("-") ? null : args[i + 1]
             });
         }
-        if (args[i].startsWith("-")) {
+        else if (args[i].startsWith("-")) {
             const fragmentedOptions = args[i].substring(1).split("");
 
-            for (let j = 0; j < fragmentedOptions.length; j++)
+            for (let j = 0; j < fragmentedOptions.length; j++) {
+                if (optionsTemplate && !optionsTemplate.includes(fragmentedOptions[i]))
+                    throw new Error("Invalid option '" + fragmentedOptions[i] + "'");
+
                 options.push({
                     option: fragmentedOptions[i],
-                    potentialValue: j < fragmentedOptions.length - 1 && !args[i + 1].startsWith("-")
+                    potentialValue: j === fragmentedOptions.length - 1 && args[i + 1] && !args[i + 1].startsWith("-")
                         ? args[i + 1]
                         : null
                 });
+            }
         }
         else {
-            regularArgs.push(args[i])
+            regularArgs.push(args[i]);
         }
     }
 

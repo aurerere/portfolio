@@ -8,14 +8,13 @@ export default function cd(args: string[]): CLI.BinOutput
 
     if (args.length === 0) {
         CurrentPath.set(["~"]);
+        return "";
     }
 
     try {
         const to= parsePath(args[0]);
 
         const dest = fileTreeTraveler(to);
-
-        console.log(dest)
 
         if (typeof dest !== "string") {
             CurrentPath.set(["~", ...to]);
@@ -26,12 +25,11 @@ export default function cd(args: string[]): CLI.BinOutput
     }
     catch (e) {
         switch ((e as Error).message) {
-            case "Permission denied":
-                throw new Error("cd: permission denied");
             case "Not a directory":
-                throw new Error("cd: " + args[0] + ": Not a directory");
             case "No such file or directory":
-                throw new Error("cd: " + args[0] + ": No such file or directory");
+                throw new Error("cd: " + args[0] + ": " + (e as Error).message);
+            default:
+                throw new Error("cd: " + (e as Error).message);
         }
     }
 

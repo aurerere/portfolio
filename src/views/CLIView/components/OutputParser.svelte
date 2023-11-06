@@ -1,5 +1,5 @@
 <script lang="ts">
-    export let output: string | CLI.ComponentDependentBinOutput
+    export let output: CLI.BinOutput;
 </script>
 
 {#if typeof output === "string"}
