@@ -17,7 +17,7 @@ export default function ls(args: string[]): CLI.BinOutput<LsOutput>
         const to= parsePath(relativePath);
 
         const dest = fileTreeTraveler(to);
-        const result: { [key: string]: string | -1 } = {};
+        const result: LsOutput["result"] = {};
 
         if (typeof dest !== "string") {
             for (let [key, value] of Object.entries(dest)) {
@@ -35,6 +35,7 @@ export default function ls(args: string[]): CLI.BinOutput<LsOutput>
                 .options
                 .findIndex(val => val.option === "l") !== -1;
 
+            console.log(parsedArgs.options)
             return {
                 component: Ls,
                 data: { result, a, l }

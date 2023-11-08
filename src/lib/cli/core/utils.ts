@@ -73,7 +73,10 @@ export function parseArgs(args: string[], optionsTemplate?: string[]): CLI.Parse
     for (let i = 0; i < args.length; i++) {
         if (args[i].startsWith("--")) {
             if (optionsTemplate && !optionsTemplate.includes(args[i].substring(2)))
-                throw new Error("Invalid option '" + args[i].substring(2) + "'");
+                throw new Error("Invalid option '" + args[i] + "'");
+
+            if (args[i].substring(2).length === 1)
+                throw new Error("option '" + args[i] + "' is ambiguous");
 
             options.push({
                 option: args[i].substring(2),
@@ -84,11 +87,11 @@ export function parseArgs(args: string[], optionsTemplate?: string[]): CLI.Parse
             const fragmentedOptions = args[i].substring(1).split("");
 
             for (let j = 0; j < fragmentedOptions.length; j++) {
-                if (optionsTemplate && !optionsTemplate.includes(fragmentedOptions[i]))
-                    throw new Error("Invalid option '" + fragmentedOptions[i] + "'");
+                if (optionsTemplate && !optionsTemplate.includes(fragmentedOptions[j]))
+                    throw new Error("Invalid option '-" + fragmentedOptions[j] + "'");
 
                 options.push({
-                    option: fragmentedOptions[i],
+                    option: fragmentedOptions[j],
                     potentialValue: j === fragmentedOptions.length - 1 && args[i + 1] && !args[i + 1].startsWith("-")
                         ? args[i + 1]
                         : null

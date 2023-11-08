@@ -1,7 +1,7 @@
 <script lang="ts">
     import {afterUpdate, onMount} from "svelte";
 
-    import {Cleared, CurrentPath, DeviceInfo, InputHistoryStack, ExecutionHistory, FileTree} from "@stores";
+    import {Cleared, DeviceInfo, InputHistoryStack, ExecutionHistory, FileTree} from "@stores";
     import clear from "@cli/bin/clear";
 
     import WelcomeText from "./components/WelcomeText.svelte";

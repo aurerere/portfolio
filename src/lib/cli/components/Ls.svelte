@@ -17,26 +17,38 @@
 </script>
 
 {#if !l}
-    <p>
+    <p class="grid">
         {#each Object.entries(result) as [element, type]}
-            {#if element.startsWith(".")}
-                {#if a}
-                    <span style="color: {getColorElementType(type)}">{element}</span>
-                {/if}
-            {:else}
+            {#if a || !element.startsWith(".")}
                 <span style="color: {getColorElementType(type)}">{element}</span>
             {/if}
         {/each}
     </p>
-
+{:else}
+    <p>
+        {#each Object.entries(result) as [element, type]}
+            {#if a || !element.startsWith(".")}
+                {#if type === -1}
+                    <span>drwxr-xr-x</span>
+                {:else if type === "bin"}
+                    <span>-rwxrwxrwx</span>
+                {:else}
+                    <span>-rw-r--r--</span>
+                {/if}
+                <span>root</span>
+                <span>{new Date().toDateString()}</span>
+                <span>{element}</span><br>
+            {/if}
+        {/each}
+    </p>
 {/if}
 
 <style>
-    span {
+    .grid span {
         flex: 1;
     }
 
-    p {
+    .grid {
         display: grid;
         grid-column-gap: 10px;
         max-width: 700px;
