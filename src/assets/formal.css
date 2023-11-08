@@ -162,7 +162,7 @@ main {
     left: 50%;
 }
 .gray {
-    color: gray;
+    color: rgb(128, 128, 128);
     font-weight: bold;
 }
 .sfm {
@@ -239,6 +239,7 @@ main {
 .part {
     box-sizing: border-box;
     padding: var(--48px) 0;
+    min-height: 100vh;
 }
 .project-grid {
     margin-top: var(--24px);
