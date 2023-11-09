@@ -2,7 +2,7 @@ import {fileTreeTraveler, parseArgs, parsePath} from "@cli/core/utils";
 import Ls from "@cli/components/Ls.svelte";
 
 type LsOutput = {
-    result: { [key: string]: string | -1 },
+    result: { [key: string]: CLI.File | CLI.FolderMeta },
     a: boolean,
     l: boolean
 }
@@ -11,20 +11,27 @@ export default function ls(args: string[]): CLI.BinOutput<LsOutput>
 {
     try {
         const parsedArgs = parseArgs(args, ["a", "l", "all"]);
-
         const relativePath = parsedArgs.regularArgs.length > 0 ? parsedArgs.regularArgs[0] : ".";
-
         const to= parsePath(relativePath);
 
-        const dest = fileTreeTraveler(to);
+        const [dest, destType] = fileTreeTraveler(to);
+
         const result: LsOutput["result"] = {};
 
-        if (typeof dest !== "string") {
-            for (let [key, value] of Object.entries(dest)) {
-                if (typeof value === "string")
-                    result[key] = value;
-                else
-                    result[key] = -1;
+        if (destType === "fileTree") {
+            for (let [name, metadata] of Object.entries(dest)) {
+                if (metadata.type === "file")
+                    result[name] = metadata;
+                else {
+                    result[name] = {
+                        type: "folder",
+                        role: "folder",
+                        hidden: metadata.hidden,
+                        nlink: metadata.nlink,
+                        blksize: metadata.blksize,
+                        mtime: metadata.mtime
+                    };
+                }
             }
 
             const a = parsedArgs
@@ -35,7 +42,6 @@ export default function ls(args: string[]): CLI.BinOutput<LsOutput>
                 .options
                 .findIndex(val => val.option === "l") !== -1;
 
-            console.log(parsedArgs.options)
             return {
                 component: Ls,
                 data: { result, a, l }

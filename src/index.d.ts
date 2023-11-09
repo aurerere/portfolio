@@ -35,7 +35,35 @@ namespace Formal {
 
 namespace CLI {
     type FileTree = {
-        [key: string]: string | FileTree
+        [key: string]: File | Folder
+    };
+
+    type Folder = {
+        type: "folder",
+        role: "folder",
+        hidden: boolean,
+        children: FileTree,
+        blksize: number,
+        nlink: number,
+        mtime: Date
+    }
+
+    type File = {
+        type: "file",
+        role: string,
+        hidden: boolean,
+        blksize: number,
+        nlink: number,
+        mtime: Date
+    }
+
+    type FolderMeta = {
+        type: "folder",
+        role: "folder",
+        hidden: boolean,
+        blksize: number,
+        nlink: number,
+        mtime: Date,
     }
 
     type BinOutput<T = { [key: string]: any }> = string | ComponentDependentBinOutput<T>;

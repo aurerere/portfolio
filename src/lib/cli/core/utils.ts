@@ -1,28 +1,31 @@
 import {CurrentPath, FileTree} from "@stores";
 
-export function fileTreeTraveler(path: string[]): CLI.FileTree | string
+export function fileTreeTraveler(path: string[]): [CLI.File, "file"] | [CLI.FileTree, "fileTree"]
 {
-    let element: CLI.FileTree = {};
+    let element: CLI.FileTree | null = null;
     // Just to assign element with the current FileTree value in the store
     const unsubscribe = FileTree.subscribe(
         value => element = value !== null ? {...value} : element
     );
     unsubscribe();
 
+
+    if (element === null)
+        throw new Error("Internal");
+
     for (let i = 0; i < path.length; i++) {
-        if (typeof element[path[i]] === "object") {
-            element = element[path[i]] as CLI.FileTree;
-            continue;
+        if (element[path[i]].type === "folder") {
+            element = (element[path[i]] as CLI.Folder).children;
         }
-        if (element[path[i]] && i === path.length - 1)
-            return element[path[i]];
+        else if (element[path[i]] && i === path.length - 1)
+            return [element[path[i]] as CLI.File, "file"];
         else if (element[path[i]])
             throw new Error("Not a directory");
         else
             throw new Error("No such file or directory");
     }
 
-    return element;
+    return [element, "fileTree"];
 }
 
 export function parsePath(relativePath: string): string[]

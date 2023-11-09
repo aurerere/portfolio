@@ -7,13 +7,21 @@ type FileTree = {
 
 type Folder = {
     type: "folder",
+    role: "folder",
     hidden: boolean,
-    children: FileTree
+    children: FileTree,
+    blksize: number,
+    nlink: number,
+    mtime: Date
 }
 
 type File = {
     type: "file",
-    hidden: boolean
+    role: string,
+    hidden: boolean,
+    blksize: number,
+    nlink: number,
+    mtime: Date
 }
 
 export default function vitePluginJson(): PluginOption {
@@ -43,10 +51,16 @@ function dirToJson(path: string, to: FileTree)
     const content = fs.readdirSync(path);
 
     for (let element of content) {
-        if (fs.statSync(path + element).isDirectory()) {
+        const elementMeta = fs.statSync(path + element);
+
+        if (elementMeta.isDirectory()) {
             to[element] = {
                 type: "folder",
+                role: "folder",
                 hidden: element.startsWith("."),
+                nlink: elementMeta.nlink,
+                blksize: elementMeta.blksize,
+                mtime: elementMeta.mtime,
                 children: {}
             }
             dirToJson(path + element + "/", to[element]["children"]);
@@ -54,7 +68,11 @@ function dirToJson(path: string, to: FileTree)
         else {
             to[element] = {
                 type: "file",
-                hidden: element.startsWith(".")
+                role: element.split(".").length === 1 ? "bin" : element.split(".")[1],
+                hidden: element.startsWith("."),
+                nlink: elementMeta.nlink,
+                blksize: elementMeta.blksize,
+                mtime: elementMeta.mtime
             }
         }
     }

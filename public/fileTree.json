@@ -1,25 +1,53 @@
 {
   "projects": {
     "type": "folder",
+    "role": "folder",
     "hidden": false,
+    "nlink": 1,
+    "blksize": 4096,
+    "mtime": "2023-11-09T16:39:21.292Z",
     "children": {
       "darapp": {
         "type": "folder",
+        "role": "folder",
         "hidden": false,
+        "nlink": 1,
+        "blksize": 4096,
+        "mtime": "2023-11-09T17:06:21.870Z",
         "children": {
           "desc.txt": {
             "type": "file",
-            "hidden": false
+            "role": "txt",
+            "hidden": false,
+            "nlink": 1,
+            "blksize": 4096,
+            "mtime": "2023-11-09T16:59:38.167Z"
+          },
+          "image-attractive.jpg": {
+            "type": "file",
+            "role": "jpg",
+            "hidden": false,
+            "nlink": 1,
+            "blksize": 4096,
+            "mtime": "2023-11-09T17:06:14.458Z"
           }
         }
       },
       "vector": {
         "type": "folder",
+        "role": "folder",
         "hidden": false,
+        "nlink": 1,
+        "blksize": 4096,
+        "mtime": "2023-11-09T20:49:56.530Z",
         "children": {
           "thumbnail.png": {
             "type": "file",
-            "hidden": false
+            "role": "png",
+            "hidden": false,
+            "nlink": 1,
+            "blksize": 4096,
+            "mtime": "2023-11-09T16:38:50.688Z"
           }
         }
       }

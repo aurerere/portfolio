@@ -1,12 +1,12 @@
 <script lang="ts">
-    export let result: { [key: string]: string | -1 };
+    export let result: { [key: string]: CLI.FolderMeta | CLI.File };
     export let a: boolean;
     export let l: boolean;
 
-    function getColorElementType(fileType: string | -1)
+    function getElementColorByRole(role: string)
     {
-        switch (fileType) {
-            case -1:
+        switch (role) {
+            case "folder":
                 return "#3b78ff";
             case "bin":
                 return "lime";
@@ -18,26 +18,40 @@
 
 {#if !l}
     <p class="grid">
-        {#each Object.entries(result) as [element, type]}
-            {#if a || !element.startsWith(".")}
-                <span style="color: {getColorElementType(type)}">{element}</span>
+        {#each Object.entries(result) as [name, metadata]}
+            {#if a || !metadata.hidden}
+                <span style="color: {getElementColorByRole(metadata.role)}">{name}</span>
             {/if}
         {/each}
     </p>
 {:else}
     <p>
-        {#each Object.entries(result) as [element, type]}
-            {#if a || !element.startsWith(".")}
-                {#if type === -1}
+        <span>drwxr-xr-x</span>
+        <span>10</span>
+        <span>root</span>
+        <span>4096</span>
+        <span>-</span>
+        <span>.</span> <br>
+        <span>drwxr-xr-x</span>
+        <span>10</span>
+        <span>root</span>
+        <span>4096</span>
+        <span>-</span>
+        <span>..</span> <br>
+        {#each Object.entries(result) as [name, metadata]}
+            {#if a || !metadata.hidden}
+                {#if metadata.type === "folder"}
                     <span>drwxr-xr-x</span>
-                {:else if type === "bin"}
+                {:else if metadata.role === "bin"}
                     <span>-rwxrwxrwx</span>
                 {:else}
                     <span>-rw-r--r--</span>
                 {/if}
+                <span>{metadata.nlink}</span>
                 <span>root</span>
-                <span>{new Date().toDateString()}</span>
-                <span>{element}</span><br>
+                <span>{metadata.blksize}</span>
+                <span>{metadata.mtime}</span>
+                <span>{name}</span><br>
             {/if}
         {/each}
     </p>
