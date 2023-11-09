@@ -1,10 +1,11 @@
 import { defineConfig } from 'vite'
 import { svelte } from '@sveltejs/vite-plugin-svelte'
 import path from "path";
+import vitePluginJson from "./vite-plugin-json";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [svelte()],
+  plugins: [vitePluginJson(), svelte()],
   resolve: {
     alias: {
       '@cli': path.resolve('src/lib/cli/'),
@@ -22,5 +23,5 @@ export default defineConfig({
         entryFileNames: 'assets/index.js',
       }
     }
-  }
-})
+  },
+});

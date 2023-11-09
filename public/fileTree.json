@@ -1,37 +1,28 @@
 {
   "projects": {
-    "hotkeys.help": {
-      "desc.txt": "txt",
-      "thumbnail.png": "png"
-    },
-    "providenceprod.tv": {
-      "desc.txt": "txt",
-      "thumbnail.png": "png"
-    },
-    "vector-ui": {
-      "desc.txt": "txt",
-      "thumbnail.png": "png"
-    },
-    "vector.wtf": {
-      "desc.txt": "txt",
-      "thumbnail.png": "png"
-    },
-    "words-royale": {
-      "desc.txt": "txt",
-      "thumbnail.png": "png"
-    },
-    "darapp": {
-      "desc.txt": "txt",
-      "thumbnail.png": "png"
+    "type": "folder",
+    "hidden": false,
+    "children": {
+      "darapp": {
+        "type": "folder",
+        "hidden": false,
+        "children": {
+          "desc.txt": {
+            "type": "file",
+            "hidden": false
+          }
+        }
+      },
+      "vector": {
+        "type": "folder",
+        "hidden": false,
+        "children": {
+          "thumbnail.png": {
+            "type": "file",
+            "hidden": false
+          }
+        }
+      }
     }
-  },
-  ".bash_profile": ".bash_profile",
-  "ah ah.txt": "txt",
-  "cv_en.pdf": "pdf",
-  "cv_fr.pdf": "pdf",
-  "info.txt": "txt",
-  "README.txt": "txt",
-  "github": "bin",
-  "linkedin": "bin",
-  "mailme": "bin"
+  }
 }
