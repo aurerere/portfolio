@@ -11,7 +11,8 @@ type LsOutput = {
 export default function ls(args: string[]): CLI.BinOutput<LsOutput>
 {
     try {
-        const parsedArgs = parseArgs(args, ["a", "l", "all"]);
+        const parsedArgs = parseArgs(args, ["a", "l", "all"], 1);
+
         const relativePath = parsedArgs.regularArgs.length > 0 ? parsedArgs.regularArgs[0] : ".";
         const to= parsePath(relativePath);
 

@@ -1,7 +1,11 @@
 <script lang="ts">
+    import {onMount} from "svelte";
+
     export let result: { [key: string]: CLI.FolderMetadata | CLI.File };
     export let a: boolean;
     export let l: boolean;
+
+    let shortLsWrapperEl: HTMLParagraphElement;
 
     function getElementColorByRole(role: string)
     {
@@ -14,10 +18,16 @@
                 return "white";
         }
     }
+
+    onMount(() => {
+        if (!l) {
+
+        }
+    });
 </script>
 
 {#if !l}
-    <p class="classic">
+    <p class="short" bind:this={shortLsWrapperEl}>
         {#each Object.entries(result) as [name, metadata]}
             {#if a || !metadata.hidden}
                 <span style="color: {getElementColorByRole(metadata.role)}">{name}</span>
@@ -25,45 +35,46 @@
         {/each}
     </p>
 {:else}
-    <p>
+    <p class="long">
         {#each Object.entries(result) as [name, metadata]}
-            <span class="list">
-                {#if a || !metadata.hidden}
-                    {#if metadata.type === "folder"}
-                        <span>drwxr-xr-x</span>
-                    {:else if metadata.role === "bin"}
-                        <span>-rwxrwxrwx</span>
-                    {:else}
-                        <span>-rw-r--r--</span>
-                    {/if}
-                    <span>{metadata.nlink}</span>
-                    <span>root</span>
-                    <span>{metadata.blksize}</span>
-                    <span>{metadata.mtime}</span>
-                    <span>{name}</span>
+            {#if a || !metadata.hidden}
+                {#if metadata.type === "folder"}
+                    <span>drwxr-xr-x</span>
+                {:else if metadata.role === "bin"}
+                    <span>-rwxrwxrwx</span>
+                {:else}
+                    <span>-rw-r--r--</span>
                 {/if}
-            </span>
+                <span>{metadata.nlink}</span>
+                <span>root</span>
+                <span>root</span>
+                <span>{metadata.blksize}</span>
+                <span>{metadata.mtime}</span>
+                <span class="left" style="color: {getElementColorByRole(metadata.role)}">{name}</span>
+            {/if}
         {/each}
     </p>
 {/if}
 
 <style>
-    .classic span {
-        flex: 1;
+    .short span {
+        width: 180px;
     }
 
-    .classic {
-        display: grid;
-        grid-column-gap: 10px;
-        max-width: 700px;
-        grid-auto-columns: 1fr;
-        grid-template-columns: repeat(auto-fill, 150px);
+    .short {
+        display: flex;
+        flex-wrap: wrap;
+        max-width: 800px;
     }
 
-    .list {
-        display: grid;
-        grid-auto-flow: column;
-        grid-auto-columns:max-content;
+    .long {
+        width: fit-content;
         gap: 0 10px;
+        display: grid;
+        grid-template-columns: repeat(7, auto);
+    }
+
+    .long span:not(.left){
+        text-align: right;
     }
 </style>

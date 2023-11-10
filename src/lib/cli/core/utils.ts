@@ -20,7 +20,7 @@ export function fileTreeTraveler(path: string[]): [CLI.File, "file"] | [CLI.File
             element = (element[path[i]] as CLI.Folder).children;
         else if (i === path.length - 1)
             return [element[path[i]] as CLI.File, "file"];
-        else if (element[path[i]])
+        else
             throw new Error("Not a directory");
     }
 
@@ -67,14 +67,17 @@ export function parsePath(relativePath: string): string[]
     return path;
 }
 
-export function parseArgs(args: string[], optionsTemplate?: string[]): CLI.ParsedArgs
-{
+export function parseArgs(
+    args: string[],
+    expectedOptions?: string[],
+    expectedNumberOfArguments?: number
+): CLI.ParsedArgs {
     const options: CLI.ParsedArgs["options"] = [];
     const regularArgs: CLI.ParsedArgs["regularArgs"] = [];
 
     for (let i = 0; i < args.length; i++) {
         if (args[i].startsWith("--")) {
-            if (optionsTemplate && !optionsTemplate.includes(args[i].substring(2)))
+            if (expectedOptions && !expectedOptions.includes(args[i].substring(2)))
                 throw new Error("Invalid option '" + args[i] + "'");
 
             if (args[i].substring(2).length === 1)
@@ -89,7 +92,7 @@ export function parseArgs(args: string[], optionsTemplate?: string[]): CLI.Parse
             const fragmentedOptions = args[i].substring(1).split("");
 
             for (let j = 0; j < fragmentedOptions.length; j++) {
-                if (optionsTemplate && !optionsTemplate.includes(fragmentedOptions[j]))
+                if (expectedOptions && !expectedOptions.includes(fragmentedOptions[j]))
                     throw new Error("Invalid option '-" + fragmentedOptions[j] + "'");
 
                 options.push({
@@ -101,6 +104,9 @@ export function parseArgs(args: string[], optionsTemplate?: string[]): CLI.Parse
             }
         }
         else {
+            if (expectedNumberOfArguments && regularArgs.length + 1 > expectedNumberOfArguments)
+                throw new Error("To many arguments");
+
             regularArgs.push(args[i]);
         }
     }
