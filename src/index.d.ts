@@ -54,16 +54,16 @@ namespace CLI {
         hidden: boolean,
         blksize: number,
         nlink: number,
-        mtime: Date
+        mtime?: Date | string
     }
 
-    type FolderMeta = {
+    type FolderMetadata = {
         type: "folder",
         role: "folder",
         hidden: boolean,
         blksize: number,
         nlink: number,
-        mtime: Date,
+        mtime?: Date | string
     }
 
     type BinOutput<T = { [key: string]: any }> = string | ComponentDependentBinOutput<T>;

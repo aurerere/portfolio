@@ -1,8 +1,9 @@
 import {fileTreeTraveler, parseArgs, parsePath} from "@cli/core/utils";
 import Ls from "@cli/components/Ls.svelte";
+import {MONTH_NAMES_SHORT} from "@utils/const";
 
 type LsOutput = {
-    result: { [key: string]: CLI.File | CLI.FolderMeta },
+    result: { [key: string]: CLI.File | CLI.FolderMetadata },
     a: boolean,
     l: boolean
 }
@@ -16,10 +17,35 @@ export default function ls(args: string[]): CLI.BinOutput<LsOutput>
 
         const [dest, destType] = fileTreeTraveler(to);
 
-        const result: LsOutput["result"] = {};
+        const result: LsOutput["result"] = {
+            ".": {
+                type: "folder",
+                role: "folder",
+                hidden: true,
+                nlink: 10,
+                blksize: 4096,
+                mtime: "-"
+            },
+            "..": {
+                type: "folder",
+                role: "folder",
+                hidden: true,
+                nlink: 10,
+                blksize: 4096,
+                mtime: "-"
+            },
+
+        };
 
         if (destType === "fileTree") {
             for (let [name, metadata] of Object.entries(dest)) {
+
+                if (metadata.mtime !== undefined) {
+                    const mtime = new Date(metadata.mtime);
+                    metadata.mtime = `${MONTH_NAMES_SHORT[mtime.getMonth()]} ${mtime.getDate()} ${mtime.getFullYear()}`;
+                }
+
+
                 if (metadata.type === "file")
                     result[name] = metadata;
                 else {

@@ -14,15 +14,14 @@ export function fileTreeTraveler(path: string[]): [CLI.File, "file"] | [CLI.File
         throw new Error("Internal");
 
     for (let i = 0; i < path.length; i++) {
-        if (element[path[i]].type === "folder") {
+        if (element[path[i]] === undefined)
+            throw new Error("No such file or directory");
+        else if (element[path[i]].type === "folder")
             element = (element[path[i]] as CLI.Folder).children;
-        }
-        else if (element[path[i]] && i === path.length - 1)
+        else if (i === path.length - 1)
             return [element[path[i]] as CLI.File, "file"];
         else if (element[path[i]])
             throw new Error("Not a directory");
-        else
-            throw new Error("No such file or directory");
     }
 
     return [element, "fileTree"];

@@ -14,9 +14,9 @@ export default function cd(args: string[]): CLI.BinOutput
     try {
         const to= parsePath(args[0]);
 
-        const dest = fileTreeTraveler(to);
+        const [,destType] = fileTreeTraveler(to);
 
-        if (typeof dest !== "string") {
+        if (destType === "fileTree") {
             CurrentPath.set(["~", ...to]);
         }
         else {

@@ -8,3 +8,19 @@ export const AURE_CLI_ASCII =
  / /   / /    / /
 / /___/ /____/ /
 \\____/_____/___/`;
+
+
+export const MONTH_NAMES_SHORT = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec"
+]
