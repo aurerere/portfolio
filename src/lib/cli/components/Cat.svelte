@@ -9,37 +9,47 @@
         t: boolean,
         e: boolean;
 
-    export let lineNumber: number = 0;
+    let lineNumber: number = 0;
 
-    function getLineNumber(line: string): number | string {
+    function getLineNumber(line: string): number | string
+    {
         if (b && line === "")
             return "&nbsp;";
-        else
-            return ++lineNumber;
+        return ++lineNumber;
+    }
+
+    function transformLine(line: string)
+    {
+        if (t)
+            line = line.replaceAll(/\t+/g, "^T");
+        if (e)
+            line += "$";
+
+        if (line === "" && !n && !b)
+            line = "<br>";
+
+
+        return line;
     }
 
     onMount(() => {
-        console.log(result)
+        console.log("here")
     })
 </script>
 
 {#if n || b}
-    {#each result as value, index (index)}
+    {#each result as line, index (index)}
         <div class="counted-line">
-            <div class="counter-counted-line">{@html getLineNumber(value)}</div>
+            <div class="counter-counted-line">{@html getLineNumber(line)}</div>
             <div class="content-counted-line">
-                {#if t}{value = value.replaceAll(/\t+/g, "^T")}{/if}<!--
-                -->{value !== "" ? value : ""}<!--
-                -->{#if e}${/if}
+                {transformLine(line)}
             </div>
         </div>
     {/each}
 {:else}
-    {#each result as value, index (index)}
+    {#each result as line, index (index)}
         <div>
-            {#if t}{value = value.replaceAll(/\t+/g, "^T")}{/if}<!--
-            -->{@html value !== "" ? value : e ? "" : "<br>"}<!--
-            -->{#if e}${/if}
+            {@html transformLine(line)}
         </div>
     {/each}
 {/if}

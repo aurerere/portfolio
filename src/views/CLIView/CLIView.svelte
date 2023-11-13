@@ -18,13 +18,6 @@
     // Disables the input when set to false
     let loading: boolean = true;
 
-    // To check if the command key is down -> control also enables it on windows and linux
-    let isCommandDown: boolean = false;
-    // To check if the control key is down
-    let isControlDown: boolean = false;
-    // To check if the shift key is down
-    let isShiftDown: boolean = false;
-
     // To navigate through the input history stack
     let currentHistoryStackIndex: number = -1;
     // The last saved value -> saved when incrementing currentHistoryStackIndex
@@ -38,6 +31,11 @@
     async function handleKeyDown(e: Event): Promise<void>
     {
         const key = (e as KeyboardEvent).key;
+        const isControlDown = (e as KeyboardEvent).ctrlKey;
+        const isCommandDown = $DeviceInfo?.keyboard === "apple"
+            ? (e as KeyboardEvent).metaKey
+            : (e as KeyboardEvent).ctrlKey;
+        const isShiftDown = (e as KeyboardEvent).shiftKey;
 
         // Whether the input is focused or not
         switch (key.toLowerCase()) {
@@ -52,20 +50,13 @@
                     clear();
                 }
                 break;
-            // Sets isControlDown to true (and maybe isCommandDown too)
-            case "control":
-                isControlDown = true;
-                if ($DeviceInfo?.keyboard === "default")
-                    isCommandDown = true;
-                return;
-            // Sets isCommandDown to true on Apple devices
-            case "meta":
-                if ($DeviceInfo?.keyboard === "apple")
-                    isCommandDown = true;
-                return;
-            case "shift":
-                isShiftDown = true;
-                return;
+            case "b":
+            case "u":
+            case "i":
+                console.log("here")
+                if (isCommandDown)
+                    e.preventDefault();
+                break;
         }
         // if the input is NOT focused
         if (document.activeElement !== inputEl) {
@@ -104,26 +95,6 @@
         }
     }
 
-    function handleKeyUp(e: Event): void
-    {
-        const key = (e as KeyboardEvent).key;
-
-        switch (key.toLowerCase()) {
-            case "shift":
-                isShiftDown = false;
-                return;
-            case "control":
-                isControlDown = false;
-                if ($DeviceInfo?.keyboard === "default")
-                    isCommandDown = false;
-                return;
-            case "meta":
-                if ($DeviceInfo?.keyboard === "apple")
-                    isCommandDown = false;
-                return;
-        }
-    }
-
     async function handlePaste(e: ClipboardEvent)
     {
         if (!e.clipboardData)
@@ -144,13 +115,6 @@
         }
 
         e.preventDefault();
-    }
-
-    function handleBlur()
-    {
-        isShiftDown = false;
-        isCommandDown = false;
-        isControlDown = false;
     }
 
     function navigateThroughHistoryStack(key: "ArrowUp" | "ArrowDown")
@@ -216,7 +180,7 @@
     });
 </script>
 
-<svelte:window on:keydown={handleKeyDown} on:keyup={handleKeyUp} on:blur={handleBlur}/>
+<svelte:window on:keydown={handleKeyDown}/>
 <main id="cli">
     {#if !$Cleared}
         <WelcomeText/>
