@@ -8,7 +8,7 @@
 <span class="wrapper"><!--
     --><span class="user">aureliendumay.me</span><!--
     --><span>:</span><!--
-    -->{#each path as dir, index}<!--
+    -->{#each path as dir, index (index)}<!--
     --><span class="dir">{dir}</span><!--
         -->{#if index < path.length - 1}<!--
             --><span>/</span><!--

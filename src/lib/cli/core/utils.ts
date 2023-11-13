@@ -70,7 +70,8 @@ export function parsePath(relativePath: string): string[]
 export function parseArgs(
     args: string[],
     expectedOptions?: string[],
-    expectedNumberOfArguments?: number
+    expectedMaxNumberOfArguments?: number,
+    expectedMinNumberOfArguments?: number
 ): CLI.ParsedArgs {
     const options: CLI.ParsedArgs["options"] = [];
     const regularArgs: CLI.ParsedArgs["regularArgs"] = [];
@@ -104,12 +105,15 @@ export function parseArgs(
             }
         }
         else {
-            if (expectedNumberOfArguments && regularArgs.length + 1 > expectedNumberOfArguments)
+            if (expectedMaxNumberOfArguments && regularArgs.length + 1 > expectedMaxNumberOfArguments)
                 throw new Error("To many arguments");
 
             regularArgs.push(args[i]);
         }
     }
+
+    if (expectedMinNumberOfArguments && expectedMinNumberOfArguments > regularArgs.length)
+        throw new Error("At least " + expectedMinNumberOfArguments + " argument(s) expected")
 
     return { options, regularArgs };
 }

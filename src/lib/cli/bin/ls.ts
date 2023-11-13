@@ -11,9 +11,9 @@ type LsOutput = {
 export default function ls(args: string[]): CLI.BinOutput<LsOutput>
 {
     try {
-        const parsedArgs = parseArgs(args, ["a", "l", "all"], 1);
+        const {regularArgs, options} = parseArgs(args, ["a", "l", "all"], 1);
 
-        const relativePath = parsedArgs.regularArgs.length > 0 ? parsedArgs.regularArgs[0] : ".";
+        const relativePath = regularArgs.length > 0 ? regularArgs[0] : ".";
         const to= parsePath(relativePath);
 
         const [dest, destType] = fileTreeTraveler(to);
@@ -61,12 +61,10 @@ export default function ls(args: string[]): CLI.BinOutput<LsOutput>
                 }
             }
 
-            const a = parsedArgs
-                .options
+            const a = options
                 .findIndex(val => val.option === "a" || val.option === "all") !== -1;
 
-            const l = parsedArgs
-                .options
+            const l = options
                 .findIndex(val => val.option === "l") !== -1;
 
             return {
@@ -82,7 +80,7 @@ export default function ls(args: string[]): CLI.BinOutput<LsOutput>
         switch ((e as Error).message) {
             case "Not a directory":
             case "No such file or directory":
-                throw new Error("ls: " + args[0] + ": " + (e as Error).message);
+                throw new Error("ls: '" + args[0] + "': " + (e as Error).message);
             default:
                 throw new Error("ls: " + (e as Error).message);
         }

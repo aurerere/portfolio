@@ -1,11 +1,8 @@
 <script lang="ts">
-    import {onMount} from "svelte";
-
     export let result: { [key: string]: CLI.FolderMetadata | CLI.File };
-    export let a: boolean;
-    export let l: boolean;
-
-    let shortLsWrapperEl: HTMLParagraphElement;
+    export let
+        a: boolean,
+        l: boolean;
 
     function getElementColorByRole(role: string)
     {
@@ -18,16 +15,10 @@
                 return "white";
         }
     }
-
-    onMount(() => {
-        if (!l) {
-
-        }
-    });
 </script>
 
 {#if !l}
-    <p class="short" bind:this={shortLsWrapperEl}>
+    <p class="short">
         {#each Object.entries(result) as [name, metadata]}
             {#if a || !metadata.hidden}
                 <span style="color: {getElementColorByRole(metadata.role)}">{name}</span>

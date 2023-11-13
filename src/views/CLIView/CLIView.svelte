@@ -124,6 +124,35 @@
         }
     }
 
+    async function handlePaste(e: ClipboardEvent)
+    {
+        if (!e.clipboardData)
+            return;
+
+        const data = e.clipboardData.getData('Text').replaceAll('\r', '');
+
+        if (data.includes('\n')) {
+            const inputs = data.split('\n');
+            const inputLastIdx = inputs.length - 1;
+
+            for (let i = 0; i < inputLastIdx; i++) {
+                await run(inputs[i]);
+            }
+
+            inputEl.innerText = inputs[inputLastIdx];
+            focusInputAndMoveCaretAtTheEnd();
+        }
+
+        e.preventDefault();
+    }
+
+    function handleBlur()
+    {
+        isShiftDown = false;
+        isCommandDown = false;
+        isControlDown = false;
+    }
+
     function navigateThroughHistoryStack(key: "ArrowUp" | "ArrowDown")
     {
         if (key === "ArrowUp") { // moves backward in the input history
@@ -168,28 +197,6 @@
         inputEl.scrollTop = inputEl.scrollHeight;
     }
 
-    async function handlePaste(e: ClipboardEvent)
-    {
-        if (!e.clipboardData)
-            return;
-
-        const data = e.clipboardData.getData('Text').replaceAll('\r', '');
-
-        if (data.includes('\n')) {
-            const inputs = data.split('\n');
-            const inputLastIdx = inputs.length - 1;
-
-            for (let i = 0; i < inputLastIdx; i++) {
-                await run(inputs[i]);
-            }
-
-            inputEl.innerText = inputs[inputLastIdx];
-            focusInputAndMoveCaretAtTheEnd();
-        }
-
-        e.preventDefault();
-    }
-
     onMount(async () => {
         console.info("%c" + AURE_CLI_ASCII + import.meta.env.VITE_VERSION, 'color: lime');
 
@@ -209,7 +216,7 @@
     });
 </script>
 
-<svelte:window on:keydown={handleKeyDown} on:keyup={handleKeyUp}/>
+<svelte:window on:keydown={handleKeyDown} on:keyup={handleKeyUp} on:blur={handleBlur}/>
 <main id="cli">
     {#if !$Cleared}
         <WelcomeText/>
@@ -267,6 +274,6 @@
     }
 
     .previous-input {
-        white-space: pre;
+        white-space: break-spaces;
     }
 </style>
