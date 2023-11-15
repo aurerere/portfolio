@@ -25,7 +25,6 @@ export default async function cat(args: string[]): Promise<CLI.BinOutput>
         }
 
         let result: string | string[] = await Promise.all(toFetch.map(async path => {
-            console.log("/files/" + path.join("/"))
             const res = await fetch("/files/" + path.join("/"));
             return res.text();
         }));

@@ -1,6 +1,6 @@
 <script lang="ts">
-    export let result: { [key: string]: CLI.FolderMetadata | CLI.File };
     export let
+        result: { [key: string]: CLI.FolderMetadata | CLI.File },
         a: boolean,
         l: boolean;
 
@@ -17,6 +17,7 @@
     }
 </script>
 
+<svelte:options immutable/>
 {#if !l}
     <p class="short">
         {#each Object.entries(result) as [name, metadata]}

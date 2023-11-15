@@ -4,7 +4,6 @@
     import {getDeviceInfo} from "@utils/functions";
     import {AURE_CLI_ASCII} from "@utils/const";
     import run from "@cli/core/run";
-    import {CurrentPath} from "@stores";
 </script>
 
 <pre class="green">

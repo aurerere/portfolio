@@ -1,7 +1,7 @@
 <script lang="ts">
     import Fa from "svelte-fa";
     import {faCheck, faCode} from "@fortawesome/free-solid-svg-icons";
-    import {Lang} from "../../../stores";
+    import {Lang} from "@stores";
 
     const statusText = {
         done: {

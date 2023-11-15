@@ -53,7 +53,6 @@
             case "b":
             case "u":
             case "i":
-                console.log("here")
                 if (isCommandDown)
                     e.preventDefault();
                 break;
@@ -185,7 +184,7 @@
     {#if !$Cleared}
         <WelcomeText/>
     {/if}
-    {#each $ExecutionHistory as previousElement, index (index)}
+    {#each $ExecutionHistory as previousElement}
         <div>
             <PromptText path={previousElement.path}/><!--
             --><span class="previous-input">{previousElement.input}</span>

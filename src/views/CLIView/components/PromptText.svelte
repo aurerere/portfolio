@@ -4,6 +4,7 @@
     export let path: string[] = $CurrentPath;
 </script>
 
+<svelte:options immutable/>
 <!-- Workaround: Using HTML comments to prevent unwanted spaces -->
 <span class="wrapper"><!--
     --><span class="user">aureliendumay.me</span><!--

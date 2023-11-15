@@ -10,7 +10,7 @@
       "@cli/*": ["src/lib/cli/*"],
       "@core-components/*": ["src/lib/components/*"],
       "@utils/*": ["src/lib/utils/*"],
-      "@stores": ["src/stores/index"]
+      "@stores": ["src/lib/stores/index"]
     },
     /**
      * Typecheck JS in `.svelte` and `.js` files by default.
