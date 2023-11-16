@@ -1,5 +1,6 @@
 import fs from "fs";
 import {PluginOption} from "vite";
+import toml from "toml";
 
 type FileTree = {
     [key: string]: File | Folder
@@ -27,11 +28,10 @@ type File = {
 export default function vitePluginJson(): PluginOption {
 
     function go() {
-        const projects = [];
         const fileTree: FileTree = {};
 
         dirToJson("./public/files/", fileTree);
-        projectFilesToJson(projects);
+        projectFilesToJson();
 
         fs.writeFileSync("./public/fileTree.json", JSON.stringify(fileTree, null, 2));
     }
@@ -78,7 +78,34 @@ function dirToJson(path: string, to: FileTree)
     }
 }
 
-function projectFilesToJson(projects: Array<any>)
+function projectFilesToJson()
 {
+    const projectsPath = "./public/files/projects/";
+    const projectsDir = fs.readdirSync(projectsPath);
+    const projects = [];
+
+
+    for (let project of projectsDir)
+    {
+        try {
+            if (
+                fs.existsSync(projectsPath + project + "/thumbnail.png") &&
+                fs.existsSync(projectsPath + project + "/desc.toml")
+            ) {
+                const projectData =
+                    toml.parse(fs.readFileSync(projectsPath + project + "/desc.toml", "utf-8"));
+
+                projects.push(projectData);
+            }
+            else {
+
+            }
+        }
+        catch (e) {
+            console.error(e)
+        }
+
+    }
+
 
 }

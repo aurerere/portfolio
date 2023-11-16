@@ -29,7 +29,7 @@
         "hidden": false,
         "nlink": 1,
         "blksize": 4096,
-        "mtime": "2023-11-13T18:15:12.892Z",
+        "mtime": "2023-11-16T21:23:42.759Z",
         "children": {
           "desc.toml": {
             "type": "file",
@@ -37,19 +37,11 @@
             "hidden": false,
             "nlink": 1,
             "blksize": 4096,
-            "mtime": "2023-11-13T18:15:12.892Z"
+            "mtime": "2023-11-16T21:23:42.757Z"
           },
-          "desc2.toml": {
+          "thumbnail.png": {
             "type": "file",
-            "role": "toml",
-            "hidden": false,
-            "nlink": 1,
-            "blksize": 4096,
-            "mtime": "2023-11-13T14:52:31.412Z"
-          },
-          "test.txt": {
-            "type": "file",
-            "role": "txt",
+            "role": "png",
             "hidden": false,
             "nlink": 1,
             "blksize": 4096,
