@@ -1,5 +1,5 @@
 import {CurrentPath} from "@stores";
-import {fileTreeTraveler, parsePath} from "@cli/core/utils";
+import {createError, fileTreeTraveler, parsePath} from "@cli/core/utils";
 
 export default function cd(args: string[]): CLI.BinOutput
 {
@@ -20,7 +20,7 @@ export default function cd(args: string[]): CLI.BinOutput
             CurrentPath.set(["~", ...to]);
         }
         else {
-            throw new Error("Not a directory")
+            createError("Not a directory");
         }
     }
     catch (e) {

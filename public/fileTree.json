@@ -1,51 +1,11 @@
 {
-  "1.png": {
+  "github": {
     "type": "file",
-    "role": "png",
+    "role": "bin",
     "hidden": false,
     "nlink": 1,
     "blksize": 4096,
-    "mtime": "2023-11-11T09:39:11.345Z"
-  },
-  "2.png": {
-    "type": "file",
-    "role": "png",
-    "hidden": false,
-    "nlink": 1,
-    "blksize": 4096,
-    "mtime": "2023-11-11T09:39:11.346Z"
-  },
-  "3.png": {
-    "type": "file",
-    "role": "png",
-    "hidden": false,
-    "nlink": 1,
-    "blksize": 4096,
-    "mtime": "2023-11-11T09:39:11.346Z"
-  },
-  "4.png": {
-    "type": "file",
-    "role": "png",
-    "hidden": false,
-    "nlink": 1,
-    "blksize": 4096,
-    "mtime": "2023-11-11T09:39:11.347Z"
-  },
-  "5.png": {
-    "type": "file",
-    "role": "png",
-    "hidden": false,
-    "nlink": 1,
-    "blksize": 4096,
-    "mtime": "2023-11-11T09:39:11.347Z"
-  },
-  "7.png": {
-    "type": "file",
-    "role": "png",
-    "hidden": false,
-    "nlink": 1,
-    "blksize": 4096,
-    "mtime": "2023-11-11T09:39:11.348Z"
+    "mtime": "2023-11-16T15:23:13.298Z"
   },
   "nto.txt": {
     "type": "file",

@@ -1,0 +1,4 @@
+function main(args)
+{
+    window.open('https://github.com/aurerere', "_blank");
+}

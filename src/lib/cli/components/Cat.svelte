@@ -11,7 +11,6 @@
 
     function getLineNumber(line: string): number | string
     {
-        console.log(lineNumber)
         if (b && line === "")
             return "&nbsp;";
         return ++lineNumber;
@@ -19,7 +18,6 @@
 
     function transformLine(line: string)
     {
-        console.log(line === "")
         if (t)
             line = line.replaceAll(/\t+/g, "^T");
         if (e)
@@ -38,15 +36,13 @@
         <div class="counted-line">
             <div class="counter-counted-line">{@html getLineNumber(line)}</div>
             <div class="content-counted-line">
-                <pre>{transformLine(line)}</pre>
+                <pre>{@html transformLine(line)}</pre>
             </div>
         </div>
     {/each}
 {:else}
     {#each result as line, index (index)}
-        <div>
-            {@html transformLine(line)}
-        </div>
+        <pre>{@html transformLine(line)}</pre>
     {/each}
 {/if}
 
@@ -59,5 +55,9 @@
     .counter-counted-line {
         min-width: 50px;
         text-align: right;
+    }
+
+    .pre {
+        white-space: pre;
     }
 </style>

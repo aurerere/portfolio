@@ -2,6 +2,7 @@ import {InputHistoryStack, ExecutionHistory, CurrentPath} from "@stores";
 import parse from "@cli/core/parse";
 import RunError from "@cli/components/RunError.svelte";
 import bin from "@cli/index";
+import {exe} from "@cli/core/utils";
 
 export default async function run(input: string): Promise<void>
 {
@@ -33,11 +34,23 @@ export default async function run(input: string): Promise<void>
                 continue; // TODO: implement && and ()
 
             try {
-                const binName = (parsed[i] as string[]).shift() as string;
+                const binNameOrPath = (parsed[i] as string[]).shift() as string;
                 const args = parsed[i] as string[];
 
-                if (bin[binName]) {
-                    const res = await bin[binName](args);
+                if (
+                    binNameOrPath.startsWith("./") ||
+                    binNameOrPath.startsWith("/") ||
+                    binNameOrPath.startsWith("../")
+                ) {
+                    const res = await exe(binNameOrPath, args);
+                    ExecutionHistory.update(value => {
+                        if (value.length > 0 && !value[value.length -1].cancelled)
+                            value[value.length - 1].output.push(res);
+                        return value;
+                    });
+                }
+                else if (bin[binNameOrPath]) {
+                    const res = await bin[binNameOrPath](args);
                     ExecutionHistory.update(value => {
                         if (value.length > 0 && !value[value.length -1].cancelled)
                             value[value.length - 1].output.push(res);
@@ -45,7 +58,7 @@ export default async function run(input: string): Promise<void>
                     });
                 }
                 else {
-                    handleError(new Error(binName + ": not found"));
+                    handleError(new Error(binNameOrPath + ": not found"));
                 }
             }
             catch (e) {

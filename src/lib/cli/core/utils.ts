@@ -15,13 +15,13 @@ export function fileTreeTraveler(path: string[]): [CLI.File, "file"] | [CLI.File
 
     for (let i = 0; i < path.length; i++) {
         if (element[path[i]] === undefined)
-            throw new Error("No such file or directory");
+            throw new Error(path[i] + ": No such file or directory");
         else if (element[path[i]].type === "folder")
             element = (element[path[i]] as CLI.Folder).children;
         else if (i === path.length - 1)
             return [element[path[i]] as CLI.File, "file"];
         else
-            throw new Error("Not a directory");
+            throw new Error(path[i] + ": Not a directory");
     }
 
     return [element, "fileTree"];
@@ -90,6 +90,9 @@ export function parseArgs(
             });
         }
         else if (args[i].startsWith("-")) {
+            if (args[i] === "-")
+                throw new Error("Invalid option '-'");
+
             const fragmentedOptions = args[i].substring(1).split("");
 
             for (let j = 0; j < fragmentedOptions.length; j++) {
@@ -116,4 +119,30 @@ export function parseArgs(
         throw new Error("At least " + expectedMinNumberOfArguments + " argument(s) expected")
 
     return { options, regularArgs };
+}
+
+export async function exe(path: string, args: string[]): Promise<CLI.BinOutput>
+{
+    try {
+        const to= parsePath(path);
+        const [dest, destType] = fileTreeTraveler(to);
+
+        if (destType === "fileTree" || dest.role !== "bin")
+            createError("not found");
+
+        const res = await fetch("/files/" + to.join("/"));
+        const sourceCode = "{return " + await res.text() + "}";
+        const func = new Function(sourceCode);
+        const out = func.call(null).call(args);
+
+        return out === undefined ? "" : out;
+    }
+    catch (e) {
+        throw new Error(path + ": not found");
+    }
+}
+
+export function createError(message: string): CLI.BinOutput
+{
+    throw new Error(message);
 }

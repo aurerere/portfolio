@@ -1,4 +1,4 @@
-import {fileTreeTraveler, parseArgs, parsePath} from "@cli/core/utils";
+import {createError, fileTreeTraveler, parseArgs, parsePath} from "@cli/core/utils";
 import Cat from "@cli/components/Cat.svelte";
 
 export default async function cat(args: string[]): Promise<CLI.BinOutput>
@@ -18,16 +18,18 @@ export default async function cat(args: string[]): Promise<CLI.BinOutput>
             const [,destType] = fileTreeTraveler(to);
 
             if (destType === "fileTree") {
-                throw new Error("'" + regularArgs + "' is a directory")
+                createError("'" + regularArgs[i] + "' is a directory")
             }
 
             toFetch.push(to);
         }
 
-        let result: string | string[] = await Promise.all(toFetch.map(async path => {
-            const res = await fetch("/files/" + path.join("/"));
-            return res.text();
-        }));
+        let result: string | string[] = await Promise.all(
+            toFetch.map(async path => {
+                const res = await fetch("/files/" + path.join("/"));
+                return res.text();
+            })
+        );
 
         result = result.join("\n");
 
@@ -45,10 +47,6 @@ export default async function cat(args: string[]): Promise<CLI.BinOutput>
 
         const e = options
             .findIndex(val => val.option === "e" || val.option === "A") !== -1;
-
-        if (!n && !b && !v && !t && !e) {
-            return result;
-        }
 
         return {
             component: Cat,

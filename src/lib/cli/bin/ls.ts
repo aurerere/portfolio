@@ -11,34 +11,41 @@ type LsOutput = {
 export default function ls(args: string[]): CLI.BinOutput<LsOutput>
 {
     try {
-        const {regularArgs, options} = parseArgs(args, ["a", "l", "all"], 1);
+        const {regularArgs, options} =
+            parseArgs(args, ["a", "l", "all"], 1);
+
+        const a = options
+            .findIndex(val => val.option === "a" || val.option === "all") !== -1;
+
+        const l = options
+            .findIndex(val => val.option === "l") !== -1;
 
         const relativePath = regularArgs.length > 0 ? regularArgs[0] : ".";
         const to= parsePath(relativePath);
 
         const [dest, destType] = fileTreeTraveler(to);
 
-        const result: LsOutput["result"] = {
-            ".": {
-                type: "folder",
-                role: "folder",
-                hidden: true,
-                nlink: 10,
-                blksize: 4096,
-                mtime: "-"
-            },
-            "..": {
-                type: "folder",
-                role: "folder",
-                hidden: true,
-                nlink: 10,
-                blksize: 4096,
-                mtime: "-"
-            },
-
-        };
-
         if (destType === "fileTree") {
+            const result: LsOutput["result"] = {
+                ".": {
+                    type: "folder",
+                    role: "folder",
+                    hidden: true,
+                    nlink: 10,
+                    blksize: 4096,
+                    mtime: "-"
+                },
+                "..": {
+                    type: "folder",
+                    role: "folder",
+                    hidden: true,
+                    nlink: 10,
+                    blksize: 4096,
+                    mtime: "-"
+                },
+
+            };
+
             for (let [name, metadata] of Object.entries(dest)) {
 
                 if (metadata.mtime !== undefined) {
@@ -61,28 +68,31 @@ export default function ls(args: string[]): CLI.BinOutput<LsOutput>
                 }
             }
 
-            const a = options
-                .findIndex(val => val.option === "a" || val.option === "all") !== -1;
-
-            const l = options
-                .findIndex(val => val.option === "l") !== -1;
-
             return {
                 component: Ls,
                 data: { result, a, l }
             };
         }
         else {
-            throw new Error("Not a directory");
+            return {
+                component: Ls,
+                data: {
+                    result: {
+                        [to[to.length -1]]: {
+                            type: "file",
+                            role: dest.role,
+                            hidden: dest.hidden,
+                            nlink: dest.nlink,
+                            blksize: dest.blksize,
+                            mtime: dest.mtime
+                        }
+                    },
+                    a, l
+                }
+            };
         }
     }
     catch (e) {
-        switch ((e as Error).message) {
-            case "Not a directory":
-            case "No such file or directory":
-                throw new Error("ls: '" + args[0] + "': " + (e as Error).message);
-            default:
-                throw new Error("ls: " + (e as Error).message);
-        }
+        throw new Error("ls: " + (e as Error).message);
     }
 }
