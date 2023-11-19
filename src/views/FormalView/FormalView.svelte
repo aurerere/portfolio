@@ -1,5 +1,16 @@
 <script lang="ts">
-    import Project from "./components/Project.svelte";
+    import {onMount} from "svelte";
+
+    let loading: boolean = true;
+    let data: Formal
+
+    onMount(() => {
+        fetch("/formal.json")
+            .then(res => res.json())
+            .then(res => {
+
+            })
+    });
 </script>
 
 <main>

@@ -23,14 +23,45 @@ namespace Formal {
         text: LanguageSensitiveString,
     };
 
+    type LanguageSensitiveLink = {
+        icon: string,
+        fr: {
+            url: string,
+            text: string
+        },
+        en: {
+            url: string,
+            text: string
+        }
+    }
+
     type Project = {
-        name: LanguageSensitiveString,
+        name: string,
+        status: "done" | "paused" | "in development" | "aborted",
+        inProd: boolean,
+        dates: [string, string],
         thumbnail: string,
         description: LanguageSensitiveString,
         tags: string[],
         done: boolean,
         links: Link[],
     };
+
+    type Menu = {
+        landing: LanguageSensitiveString,
+        projects: LanguageSensitiveString,
+        contact: LanguageSensitiveString,
+        cli: LanguageSensitiveString
+    }
+
+    type Data = {
+        menu: Menu,
+        landing: {
+            title: LanguageSensitiveString,
+            p: LanguageSensitiveString,
+            buttons: LanguageSensitiveLink[]
+        }
+    }
 }
 
 namespace CLI {

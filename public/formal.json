@@ -1,0 +1,124 @@
+{
+  "menu": {
+    "landing": {
+      "fr": "Présentation",
+      "en": "Presentation"
+    },
+    "projects": {
+      "fr": "Projets",
+      "en": "Projects"
+    },
+    "contact": {
+      "fr": "Contact",
+      "en": "Contact"
+    },
+    "cli": {
+      "fr": "Version CLI",
+      "en": "CLI Version"
+    }
+  },
+  "landing": {
+    "title": {
+      "fr": "Bonjour",
+      "en": "Hello"
+    },
+    "p": {
+      "fr": "Je m'appelle Aurélien, je suis développeur fullstack, passionné de design et de tech",
+      "en": "My name is Aurélien, I am a fullstack developer, and a tech and design enthusiast"
+    },
+    "buttons": [
+      {
+        "icon": "file",
+        "fr": {
+          "url": "/files/cv_fr.pdf",
+          "text": "CV"
+        },
+        "en": {
+          "url": "/files/cv_en.pdf",
+          "text": "Resume"
+        }
+      },
+      {
+        "icon": "linkedin",
+        "fr": {
+          "url": "https://www.linkedin.com/in/aureliendumay/",
+          "text": "Linkedin"
+        },
+        "en": {
+          "url": "https://www.linkedin.com/in/aureliendumay/",
+          "text": "Linkedin"
+        }
+      },
+      {
+        "icon": "github",
+        "fr": {
+          "url": "https://github.com/aurerere",
+          "text": "GitHub"
+        },
+        "en": {
+          "url": "https://github.com/aurerere",
+          "text": "GitHub"
+        }
+      }
+    ]
+  },
+  "projects": [
+    {
+      "name": "Darapp",
+      "tags": [
+        "Vue.js",
+        "Express.js",
+        "TypeScript",
+        "SurrealDB",
+        "GitHub Actions"
+      ],
+      "dates": [
+        "1979-05-27T15:32:00.000Z",
+        "1979-05-27T15:32:00.000Z"
+      ],
+      "inProd": true,
+      "status": "paused",
+      "description": {
+        "fr": "Création de petites plaques en plexi contenant des QR codes uniques, distribuées dans le cadre d'un concert de musique ; création d'une application web associée.",
+        "en": "Creating small plexiglass plates containing unique QR codes distributed during a music concert, developing an associated web application."
+      },
+      "links": [
+        {
+          "url": "https://29entertainment.fr/",
+          "icon": "website",
+          "text": {
+            "fr": "Voir le site",
+            "en": "View the website"
+          }
+        }
+      ],
+      "thumbnail": "/files/darapp/thumbnail.png"
+    }
+  ],
+  "contact": {
+    "phone": {
+      "text": {
+        "fr": "Par téléphone",
+        "en": "By phone"
+      },
+      "value": "+33 6 74 77 87 43"
+    },
+    "linkedin": {
+      "text": {
+        "fr": "Par linkedin",
+        "en": "By linkedin"
+      },
+      "value": "https://linkedin.com/in/aureliendumay"
+    },
+    "mail": {
+      "text": {
+        "fr": "Par e-mail",
+        "en": "By e-mail"
+      },
+      "value": "aure.dumay@gmail.com"
+    }
+  },
+  "footer": {
+
+  }
+}

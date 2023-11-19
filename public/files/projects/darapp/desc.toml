@@ -1,9 +1,10 @@
-title = "Darapp"
+name = "Darapp"
 tags = ["Vue.js", "Express.js", "TypeScript", "SurrealDB", "GitHub Actions"]
 dates = [1979-05-27T07:32:00-08:00, 1979-05-27T07:32:00-08:00]
+inProd = true
 status = "paused"
 
-[desc]
+[description]
 fr = """\
     Création de petites plaques en plexi contenant des QR codes uniques, \
     distribuées dans le cadre d'un concert de musique ; création d'une application web associée.\

@@ -1,4 +1,4 @@
-import fs from "fs";
+import fs, {readFileSync, writeFileSync} from "fs";
 import {PluginOption} from "vite";
 import toml from "toml";
 
@@ -25,6 +25,29 @@ type File = {
     mtime: Date
 }
 
+type LanguageSensitiveString = {
+    en: string,
+    fr: string,
+};
+
+type Link = {
+    url: string,
+    icon: string,
+    text: LanguageSensitiveString,
+};
+
+type Project = {
+    name: string,
+    status: "done" | "paused" | "in development" | "aborted",
+    inProd: boolean,
+    dates: [string, string],
+    thumbnail: string,
+    description: LanguageSensitiveString,
+    tags: string[],
+    done: boolean,
+    links: Link[],
+};
+
 export default function vitePluginJson(): PluginOption {
 
     function go() {
@@ -33,7 +56,7 @@ export default function vitePluginJson(): PluginOption {
         dirToJson("./public/files/", fileTree);
         projectFilesToJson();
 
-        fs.writeFileSync("./public/fileTree.json", JSON.stringify(fileTree, null, 2));
+        writeFileSync("./public/fileTree.json", JSON.stringify(fileTree, null, 2));
     }
 
     return {
@@ -93,12 +116,19 @@ function projectFilesToJson()
                 fs.existsSync(projectsPath + project + "/desc.toml")
             ) {
                 const projectData =
-                    toml.parse(fs.readFileSync(projectsPath + project + "/desc.toml", "utf-8"));
+                    toml.parse(fs.readFileSync(projectsPath + project + "/desc.toml", "utf-8")) as Project;
 
-                projects.push(projectData);
-            }
-            else {
-
+                if (
+                    projectData?.name &&
+                    projectData.tags?.length &&
+                    projectData.dates?.length &&
+                    projectData.inProd &&
+                    projectData.status &&
+                    (projectData.description?.fr && projectData.description?.en)
+                ) {
+                    projectData.thumbnail = "/files/" + project + "/thumbnail.png";
+                    projects.push(projectData);
+                }
             }
         }
         catch (e) {
@@ -107,5 +137,7 @@ function projectFilesToJson()
 
     }
 
-
+    const json = JSON.parse(readFileSync("./public/formal.json", "utf-8"));
+    json.projects = projects;
+    writeFileSync("./public/formal.json", JSON.stringify(json, null, 2));
 }
