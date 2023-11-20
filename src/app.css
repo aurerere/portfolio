@@ -4,10 +4,14 @@
     --medium-spacing: 24px;
     --small-spacing: 12px;
     --micro-spacing: 6px;
+    --border-radius: 12px;
     --green: lime;
     --cyan: cyan;
     --red: lightcoral;
     --gray: rgb(128, 128, 128);
+    --background-color: #1e1f22;
+    --border-width: 2px;
+    --border: var(--border-width) solid white;
 }
 
 ::-moz-selection {
@@ -27,8 +31,8 @@ html {
 body {
     margin: 0;
     padding: 0;
-    background: #1e1f22;
-    font-family: monospace;
+    background: var(--background-color);
+    font-family: "JetBrains Mono", monospace;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
@@ -36,6 +40,20 @@ body {
 p, pre {
     margin: 0;
     word-wrap: break-word;
+}
+
+button {
+    padding: var(--small-spacing);
+    color: var(--background-color);
+    outline: none;
+    border: none;
+    font-size: 1rem;
+    font-family: "JetBrains Mono", monospace;
+    background: white;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    border: var(--border);
+    font-weight: bold;
 }
 
 a {

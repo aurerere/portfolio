@@ -1,30 +1,52 @@
 <script lang="ts">
     import {onMount} from "svelte";
+    import LoadingIndicator from "@core-components/LoadingIndicator.svelte";
+    import Nav from "./components/Nav.svelte";
+    import {Lang} from "@stores";
+    import ExternalLink from "@core-components/ExternalLink.svelte";
+    import {getIconFromString} from "@utils/functions";
 
     let loading: boolean = true;
-    let data: Formal
+    let data: Formal.Data;
 
     onMount(() => {
         fetch("/formal.json")
             .then(res => res.json())
             .then(res => {
-
-            })
+                data = res;
+                loading = false;
+            });
     });
 </script>
 
-<main>
-    <section>
-        <div class="container">
-            <h1>Test</h1>
-            <h2>Test</h2>
-            <h3>Test</h3>
-            <h4>Test</h4>
-            <h5>Test</h5>
-            <p>Test</p>
+{#if loading}
+    <LoadingIndicator/>
+{:else}
+    <header>
+        <div class="container nav-bar">
+            <h1 class="no-margin">{data.title}</h1>
+            <Nav data={data.menu}/>
         </div>
-    </section>
-</main>
+    </header>
+    <main>
+        <section id="landing">
+            <div class="container">
+                <div class="left">
+                    <h2>{data.landing.title[$Lang]}</h2>
+                    <p>{data.landing.p[$Lang]}</p>
+                    <div class="links">
+                        {#each data.landing.links as link}
+                            <ExternalLink to={link[$Lang].url} icon={getIconFromString(link.icon)}>
+                                {link[$Lang].text}
+                            </ExternalLink>
+                        {/each}
+                    </div>
+                </div>
+                <div class="right"></div>
+            </div>
+        </section>
+    </main>
+{/if}
 
 <style>
     h1 { font-size: 2rem }
@@ -32,7 +54,6 @@
     h3 { font-size: 1.6rem }
     h4 { font-size: 1.4rem }
     h5 { font-size: 1.2rem }
-    p { font-size: 1rem }
 
     h1, h2, h3, h4, h5 {
         outline: none;
@@ -43,50 +64,50 @@
         margin: 0;
     }
 
-    .micro-margin-bottom {
-        margin-bottom: var(--micro-spacing);
-    }
-
     header {
-        padding: 0 var(--big-spacing);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-bottom: var(--border);
+        padding: var(--medium-spacing) 0;
+        position: fixed;
+        width: 100%;
+        top: 0;
+        left: 0;
     }
 
-    main {
-        padding: 0 var(--big-spacing);
+    .nav-bar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
     }
 
     section {
         min-height: calc(100vh - var(--header-height));
         overflow: auto;
         display: flex;
-        justify-content: center;
+        flex-direction: column;
+        align-items: center;
         padding-bottom: var(--big-spacing);
     }
 
-    section.landing {
+    section#landing {
         min-height: 100vh;
         padding-bottom: 0;
+        justify-content: center;
+    }
+
+    .links {
+        display: flex;
+        gap: var(--medium-spacing);
+        margin-top: var(--medium-spacing);
+        flex-wrap: wrap;
     }
 
     .container {
         max-width: 1500px;
         width: 100%;
+        padding: 0 var(--big-spacing);
         box-sizing: border-box;
-    }
-
-    .flex {
-        display: flex;
-    }
-
-    .space-between {
-        justify-content: space-between;
-    }
-
-    .align-center {
-        align-items: center;
-    }
-
-    .justify-center {
-        justify-content: center;
     }
 </style>

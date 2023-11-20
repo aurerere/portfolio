@@ -1,3 +1,7 @@
+import type {IconDefinition} from "@fortawesome/fontawesome-common-types";
+import {faEarthAfrica, faFile} from "@fortawesome/free-solid-svg-icons";
+import {faGithub, faLinkedin} from "@fortawesome/free-brands-svg-icons";
+
 export function getDeviceInfo(): Core.DeviceInfo
 {
     const userAgent = navigator.userAgent.toLowerCase();
@@ -14,4 +18,18 @@ export function getDeviceInfo(): Core.DeviceInfo
         device = "desktop";
 
     return { device, keyboard };
+}
+
+export function getIconFromString(str: string): IconDefinition
+{
+    switch (str) {
+        case "file":
+            return faFile;
+        case "linkedin":
+            return faLinkedin;
+        case "github":
+            return faGithub;
+        default:
+            return faEarthAfrica;
+    }
 }

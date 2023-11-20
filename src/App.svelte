@@ -12,7 +12,6 @@
     let url = window.location.pathname;
 
     onMount(() => {
-        const lang = localStorage.getItem("lang");
         $DeviceInfo = getDeviceInfo();
     });
 </script>

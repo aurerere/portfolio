@@ -10,12 +10,9 @@ namespace Core {
 }
 
 namespace Formal {
-    type LanguageSensitiveString = {
-        en: string,
-        fr: string,
-    };
-
     type Lang = "fr" | "en";
+
+    type LanguageSensitiveString = Record<Lang, string>;
 
     type Link = {
         url: string,
@@ -24,16 +21,11 @@ namespace Formal {
     };
 
     type LanguageSensitiveLink = {
-        icon: string,
-        fr: {
-            url: string,
-            text: string
-        },
-        en: {
-            url: string,
-            text: string
-        }
-    }
+        icon: string
+    } & Record<Lang, {
+        url: string,
+        text: string
+    }>
 
     type Project = {
         name: string,
@@ -47,19 +39,35 @@ namespace Formal {
         links: Link[],
     };
 
-    type Menu = {
-        landing: LanguageSensitiveString,
-        projects: LanguageSensitiveString,
-        contact: LanguageSensitiveString,
-        cli: LanguageSensitiveString
+
+    type ContactChannel = {
+        text: LanguageSensitiveString,
+        value: string
     }
 
     type Data = {
-        menu: Menu,
+        title: string,
+        menu: {
+            landing: LanguageSensitiveString,
+            projects: LanguageSensitiveString,
+            contact: LanguageSensitiveString,
+            cli: LanguageSensitiveString
+        },
         landing: {
             title: LanguageSensitiveString,
             p: LanguageSensitiveString,
-            buttons: LanguageSensitiveLink[]
+            links: LanguageSensitiveLink[]
+        },
+        projects: Project[],
+        contact: {
+            text: LanguageSensitiveString,
+            phone: ContactChannel,
+            linkedin: ContactChannel,
+            mail: ContactChannel
+        },
+        footer: {
+            cookies: LanguageSensitiveString,
+            love: LanguageSensitiveString
         }
     }
 }

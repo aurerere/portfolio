@@ -1,4 +1,5 @@
 {
+  "title": "Aurélien Dumay",
   "menu": {
     "landing": {
       "fr": "Présentation",
@@ -20,13 +21,13 @@
   "landing": {
     "title": {
       "fr": "Bonjour",
-      "en": "Hello"
+      "en": "Hello!"
     },
     "p": {
       "fr": "Je m'appelle Aurélien, je suis développeur fullstack, passionné de design et de tech",
-      "en": "My name is Aurélien, I am a fullstack developer, and a tech and design enthusiast"
+      "en": "I am Aurélien, a fullstack developer, passionate about design and tech."
     },
-    "buttons": [
+    "links": [
       {
         "icon": "file",
         "fr": {
@@ -101,24 +102,31 @@
         "fr": "Par téléphone",
         "en": "By phone"
       },
-      "value": "+33 6 74 77 87 43"
+      "url": "+33 6 74 77 87 43"
     },
     "linkedin": {
       "text": {
         "fr": "Par linkedin",
         "en": "By linkedin"
       },
-      "value": "https://linkedin.com/in/aureliendumay"
+      "url": "https://linkedin.com/in/aureliendumay"
     },
     "mail": {
       "text": {
         "fr": "Par e-mail",
         "en": "By e-mail"
       },
-      "value": "aure.dumay@gmail.com"
+      "url": "aure.dumay@gmail.com"
     }
   },
   "footer": {
-
+    "love": {
+      "en": "Designed and developed with ❤️ by Aurélien DUMAY.",
+      "fr": "Conçu et développé avec ❤️ par Aurélien DUMAY."
+    },
+    "cookies": {
+      "en": "This website does not uses cookies.",
+      "fr": "Ce site n'utilise pas les cookies."
+    }
   }
 }
