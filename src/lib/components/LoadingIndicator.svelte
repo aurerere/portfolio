@@ -1,27 +1,19 @@
 <script lang="ts">
     import {onDestroy, onMount} from "svelte";
+    import {LOADING_SEQUENCE} from "@utils/const";
 
     export let withMargin: boolean = false;
 
-    let movingPipe = "|";
+    let currentIndex = 0;
+    let current = LOADING_SEQUENCE[currentIndex];
     let interval: ReturnType<typeof setInterval>;
 
     onMount(() => {
         interval = setInterval(() => {
-            switch (movingPipe) {
-                case "|":
-                    movingPipe = "/";
-                    break;
-                case "/":
-                    movingPipe = "-";
-                    break;
-                case "-":
-                    movingPipe = "\\";
-                    break;
-                case "\\":
-                    movingPipe = "|";
-                    break;
-            }
+            if (currentIndex < LOADING_SEQUENCE.length - 1)
+                current = LOADING_SEQUENCE[++currentIndex];
+            else
+                current = LOADING_SEQUENCE[currentIndex = 0];
         }, 100);
     });
 
@@ -31,7 +23,7 @@
 </script>
 
 <p class={withMargin ? "with-margin" : null}>
-    <span style="color: var(--gray)">{movingPipe}</span> Loading
+    <span style="color: var(--gray)">{current}</span> Loading
 </p>
 
 <style>

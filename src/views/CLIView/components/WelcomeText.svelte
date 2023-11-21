@@ -6,7 +6,7 @@
     import run from "@cli/core/run";
 </script>
 
-<pre class="green">
+<pre style="color: var(--gray); font-weight: bold">
 {AURE_CLI_ASCII}{import.meta.env.VITE_VERSION}
 </pre>
 <p>

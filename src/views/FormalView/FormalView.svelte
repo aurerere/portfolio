@@ -1,10 +1,13 @@
 <script lang="ts">
     import {onMount} from "svelte";
-    import LoadingIndicator from "@core-components/LoadingIndicator.svelte";
-    import Nav from "./components/Nav.svelte";
-    import {Lang} from "@stores";
-    import ExternalLink from "@core-components/ExternalLink.svelte";
+
     import {getIconFromString} from "@utils/functions";
+    import {Lang} from "@stores";
+
+    import ExternalLink from "@core-components/ExternalLink.svelte";
+    import LoadingIndicator from "@core-components/LoadingIndicator.svelte";
+    import Donut from "./components/Donut.svelte";
+    import Nav from "./components/Nav.svelte";
 
     let loading: boolean = true;
     let data: Formal.Data;
@@ -20,7 +23,9 @@
 </script>
 
 {#if loading}
-    <LoadingIndicator/>
+    <main class="loading">
+        <LoadingIndicator/>
+    </main>
 {:else}
     <header>
         <div class="container nav-bar">
@@ -30,8 +35,11 @@
     </header>
     <main>
         <section id="landing">
-            <div class="container">
-                <div class="left">
+            <div class="container landing">
+                <div class="part">
+<!--                    <Donut/>-->
+                </div>
+                <div class="part">
                     <h2>{data.landing.title[$Lang]}</h2>
                     <p>{data.landing.p[$Lang]}</p>
                     <div class="links">
@@ -42,8 +50,8 @@
                         {/each}
                     </div>
                 </div>
-                <div class="right"></div>
             </div>
+            <div class="scroll-invitation">↓ Scroll ↓</div>
         </section>
     </main>
 {/if}
@@ -64,6 +72,15 @@
         margin: 0;
     }
 
+    main.loading {
+        display: flex;
+        width: 100%;
+        height: 100vh;
+        box-sizing: border-box;
+        align-items: center;
+        justify-content: center;
+    }
+
     header {
         display: flex;
         justify-content: center;
@@ -74,6 +91,7 @@
         width: 100%;
         top: 0;
         left: 0;
+        background: var(--background-color);
     }
 
     .nav-bar {
@@ -109,5 +127,29 @@
         width: 100%;
         padding: 0 var(--big-spacing);
         box-sizing: border-box;
+    }
+
+    .scroll-invitation {
+        position: fixed;
+        bottom: var(--big-spacing);
+        color: var(--gray);
+        animation: infinite ease-in-out 1.5s breathing;
+    }
+
+    .container.landing {
+        display: flex;
+        align-items: center;
+    }
+
+    @keyframes breathing {
+        0% {
+            transform: translateY(0);
+        }
+        50% {
+            transform: translateY(-5px);
+        }
+        100% {
+            transform: translateY(0);
+        }
     }
 </style>

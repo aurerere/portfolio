@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Luckiest+Guy&display=swap');
+
 :root {
     --header-height: 48px;
     --big-spacing: 48px;
@@ -9,9 +11,12 @@
     --cyan: cyan;
     --red: lightcoral;
     --gray: rgb(128, 128, 128);
+    --dark-gray: #3f4148;
+    --very-dark-gray: #26282c;
     --background-color: #1e1f22;
     --border-width: 2px;
-    --border: var(--border-width) solid white;
+    --text-color: white;
+    --border: var(--border-width) solid var(--dark-gray);
 }
 
 ::-moz-selection {
@@ -44,12 +49,12 @@ p, pre {
 
 button {
     padding: var(--small-spacing);
-    color: var(--background-color);
+    color: white;
     outline: none;
     border: none;
     font-size: 1rem;
     font-family: "JetBrains Mono", monospace;
-    background: white;
+    background: var(--very-dark-gray);
     border-radius: var(--border-radius);
     cursor: pointer;
     border: var(--border);

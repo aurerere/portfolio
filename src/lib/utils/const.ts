@@ -23,4 +23,6 @@ export const MONTH_NAMES_SHORT = [
     "Oct",
     "Nov",
     "Dec"
-]
+];
+
+export const LOADING_SEQUENCE = ["⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏"];
