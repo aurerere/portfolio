@@ -1,6 +1,6 @@
 import {fileTreeTraveler, parseArgs, parsePath} from "@cli/core/utils";
 import Ls from "@cli/components/Ls.svelte";
-import {MONTH_NAMES_SHORT} from "@utils/const";
+import {MONTH_NAMES_SHORT_EN} from "@utils/const";
 
 type LsOutput = {
     result: { [key: string]: CLI.File | CLI.FolderMetadata },
@@ -50,7 +50,7 @@ export default function ls(args: string[]): CLI.BinOutput<LsOutput>
 
                 if (metadata.mtime !== undefined) {
                     const mtime = new Date(metadata.mtime);
-                    metadata.mtime = `${MONTH_NAMES_SHORT[mtime.getMonth()]} ${mtime.getDate()} ${mtime.getFullYear()}`;
+                    metadata.mtime = `${MONTH_NAMES_SHORT_EN[mtime.getMonth()]} ${mtime.getDate()} ${mtime.getFullYear()}`;
                 }
 
 
