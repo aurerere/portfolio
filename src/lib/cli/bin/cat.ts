@@ -31,7 +31,7 @@ export default async function cat(args: string[]): Promise<CLI.BinOutput>
             })
         );
 
-        result = result.join("\n");
+        result = result.join("\r\n");
 
         const n = options
             .findIndex(val => val.option === "n") !== -1;

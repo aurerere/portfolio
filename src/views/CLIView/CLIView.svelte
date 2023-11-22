@@ -214,7 +214,6 @@
 </main>
 
 <style>
-
     main {
         padding: var(--medium-spacing) var(--medium-spacing) 0 var(--medium-spacing);
         font-size: 1rem;
@@ -225,7 +224,7 @@
     }
 
     .input {
-        caret-color: lime;
+        caret-color: var(--cyan);
         outline: none;
         word-break: break-all;
         word-wrap: break-word;

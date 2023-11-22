@@ -21,10 +21,18 @@
 
 <nav>
     <ul>
-        <li class="section"><a href="#landing"><Fa icon={faAddressCard}/> {data.landing[$Lang]}</a></li>
-        <li class="section"><a href="#projects"><Fa icon={faFileCode}/> {data.projects[$Lang]}</a></li>
-        <li class="section"><a href="#contact"><Fa icon={faEnvelope}/> {data.contact[$Lang]}</a></li>
-        <li><button on:click={openCLI}><Fa icon={faTerminal}/> {data.cli[$Lang]}</button></li>
+        <li class="section">
+            <a class="no-style" href="#home"><Fa icon={faAddressCard}/> {data.landing[$Lang]}</a>
+        </li>
+        <li class="section">
+            <a class="no-style" href="#projects"><Fa icon={faFileCode}/> {data.projects[$Lang]}</a>
+        </li>
+        <li class="section">
+            <a class="no-style" href="#contact"><Fa icon={faEnvelope}/> {data.contact[$Lang]}</a>
+        </li>
+        <li>
+            <button on:click={openCLI}><Fa icon={faTerminal}/> {data.cli[$Lang]}</button>
+        </li>
         <li>
             <div role="button" class="lang-selector" tabindex="0" on:click={changeLang} on:keypress={handleKeyPress}>
                 <div class="selection-highlighter {$Lang}"></div>
@@ -70,25 +78,17 @@
         height: 100%;
         background: var(--very-dark-gray);
         border: 2px solid var(--dark-gray);
+        border-radius: var(--border-radius);
         transition: .3s;
     }
 
     .selection-highlighter.fr {
         left: -2px;
-        border-radius: var(--small-spacing) 0 0 var(--small-spacing);
     }
 
     .selection-highlighter.en {
         left: calc(50% - 2px);
-        border-radius: 0 var(--border-radius) var(--border-radius) 0;
     }
-
-    /*.section {  */
-    /*}*/
-
-    /*.section.selected {*/
-    /*    background: #26282c;*/
-    /*}*/
 
     .section a {
         color: var(--text-color);

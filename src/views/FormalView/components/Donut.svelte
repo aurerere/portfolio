@@ -66,4 +66,4 @@
     });
 </script>
 
-<pre bind:this={preEl} style="color: var(--gray)"></pre>
+<pre bind:this={preEl} style="color: var(--cyan)"></pre>

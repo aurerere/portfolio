@@ -13,7 +13,12 @@ const bin: { [key: string]: (args: string[]) => Promise<CLI.BinOutput> | CLI.Bin
     history,
     cat,
     pwd,
-    echo
+    echo,
+    ping: async () => {
+        return new Promise((resolve) => {
+            setTimeout(() => resolve, 5000)
+        })
+    }
 }
 
 bin["cls"] = bin["clear"];

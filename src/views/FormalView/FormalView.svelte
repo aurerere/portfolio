@@ -1,5 +1,5 @@
 <script lang="ts">
-    import {onMount} from "svelte";
+    import {onDestroy, onMount} from "svelte";
 
     import {getIconFromString} from "@utils/functions";
     import {Lang} from "@stores";
@@ -8,11 +8,28 @@
     import LoadingIndicator from "@core-components/LoadingIndicator.svelte";
     import Donut from "./components/Donut.svelte";
     import Nav from "./components/Nav.svelte";
+    import {faGithub} from "@fortawesome/free-brands-svg-icons";
+    import Fa from "svelte-fa";
+    import Project from "./components/Project.svelte";
+
+    $: (document.querySelector(":root") as HTMLElement).style.setProperty("--header-height", headerHeight + "px");
+    $: scrollHook(scrollY);
 
     let loading: boolean = true;
     let data: Formal.Data;
 
+    let headerHeight: number = 0;
+    let scrollY: number = 0;
+
+    let showScrollSuggestion: boolean = true;
+
+    function scrollHook(scrollVal: number) {
+
+    }
+
     onMount(() => {
+        (document.querySelector("html") as HTMLElement).style.scrollBehavior = "smooth";
+
         fetch("/formal.json")
             .then(res => res.json())
             .then(res => {
@@ -20,21 +37,28 @@
                 loading = false;
             });
     });
+
+    onDestroy(() => {
+        (document.querySelector("html") as HTMLElement).style.scrollBehavior = "normal";
+    })
 </script>
 
+<svelte:window bind:scrollY={scrollY}/>
 {#if loading}
     <main class="loading">
         <LoadingIndicator/>
     </main>
 {:else}
-    <header>
+    <header bind:offsetHeight={headerHeight}>
         <div class="container nav-bar">
-            <h1 class="no-margin">{data.title}</h1>
+            <a class="no-style" href="#home">
+                <h1 class="no-margin">{data.title}</h1>
+            </a>
             <Nav data={data.menu}/>
         </div>
     </header>
     <main>
-        <section id="landing">
+        <section id="home">
             <div class="container landing">
                 <div class="part">
 <!--                    <Donut/>-->
@@ -51,9 +75,35 @@
                     </div>
                 </div>
             </div>
-            <div class="scroll-invitation">↓ Scroll ↓</div>
+            <div class="scroll-suggestion" class:hidden={scrollY > 20}><p>↓ Scroll ↓</p></div>
+        </section>
+        <section id="projects">
+            <div class="container">
+                <h2 class="section">{data.menu.projects[$Lang]}</h2>
+                <div class="project-grid">
+                    {#each data.projects as project}
+                        <Project {project}/>
+                    {/each}
+                </div>
+            </div>
+        </section>
+        <section id="contact">
+            <div class="container">
+                <h2 class="section">{data.menu.contact[$Lang]}</h2>
+            </div>
         </section>
     </main>
+    <footer>
+        <div class="container footer">
+            <p><b>{data.footer.love[$Lang]}</b></p>
+            <p>{data.footer.cookies[$Lang]}</p>
+            <p>
+                <a href="https://github.com/aurerere/portfolio" target="_blank">
+                    <Fa icon={faGithub}/>/aurerere/portfolio
+                </a>
+            </p>
+        </div>
+    </footer>
 {/if}
 
 <style>
@@ -64,8 +114,13 @@
     h5 { font-size: 1.2rem }
 
     h1, h2, h3, h4, h5 {
+        font-weight: bold;
         outline: none;
         margin: 0 0 var(--small-spacing);
+    }
+
+    p {
+        font-weight: 400;
     }
 
     .no-margin {
@@ -79,6 +134,7 @@
         box-sizing: border-box;
         align-items: center;
         justify-content: center;
+        scroll-behavior: smooth;
     }
 
     header {
@@ -106,12 +162,13 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        padding-bottom: var(--big-spacing);
+        padding-top: calc(var(--header-height) + var(--medium-spacing));
+        /*padding-bottom: var(--big-spacing);*/
     }
 
-    section#landing {
+    section#home {
         min-height: 100vh;
-        padding-bottom: 0;
+        padding: 0;
         justify-content: center;
     }
 
@@ -129,16 +186,47 @@
         box-sizing: border-box;
     }
 
-    .scroll-invitation {
+    .scroll-suggestion {
         position: fixed;
         bottom: var(--big-spacing);
         color: var(--gray);
+        transition: .2s;
+        transform: scale(1);
+    }
+
+    .scroll-suggestion p {
         animation: infinite ease-in-out 1.5s breathing;
+    }
+
+    .hidden {
+        transition: .2s;
+        transform: scale(0);
     }
 
     .container.landing {
         display: flex;
         align-items: center;
+    }
+
+    footer {
+        display: flex;
+        justify-content: center;
+        border-top: var(--border);
+        padding: var(--medium-spacing) 0;
+    }
+
+    .footer {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+    }
+
+    .footer p {
+        font-size: .8rem;
+    }
+
+    h2.section {
+        margin-bottom: var(--medium-spacing);
     }
 
     @keyframes breathing {

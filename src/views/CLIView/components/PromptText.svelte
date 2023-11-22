@@ -7,8 +7,7 @@
 <svelte:options immutable/>
 <!-- Workaround: Using HTML comments to prevent unwanted spaces -->
 <span class="wrapper"><!--
-    --><span class="user">aureliendumay.me</span><!--
-    --><span>:</span><!--
+    --><span class="user">- </span><!--
     -->{#each path as dir, index (index)}<!--
     --><span class="dir">{dir}</span><!--
         -->{#if index < path.length - 1}<!--
@@ -26,7 +25,7 @@
     }
 
     .user {
-        color: var(--green);
+        color: var(--gray);
     }
 
     .dir {

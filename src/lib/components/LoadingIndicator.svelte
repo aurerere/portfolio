@@ -22,8 +22,8 @@
     })
 </script>
 
-<p class={withMargin ? "with-margin" : null}>
-    <span style="color: var(--gray)">{current}</span> Loading
+<p class={withMargin ? "with-margin" : null} style="color: var(--gray)">
+    <span >{current}</span> Loading
 </p>
 
 <style>

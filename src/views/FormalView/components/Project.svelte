@@ -1,41 +1,48 @@
 <script lang="ts">
     import ProjectTag from "./ProjectTag.svelte";
     import ProjectStatus from "./ProjectStatus.svelte";
-    import ProjectLink from "./ProjectLink.svelte";
 
     import {Lang} from "@stores";
+    import ExternalLink from "@core-components/ExternalLink.svelte";
+    import {getIconFromString} from "@utils/functions";
 
-    export let thumbnail: Formal.Project["thumbnail"];
-    export let name: Formal.Project["name"];
-    export let description: Formal.Project["description"];
-    export let tags: Formal.Project["tags"];
-    export let done: Formal.Project["done"];
-    export let links: Formal.Project["links"];
+    export let project: Formal.Project
 </script>
 
 <div class="wrapper">
     <div class="info">
         <div class="project-thumbnail">
-            <img src={thumbnail} alt={name[$Lang]}>
+            <img src={project.thumbnail} alt={project.name}>
         </div>
         <div class="content">
             <div class="title">
-                <h3>{name[$Lang]}</h3>
-                <ProjectStatus done={done}/>
+                <h3>{project.name}</h3>
+                <ProjectStatus status={project.status}/>
             </div>
 
-            <p>{description[$Lang]}</p>
+            <p>{project.description[$Lang]}</p>
 
             <div class="tags">
-                {#each tags as tag}
+                {#each project.tags as tag}
                     <ProjectTag tag={tag}/>
                 {/each}
             </div>
         </div>
         <div class="access">
-            {#each links as link}
-                <ProjectLink url={link.url} icon={link.icon} text={link.text[$Lang]}/>
+            {#each project.links as link}
+                <ExternalLink icon={getIconFromString(link.icon)} to={link.url}>
+                    {link.text[$Lang]}
+                </ExternalLink>
             {/each}
         </div>
     </div>
 </div>
+
+<style>
+    .wrapper {
+        border: var(--border);
+        background: var(--very-dark-gray);
+        padding: var(--medium-spacing);
+        border-radius: var(--border-radius);
+    }
+</style>

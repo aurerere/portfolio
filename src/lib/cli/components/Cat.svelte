@@ -1,4 +1,6 @@
 <script lang="ts">
+    import {onMount} from "svelte";
+
     export let
         result: string[],
         n: boolean,
