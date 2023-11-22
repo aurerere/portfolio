@@ -10,7 +10,7 @@ export const AURE_CLI_ASCII =
 \\____/_____/___/`;
 
 
-export const MONTH_NAMES_SHORT = [
+export const MONTH_NAMES_SHORT_EN = [
     "Jan",
     "Feb",
     "Mar",
@@ -23,6 +23,21 @@ export const MONTH_NAMES_SHORT = [
     "Oct",
     "Nov",
     "Dec"
+];
+
+export const MONTH_NAMES_SHORT_FR = [
+    "Janv",
+    "Févr",
+    "Mars",
+    "Avr",
+    "Mai",
+    "Juin",
+    "Juill",
+    "Août",
+    "Sept",
+    "Oct",
+    "Nov",
+    "Déc"
 ];
 
 export const LOADING_SEQUENCE = ["⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏"];

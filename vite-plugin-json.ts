@@ -111,12 +111,9 @@ function projectFilesToJson()
     for (let project of projectsDir)
     {
         try {
-            if (
-                fs.existsSync(projectsPath + project + "/thumbnail.png") &&
-                fs.existsSync(projectsPath + project + "/desc.toml")
-            ) {
+            if (fs.existsSync(projectsPath + project + "/metadata.toml")) {
                 const projectData =
-                    toml.parse(fs.readFileSync(projectsPath + project + "/desc.toml", "utf-8")) as Project;
+                    toml.parse(fs.readFileSync(projectsPath + project + "/metadata.toml", "utf-8")) as Project;
 
                 if (
                     projectData?.name &&

@@ -1,6 +1,6 @@
 import {writable} from "svelte/store";
 
-export const Lang = writable<Formal.Lang>("en");
+export const Lang = writable<Formal.Lang>("fr");
 export const DeviceInfo = writable<Core.DeviceInfo | null>(null);
 
 // CLI

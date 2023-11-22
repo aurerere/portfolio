@@ -27,6 +27,15 @@
 
     }
 
+    let projectCardsMousePosSetters: ((x: number, y: number) => void)[] = [];
+
+    function handleMouseMoveOnProjectCards(e: Event)
+    {
+        for (const setPos of projectCardsMousePosSetters) {
+            setPos((e as MouseEvent).clientX, (e as MouseEvent).clientY);
+        }
+    }
+
     onMount(() => {
         (document.querySelector("html") as HTMLElement).style.scrollBehavior = "smooth";
 
@@ -80,9 +89,10 @@
         <section id="projects">
             <div class="container">
                 <h2 class="section">{data.menu.projects[$Lang]}</h2>
-                <div class="project-grid">
-                    {#each data.projects as project}
-                        <Project {project}/>
+                <!-- svelte-ignore a11y-no-static-element-interactions a11y-mouse-events-have-key-events -->
+                <div class="project-grid" on:mousemove={handleMouseMoveOnProjectCards}>
+                    {#each data.projects as project, index}
+                        <Project {project} bind:setMousePos={projectCardsMousePosSetters[index]}/>
                     {/each}
                 </div>
             </div>
@@ -107,26 +117,6 @@
 {/if}
 
 <style>
-    h1 { font-size: 2rem }
-    h2 { font-size: 1.8rem }
-    h3 { font-size: 1.6rem }
-    h4 { font-size: 1.4rem }
-    h5 { font-size: 1.2rem }
-
-    h1, h2, h3, h4, h5 {
-        font-weight: bold;
-        outline: none;
-        margin: 0 0 var(--small-spacing);
-    }
-
-    p {
-        font-weight: 400;
-    }
-
-    .no-margin {
-        margin: 0;
-    }
-
     main.loading {
         display: flex;
         width: 100%;
@@ -147,6 +137,7 @@
         width: 100%;
         top: 0;
         left: 0;
+        z-index: 5;
         background: var(--background-color);
     }
 
@@ -164,6 +155,10 @@
         align-items: center;
         padding-top: calc(var(--header-height) + var(--medium-spacing));
         /*padding-bottom: var(--big-spacing);*/
+    }
+
+    h2.section {
+        margin-bottom: var(--medium-spacing);
     }
 
     section#home {
@@ -208,6 +203,12 @@
         align-items: center;
     }
 
+    .project-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: var(--medium-spacing);
+    }
+
     footer {
         display: flex;
         justify-content: center;
@@ -225,8 +226,8 @@
         font-size: .8rem;
     }
 
-    h2.section {
-        margin-bottom: var(--medium-spacing);
+    :global(.project-grid:hover .card::after) {
+        opacity: 1;
     }
 
     @keyframes breathing {

@@ -106,6 +106,26 @@ a.no-style:hover {
     white-space: break-spaces;
 }
 
+h1 { font-size: 2rem }
+h2 { font-size: 1.8rem }
+h3 { font-size: 1.6rem }
+h4 { font-size: 1.4rem }
+h5 { font-size: 1.2rem }
+
+h1, h2, h3, h4, h5 {
+    font-weight: bold;
+    outline: none;
+    margin: 0 0 var(--small-spacing);
+}
+
+p {
+    font-weight: 400;
+}
+
+.no-margin {
+    margin: 0;
+}
+
 /*
 @keyframes maximes {
   0% {

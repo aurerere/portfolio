@@ -31,7 +31,7 @@ namespace Formal {
         name: string,
         status: "done" | "paused" | "in development" | "aborted",
         inProd: boolean,
-        dates: [string, string],
+        dates: [string, string?],
         thumbnail: string,
         description: LanguageSensitiveString,
         tags: string[],
