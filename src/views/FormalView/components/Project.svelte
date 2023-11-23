@@ -45,13 +45,20 @@
 <div class="card" bind:this={cardEl}>
     <div class="card-content">
         <div class="content">
-            <div class="title">
-                <h3 class="no-margin">{project.name}</h3>
-                <p style="color: var(--gray)">{formatDate(project.dates, $Lang)}</p>
-                <ProjectStatus status={project.status}/>
+            <div class="snippet">
+                <div class="title" style="margin-bottom: var(--medium-spacing)">
+                    <div>
+                        <h3 class="no-margin">{project.name}</h3>
+                        <p style="color: var(--gray)">{formatDate(project.dates, $Lang)}</p>
+                    </div>
+                    <div>
+                        <ProjectStatus status={project.status}/>
+                    </div>
+                </div>
+
+                <p>{project.description[$Lang]}</p>
             </div>
 
-            <p>{project.description[$Lang]}</p>
 
             <div class="tags">
                 {#each project.tags as tag}
@@ -118,6 +125,22 @@
         inset: 2px;
         padding: var(--medium-spacing);
         z-index: 2;
+        justify-content: space-between;
     }
 
+    .snippet {
+        margin-bottom: var(--medium-spacing);
+    }
+
+    .title {
+        display: flex;
+        justify-content: space-between;
+        gap: var(--micro-spacing);
+    }
+
+    .tags {
+        display: flex;
+        gap: 4px;
+        flex-wrap: wrap;
+    }
 </style>

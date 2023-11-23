@@ -138,7 +138,8 @@
         top: 0;
         left: 0;
         z-index: 5;
-        background: var(--background-color);
+        background: rgba(30, 31, 34, .99);
+        /*backdrop-filter: blur(30px);*/
     }
 
     .nav-bar {

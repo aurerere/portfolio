@@ -20,4 +20,17 @@
 <div>
 <!--    <Fa icon={done ? faCheck : faCode} class={done ? "done" : "in-dev"}/>-->
 <!--    <span>{done ? statusText.done[$Lang] : statusText.inDev[$Lang]}</span>-->
+<div>
+    {status}
 </div>
+</div>
+
+
+<style>
+    div {
+        padding: 4px 6px;
+        background: #3a3a3a;
+        width: fit-content;
+        border-radius: 6px;
+    }
+</style>

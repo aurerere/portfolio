@@ -96,6 +96,37 @@
       "thumbnail": "/files/darapp/thumbnail.png"
     },
     {
+      "name": "Words Royale",
+      "tags": [
+        "Vue.js",
+        "Express.js",
+        "TypeScript",
+        "SurrealDB",
+        "GitHub Actions"
+      ],
+      "dates": [
+        "1979-05-27T15:32:00.000Z",
+        "1979-05-27T15:32:00.000Z"
+      ],
+      "inProd": true,
+      "status": "paused",
+      "description": {
+        "fr": "Création de petites plaques en plexi contenant des QR codes uniques, distribuées dans le cadre d'un concert de musique ; création d'une application web associée.",
+        "en": "Creating small plexiglass plates containing unique QR codes distributed during a music concert, developing an associated web application."
+      },
+      "links": [
+        {
+          "url": "https://29entertainment.fr/",
+          "icon": "website",
+          "text": {
+            "fr": "Voir le site",
+            "en": "View the website"
+          }
+        }
+      ],
+      "thumbnail": "/files/hotkeys.help/thumbnail.png"
+    },
+    {
       "name": "OP Clac",
       "tags": [
         "Vue.js",
@@ -124,7 +155,100 @@
           }
         }
       ],
-      "thumbnail": "/files/opclac/thumbnail.png"
+      "thumbnail": "/files/op_clac/thumbnail.png"
+    },
+    {
+      "name": "providenceprod.tv",
+      "tags": [
+        "Vue.js",
+        "Express.js",
+        "TypeScript",
+        "SurrealDB",
+        "GitHub Actions"
+      ],
+      "dates": [
+        "1979-05-27T15:32:00.000Z",
+        "1979-05-27T15:32:00.000Z"
+      ],
+      "inProd": true,
+      "status": "paused",
+      "description": {
+        "fr": "Création de petites plaques en plexi contenant des QR codes uniques, distribuées dans le cadre d'un concert de musique ; création d'une application web associée.",
+        "en": "Creating small plexiglass plates containing unique QR codes distributed during a music concert, developing an associated web application."
+      },
+      "links": [
+        {
+          "url": "https://29entertainment.fr/",
+          "icon": "website",
+          "text": {
+            "fr": "Voir le site",
+            "en": "View the website"
+          }
+        }
+      ],
+      "thumbnail": "/files/providenceprod.tv/thumbnail.png"
+    },
+    {
+      "name": "Vector",
+      "tags": [
+        "Vue.js",
+        "Express.js",
+        "TypeScript",
+        "SurrealDB",
+        "GitHub Actions"
+      ],
+      "dates": [
+        "1979-05-27T15:32:00.000Z",
+        "1979-05-27T15:32:00.000Z"
+      ],
+      "inProd": true,
+      "status": "paused",
+      "description": {
+        "fr": "Création de petites plaques en plexi contenant des QR codes uniques, distribuées dans le cadre d'un concert de musique ; création d'une application web associée.",
+        "en": "Creating small plexiglass plates containing unique QR codes distributed during a music concert, developing an associated web application."
+      },
+      "links": [
+        {
+          "url": "https://29entertainment.fr/",
+          "icon": "website",
+          "text": {
+            "fr": "Voir le site",
+            "en": "View the website"
+          }
+        }
+      ],
+      "thumbnail": "/files/vector/thumbnail.png"
+    },
+    {
+      "name": "hotkeys.help",
+      "tags": [
+        "Vue.js",
+        "Express.js",
+        "TypeScript",
+        "SurrealDB",
+        "GitHub Actions"
+      ],
+      "dates": [
+        "1979-05-27T15:32:00.000Z",
+        "1979-05-27T15:32:00.000Z"
+      ],
+      "inProd": true,
+      "status": "paused",
+      "description": {
+        "fr": "Création de petites plaques en plexi contenant des QR codes uniques, distribuées dans le cadre d'un concert de musique ; création d'une application web associée.",
+        "en": "Creating small plexiglass plates containing unique QR codes distributed during a music concert, developing an associated web application."
+      },
+      "links": [
+        {
+          "url": "https://29entertainment.fr/",
+          "icon": "website",
+          "text": {
+            "fr": "Voir le site",
+            "en": "View the website"
+          }
+        }
+      ],
+      "thumbnail": "/files/words_royale/thumbnail.png"
     }
   ],
   "contact": {

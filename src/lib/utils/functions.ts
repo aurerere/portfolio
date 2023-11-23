@@ -1,6 +1,6 @@
 import type {IconDefinition} from "@fortawesome/fontawesome-common-types";
-import {faEarthAfrica, faFile} from "@fortawesome/free-solid-svg-icons";
-import {faGithub, faLinkedin} from "@fortawesome/free-brands-svg-icons";
+import {faDatabase, faEarthAfrica, faFile, faFileCode, faTag} from "@fortawesome/free-solid-svg-icons";
+import {faGithub, faLinkedin, faNodeJs, faVuejs} from "@fortawesome/free-brands-svg-icons";
 
 export function getDeviceInfo(): Core.DeviceInfo
 {
@@ -20,7 +20,7 @@ export function getDeviceInfo(): Core.DeviceInfo
     return { device, keyboard };
 }
 
-export function getIconFromString(str: string): IconDefinition
+export function getIconFromString(str: string, context: "tag" | "link" = "link"): IconDefinition
 {
     switch (str) {
         case "file":
@@ -28,8 +28,17 @@ export function getIconFromString(str: string): IconDefinition
         case "linkedin":
             return faLinkedin;
         case "github":
+        case "GitHub Actions":
             return faGithub;
+        case "Vue.js":
+            return faVuejs;
+        case "Express.js":
+            return faNodeJs;
+        case "TypeScript":
+            return faFileCode;
+        case "SurrealDB":
+            return faDatabase;
         default:
-            return faEarthAfrica;
+            return context === "link" ? faEarthAfrica : faTag;
     }
 }

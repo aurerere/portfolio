@@ -1,11 +1,27 @@
 {
+  "cv_en.pdf": {
+    "type": "file",
+    "role": "pdf",
+    "hidden": false,
+    "nlink": 1,
+    "blksize": 4096,
+    "mtime": "2023-11-23T09:02:25.087Z"
+  },
+  "cv_fr.pdf": {
+    "type": "file",
+    "role": "pdf",
+    "hidden": false,
+    "nlink": 1,
+    "blksize": 4096,
+    "mtime": "2023-11-23T09:02:25.112Z"
+  },
   "github": {
     "type": "file",
     "role": "bin",
     "hidden": false,
     "nlink": 1,
     "blksize": 4096,
-    "mtime": "2023-11-19T19:03:55.601Z"
+    "mtime": "2023-11-16T15:23:13.298Z"
   },
   "nto.txt": {
     "type": "file",
@@ -13,7 +29,7 @@
     "hidden": false,
     "nlink": 1,
     "blksize": 4096,
-    "mtime": "2023-11-19T19:03:55.601Z"
+    "mtime": "2023-11-14T10:12:39.111Z"
   },
   "projects": {
     "type": "folder",
@@ -21,7 +37,7 @@
     "hidden": false,
     "nlink": 1,
     "blksize": 4096,
-    "mtime": "2023-11-22T19:20:51.741Z",
+    "mtime": "2023-11-23T09:18:07.998Z",
     "children": {
       "darapp": {
         "type": "folder",
@@ -29,7 +45,7 @@
         "hidden": false,
         "nlink": 1,
         "blksize": 4096,
-        "mtime": "2023-11-22T19:21:56.368Z",
+        "mtime": "2023-11-23T09:02:25.114Z",
         "children": {
           "metadata.toml": {
             "type": "file",
@@ -37,17 +53,17 @@
             "hidden": false,
             "nlink": 1,
             "blksize": 4096,
-            "mtime": "2023-11-19T19:03:55.602Z"
+            "mtime": "2023-11-23T09:02:25.115Z"
           }
         }
       },
-      "opclac": {
+      "hotkeys.help": {
         "type": "folder",
         "role": "folder",
         "hidden": false,
         "nlink": 1,
         "blksize": 4096,
-        "mtime": "2023-11-22T19:21:14.328Z",
+        "mtime": "2023-11-23T09:16:36.206Z",
         "children": {
           "metadata.toml": {
             "type": "file",
@@ -55,7 +71,43 @@
             "hidden": false,
             "nlink": 1,
             "blksize": 4096,
-            "mtime": "2023-11-22T19:21:14.327Z"
+            "mtime": "2023-11-23T09:16:36.206Z"
+          }
+        }
+      },
+      "op_clac": {
+        "type": "folder",
+        "role": "folder",
+        "hidden": false,
+        "nlink": 1,
+        "blksize": 4096,
+        "mtime": "2023-11-23T09:02:25.116Z",
+        "children": {
+          "metadata.toml": {
+            "type": "file",
+            "role": "toml",
+            "hidden": false,
+            "nlink": 1,
+            "blksize": 4096,
+            "mtime": "2023-11-23T09:02:25.116Z"
+          }
+        }
+      },
+      "providenceprod.tv": {
+        "type": "folder",
+        "role": "folder",
+        "hidden": false,
+        "nlink": 1,
+        "blksize": 4096,
+        "mtime": "2023-11-23T09:18:20.429Z",
+        "children": {
+          "metadata.toml": {
+            "type": "file",
+            "role": "toml",
+            "hidden": false,
+            "nlink": 1,
+            "blksize": 4096,
+            "mtime": "2023-11-23T09:18:20.428Z"
           }
         }
       },
@@ -65,8 +117,35 @@
         "hidden": false,
         "nlink": 1,
         "blksize": 4096,
-        "mtime": "2023-11-10T15:52:21.417Z",
-        "children": {}
+        "mtime": "2023-11-23T09:17:32.734Z",
+        "children": {
+          "metadata.toml": {
+            "type": "file",
+            "role": "toml",
+            "hidden": false,
+            "nlink": 1,
+            "blksize": 4096,
+            "mtime": "2023-11-23T09:17:32.733Z"
+          }
+        }
+      },
+      "words_royale": {
+        "type": "folder",
+        "role": "folder",
+        "hidden": false,
+        "nlink": 1,
+        "blksize": 4096,
+        "mtime": "2023-11-23T09:15:02.316Z",
+        "children": {
+          "metadata.toml": {
+            "type": "file",
+            "role": "toml",
+            "hidden": false,
+            "nlink": 1,
+            "blksize": 4096,
+            "mtime": "2023-11-23T09:14:04.718Z"
+          }
+        }
       }
     }
   }
