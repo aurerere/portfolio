@@ -6,7 +6,6 @@
 
     import ExternalLink from "@core-components/ExternalLink.svelte";
     import LoadingIndicator from "@core-components/LoadingIndicator.svelte";
-    import Donut from "./components/Donut.svelte";
     import Nav from "./components/Nav.svelte";
     import {faGithub} from "@fortawesome/free-brands-svg-icons";
     import Fa from "svelte-fa";
@@ -74,7 +73,6 @@
         <section id="home">
             <div class="container landing">
                 <div class="part">
-<!--                    <Donut/>-->
                     <img src="/hello.png" alt="hello!"/>
                 </div>
                 <div class="part">

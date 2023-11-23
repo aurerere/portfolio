@@ -3,9 +3,3 @@
 </script>
 
 <pre class="red">{message}</pre>
-
-<style>
-    pre {
-
-    }
-</style>
