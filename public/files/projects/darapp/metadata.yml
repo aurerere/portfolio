@@ -1,0 +1,22 @@
+name: Darapp
+
+tags:
+  - Express.js
+  - SurrealDB
+  - TypeScript
+  - Vue.js
+  - GitHub Actions
+
+dates:
+  - 1 May 2023
+  - 1 May 2023
+
+status: paused
+
+description:
+  fr: >
+    Creating small plexiglass plates containing unique QR codes distributed during a music concert, 
+    developing an associated web application.
+  en: >
+    Création de petites plaques en plexi contenant des QR codes uniques, 
+    distribuées dans le cadre d'un concert de musique ; création d'une application web associée

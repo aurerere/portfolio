@@ -1,36 +1,46 @@
 <script lang="ts">
     import Fa from "svelte-fa";
-    import {faCheck, faCode} from "@fortawesome/free-solid-svg-icons";
     import {Lang} from "@stores";
+    import type {IconDefinition} from "@fortawesome/fontawesome-common-types";
+    import {faCheck, faEllipsis, faFaceSadTear, faPause} from "@fortawesome/free-solid-svg-icons";
 
-    // const statusText = {
-    //     done: {
-    //         fr: "Fini",
-    //         en: "Done"
-    //     },
-    //     inDev: {
-    //         fr: "En développement",
-    //         en: "In development"
-    //     }
-    // }
+    const statusText: Record<Formal.Project["status"], Formal.LanguageSensitiveString> = {
+        ongoing: {
+            fr: "En cours",
+            en: "Ongoing"
+        },
+        done: {
+            fr: "Fini",
+            en: "Done"
+        },
+        paused: {
+            fr: "En pause",
+            en: "Paused"
+        },
+        aborted: {
+            fr: "Abandonné",
+            en: "Aborted"
+        }
+    }
+
+    const statusIcon: Record<Formal.Project["status"], IconDefinition> = {
+        ongoing: faEllipsis,
+        done: faCheck,
+        paused: faPause,
+        aborted: faFaceSadTear
+    }
 
     export let status: Formal.Project["status"];
 </script>
 
-<div>
-<!--    <Fa icon={done ? faCheck : faCode} class={done ? "done" : "in-dev"}/>-->
-<!--    <span>{done ? statusText.done[$Lang] : statusText.inDev[$Lang]}</span>-->
-<div>
-    {status}
-</div>
-</div>
+<span>
+    <Fa icon={statusIcon[status]}/> {statusText[status][$Lang]}
+</span>
 
 
 <style>
-    div {
-        padding: 4px 6px;
-        background: #3a3a3a;
+    span {
         width: fit-content;
-        border-radius: 6px;
+        color: var(--gray);
     }
 </style>

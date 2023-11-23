@@ -45,25 +45,25 @@
 <div class="card" bind:this={cardEl}>
     <div class="card-content">
         <div class="content">
-            <div class="snippet">
-                <div class="title" style="margin-bottom: var(--medium-spacing)">
-                    <div>
-                        <h3 class="no-margin">{project.name}</h3>
-                        <p style="color: var(--gray)">{formatDate(project.dates, $Lang)}</p>
-                    </div>
-                    <div>
-                        <ProjectStatus status={project.status}/>
-                    </div>
+            <div class="header">
+                <div>
+                    <h3 class="no-margin">{project.name}</h3>
+                    <p style="color: var(--gray)">{formatDate(project.dates, $Lang)}</p>
                 </div>
-
-                <p>{project.description[$Lang]}</p>
+                <div>
+                    <ProjectStatus status={project.status}/>
+                </div>
             </div>
 
+            <hr style="margin: 0; border: 1px solid var(--dark-gray)">
 
-            <div class="tags">
-                {#each project.tags as tag}
-                    <ProjectTag tag={tag}/>
-                {/each}
+            <div class="main">
+                <p>{project.description[$Lang]}</p>
+                <div class="tags">
+                    {#each project.tags as tag}
+                        <ProjectTag tag={tag}/>
+                    {/each}
+                </div>
             </div>
         </div>
     </div>
@@ -116,26 +116,39 @@
         z-index: 1;
     }
 
-    .card .card-content {
+    .card-content {
         background-color: var(--very-dark-gray);
         border-radius: calc(var(--border-radius) - 2px);
         display: flex;
         flex-direction: column;
-        flex-grow: 1;
         inset: 2px;
-        padding: var(--medium-spacing);
+        height: 100%;
+        box-sizing: border-box;
+        /*padding: var(--medium-spacing);*/
         z-index: 2;
-        justify-content: space-between;
     }
 
-    .snippet {
-        margin-bottom: var(--medium-spacing);
+    .content {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
     }
 
-    .title {
+    .header {
         display: flex;
         justify-content: space-between;
         gap: var(--micro-spacing);
+        align-items: center;
+        padding: var(--medium-spacing);
+    }
+
+    .main {
+        padding: var(--medium-spacing);
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        gap: var(--medium-spacing);
+        height: 100%;
     }
 
     .tags {

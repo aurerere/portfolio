@@ -24,7 +24,7 @@
       "en": "Hello!"
     },
     "p": {
-      "fr": "Je m'appelle Aurélien, je suis développeur fullstack, passionné de design et de tech",
+      "fr": "Je m'appelle Aurélien, je suis développeur fullstack, passionné par le design et la tech",
       "en": "I am Aurélien, a fullstack developer, passionate about design and tech."
     },
     "links": [
@@ -67,188 +67,129 @@
     {
       "name": "Darapp",
       "tags": [
-        "Vue.js",
         "Express.js",
-        "TypeScript",
         "SurrealDB",
+        "TypeScript",
+        "Vue.js",
         "GitHub Actions"
       ],
       "dates": [
-        "1979-05-27T15:32:00.000Z",
-        "1979-05-27T15:32:00.000Z"
+        "1 May 2023",
+        "1 May 2023"
       ],
-      "inProd": true,
       "status": "paused",
       "description": {
-        "fr": "Création de petites plaques en plexi contenant des QR codes uniques, distribuées dans le cadre d'un concert de musique ; création d'une application web associée.",
-        "en": "Creating small plexiglass plates containing unique QR codes distributed during a music concert, developing an associated web application."
-      },
-      "links": [
-        {
-          "url": "https://29entertainment.fr/",
-          "icon": "website",
-          "text": {
-            "fr": "Voir le site",
-            "en": "View the website"
-          }
-        }
-      ],
-      "thumbnail": "/files/darapp/thumbnail.png"
+        "fr": "Creating small plexiglass plates containing unique QR codes distributed during a music concert,  developing an associated web application.\n",
+        "en": "Création de petites plaques en plexi contenant des QR codes uniques,  distribuées dans le cadre d'un concert de musique ; création d'une application web associée\n"
+      }
     },
     {
-      "name": "Words Royale",
+      "name": "hotkeys.help",
       "tags": [
-        "Vue.js",
-        "Express.js",
         "TypeScript",
-        "SurrealDB",
-        "GitHub Actions"
+        "Express.js",
+        "PHP",
+        "MySQL"
       ],
       "dates": [
-        "1979-05-27T15:32:00.000Z",
-        "1979-05-27T15:32:00.000Z"
+        "1 Jun 2021",
+        "1 Mar 2023"
       ],
-      "inProd": true,
       "status": "paused",
       "description": {
-        "fr": "Création de petites plaques en plexi contenant des QR codes uniques, distribuées dans le cadre d'un concert de musique ; création d'une application web associée.",
-        "en": "Creating small plexiglass plates containing unique QR codes distributed during a music concert, developing an associated web application."
-      },
-      "links": [
-        {
-          "url": "https://29entertainment.fr/",
-          "icon": "website",
-          "text": {
-            "fr": "Voir le site",
-            "en": "View the website"
-          }
-        }
-      ],
-      "thumbnail": "/files/hotkeys.help/thumbnail.png"
+        "fr": "Création d'un site web collaboratif et open source,  listant des logiciels et les astuces & raccourcis claviers associés.\n",
+        "en": "Development of a collaborative and open-source website, cataloging software along with tips and keyboard shortcuts.\n"
+      }
     },
     {
       "name": "OP Clac",
       "tags": [
-        "Vue.js",
-        "Express.js",
+        "Svelte",
+        "Pico.css",
         "TypeScript",
-        "SurrealDB",
-        "GitHub Actions"
+        "GitHub Actions",
+        "MongoDB",
+        "Express.js",
+        "Front API"
       ],
       "dates": [
-        "1979-05-27T15:32:00.000Z",
-        "1979-05-27T15:32:00.000Z"
+        "1 Jun 2023"
       ],
-      "inProd": true,
-      "status": "paused",
+      "status": "ongoing",
       "description": {
-        "fr": "Création de petites plaques en plexi contenant des QR codes uniques, distribuées dans le cadre d'un concert de musique ; création d'une application web associée.",
-        "en": "Creating small plexiglass plates containing unique QR codes distributed during a music concert, developing an associated web application."
-      },
-      "links": [
-        {
-          "url": "https://29entertainment.fr/",
-          "icon": "website",
-          "text": {
-            "fr": "Voir le site",
-            "en": "View the website"
-          }
-        }
-      ],
-      "thumbnail": "/files/op_clac/thumbnail.png"
+        "fr": "refonte complète et design d’un logiciel de gestion de commandes lié à un outil de CRM (Front)\n",
+        "en": "Complete redesign of an order management software linked to a CRM tool (Front).\n"
+      }
     },
     {
       "name": "providenceprod.tv",
       "tags": [
         "Vue.js",
-        "Express.js",
-        "TypeScript",
-        "SurrealDB",
-        "GitHub Actions"
+        "Airtable API"
       ],
       "dates": [
-        "1979-05-27T15:32:00.000Z",
-        "1979-05-27T15:32:00.000Z"
+        "1 Oct 2022",
+        "1 Nov 2022"
       ],
-      "inProd": true,
-      "status": "paused",
+      "status": "done",
       "description": {
-        "fr": "Création de petites plaques en plexi contenant des QR codes uniques, distribuées dans le cadre d'un concert de musique ; création d'une application web associée.",
-        "en": "Creating small plexiglass plates containing unique QR codes distributed during a music concert, developing an associated web application."
+        "fr": "Landing page dynamique répertoriant les projets d'une entreprise de production audiovisuelle.\n",
+        "en": "Dynamic landing page listing the projects of an audiovisual production company.\n"
       },
       "links": [
         {
-          "url": "https://29entertainment.fr/",
-          "icon": "website",
+          "url": "https://github.com/aurerere/providenceprod.tv",
+          "icon": "github",
           "text": {
-            "fr": "Voir le site",
-            "en": "View the website"
+            "fr": "Voir sur GitHub",
+            "en": "View on GitHub"
           }
         }
-      ],
-      "thumbnail": "/files/providenceprod.tv/thumbnail.png"
+      ]
     },
     {
       "name": "Vector",
       "tags": [
+        "Figma",
+        "Adobe Illustrator",
         "Vue.js",
         "Express.js",
-        "TypeScript",
-        "SurrealDB",
-        "GitHub Actions"
+        "MySQL"
       ],
       "dates": [
-        "1979-05-27T15:32:00.000Z",
-        "1979-05-27T15:32:00.000Z"
+        "1 Dec 2021",
+        "1 Aug 2021"
       ],
-      "inProd": true,
       "status": "paused",
       "description": {
-        "fr": "Création de petites plaques en plexi contenant des QR codes uniques, distribuées dans le cadre d'un concert de musique ; création d'une application web associée.",
-        "en": "Creating small plexiglass plates containing unique QR codes distributed during a music concert, developing an associated web application."
-      },
-      "links": [
-        {
-          "url": "https://29entertainment.fr/",
-          "icon": "website",
-          "text": {
-            "fr": "Voir le site",
-            "en": "View the website"
-          }
-        }
-      ],
-      "thumbnail": "/files/vector/thumbnail.png"
+        "fr": "Conception de l'interface utilisateur et de l'identité visuelle d'un logiciel  d'aide à la pratique du jeu vidéo Minecraft. Réalisation de l'outil de vente, de support et de gestion des utilisateurs associé.\n",
+        "en": "Design of the user interface and visual identity of software assisting with playing the Minecraft video game.  Creation of the associated sales, support, and user management tool.\n"
+      }
     },
     {
-      "name": "hotkeys.help",
+      "name": "Words Royale",
       "tags": [
-        "Vue.js",
-        "Express.js",
-        "TypeScript",
-        "SurrealDB",
-        "GitHub Actions"
+        "Vue.js"
       ],
       "dates": [
-        "1979-05-27T15:32:00.000Z",
-        "1979-05-27T15:32:00.000Z"
+        "1 Sept 2022",
+        "1 Sept 2022"
       ],
-      "inProd": true,
-      "status": "paused",
+      "status": "done",
       "description": {
-        "fr": "Création de petites plaques en plexi contenant des QR codes uniques, distribuées dans le cadre d'un concert de musique ; création d'une application web associée.",
-        "en": "Creating small plexiglass plates containing unique QR codes distributed during a music concert, developing an associated web application."
+        "fr": "Développé dans le cadre d'un projet de 2 jours initié en cours d'anglais,  création d'un support informatique pour jouer au jeu français des “quarts de singe”.\n",
+        "en": "Developed as part of a 2-day project initiated in English class,  creation of a computer support to play the French game “quarts de singe”.\n"
       },
       "links": [
         {
-          "url": "https://29entertainment.fr/",
-          "icon": "website",
+          "url": "https://github.com/aurerere/words-royale",
+          "icon": "github",
           "text": {
-            "fr": "Voir le site",
-            "en": "View the website"
+            "fr": "Voir sur GitHub",
+            "en": "View on GitHub"
           }
         }
-      ],
-      "thumbnail": "/files/words_royale/thumbnail.png"
+      ]
     }
   ],
   "contact": {

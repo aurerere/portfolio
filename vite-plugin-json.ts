@@ -1,6 +1,6 @@
 import fs, {readFileSync, writeFileSync} from "fs";
 import {PluginOption} from "vite";
-import toml from "toml";
+import YAML from "yaml";
 
 type FileTree = {
     [key: string]: File | Folder
@@ -111,21 +111,18 @@ function projectFilesToJson()
     for (let project of projectsDir)
     {
         try {
-            if (fs.existsSync(projectsPath + project + "/metadata.toml")) {
+            if (fs.existsSync(projectsPath + project + "/metadata.yml")) {
                 const projectData =
-                    toml.parse(fs.readFileSync(projectsPath + project + "/metadata.toml", "utf-8")) as Project;
+                    YAML.parse(fs.readFileSync(projectsPath + project + "/metadata.yml", "utf-8")) as Project;
 
                 if (
                     projectData?.name &&
                     projectData.tags?.length &&
                     projectData.dates?.length &&
-                    projectData.inProd &&
                     projectData.status &&
                     (projectData.description?.fr && projectData.description?.en)
-                ) {
-                    projectData.thumbnail = "/files/" + project + "/thumbnail.png";
+                )
                     projects.push(projectData);
-                }
             }
         }
         catch (e) {

@@ -29,7 +29,7 @@ namespace Formal {
 
     type Project = {
         name: string,
-        status: "done" | "paused" | "in development" | "aborted",
+        status: "done" | "paused" | "ongoing" | "aborted",
         inProd: boolean,
         dates: [string, string?],
         thumbnail: string,

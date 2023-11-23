@@ -23,6 +23,14 @@
     "blksize": 4096,
     "mtime": "2023-11-16T15:23:13.298Z"
   },
+  "hello.png": {
+    "type": "file",
+    "role": "png",
+    "hidden": false,
+    "nlink": 1,
+    "blksize": 4096,
+    "mtime": "2023-11-23T18:08:18.929Z"
+  },
   "nto.txt": {
     "type": "file",
     "role": "txt",
@@ -45,15 +53,15 @@
         "hidden": false,
         "nlink": 1,
         "blksize": 4096,
-        "mtime": "2023-11-23T09:02:25.114Z",
+        "mtime": "2023-11-23T16:56:47.696Z",
         "children": {
-          "metadata.toml": {
+          "metadata.yml": {
             "type": "file",
-            "role": "toml",
+            "role": "yml",
             "hidden": false,
             "nlink": 1,
             "blksize": 4096,
-            "mtime": "2023-11-23T09:02:25.115Z"
+            "mtime": "2023-11-23T16:56:47.695Z"
           }
         }
       },
@@ -63,15 +71,15 @@
         "hidden": false,
         "nlink": 1,
         "blksize": 4096,
-        "mtime": "2023-11-23T09:16:36.206Z",
+        "mtime": "2023-11-23T17:25:58.114Z",
         "children": {
-          "metadata.toml": {
+          "metadata.yml": {
             "type": "file",
-            "role": "toml",
+            "role": "yml",
             "hidden": false,
             "nlink": 1,
             "blksize": 4096,
-            "mtime": "2023-11-23T09:16:36.206Z"
+            "mtime": "2023-11-23T17:25:58.114Z"
           }
         }
       },
@@ -81,15 +89,15 @@
         "hidden": false,
         "nlink": 1,
         "blksize": 4096,
-        "mtime": "2023-11-23T09:02:25.116Z",
+        "mtime": "2023-11-23T16:56:47.705Z",
         "children": {
-          "metadata.toml": {
+          "metadata.yml": {
             "type": "file",
-            "role": "toml",
+            "role": "yml",
             "hidden": false,
             "nlink": 1,
             "blksize": 4096,
-            "mtime": "2023-11-23T09:02:25.116Z"
+            "mtime": "2023-11-23T16:56:47.704Z"
           }
         }
       },
@@ -99,15 +107,15 @@
         "hidden": false,
         "nlink": 1,
         "blksize": 4096,
-        "mtime": "2023-11-23T09:18:20.429Z",
+        "mtime": "2023-11-23T16:56:47.659Z",
         "children": {
-          "metadata.toml": {
+          "metadata.yml": {
             "type": "file",
-            "role": "toml",
+            "role": "yml",
             "hidden": false,
             "nlink": 1,
             "blksize": 4096,
-            "mtime": "2023-11-23T09:18:20.428Z"
+            "mtime": "2023-11-23T16:56:47.659Z"
           }
         }
       },
@@ -117,15 +125,15 @@
         "hidden": false,
         "nlink": 1,
         "blksize": 4096,
-        "mtime": "2023-11-23T09:17:32.734Z",
+        "mtime": "2023-11-23T16:56:47.674Z",
         "children": {
-          "metadata.toml": {
+          "metadata.yml": {
             "type": "file",
-            "role": "toml",
+            "role": "yml",
             "hidden": false,
             "nlink": 1,
             "blksize": 4096,
-            "mtime": "2023-11-23T09:17:32.733Z"
+            "mtime": "2023-11-23T16:56:47.674Z"
           }
         }
       },
@@ -135,15 +143,15 @@
         "hidden": false,
         "nlink": 1,
         "blksize": 4096,
-        "mtime": "2023-11-23T09:15:02.316Z",
+        "mtime": "2023-11-23T16:56:47.668Z",
         "children": {
-          "metadata.toml": {
+          "metadata.yml": {
             "type": "file",
-            "role": "toml",
+            "role": "yml",
             "hidden": false,
             "nlink": 1,
             "blksize": 4096,
-            "mtime": "2023-11-23T09:14:04.718Z"
+            "mtime": "2023-11-23T16:56:47.668Z"
           }
         }
       }

@@ -21,7 +21,11 @@
     let headerHeight: number = 0;
     let scrollY: number = 0;
 
-    let showScrollSuggestion: boolean = true;
+    function scrollTo(to: string) {
+        return () => {
+            document.getElementById(to)?.scrollIntoView(true);
+        }
+    }
 
     function scrollHook(scrollVal: number) {
 
@@ -60,10 +64,10 @@
 {:else}
     <header bind:offsetHeight={headerHeight}>
         <div class="container nav-bar">
-            <a class="no-style" href="#home">
+            <a class="no-style" href="#home" on:click|preventDefault={scrollTo("home")}>
                 <h1 class="no-margin">{data.title}</h1>
             </a>
-            <Nav data={data.menu}/>
+            <Nav data={data.menu} {scrollTo}/>
         </div>
     </header>
     <main>
@@ -71,9 +75,10 @@
             <div class="container landing">
                 <div class="part">
 <!--                    <Donut/>-->
+                    <img src="/hello.png" alt="hello!"/>
                 </div>
                 <div class="part">
-                    <h2>{data.landing.title[$Lang]}</h2>
+                    <h2 class="hello">{data.landing.title[$Lang]}</h2>
                     <p>{data.landing.p[$Lang]}</p>
                     <div class="links">
                         {#each data.landing.links as link}
@@ -138,7 +143,8 @@
         top: 0;
         left: 0;
         z-index: 5;
-        background: rgba(30, 31, 34, .99);
+        background: rgb(30,31,34);
+        background: linear-gradient(0deg, rgba(30,31,34,0.9) 0%, rgba(30,31,34,1) 80%);
         /*backdrop-filter: blur(30px);*/
     }
 
@@ -160,6 +166,10 @@
 
     h2.section {
         margin-bottom: var(--medium-spacing);
+    }
+
+    h2.hello {
+        font-size: 3rem;
     }
 
     section#home {
@@ -202,11 +212,13 @@
     .container.landing {
         display: flex;
         align-items: center;
+        gap: var(--medium-spacing);
     }
 
     .project-grid {
         display: grid;
         grid-template-columns: 1fr 1fr 1fr;
+        grid-auto-rows: 1fr;
         gap: var(--medium-spacing);
     }
 

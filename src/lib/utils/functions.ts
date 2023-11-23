@@ -1,6 +1,6 @@
 import type {IconDefinition} from "@fortawesome/fontawesome-common-types";
-import {faDatabase, faEarthAfrica, faFile, faFileCode, faTag} from "@fortawesome/free-solid-svg-icons";
-import {faGithub, faLinkedin, faNodeJs, faVuejs} from "@fortawesome/free-brands-svg-icons";
+import {faBezierCurve, faDatabase, faEarthAfrica, faFile, faFileCode, faTag} from "@fortawesome/free-solid-svg-icons";
+import {faCss3, faFigma, faGithub, faLinkedin, faNodeJs, faVuejs} from "@fortawesome/free-brands-svg-icons";
 
 export function getDeviceInfo(): Core.DeviceInfo
 {
@@ -37,7 +37,15 @@ export function getIconFromString(str: string, context: "tag" | "link" = "link")
         case "TypeScript":
             return faFileCode;
         case "SurrealDB":
+        case "MySQL":
+        case "MongoDB":
             return faDatabase;
+        case "Figma":
+            return faFigma;
+        case "Adobe Illustrator":
+            return faBezierCurve;
+        case "Pico.css":
+            return faCss3;
         default:
             return context === "link" ? faEarthAfrica : faTag;
     }

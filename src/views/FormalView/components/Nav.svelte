@@ -4,6 +4,7 @@
     import Fa from "svelte-fa";
 
     export let data: Formal.Data["menu"];
+    export let scrollTo: (sectionId: string) => () => void;
 
     function openCLI() {
         window.open("/cli", "", "width=1000,height=1000");
@@ -22,13 +23,19 @@
 <nav>
     <ul>
         <li class="section">
-            <a class="no-style" href="#home"><Fa icon={faAddressCard}/> {data.landing[$Lang]}</a>
+            <a class="no-style" href="#home" on:click|preventDefault={scrollTo("home")}>
+                <Fa icon={faAddressCard}/> {data.landing[$Lang]}
+            </a>
         </li>
         <li class="section">
-            <a class="no-style" href="#projects"><Fa icon={faFileCode}/> {data.projects[$Lang]}</a>
+            <a class="no-style" href="#projects" on:click|preventDefault={scrollTo("projects")}>
+                <Fa icon={faFileCode}/> {data.projects[$Lang]}
+            </a>
         </li>
         <li class="section">
-            <a class="no-style" href="#contact"><Fa icon={faEnvelope}/> {data.contact[$Lang]}</a>
+            <a class="no-style" href="#contact" on:click|preventDefault={scrollTo("contact")}>
+                <Fa icon={faEnvelope}/> {data.contact[$Lang]}
+            </a>
         </li>
         <li>
             <button on:click={openCLI}><Fa icon={faTerminal}/> {data.cli[$Lang]}</button>
