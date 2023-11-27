@@ -10,12 +10,15 @@
     import {faGithub} from "@fortawesome/free-brands-svg-icons";
     import Fa from "svelte-fa";
     import Project from "./components/Project.svelte";
+    import ProjectDetails from "./components/ProjectDetails.svelte";
 
     $: (document.querySelector(":root") as HTMLElement).style.setProperty("--header-height", headerHeight + "px");
     $: scrollHook(scrollY);
 
     let loading: boolean = true;
     let data: Formal.Data;
+
+    let focusedProject: string | null = null;
 
     let headerHeight: number = 0;
     let scrollY: number = 0;
@@ -48,6 +51,8 @@
                 data = res;
                 loading = false;
             });
+
+        setTimeout(() => focusedProject = "fdf", 2000)
     });
 
     onDestroy(() => {
@@ -117,6 +122,9 @@
             </p>
         </div>
     </footer>
+    {#if focusedProject !== null}
+        <ProjectDetails closedCallback={() => focusedProject = null}/>
+    {/if}
 {/if}
 
 <style>

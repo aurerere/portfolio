@@ -1,11 +1,12 @@
 <script lang="ts">
-    import {onMount} from "svelte";
+    import {onDestroy, onMount} from "svelte";
 
-    export let closedCallback = () => void;
+    export let closedCallback: () => void;
 
     let dialogEl: HTMLDialogElement;
 
     function close() {
+        console.log("here")
         dialogEl.close();
         closedCallback();
     }
@@ -17,6 +18,11 @@
 
     onMount(() => {
         dialogEl.showModal();
+        document.body.style.overflow = "hidden";
+    });
+
+    onDestroy(() => {
+        document.body.style.overflow = "auto";
     })
 </script>
 
