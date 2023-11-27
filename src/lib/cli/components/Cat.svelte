@@ -1,11 +1,9 @@
 <script lang="ts">
-    import {onMount} from "svelte";
-
     export let
         result: string[],
         n: boolean,
         b: boolean,
-        v: boolean,
+        // v: boolean,
         t: boolean,
         e: boolean;
 
@@ -57,9 +55,5 @@
     .counter-counted-line {
         min-width: 50px;
         text-align: right;
-    }
-
-    .pre {
-        white-space: pre;
     }
 </style>
