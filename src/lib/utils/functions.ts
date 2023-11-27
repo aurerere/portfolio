@@ -55,6 +55,7 @@ export function getIconFromString(str: string, context: "tag" | "link" = "link")
         case "Express.js":
             return faNodeJs;
         case "TypeScript":
+        case "Svelte":
             return faFileCode;
         case "SurrealDB":
         case "MySQL":

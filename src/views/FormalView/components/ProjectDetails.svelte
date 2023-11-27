@@ -42,7 +42,7 @@
         <header>
             <div class="heading">
                 <ProjectStatus status={project.status}/>
-                <h3 style="margin: 0">{project.name}</h3>
+                <h3 class="no-margin" style="margin-top: var(--small-spacing)">{project.name}</h3>
             </div>
             <p style="color: var(--gray)">{formatTimeLaps(project.dates, $Lang)}</p>
             <div class="tags">

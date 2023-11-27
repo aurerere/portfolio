@@ -122,6 +122,7 @@
         flex-direction: column;
         inset: 2px;
         height: 100%;
+        width: 100%;
         box-sizing: border-box;
         /*padding: var(--medium-spacing);*/
         z-index: 2;
@@ -154,5 +155,14 @@
         display: flex;
         gap: 4px;
         flex-wrap: wrap;
+    }
+
+    @media (max-width: 600px) {
+        .header {
+            flex-direction: column-reverse;
+            gap: var(--small-spacing);
+            align-items: flex-start;
+            justify-content: normal;
+        }
     }
 </style>

@@ -12,6 +12,7 @@
     import Fa from "svelte-fa";
     import Project from "./components/Project.svelte";
     import ProjectDetails from "./components/ProjectDetails.svelte";
+    import {faBars} from "@fortawesome/free-solid-svg-icons";
 
     $: (document.querySelector(":root") as HTMLElement).style.setProperty("--header-height", headerHeight + "px");
     // $: scrollHook(scrollY);
@@ -78,6 +79,9 @@
             </a>
             <div class="menu-desktop">
                 <Nav data={data.menu} {scrollTo}/>
+            </div>
+            <div class="menu-phone">
+                <button><Fa icon={faBars}/></button>
             </div>
         </div>
     </header>
@@ -175,6 +179,7 @@
         flex-direction: column;
         align-items: center;
         padding-top: calc(var(--header-height) + var(--medium-spacing));
+        overflow-x: hidden;
         /*padding-bottom: var(--big-spacing);*/
     }
 

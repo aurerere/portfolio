@@ -73,6 +73,7 @@ button {
     font-size: 1rem;
     font-family: "JetBrains Mono", monospace;
     background: var(--very-dark-gray);
+    color: white;
     border-radius: var(--border-radius);
     cursor: pointer;
     border: var(--border);
