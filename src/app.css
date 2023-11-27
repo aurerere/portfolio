@@ -31,6 +31,7 @@
 
 html {
     color-scheme: dark;
+    margin-left: calc(100vw - 100%);
 }
 
 body {
@@ -138,6 +139,12 @@ h1, h2, h3, h4, h5 {
 
 p {
     font-weight: 400;
+}
+
+hr {
+    border: 1px solid var(--dark-gray);
+    margin-top: var(--small-spacing);
+    margin-bottom: var(--medium-spacing);
 }
 
 .no-margin {

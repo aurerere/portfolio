@@ -1,6 +1,7 @@
 import type {IconDefinition} from "@fortawesome/fontawesome-common-types";
 import {faBezierCurve, faDatabase, faEarthAfrica, faFile, faFileCode, faTag} from "@fortawesome/free-solid-svg-icons";
-import {faCss3, faFigma, faGithub, faLinkedin, faNodeJs, faVuejs} from "@fortawesome/free-brands-svg-icons";
+import {faCss3, faFigma, faGithub, faLinkedin, faNodeJs, faPhp, faVuejs} from "@fortawesome/free-brands-svg-icons";
+import {MONTH_NAMES_SHORT_EN, MONTH_NAMES_SHORT_FR} from "@utils/const";
 
 export function getDeviceInfo(): Core.DeviceInfo
 {
@@ -18,6 +19,25 @@ export function getDeviceInfo(): Core.DeviceInfo
         device = "desktop";
 
     return { device, keyboard };
+}
+
+export function formatTimeLaps(dates: [string, string?], lang: Formal.Lang): string
+{
+    let mns = lang === "fr" ? MONTH_NAMES_SHORT_FR : MONTH_NAMES_SHORT_EN;
+
+    const from = new Date(dates[0]);
+
+    if (dates[1]) {
+        const to = new Date(dates[1]);
+
+        if (dates[0] === dates[1])
+            return `${mns[from.getMonth()]} ${from.getFullYear()}`
+
+        return `${mns[from.getMonth()]} ${from.getFullYear()} → ${mns[to.getMonth()]} ${to.getFullYear()}`
+    }
+    else {
+        return `${lang === "fr" ? "Depuis" : "Since"} ${mns[from.getMonth()]} ${from.getFullYear()}`;
+    }
 }
 
 export function getIconFromString(str: string, context: "tag" | "link" = "link"): IconDefinition
@@ -46,6 +66,8 @@ export function getIconFromString(str: string, context: "tag" | "link" = "link")
             return faBezierCurve;
         case "Pico.css":
             return faCss3;
+        case "PHP":
+            return faPhp;
         default:
             return context === "link" ? faEarthAfrica : faTag;
     }

@@ -1,5 +1,6 @@
 <script lang="ts">
     import {onDestroy, onMount} from "svelte";
+    import {slide} from "svelte/transition";
 
     import {getIconFromString} from "@utils/functions";
     import {Lang} from "@stores";
@@ -13,12 +14,12 @@
     import ProjectDetails from "./components/ProjectDetails.svelte";
 
     $: (document.querySelector(":root") as HTMLElement).style.setProperty("--header-height", headerHeight + "px");
-    $: scrollHook(scrollY);
+    // $: scrollHook(scrollY);
 
     let loading: boolean = true;
     let data: Formal.Data;
 
-    let focusedProject: string | null = null;
+    let focusedProject: Formal.Project | null = null;
 
     let headerHeight: number = 0;
     let scrollY: number = 0;
@@ -29,9 +30,9 @@
         }
     }
 
-    function scrollHook(scrollVal: number) {
-
-    }
+    // function scrollHook(scrollVal: number) {
+    //
+    // }
 
     let projectCardsMousePosSetters: ((x: number, y: number) => void)[] = [];
 
@@ -39,6 +40,12 @@
     {
         for (const setPos of projectCardsMousePosSetters) {
             setPos((e as MouseEvent).clientX, (e as MouseEvent).clientY);
+        }
+    }
+
+    function openProjectDetails(project: Formal.Project) {
+        return () => {
+            focusedProject = project;
         }
     }
 
@@ -51,8 +58,6 @@
                 data = res;
                 loading = false;
             });
-
-        setTimeout(() => focusedProject = "fdf", 2000)
     });
 
     onDestroy(() => {
@@ -71,14 +76,16 @@
             <a class="no-style" href="#home" on:click|preventDefault={scrollTo("home")}>
                 <h1 class="no-margin">{data.title}</h1>
             </a>
-            <Nav data={data.menu} {scrollTo}/>
+            <div class="menu-desktop">
+                <Nav data={data.menu} {scrollTo}/>
+            </div>
         </div>
     </header>
     <main>
         <section id="home">
             <div class="container landing">
                 <div class="part">
-                    <img src="/hello.png" alt="hello!"/>
+                    <img src="/hello.png" alt="hello!" class="avatar"/>
                 </div>
                 <div class="part">
                     <h2 class="hello">{data.landing.heading[$Lang]}</h2>
@@ -100,7 +107,7 @@
                 <!-- svelte-ignore a11y-no-static-element-interactions a11y-mouse-events-have-key-events -->
                 <div class="project-grid" on:mousemove={handleMouseMoveOnProjectCards}>
                     {#each data.projects as project, index}
-                        <Project {project} bind:setMousePos={projectCardsMousePosSetters[index]}/>
+                        <Project {project} {openProjectDetails} bind:setMousePos={projectCardsMousePosSetters[index]}/>
                     {/each}
                 </div>
             </div>
@@ -123,14 +130,14 @@
         </div>
     </footer>
     {#if focusedProject !== null}
-        <ProjectDetails closedCallback={() => focusedProject = null}/>
+        <ProjectDetails project={focusedProject} closedCallback={() => focusedProject = null}/>
     {/if}
 {/if}
 
 <style>
     main.loading {
         display: flex;
-        width: 100%;
+        width: 100vw;
         height: 100vh;
         box-sizing: border-box;
         align-items: center;
@@ -145,7 +152,7 @@
         border-bottom: var(--border);
         padding: var(--medium-spacing) 0;
         position: fixed;
-        width: 100%;
+        width: 100vw;
         top: 0;
         left: 0;
         z-index: 5;
@@ -157,6 +164,7 @@
     .nav-bar {
         display: flex;
         align-items: center;
+        gap: var(--medium-spacing);
         justify-content: space-between;
     }
 
@@ -193,7 +201,7 @@
 
     .container {
         max-width: 1500px;
-        width: 100%;
+        width: 100vw;
         padding: 0 var(--big-spacing);
         box-sizing: border-box;
     }
@@ -247,6 +255,43 @@
 
     :global(.project-grid:hover .card::after) {
         opacity: 1;
+    }
+
+    @media (max-width: 1200px) {
+        .project-grid {
+            grid-template-columns: 1fr 1fr;
+        }
+    }
+
+    @media (max-width: 1090px) {
+        .menu-desktop {
+            display: none;
+        }
+    }
+
+    @media (max-width: 900px) {
+        :global(html) {
+            font-size: .9em;
+        }
+
+        :global(:root) {
+            --big-spacing: 24px;
+        }
+
+        .project-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    @media (max-width: 600px) {
+        .container.landing {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .avatar {
+            display: none;
+        }
     }
 
     @keyframes breathing {

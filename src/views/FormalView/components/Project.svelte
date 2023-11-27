@@ -6,11 +6,10 @@
     import ProjectStatus from "./ProjectStatus.svelte";
 
     import {Lang} from "@stores";
-    import ExternalLink from "@core-components/ExternalLink.svelte";
-    import {getIconFromString} from "@utils/functions";
-    import {MONTH_NAMES_SHORT_EN, MONTH_NAMES_SHORT_FR} from "@utils/const";
+    import {formatTimeLaps} from "@utils/functions";
 
     export let project: Formal.Project;
+    export let openProjectDetails: (project: Formal.Project) => () => void;
 
     export function setMousePos(x: number, y: number)
     {
@@ -25,37 +24,36 @@
 
     let cardEl: HTMLDivElement;
 
-    function formatDate(dates: [string, string?], lang: Formal.Lang): string
-    {
-        let mns = lang === "fr" ? MONTH_NAMES_SHORT_FR : MONTH_NAMES_SHORT_EN;
-
-        const from = new Date(dates[0]);
-
-        if (dates[1]) {
-            const to = new Date(dates[1]);
-
-            return `${mns[from.getMonth()]} ${from.getFullYear()} → ${mns[to.getMonth()]} ${to.getFullYear()}`
-        }
-        else {
-            return `${lang === "fr" ? "Depuis" : "Since"} ${mns[from.getMonth()]} ${from.getFullYear()}`;
+    function handleKeyPress(e: Event) {
+        if ((e as KeyboardEvent).key === " " || (e as KeyboardEvent).key === "Enter") {
+            e.preventDefault();
+            console.log("here")
+            openProjectDetails(project)();
         }
     }
 </script>
 
-<div class="card" bind:this={cardEl}>
+<div
+    class="card"
+    role="button"
+    tabindex="0"
+    bind:this={cardEl}
+    on:click={openProjectDetails(project)}
+    on:keypress={handleKeyPress}
+>
     <div class="card-content">
         <div class="content">
             <div class="header">
                 <div>
                     <h3 class="no-margin">{project.name}</h3>
-                    <p style="color: var(--gray)">{formatDate(project.dates, $Lang)}</p>
+                    <p style="color: var(--gray)">{formatTimeLaps(project.dates, $Lang)}</p>
                 </div>
                 <div>
                     <ProjectStatus status={project.status}/>
                 </div>
             </div>
 
-            <hr style="margin: 0; border: 1px solid var(--dark-gray)">
+            <hr class="no-margin">
 
             <div class="main">
                 <p>{project.description[$Lang]}</p>
@@ -79,6 +77,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
+        outline: none;
     }
 
     .card:hover::before {
