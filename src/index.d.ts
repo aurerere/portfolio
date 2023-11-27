@@ -54,8 +54,8 @@ namespace Formal {
             cli: LanguageSensitiveString
         },
         landing: {
-            title: LanguageSensitiveString,
-            p: LanguageSensitiveString,
+            heading: LanguageSensitiveString,
+            paragraph: LanguageSensitiveString,
             links: LanguageSensitiveLink[]
         },
         projects: Project[],

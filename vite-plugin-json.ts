@@ -131,7 +131,7 @@ function projectFilesToJson()
 
     }
 
-    const json = JSON.parse(readFileSync("./public/formal.json", "utf-8"));
-    json.projects = projects;
-    writeFileSync("./public/formal.json", JSON.stringify(json, null, 2));
+    const formalData = YAML.parse(readFileSync("./site-data.yml", "utf-8"));
+    formalData.projects = projects;
+    writeFileSync("./public/formal.json", JSON.stringify(formalData, null, 2));
 }

@@ -1,0 +1,55 @@
+title: Aurélien Dumay
+
+menu:
+  landing:
+    fr: Présentation
+    en: Presentation
+  projects:
+    fr: Projects
+    en: Projets
+  contact:
+    fr: Contact
+    en: Contact
+  cli:
+    fr: Version CLI
+    en: CLI Version
+
+landing:
+  heading:
+    fr: Bonjour !
+    en: Hello!
+  paragraph:
+    fr: Je m'appelle Aurélien, je suis développeur fullstack, passionné par le design et la tech.
+    en: I am Aurélien, a fullstack developer, passionate about design and tech.
+  links:
+    - icon: file
+      fr:
+        url: /files/cv_fr.pdf
+        text: CV
+      en:
+        url: /files/cv_en.pdf
+        text: Resume
+    - icon: linkedin
+      fr:
+        url: https://www.linkedin.com/in/aureliendumay/
+        text: Linkedin
+      en:
+        url: https://www.linkedin.com/in/aureliendumay/
+        text: Linkedin
+    - icon: github
+      fr:
+        url: https://github.com/aurerere
+        text: GitHub
+      en:
+        url: https://github.com/aurerere
+        text: GitHub
+
+footer:
+  love:
+    fr: Conçu et développé avec ❤️ par Aurélien DUMAY.
+    en: Designed and developed with ❤️ by Aurélien DUMAY.
+  cookies:
+    fr: Ce site n'utilise pas les cookies.
+    en: This website does not uses cookies.
+
+

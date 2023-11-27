@@ -78,8 +78,8 @@
                     <img src="/hello.png" alt="hello!"/>
                 </div>
                 <div class="part">
-                    <h2 class="hello">{data.landing.title[$Lang]}</h2>
-                    <p>{data.landing.p[$Lang]}</p>
+                    <h2 class="hello">{data.landing.heading[$Lang]}</h2>
+                    <p>{data.landing.paragraph[$Lang]}</p>
                     <div class="links">
                         {#each data.landing.links as link}
                             <ExternalLink to={link[$Lang].url} icon={getIconFromString(link.icon)}>
