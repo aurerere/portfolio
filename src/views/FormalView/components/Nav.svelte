@@ -3,8 +3,11 @@
     import {Lang} from "@stores";
     import Fa from "svelte-fa";
 
-    export let data: Formal.Data["menu"];
-    export let scrollTo: (sectionId: string) => () => void;
+    // props
+    export let
+        phoneVersion: boolean = false,
+        data: Formal.Data["menu"],
+        scrollTo: (sectionId: string) => () => void;
 
     function openCLI() {
         window.open("/cli", "", "width=1000,height=1000");
@@ -20,7 +23,7 @@
     }
 </script>
 
-<nav>
+<nav class:phone={phoneVersion}>
     <ul>
         <li class="section">
             <a class="no-style" href="#home" on:click|preventDefault={scrollTo("home")}>
@@ -61,6 +64,11 @@
         font-weight: bold;
     }
 
+    nav.phone ul {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
     .lang-selector {
         user-select: none;
         cursor: pointer;
@@ -72,7 +80,7 @@
     }
 
     .lang-option {
-        padding: var(--small-spacing);
+        padding: var(--small-padding);
         z-index: 2;
         transition: .3s;
         font-weight: bold;
@@ -84,7 +92,7 @@
         width: 50%;
         height: 100%;
         background: var(--very-dark-gray);
-        border: 2px solid var(--dark-gray);
+        border: var(--border);
         border-radius: var(--border-radius);
         transition: .3s;
     }

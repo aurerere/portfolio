@@ -139,11 +139,11 @@
         justify-content: space-between;
         gap: var(--micro-spacing);
         align-items: center;
-        padding: var(--medium-spacing);
+        padding: var(--medium-padding);
     }
 
     .main {
-        padding: var(--medium-spacing);
+        padding: var(--medium-padding);
         display: flex;
         flex-direction: column;
         justify-content: space-between;

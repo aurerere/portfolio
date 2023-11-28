@@ -12,7 +12,7 @@
     import Fa from "svelte-fa";
     import Project from "./components/Project.svelte";
     import ProjectDetails from "./components/ProjectDetails.svelte";
-    import {faBars} from "@fortawesome/free-solid-svg-icons";
+    import {faBars, faXmark} from "@fortawesome/free-solid-svg-icons";
 
     $: (document.querySelector(":root") as HTMLElement).style.setProperty("--header-height", headerHeight + "px");
     // $: scrollHook(scrollY);
@@ -24,6 +24,8 @@
 
     let headerHeight: number = 0;
     let scrollY: number = 0;
+
+    let phoneMenuDialogEl: HTMLDialogElement;
 
     function scrollTo(to: string) {
         return () => {
@@ -53,12 +55,14 @@
     onMount(() => {
         (document.querySelector("html") as HTMLElement).style.scrollBehavior = "smooth";
 
+
         fetch("/formal.json")
             .then(res => res.json())
             .then(res => {
                 data = res;
                 loading = false;
             });
+
     });
 
     onDestroy(() => {
@@ -81,7 +85,7 @@
                 <Nav data={data.menu} {scrollTo}/>
             </div>
             <div class="menu-phone">
-                <button><Fa icon={faBars}/></button>
+                <button class="burger" on:click={() => phoneMenuDialogEl.showModal()}><Fa icon={faBars}/></button>
             </div>
         </div>
     </header>
@@ -133,6 +137,15 @@
             </p>
         </div>
     </footer>
+    <dialog bind:this={phoneMenuDialogEl} class="menu-box-phone">
+        <div>
+            <div class="menu-header" style="margin-bottom: var(--medium-spacing)">
+                <h2 class="no-margin">Menu</h2>
+                <button class="burger" on:click={() => phoneMenuDialogEl.close()}><Fa icon={faXmark}/></button>
+            </div>
+            <Nav data={data.menu} {scrollTo} phoneVersion/>
+        </div>
+    </dialog>
     {#if focusedProject !== null}
         <ProjectDetails project={focusedProject} closedCallback={() => focusedProject = null}/>
     {/if}
@@ -154,7 +167,7 @@
         justify-content: center;
         align-items: center;
         border-bottom: var(--border);
-        padding: var(--medium-spacing) 0;
+        padding: var(--medium-padding) 0;
         position: fixed;
         width: 100vw;
         top: 0;
@@ -169,6 +182,35 @@
         display: flex;
         align-items: center;
         gap: var(--medium-spacing);
+        justify-content: space-between;
+    }
+
+    .menu-phone {
+        display: none;
+    }
+
+    dialog {
+        margin-top: 0;
+        margin-right: 0;
+        padding: calc(var(--medium-spacing) - var(--border-width)) var(--small-spacing);
+        background: var(--background-color);
+        border-radius: var(--border-radius);
+        border: var(--border)
+    }
+
+    dialog[open] {
+        animation: scaleUp .2s ease-in-out;
+    }
+
+    dialog::backdrop {
+        backdrop-filter: blur(5px);
+        -webkit-backdrop-filter: blur(5px);
+        background: rgba(0, 0, 0, 0.3);
+    }
+
+
+    .menu-header {
+        display: flex;
         justify-content: space-between;
     }
 
@@ -188,7 +230,7 @@
     }
 
     h2.hello {
-        font-size: 3rem;
+        font-size: calc(var(--h1-font-size) + 1rem);
     }
 
     section#home {
@@ -207,13 +249,13 @@
     .container {
         max-width: 1500px;
         width: 100vw;
-        padding: 0 var(--big-spacing);
+        padding: 0 var(--global-padding);
         box-sizing: border-box;
     }
 
     .scroll-suggestion {
         position: fixed;
-        bottom: var(--big-spacing);
+        bottom: var(--medium-spacing);
         color: var(--gray);
         transition: .2s;
         transform: scale(1);
@@ -245,7 +287,7 @@
         display: flex;
         justify-content: center;
         border-top: var(--border);
-        padding: var(--medium-spacing) 0;
+        padding: var(--medium-padding) 0;
     }
 
     .footer {
@@ -255,7 +297,15 @@
     }
 
     .footer p {
-        font-size: .8rem;
+        font-size: calc(var(--text-font-size) - .2rem);
+    }
+
+    .burger {
+        padding: 0;
+        border: none;
+        background: none;
+        font-size: var(--h2-font-size);
+        color: var(--muted-text-color);
     }
 
     :global(.project-grid:hover .card::after) {
@@ -272,16 +322,16 @@
         .menu-desktop {
             display: none;
         }
+
+        .menu-phone {
+            display: block;
+        }
     }
 
     @media (max-width: 900px) {
-        :global(html) {
-            font-size: .9em;
-        }
-
-        :global(:root) {
-            --big-spacing: 24px;
-        }
+        /*:global(html) {*/
+        /*    font-size: .9em;*/
+        /*}*/
 
         .project-grid {
             grid-template-columns: 1fr;
@@ -289,9 +339,35 @@
     }
 
     @media (max-width: 600px) {
+        h1 {
+            font-size: var(--h2-font-size);
+        }
+
+        h2.hello {
+            font-size: var(--h2-font-size);
+        }
+
         .container.landing {
             flex-direction: column;
             align-items: flex-start;
+        }
+
+        :global(:root) {
+            --global-padding: var(--small-spacing);
+            /*--medium-spacing: 12px;*/
+            --medium-padding: var(--medium-spacing) var(--small-spacing);
+        }
+
+        header {
+            padding: var(--medium-spacing) 0;
+        }
+
+        footer {
+            padding: var(--medium-spacing) 0;
+        }
+
+        .project-grid {
+            gap: 12px;
         }
 
         .avatar {
@@ -308,6 +384,17 @@
         }
         100% {
             transform: translateY(0);
+        }
+    }
+
+    @keyframes scaleUp {
+        0% {
+             transform: scale(0);
+        }
+        100% {
+            margin-top: 0;
+            margin-right: 0;
+            transform: scale(1);
         }
     }
 </style>

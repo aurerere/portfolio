@@ -73,18 +73,18 @@
     }
 
     header {
-        padding: var(--medium-spacing);
+        padding: var(--medium-padding);
         border-bottom: var(--border);
     }
 
     main {
-        padding: var(--medium-spacing);
+        padding: var(--medium-padding);
         overflow-y: scroll;
     }
 
     footer {
         border-top: var(--border);
-        padding: var(--medium-spacing);
+        padding: var(--medium-padding);
     }
 
     .close {
@@ -117,7 +117,7 @@
 
     dialog {
         outline: none;
-        width: calc(100% - (2 * var(--big-spacing)));
+        width: calc(100% - (2 * var(--global-padding)));
         max-width: 1000px;
         border-radius: var(--border-radius);
         background: var(--background-color);
@@ -129,6 +129,7 @@
 
     dialog::backdrop {
         backdrop-filter: blur(5px);
+        -webkit-backdrop-filter: blur(5px);
         background: rgba(0, 0, 0, 0.3);
     }
 
@@ -138,6 +139,13 @@
 
     dialog[open]::backdrop {
         animation: fade 0.2s ease-out;
+    }
+
+    @media (max-width: 600px) {
+        .close {
+            top: var(--small-spacing);
+            right: var(--small-spacing);
+        }
     }
 
     @keyframes zoom {

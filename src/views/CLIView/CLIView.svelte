@@ -161,7 +161,7 @@
     }
 
     onMount(async () => {
-        console.info("%c" + AURE_CLI_ASCII + import.meta.env.VITE_VERSION, 'color: lime');
+        console.info("%c" + AURE_CLI_ASCII + import.meta.env.VITE_VERSION, 'color: cyan');
 
         try {
             const res = await fetch("/fileTree.json");
@@ -215,8 +215,8 @@
 
 <style>
     main {
-        padding: var(--medium-spacing) var(--medium-spacing) 0 var(--medium-spacing);
-        font-size: 1rem;
+        padding: var(--medium-padding) var(--medium-padding) 0 var(--medium-padding);
+        font-size: var(--text-font-size);
         display: flex;
         flex-direction: column;
         box-sizing: border-box;
