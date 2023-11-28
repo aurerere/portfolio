@@ -9,6 +9,7 @@ export const AURE_CLI_ASCII =
 / /___/ /____/ /
 \\____/_____/___/`;
 
+export const PREFERRED_LANG_LOCAL_STORAGE_KEY = "PREFERRED_LANG"
 
 export const MONTH_NAMES_SHORT_EN = [
     "Jan",

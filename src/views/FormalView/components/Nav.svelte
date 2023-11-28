@@ -2,6 +2,7 @@
     import {faAddressCard, faEnvelope, faFileCode, faTerminal} from "@fortawesome/free-solid-svg-icons";
     import {Lang} from "@stores";
     import Fa from "svelte-fa";
+    import {PREFERRED_LANG_LOCAL_STORAGE_KEY} from "@utils/const";
 
     // props
     export let
@@ -15,6 +16,7 @@
 
     function changeLang() {
         $Lang = $Lang === "fr" ? "en" : "fr";
+        localStorage.setItem(PREFERRED_LANG_LOCAL_STORAGE_KEY, $Lang);
     }
 
     function handleKeyPress(e: Event) {

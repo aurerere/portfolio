@@ -1,7 +1,7 @@
 import type {IconDefinition} from "@fortawesome/fontawesome-common-types";
 import {faBezierCurve, faDatabase, faEarthAfrica, faFile, faFileCode, faTag} from "@fortawesome/free-solid-svg-icons";
 import {faCss3, faFigma, faGithub, faLinkedin, faNodeJs, faPhp, faVuejs} from "@fortawesome/free-brands-svg-icons";
-import {MONTH_NAMES_SHORT_EN, MONTH_NAMES_SHORT_FR} from "@utils/const";
+import {MONTH_NAMES_SHORT_EN, MONTH_NAMES_SHORT_FR, PREFERRED_LANG_LOCAL_STORAGE_KEY} from "@utils/const";
 
 export function getDeviceInfo(): Core.DeviceInfo
 {
@@ -19,6 +19,18 @@ export function getDeviceInfo(): Core.DeviceInfo
         device = "desktop";
 
     return { device, keyboard };
+}
+
+export function getLang(): Formal.Lang
+{
+    const preferredLang = localStorage.getItem(PREFERRED_LANG_LOCAL_STORAGE_KEY);
+
+    if (preferredLang === "fr" || preferredLang === "en") {
+        return preferredLang;
+    }
+    else {
+        return navigator.language.startsWith("fr-") ? "fr" : "en";
+    }
 }
 
 export function formatTimeLaps(dates: [string, string?], lang: Formal.Lang): string

@@ -33,10 +33,6 @@
         }
     }
 
-    // function scrollHook(scrollVal: number) {
-    //
-    // }
-
     let projectCardsMousePosSetters: ((x: number, y: number) => void)[] = [];
 
     function handleMouseMoveOnProjectCards(e: Event)
@@ -139,7 +135,6 @@
     <footer>
         <div class="container footer">
             <p><b>{data.footer.love[$Lang]}</b></p>
-            <p>{data.footer.cookies[$Lang]}</p>
             <p>
                 <a href="https://github.com/aurerere/portfolio" target="_blank">
                     <Fa icon={faGithub}/>/aurerere/portfolio
