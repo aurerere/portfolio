@@ -25,7 +25,6 @@
     }
 
     onMount(() => {
-        console.log(project)
         dialogEl.showModal();
         document.body.style.overflow = "hidden";
     });
