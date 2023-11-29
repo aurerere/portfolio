@@ -18,7 +18,7 @@
 </script>
 
 <Router {url}>
-    <Route path="/" component="{FormalView}"/>
-    <Route path="/cli" component={CLIView}/>
-    <Route component="{NotFoundView}"/>
+    <Route path="/" component={() => import("./views/FormalView/FormalView.svelte")}/>
+    <Route path="/cli" component={() => import("./views/NotFoundView/CLIView.svelte")}/>
+    <Route component={() => import("./views/NotFoundView/NotFoundView.svelte")}/>
 </Router>

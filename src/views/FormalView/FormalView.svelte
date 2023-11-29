@@ -15,25 +15,28 @@
     import {faBars, faXmark} from "@fortawesome/free-solid-svg-icons";
 
     $: (document.querySelector(":root") as HTMLElement).style.setProperty("--header-height", headerHeight + "px");
-    // $: scrollHook(scrollY);
 
     let loading: boolean = true;
     let data: Formal.Data;
 
     let focusedProject: Formal.Project | null = null;
+    let projectCardsMousePosSetters: ((x: number, y: number) => void)[] = [];
 
     let headerHeight: number = 0;
+
+    let menuWrapperEl: HTMLDivElement;
+
     let scrollY: number = 0;
 
-    let phoneMenuDialogEl: HTMLDialogElement;
+    function scrollHook() {
+        closeMobileMenu();
+    }
 
     function scrollTo(to: string) {
         return () => {
             document.getElementById(to)?.scrollIntoView(true);
         }
     }
-
-    let projectCardsMousePosSetters: ((x: number, y: number) => void)[] = [];
 
     function handleMouseMoveOnProjectCards(e: Event)
     {
@@ -50,12 +53,12 @@
 
     function openMobileMenu()
     {
-
+        menuWrapperEl.classList.add("opened");
     }
 
     function closeMobileMenu()
     {
-
+        menuWrapperEl.classList.remove("opened");
     }
 
     onMount(() => {
@@ -76,7 +79,7 @@
     })
 </script>
 
-<svelte:window bind:scrollY={scrollY}/>
+<svelte:window bind:scrollY={scrollY} on:scroll={scrollHook}/>
 {#if loading}
     <main class="loading">
         <LoadingIndicator/>
@@ -91,7 +94,7 @@
                 <Nav data={data.menu} {scrollTo}/>
             </div>
             <div class="menu-phone">
-                <button class="burger" on:click={() => phoneMenuDialogEl.showModal()}><Fa icon={faBars}/></button>
+                <button class="burger" on:click={openMobileMenu}><Fa icon={faBars}/></button>
             </div>
         </div>
     </header>
@@ -142,15 +145,15 @@
             </p>
         </div>
     </footer>
-    <dialog bind:this={phoneMenuDialogEl} class="menu-box-phone">
+    <div class="menu-box-phone" bind:this={menuWrapperEl}>
         <div>
             <div class="menu-header" style="margin-bottom: var(--medium-spacing)">
                 <h2 class="no-margin">Menu</h2>
-                <button class="burger" on:click={() => phoneMenuDialogEl.close()}><Fa icon={faXmark}/></button>
+                <button class="burger" on:click={closeMobileMenu}><Fa icon={faXmark}/></button>
             </div>
             <Nav data={data.menu} {scrollTo} phoneVersion/>
         </div>
-    </dialog>
+    </div>
     {#if focusedProject !== null}
         <ProjectDetails project={focusedProject} closedCallback={() => focusedProject = null}/>
     {/if}

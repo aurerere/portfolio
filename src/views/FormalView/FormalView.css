@@ -69,23 +69,25 @@ NAVIGATION
     color: var(--muted-text-color);
 }
 
-dialog {
-    margin-top: 0;
-    margin-right: 0;
-    padding: calc(var(--medium-spacing) - var(--border-width)) var(--small-spacing);
-    background: var(--background-color);
+.menu-box-phone {
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 11;
+    padding: calc(var(--medium-spacing) - var(--border-width));
+    border: var(--border);
     border-radius: var(--border-radius);
-    border: var(--border)
+    background: var(--background-color);
+    transform: scale(1);
+    transform-origin: top right;
+    transition: .2s;
+    display: none;
 }
 
-dialog[open] {
-    animation: scaleUp .2s ease-in-out;
-}
-
-dialog::backdrop {
-    backdrop-filter: blur(5px);
-    -webkit-backdrop-filter: blur(5px);
-    background: rgba(0, 0, 0, 0.3);
+.menu-box-phone:not(.opened) {
+    transform: scale(0);
+    top: var(--medium-spacing);
+    right: var(--global-padding);
 }
 
 
@@ -143,6 +145,14 @@ PROJECTS
     opacity: 1;
 }
 
+main.loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+
 
 /***********************************************************************************************************************
 MISC
@@ -183,6 +193,10 @@ RESPONSIVENESS
     }
 
     .menu-phone {
+        display: block;
+    }
+
+    .menu-box-phone {
         display: block;
     }
 }
@@ -244,16 +258,5 @@ ANIMATIONS
     }
     100% {
         transform: translateY(0);
-    }
-}
-
-@keyframes scaleUp {
-    0% {
-        transform: scale(0);
-    }
-    100% {
-        margin-top: 0;
-        margin-right: 0;
-        transform: scale(1);
     }
 }
