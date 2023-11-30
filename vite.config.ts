@@ -11,7 +11,8 @@ export default defineConfig({
       '@cli': path.resolve('src/lib/cli/'),
       '@core-components': path.resolve('src/lib/components/'),
       '@utils': path.resolve('src/lib/utils/'),
-      '@stores': path.resolve('src/lib/stores/')
+      '@stores': path.resolve('src/lib/stores/'),
+      '@views': path.resolve('src/views/')
     }
   },
   build: {

@@ -1,7 +1,8 @@
 <script lang="ts">
     import {faAddressCard, faEnvelope, faFileCode, faTerminal} from "@fortawesome/free-solid-svg-icons";
-    import {Lang} from "@stores";
     import Fa from "svelte-fa";
+
+    import {Lang} from "@stores";
     import {PREFERRED_LANG_LOCAL_STORAGE_KEY} from "@utils/const";
 
     // props
@@ -63,7 +64,7 @@
         list-style: none;
         padding: 0;
         gap: var(--medium-spacing);
-        font-weight: bold;
+        font-weight: 700;
     }
 
     nav.phone ul {
@@ -85,7 +86,7 @@
         padding: var(--small-padding);
         z-index: 2;
         transition: .3s;
-        font-weight: bold;
+        font-weight: 700;
     }
 
     .selection-highlighter {

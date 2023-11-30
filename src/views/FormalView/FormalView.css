@@ -235,6 +235,14 @@ RESPONSIVENESS
         padding: var(--medium-spacing) 0;
     }
 
+    .footer {
+        align-items: center;
+    }
+
+    .footer p {
+        text-align: center;
+    }
+
     .project-grid {
         gap: 12px;
     }

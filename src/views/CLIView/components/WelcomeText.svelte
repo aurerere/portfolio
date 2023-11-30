@@ -1,17 +1,17 @@
 <script lang="ts">
     import {Link} from "svelte-routing";
 
-    import {getDeviceInfo} from "@utils/functions";
     import {AURE_CLI_ASCII} from "@utils/const";
     import run from "@cli/core/run";
+    import {DeviceInfo} from "@stores";
 </script>
 
-<pre style="color: var(--gray); font-weight: bold">
+<pre style="color: var(--gray); font-weight: 700">
 {AURE_CLI_ASCII}{import.meta.env.VITE_VERSION}
 </pre>
 <p>
     <br>
-    {#if getDeviceInfo().device === "mobile"}
+    {#if $DeviceInfo?.device === "mobile"}
         <span class="red">
             Warning: This interface is not optimized for touch devices, it is recommended to visit the formal version
             (available at <Link to="/">https://aureliendumay.me/</Link>).

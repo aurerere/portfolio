@@ -1,9 +1,8 @@
 import type {IconDefinition} from "@fortawesome/fontawesome-common-types";
-import {faBezierCurve, faDatabase, faEarthAfrica, faFile, faFileCode, faTag} from "@fortawesome/free-solid-svg-icons";
-import {faCss3, faFigma, faGithub, faLinkedin, faNodeJs, faPhp, faVuejs} from "@fortawesome/free-brands-svg-icons";
 import {MONTH_NAMES_SHORT_EN, MONTH_NAMES_SHORT_FR, PREFERRED_LANG_LOCAL_STORAGE_KEY} from "@utils/const";
+import {DeviceInfo, Lang} from "@stores";
 
-export function getDeviceInfo(): Core.DeviceInfo
+export function setDeviceInfo(): void
 {
     const userAgent = navigator.userAgent.toLowerCase();
     let device: Core.DeviceInfo["device"] = "mobile";
@@ -18,18 +17,18 @@ export function getDeviceInfo(): Core.DeviceInfo
     )
         device = "desktop";
 
-    return { device, keyboard };
+    DeviceInfo.set({ device, keyboard });
 }
 
-export function getLang(): Formal.Lang
+export function setLang(): void
 {
     const preferredLang = localStorage.getItem(PREFERRED_LANG_LOCAL_STORAGE_KEY);
 
     if (preferredLang === "fr" || preferredLang === "en") {
-        return preferredLang;
+        Lang.set(preferredLang);
     }
     else {
-        return navigator.language.startsWith("fr-") ? "fr" : "en";
+        Lang.set(navigator.language.startsWith("fr-") ? "fr" : "en");
     }
 }
 
@@ -51,6 +50,9 @@ export function formatTimeLaps(dates: [string, string?], lang: Formal.Lang): str
         return `${lang === "fr" ? "Depuis" : "Since"} ${mns[from.getMonth()]} ${from.getFullYear()}`;
     }
 }
+
+import {faBezierCurve, faDatabase, faEarthAfrica, faFile, faFileCode, faTag} from "@fortawesome/free-solid-svg-icons";
+import {faCss3, faFigma, faGithub, faLinkedin, faNodeJs, faPhp, faVuejs} from "@fortawesome/free-brands-svg-icons";
 
 export function getIconFromString(str: string, context: "tag" | "link" = "link"): IconDefinition
 {

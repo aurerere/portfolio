@@ -2,23 +2,26 @@
     import {Router, Route} from "svelte-routing";
     import {onMount} from "svelte";
 
-    import {DeviceInfo, Lang} from "@stores";
-    import {getDeviceInfo, getLang} from "@utils/functions";
+    import LazyLoadedComponent from "@core-components/LazyLoadedComponent.svelte";
 
-    import FormalView from "./views/FormalView/FormalView.svelte";
-    import NotFoundView from "./views/NotFoundView/NotFoundView.svelte";
-    import CLIView from "./views/CLIView/CLIView.svelte";
+    import {setDeviceInfo, setLang} from "@utils/functions";
 
     let url = window.location.pathname;
 
     onMount(() => {
-        $DeviceInfo = getDeviceInfo();
-        $Lang = getLang();
+        setDeviceInfo();
+        setLang();
     });
 </script>
 
 <Router {url}>
-    <Route path="/" component={() => import("./views/FormalView/FormalView.svelte")}/>
-    <Route path="/cli" component={() => import("./views/NotFoundView/CLIView.svelte")}/>
-    <Route component={() => import("./views/NotFoundView/NotFoundView.svelte")}/>
+    <Route path="/">
+        <LazyLoadedComponent component={() => import("@views/FormalView/FormalView.svelte")}/>
+    </Route>
+    <Route path="/cli">
+        <LazyLoadedComponent component={() => import("@views/CLIView/CLIView.svelte")}/>
+    </Route>
+    <Route>
+        <LazyLoadedComponent component={() => import("@views/NotFoundView/NotFoundView.svelte")}/>
+    </Route>
 </Router>

@@ -137,7 +137,7 @@
     </main>
     <footer>
         <div class="container footer">
-            <p><b>{data.footer.love[$Lang]}</b></p>
+            <p>{data.footer.love[$Lang]}</p>
             <p>
                 <a href="https://github.com/aurerere/portfolio" target="_blank">
                     <Fa icon={faGithub}/>/aurerere/portfolio
