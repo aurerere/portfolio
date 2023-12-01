@@ -66,7 +66,6 @@ namespace Formal {
             mail: ContactChannel
         },
         footer: {
-            cookies: LanguageSensitiveString,
             love: LanguageSensitiveString
         }
     }

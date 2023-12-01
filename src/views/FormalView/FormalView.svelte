@@ -12,7 +12,7 @@
     import Fa from "svelte-fa";
     import Project from "./components/Project.svelte";
     import ProjectDetails from "./components/ProjectDetails.svelte";
-    import {faBars, faXmark} from "@fortawesome/free-solid-svg-icons";
+    import {faBars, faPaperPlane, faXmark} from "@fortawesome/free-solid-svg-icons";
 
     $: (document.querySelector(":root") as HTMLElement).style.setProperty("--header-height", headerHeight + "px");
 
@@ -25,6 +25,7 @@
     let headerHeight: number = 0;
 
     let menuWrapperEl: HTMLDivElement;
+    let burgerButtonEl: HTMLButtonElement;
 
     let scrollY: number = 0;
 
@@ -34,6 +35,7 @@
 
     function scrollTo(to: string) {
         return () => {
+            closeMobileMenu();
             document.getElementById(to)?.scrollIntoView(true);
         }
     }
@@ -45,8 +47,20 @@
         }
     }
 
+    function handleClick(e: Event)
+    {
+        if (menuWrapperEl.contains(e.target) || burgerButtonEl.contains(e.target))
+            return;
+
+        closeMobileMenu();
+        // console.log(e.target);
+        // if (e.target !== menuWrapperEl && !burgerButtonEl.contains(e.target as Element))
+        //     closeMobileMenu();
+    }
+
     function openProjectDetails(project: Formal.Project) {
         return () => {
+            closeMobileMenu();
             focusedProject = project;
         }
     }
@@ -54,11 +68,13 @@
     function openMobileMenu()
     {
         menuWrapperEl.classList.add("opened");
+        burgerButtonEl.classList.add("opened");
     }
 
     function closeMobileMenu()
     {
         menuWrapperEl.classList.remove("opened");
+        burgerButtonEl.classList.remove("opened");
     }
 
     onMount(() => {
@@ -94,11 +110,14 @@
                 <Nav data={data.menu} {scrollTo}/>
             </div>
             <div class="menu-phone">
-                <button class="burger" on:click={openMobileMenu}><Fa icon={faBars}/></button>
+                <button class="burger opener" bind:this={burgerButtonEl} on:click={openMobileMenu}>
+                    <Fa icon={faBars}/>
+                </button>
             </div>
         </div>
     </header>
-    <main>
+    <!-- svelte-ignore a11y-no-noninteractive-element-interactions a11y-click-events-have-key-events -->
+    <main on:click={handleClick}>
         <section id="home">
             <div class="container landing">
                 <div class="part">
@@ -132,6 +151,23 @@
         <section id="contact">
             <div class="container">
                 <h2 class="section">{data.menu.contact[$Lang]}</h2>
+                <form on:submit|preventDefault>
+                    <input type="hidden" name="access_key" value="YOUR_ACCESS_KEY_HERE">
+
+                    <label for="name">
+                        Name
+                        <input type="text" name="name" placeholder="John Doe" required />
+                    </label>
+                    <label for="email">
+                        E-mail
+                        <input type="email" name="email" placeholder="johndoe@example.com" required />
+                    </label>
+                    <label for="message">
+                        Message
+                        <textarea name="message" placeholder="Lorem ipsum" required rows="3"></textarea>
+                    </label>
+                    <button type="submit"><Fa icon={faPaperPlane}/> Send!</button>
+                </form>
             </div>
         </section>
     </main>
@@ -149,7 +185,7 @@
         <div>
             <div class="menu-header" style="margin-bottom: var(--medium-spacing)">
                 <h2 class="no-margin">Menu</h2>
-                <button class="burger" on:click={closeMobileMenu}><Fa icon={faXmark}/></button>
+                <button class="burger close" on:click={closeMobileMenu}><Fa icon={faXmark}/></button>
             </div>
             <Nav data={data.menu} {scrollTo} phoneVersion/>
         </div>

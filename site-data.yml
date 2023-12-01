@@ -44,9 +44,12 @@ landing:
         url: https://github.com/aurerere
         text: GitHub
 
+contact:
+  send:
+    fr: Envoyer !
+    en: Send!
+
 footer:
   love:
     fr: Conçu et développé avec ❤️ par Aurélien.
     en: Designed and developed with ❤️ by Aurélien.
-
-
