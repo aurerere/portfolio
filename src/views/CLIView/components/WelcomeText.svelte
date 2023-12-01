@@ -1,13 +1,13 @@
 <script lang="ts">
     import {Link} from "svelte-routing";
 
-    import {AURE_CLI_ASCII} from "@utils/const";
+    import {AURE_CLI_ASCII_ART} from "@utils/const";
     import run from "@cli/core/run";
     import {DeviceInfo} from "@stores";
 </script>
 
 <pre style="color: var(--gray); font-weight: 700">
-{AURE_CLI_ASCII}{import.meta.env.VITE_VERSION}
+{AURE_CLI_ASCII_ART}{import.meta.env.VITE_VERSION}
 </pre>
 <p>
     <br>

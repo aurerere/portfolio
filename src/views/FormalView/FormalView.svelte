@@ -5,7 +5,7 @@
     import {getIconFromString} from "@utils/functions";
     import {Lang} from "@stores";
 
-    import ExternalLink from "@core-components/ExternalLink.svelte";
+    import ExternalLink from "@views/FormalView/components/ExternalLink.svelte";
     import LoadingIndicator from "@core-components/LoadingIndicator.svelte";
     import Nav from "./components/Nav.svelte";
     import {faGithub} from "@fortawesome/free-brands-svg-icons";
@@ -16,18 +16,22 @@
 
     $: (document.querySelector(":root") as HTMLElement).style.setProperty("--header-height", headerHeight + "px");
 
-    let loading: boolean = true;
     let data: Formal.Data;
 
-    let focusedProject: Formal.Project | null = null;
+    // controls loading animations
+    let isEntirePageBusy: boolean = true;
+    let isContactFormBusy: boolean = true;
+
+    // ui
     let projectCardsMousePosSetters: ((x: number, y: number) => void)[] = [];
-
     let headerHeight: number = 0;
+    let scrollY: number = 0;
 
+    // menu
     let menuWrapperEl: HTMLDivElement;
     let burgerButtonEl: HTMLButtonElement;
 
-    let scrollY: number = 0;
+    let focusedProject: Formal.Project | null = null;
 
     function scrollHook() {
         closeMobileMenu();
@@ -49,13 +53,10 @@
 
     function handleClick(e: Event)
     {
-        if (menuWrapperEl.contains(e.target) || burgerButtonEl.contains(e.target))
+        if (menuWrapperEl.contains(e.target as Node) || burgerButtonEl.contains(e.target as Node))
             return;
 
         closeMobileMenu();
-        // console.log(e.target);
-        // if (e.target !== menuWrapperEl && !burgerButtonEl.contains(e.target as Element))
-        //     closeMobileMenu();
     }
 
     function openProjectDetails(project: Formal.Project) {
@@ -77,6 +78,26 @@
         burgerButtonEl.classList.remove("opened");
     }
 
+    async function sendMessage(data)
+    {
+        isContactFormBusy = true;
+        const formData = new FormData(data.currentTarget);
+        const body = Object.fromEntries(formData);
+
+        const res = await fetch("https://api.web3forms.com/submit", {
+            method: "POST",
+            headers: {
+               "Content-type": "application/json",
+               Accept: "application/json"
+            },
+            body
+        });
+
+        if (res.ok) {
+
+        }
+    }
+
     onMount(() => {
         (document.querySelector("html") as HTMLElement).style.scrollBehavior = "smooth";
 
@@ -85,7 +106,7 @@
             .then(res => res.json())
             .then(res => {
                 data = res;
-                loading = false;
+                isEntirePageBusy = false;
             });
 
     });
@@ -96,7 +117,7 @@
 </script>
 
 <svelte:window bind:scrollY={scrollY} on:scroll={scrollHook}/>
-{#if loading}
+{#if isEntirePageBusy}
     <main class="loading">
         <LoadingIndicator/>
     </main>
@@ -152,7 +173,7 @@
             <div class="container">
                 <h2 class="section">{data.menu.contact[$Lang]}</h2>
                 <form on:submit|preventDefault>
-                    <input type="hidden" name="access_key" value="YOUR_ACCESS_KEY_HERE">
+                    <input type="hidden" name="access_key" value="bda200a1-f720-4963-87d6-151c68aeaa6d">
 
                     <label for="name">
                         Name

@@ -124,7 +124,6 @@
         height: 100%;
         width: 100%;
         box-sizing: border-box;
-        /*padding: var(--medium-spacing);*/
         z-index: 2;
     }
 

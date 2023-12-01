@@ -3,15 +3,15 @@ import {createError, fileTreeTraveler, parsePath} from "@cli/core/utils";
 
 export default function cd(args: string[]): CLI.BinOutput
 {
-    if (args.length > 1)
-        throw new Error("cd: too many arguments");
-
-    if (args.length === 0) {
-        CurrentPath.set(["~"]);
-        return "";
-    }
-
     try {
+        if (args.length > 1)
+            createError("too many arguments");
+
+        if (args.length === 0) {
+            CurrentPath.set(["~"]);
+            return "";
+        }
+
         const to= parsePath(args[0]);
 
         const [,destType] = fileTreeTraveler(to);

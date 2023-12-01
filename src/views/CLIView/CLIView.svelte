@@ -10,7 +10,7 @@
     import LoadingIndicator from "@core-components/LoadingIndicator.svelte";
 
     import run from "@cli/core/run";
-    import {AURE_CLI_ASCII} from "@utils/const";
+    import {AURE_CLI_ASCII_ART} from "@utils/const";
 
     // A span element with contenteditable property set to true -> gets input
     let inputEl: HTMLSpanElement;
@@ -82,7 +82,7 @@
             // RUNS A COMMAND
             if (key === "Enter") {
                 e.preventDefault();
-                // loading animation + disables the input
+                // isEntirePageBusy animation + disables the input
                 loading = true;
                 // Runs the input (sends the current path)
                 await run(inputEl.innerText);
@@ -161,7 +161,7 @@
     }
 
     onMount(async () => {
-        console.info("%c" + AURE_CLI_ASCII + import.meta.env.VITE_VERSION, 'color: cyan');
+        console.info("%c" + AURE_CLI_ASCII_ART + import.meta.env.VITE_VERSION, 'color: cyan');
 
         try {
             const res = await fetch("/fileTree.json");

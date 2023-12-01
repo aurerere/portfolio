@@ -5,7 +5,7 @@
     import {Lang} from "@stores";
     import {formatTimeLaps, getIconFromString} from "@utils/functions";
     import ProjectStatus from "./ProjectStatus.svelte";
-    import ExternalLink from "@core-components/ExternalLink.svelte";
+    import ExternalLink from "@views/FormalView/components/ExternalLink.svelte";
     import ProjectTag from "./ProjectTag.svelte";
 
     export let
@@ -100,12 +100,6 @@
     .close:hover {
         color: var(--gray);
     }
-
-    /*.heading {*/
-    /*    display: flex;*/
-    /*    align-items: baseline;*/
-    /*    gap: var(--small-spacing);*/
-    /*}*/
 
     .tags {
         margin-top: var(--small-spacing);

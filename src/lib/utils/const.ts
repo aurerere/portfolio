@@ -1,4 +1,4 @@
-export const AURE_CLI_ASCII =
+export const AURE_CLI_ASCII_ART =
 `    ___   __  ______  _______ _____
    /   | / / / / __ \\/ ____( ) ___/
   / /| |/ / / / /_/ / __/  |/\\__ \\
