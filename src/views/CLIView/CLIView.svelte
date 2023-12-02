@@ -82,7 +82,7 @@
             // RUNS A COMMAND
             if (key === "Enter") {
                 e.preventDefault();
-                // isEntirePageBusy animation + disables the input
+                // isLoading animation + disables the input
                 loading = true;
                 // Runs the input (sends the current path)
                 await run(inputEl.innerText);

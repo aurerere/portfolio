@@ -27,6 +27,8 @@
     --green: lime;
     --cyan: cyan;
     --red: lightcoral;
+    --focus-or-hover-border-color: #8d8e93;
+    --focus-or-hover-bg-color: #323438;
     --gray: rgb(128, 128, 128);
     --dark-gray: #3f4148;
     --very-dark-gray: #26282c;
@@ -46,22 +48,6 @@
     background: var(--text-color);
 }
 
-html {
-    color-scheme: dark;
-    margin-left: calc(100vw - 100%);
-    font-weight: 300;
-}
-
-body {
-    margin: 0;
-    padding: 0;
-    background: var(--background-color);
-    font-family: "JetBrains Mono", monospace;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    font-size: var(--text-font-size);
-}
-
 ::-webkit-scrollbar {
     width: 8px;
     height: 8px;
@@ -78,6 +64,35 @@ body {
 
 ::-webkit-scrollbar-thumb:hover {
     background: var(--dark-gray);
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: white;
+    -webkit-box-shadow: 0 0 0px 1000px var(--very-dark-gray) inset;
+}
+
+input:-webkit-autofill[disabled] {
+    -webkit-text-fill-color: var(--gray);
+}
+
+html {
+    color-scheme: dark;
+    margin-left: calc(100vw - 100%);
+    font-weight: 300;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background: var(--background-color);
+    font-family: "JetBrains Mono", monospace;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-size: var(--text-font-size);
 }
 
 h1 { font-size: var(--h1-font-size) }
@@ -106,6 +121,12 @@ button {
     cursor: pointer;
     border: var(--border);
     font-weight: 700;
+    transition: .2s;
+}
+
+button:hover {
+    background: var(--focus-or-hover-bg-color);
+    border-color: var(--focus-or-hover-border-color);
 }
 
 a {

@@ -60,10 +60,12 @@ namespace Formal {
         },
         projects: Project[],
         contact: {
-            text: LanguageSensitiveString,
-            phone: ContactChannel,
-            linkedin: ContactChannel,
-            mail: ContactChannel
+            form_fields: {
+                name: LanguageSensitiveString,
+                email: LanguageSensitiveString,
+                message: LanguageSensitiveString,
+                send: LanguageSensitiveString
+            }
         },
         footer: {
             love: LanguageSensitiveString

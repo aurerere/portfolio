@@ -80,7 +80,19 @@
         border: var(--border);
         border-radius: var(--small-spacing);
         outline: none;
+        transition: .2s;
     }
+
+    .lang-selector:hover {
+        background: var(--very-dark-gray);
+        border-color: var(--focus-or-hover-border-color);
+    }
+
+    .lang-selector:hover .selection-highlighter {
+        border-color: var(--focus-or-hover-border-color);
+        background: var(--focus-or-hover-bg-color);
+    }
+
 
     .lang-option {
         padding: var(--small-padding);

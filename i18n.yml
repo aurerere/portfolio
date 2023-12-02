@@ -45,9 +45,22 @@ landing:
         text: GitHub
 
 contact:
-  send:
-    fr: Envoyer !
-    en: Send!
+  form_fields:
+    name:
+      fr: Nom
+      en: Name
+    email:
+      fr: E-mail
+      en: E-mail
+    message:
+      fr: Message
+      en: Message
+    send:
+      fr: Envoyer !
+      en: Send!
+    thanks:
+      fr: Merci !
+      en: Thank you!
 
 footer:
   love:

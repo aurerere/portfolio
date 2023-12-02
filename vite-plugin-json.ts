@@ -85,8 +85,8 @@ function dirToJson(path: string, to: FileTree)
                 blksize: elementMeta.blksize,
                 mtime: elementMeta.mtime,
                 children: {}
-            }
-            dirToJson(path + element + "/", to[element]["children"]);
+            };
+            dirToJson(path + element + "/", (to[element] as Folder).children);
         }
         else {
             to[element] = {
@@ -131,7 +131,7 @@ function projectFilesToJson()
 
     }
 
-    const formalData = YAML.parse(readFileSync("./site-data.yml", "utf-8"));
+    const formalData = YAML.parse(readFileSync("./i18n.yml", "utf-8"));
     formalData.projects = projects;
     writeFileSync("./public/formal.json", JSON.stringify(formalData, null, 2));
 }

@@ -13,14 +13,14 @@
     import Project from "./components/Project.svelte";
     import ProjectDetails from "./components/ProjectDetails.svelte";
     import {faBars, faPaperPlane, faXmark} from "@fortawesome/free-solid-svg-icons";
+    import ContactForm from "@views/FormalView/components/ContactForm.svelte";
 
     $: (document.querySelector(":root") as HTMLElement).style.setProperty("--header-height", headerHeight + "px");
 
     let data: Formal.Data;
 
     // controls loading animations
-    let isEntirePageBusy: boolean = true;
-    let isContactFormBusy: boolean = true;
+    let isLoading: boolean = true;
 
     // ui
     let projectCardsMousePosSetters: ((x: number, y: number) => void)[] = [];
@@ -78,26 +78,6 @@
         burgerButtonEl.classList.remove("opened");
     }
 
-    async function sendMessage(data)
-    {
-        isContactFormBusy = true;
-        const formData = new FormData(data.currentTarget);
-        const body = Object.fromEntries(formData);
-
-        const res = await fetch("https://api.web3forms.com/submit", {
-            method: "POST",
-            headers: {
-               "Content-type": "application/json",
-               Accept: "application/json"
-            },
-            body
-        });
-
-        if (res.ok) {
-
-        }
-    }
-
     onMount(() => {
         (document.querySelector("html") as HTMLElement).style.scrollBehavior = "smooth";
 
@@ -106,7 +86,7 @@
             .then(res => res.json())
             .then(res => {
                 data = res;
-                isEntirePageBusy = false;
+                isLoading = false;
             });
 
     });
@@ -117,7 +97,7 @@
 </script>
 
 <svelte:window bind:scrollY={scrollY} on:scroll={scrollHook}/>
-{#if isEntirePageBusy}
+{#if isLoading}
     <main class="loading">
         <LoadingIndicator/>
     </main>
@@ -172,23 +152,15 @@
         <section id="contact">
             <div class="container">
                 <h2 class="section">{data.menu.contact[$Lang]}</h2>
-                <form on:submit|preventDefault>
-                    <input type="hidden" name="access_key" value="bda200a1-f720-4963-87d6-151c68aeaa6d">
-
-                    <label for="name">
-                        Name
-                        <input type="text" name="name" placeholder="John Doe" required />
-                    </label>
-                    <label for="email">
-                        E-mail
-                        <input type="email" name="email" placeholder="johndoe@example.com" required />
-                    </label>
-                    <label for="message">
-                        Message
-                        <textarea name="message" placeholder="Lorem ipsum" required rows="3"></textarea>
-                    </label>
-                    <button type="submit"><Fa icon={faPaperPlane}/> Send!</button>
-                </form>
+                <div>
+                    <div>
+                        <h4>I would be happy to talk with you!</h4>
+                        <p>Please don't hesitate to contact me using the form provided or through the links below. I look forward to hearing from you!</p>
+                        <ExternalLink to="mailto:hello@aureliendumay.me">hello@aureliendumay.me</ExternalLink>
+                        <ExternalLink to="https://linkedin.com/in/aureliendumay">hello@aureliendumay.me</ExternalLink>
+                    </div>
+                    <ContactForm fieldNames={data.contact.form_fields}/>
+                </div>
             </div>
         </section>
     </main>

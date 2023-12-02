@@ -178,45 +178,6 @@ main.loading {
 
 
 /***********************************************************************************************************************
-CONTACT FORM
-***********************************************************************************************************************/
-form {
-    display: flex;
-    gap: var(--medium-spacing);
-    flex-direction: column;
-}
-
-input, textarea {
-    background: var(--very-dark-gray);
-    border: var(--border);
-    outline: none;
-    padding: var(--small-spacing);
-    border-radius: var(--border-radius);
-    font-family: "JetBrains Mono", monospace;
-    font-size: 1rem;
-}
-
-textarea {
-    resize: none;
-    width: 100%;
-    height: 300px;
-    box-sizing: border-box;
-}
-
-form label {
-    display: flex;
-    flex-direction: column;
-    gap: var(--micro-spacing);
-    color: var(--gray)
-}
-
-form label > :not(input) {
-    margin-right: var(--small-spacing);
-}
-
-
-
-/***********************************************************************************************************************
 MISC
 ***********************************************************************************************************************/
 h2.section {
