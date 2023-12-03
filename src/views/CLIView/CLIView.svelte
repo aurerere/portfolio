@@ -39,6 +39,10 @@
 
         // Whether the input is focused or not
         switch (key.toLowerCase()) {
+            case "control":
+            case "command":
+            case "shift":
+                return;
             // Prevents the tab key from updating the focus
             case "tab":
                 e.preventDefault();
@@ -96,6 +100,7 @@
 
     async function handlePaste(e: ClipboardEvent)
     {
+        console.log(e.clipboardData.getData('Text'))
         if (!e.clipboardData)
             return;
 
@@ -110,6 +115,10 @@
             }
 
             inputEl.innerText = inputs[inputLastIdx];
+            focusInputAndMoveCaretAtTheEnd();
+        }
+        else {
+            inputEl.innerText = data;
             focusInputAndMoveCaretAtTheEnd();
         }
 

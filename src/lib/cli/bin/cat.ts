@@ -33,6 +33,8 @@ export default async function cat(args: string[]): Promise<CLI.BinOutput>
 
         result = result.join("\r\n");
 
+        console.log(JSON.stringify(result));
+
         const n = options
             .findIndex(val => val.option === "n") !== -1;
 
