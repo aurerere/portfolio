@@ -1,8 +1,0 @@
-
-[Done]
-
-Dynamic landing page listing the projects of an audiovisual production company.
-
-Tags: VueJS, AirTable API
-
-Website: https://providenceprod.tv/

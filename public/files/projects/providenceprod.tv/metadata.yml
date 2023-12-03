@@ -1,0 +1,24 @@
+name: providenceprod.tv
+
+tags:
+  - Vue.js
+  - Airtable API
+
+dates:
+  - 1 Oct 2022
+  - 1 Nov 2022
+
+status: done
+
+description:
+  fr: >
+    Landing page dynamique répertoriant les projets d'une entreprise de production audiovisuelle.
+  en: >
+    Dynamic landing page listing the projects of an audiovisual production company.
+
+links:
+  - url: https://github.com/aurerere/providenceprod.tv
+    icon: github
+    text:
+      fr: Voir sur GitHub
+      en: View on GitHub

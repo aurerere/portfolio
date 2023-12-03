@@ -1,0 +1,39 @@
+# https://github.com/marketplace/actions/ftp-deploy
+name: 🚀 Deploy
+on:
+  push:
+    branches:
+      - master
+#    tags:
+#      - 'v*'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🚚 Checkout
+        uses: actions/checkout@v3
+      - name: 🍃 Set up node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20.x
+          cache: "npm"
+      - name: 📦 Install dependencies
+        run: npm install
+      - name: 🔎 Type check
+        id: check
+        run: npm run check
+      - name: 🏗️ Build
+        if: steps.check.outcome == 'success'
+        run: |
+          export VITE_VERSION=${GITHUB_REF#refs/heads/}/$(git rev-parse --short "$GITHUB_SHA")
+          npm run build
+      - name: 🚀 Deploy
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          server-dir: www/
+          local-dir: ./dist/
+          exclude: .git*

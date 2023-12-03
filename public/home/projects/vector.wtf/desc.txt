@@ -1,8 +1,0 @@
-
-[In development]
-
-Realization of the sales, support, and license & user management tool of Vector (../vector-ui).
-
-Tags: Design, VueJS, ExpressJS, MySQL
-
-Figma: https://www.figma.com/file/efQkiscKRcDrXkvaIcMX2f/Vector-UI?node-id=0%3A1&t=ukr2f1B8wpC2tJVf-1
