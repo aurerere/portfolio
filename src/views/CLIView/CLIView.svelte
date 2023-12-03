@@ -105,7 +105,7 @@
 
         const data = e.clipboardData?.getData('Text').replaceAll(/\r/, '');
 
-        if (data.includes(/\n/)) {
+        if (data.match(/\n/)) {
             const inputs = data.split(/\n/);
             const inputLastIdx = inputs.length - 1;
 
