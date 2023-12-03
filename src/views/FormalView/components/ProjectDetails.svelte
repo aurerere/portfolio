@@ -37,7 +37,7 @@
 <!-- svelte-ignore a11y-click-events-have-key-events a11y-no-noninteractive-element-interactions -->
 <dialog bind:this={dialogEl} on:click|self={() => close()} on:keydown={handleKeyDown}>
     <article>
-        <button class="close" on:click={close}><Fa icon={faXmark}/></button>
+        <button class="close" on:click={close} aria-label="close"><Fa icon={faXmark}/></button>
         <header>
             <div class="heading">
                 <ProjectStatus status={project.status}/>

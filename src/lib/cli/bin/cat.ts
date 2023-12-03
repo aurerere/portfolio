@@ -51,7 +51,7 @@ export default async function cat(args: string[]): Promise<CLI.BinOutput>
         return {
             component: Cat,
             data: {
-                result: result.split(/\r\n+/gm),
+                result: result.split(/[\r\n]+/gm),
                 n, b, v, t, e
             }
         }

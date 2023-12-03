@@ -110,7 +110,7 @@
                 <Nav data={data.menu} {scrollTo}/>
             </div>
             <div class="menu-phone">
-                <button class="burger opener" bind:this={burgerButtonEl} on:click={openMobileMenu}>
+                <button class="burger opener" bind:this={burgerButtonEl} on:click={openMobileMenu} aria-label="menu">
                     <Fa icon={faBars}/>
                 </button>
             </div>
@@ -184,7 +184,7 @@
         <div class="menu-box-phone" bind:this={menuEl}>
             <div class="menu-header" style="margin-bottom: var(--medium-spacing)">
                 <h2 class="no-margin">Menu</h2>
-                <button class="burger close" on:click={closeMobileMenu}><Fa icon={faXmark}/></button>
+                <button class="burger close" on:click={closeMobileMenu} aria-label="close"><Fa icon={faXmark}/></button>
             </div>
             <Nav data={data.menu} {scrollTo} phoneVersion/>
         </div>
