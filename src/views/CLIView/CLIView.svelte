@@ -104,7 +104,7 @@
         if (!e.clipboardData)
             return;
 
-        const data = e.clipboardData.getData('Text').replaceAll('\r', '');
+        const data = e.clipboardData?.getData('Text').replaceAll('\r', '');
 
         if (data.includes('\n')) {
             const inputs = data.split('\n');
@@ -117,7 +117,7 @@
             inputEl.innerText = inputs[inputLastIdx];
             focusInputAndMoveCaretAtTheEnd();
         }
-        else {
+        else if (data) {
             inputEl.innerText = data;
             focusInputAndMoveCaretAtTheEnd();
         }
