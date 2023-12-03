@@ -97,7 +97,7 @@
         transition: .2s;
     }
 
-    .close:hover {
+    .close:hover, .close:focus {
         color: var(--gray);
     }
 

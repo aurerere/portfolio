@@ -26,25 +26,7 @@ export default function ls(args: string[]): CLI.BinOutput<LsOutput>
         const [dest, destType] = fileTreeTraveler(to);
 
         if (destType === "fileTree") {
-            const result: LsOutput["result"] = {
-                ".": {
-                    type: "folder",
-                    role: "folder",
-                    hidden: true,
-                    nlink: 10,
-                    blksize: 4096,
-                    mtime: "-"
-                },
-                "..": {
-                    type: "folder",
-                    role: "folder",
-                    hidden: true,
-                    nlink: 10,
-                    blksize: 4096,
-                    mtime: "-"
-                },
-
-            };
+            const result: LsOutput["result"] = {};
 
             for (let [name, metadata] of Object.entries(dest)) {
 

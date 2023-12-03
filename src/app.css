@@ -24,7 +24,7 @@
     --h5-font-size: 1.2rem;
     --text-font-size: 1rem;
 
-    --green: lime;
+    --green: #4aa84a;
     --cyan: cyan;
     --red: lightcoral;
     --focus-or-hover-border-color: #8d8e93;
@@ -124,7 +124,7 @@ button {
     transition: .2s;
 }
 
-button:hover {
+button:hover, button:focus {
     background: var(--focus-or-hover-bg-color);
     border-color: var(--focus-or-hover-border-color);
 }

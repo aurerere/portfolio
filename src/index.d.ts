@@ -37,13 +37,8 @@ namespace Formal {
         tags: string[],
         done: boolean,
         links: Link[],
+        slug: string
     };
-
-
-    type ContactChannel = {
-        text: LanguageSensitiveString,
-        value: string
-    }
 
     type Data = {
         title: string,
@@ -60,12 +55,15 @@ namespace Formal {
         },
         projects: Project[],
         contact: {
+            text: LanguageSensitiveString,
+            links: Link[],
             form_fields: {
                 name: LanguageSensitiveString,
                 email: LanguageSensitiveString,
                 message: LanguageSensitiveString,
-                send: LanguageSensitiveString
-            }
+                send: LanguageSensitiveString,
+                thanks: LanguageSensitiveString,
+            },
         },
         footer: {
             love: LanguageSensitiveString

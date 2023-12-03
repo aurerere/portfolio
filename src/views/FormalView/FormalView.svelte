@@ -8,11 +8,11 @@
     import ExternalLink from "@views/FormalView/components/ExternalLink.svelte";
     import LoadingIndicator from "@core-components/LoadingIndicator.svelte";
     import Nav from "./components/Nav.svelte";
-    import {faGithub} from "@fortawesome/free-brands-svg-icons";
+    import {faGithub, faLinkedin} from "@fortawesome/free-brands-svg-icons";
     import Fa from "svelte-fa";
     import Project from "./components/Project.svelte";
     import ProjectDetails from "./components/ProjectDetails.svelte";
-    import {faBars, faPaperPlane, faXmark} from "@fortawesome/free-solid-svg-icons";
+    import {faBars, faEnvelope, faPaperPlane, faXmark} from "@fortawesome/free-solid-svg-icons";
     import ContactForm from "@views/FormalView/components/ContactForm.svelte";
 
     $: (document.querySelector(":root") as HTMLElement).style.setProperty("--header-height", headerHeight + "px");
@@ -29,6 +29,7 @@
 
     // menu
     let menuWrapperEl: HTMLDivElement;
+    let menuEl: HTMLDivElement;
     let burgerButtonEl: HTMLButtonElement;
 
     let focusedProject: Formal.Project | null = null;
@@ -53,10 +54,8 @@
 
     function handleClick(e: Event)
     {
-        if (menuWrapperEl.contains(e.target as Node) || burgerButtonEl.contains(e.target as Node))
-            return;
-
-        closeMobileMenu();
+        if (e.target !== menuEl && !menuEl.contains(e.target as HTMLElement))
+            closeMobileMenu();
     }
 
     function openProjectDetails(project: Formal.Project) {
@@ -117,8 +116,7 @@
             </div>
         </div>
     </header>
-    <!-- svelte-ignore a11y-no-noninteractive-element-interactions a11y-click-events-have-key-events -->
-    <main on:click={handleClick}>
+    <main>
         <section id="home">
             <div class="container landing">
                 <div class="part">
@@ -152,13 +150,16 @@
         <section id="contact">
             <div class="container">
                 <h2 class="section">{data.menu.contact[$Lang]}</h2>
-                <div>
-                    <div>
-                        <h4>I would be happy to talk with you!</h4>
-                        <p>Please don't hesitate to contact me using the form provided or through the links below. I look forward to hearing from you!</p>
-                        <ExternalLink to="mailto:hello@aureliendumay.me">hello@aureliendumay.me</ExternalLink>
-                        <ExternalLink to="https://linkedin.com/in/aureliendumay">hello@aureliendumay.me</ExternalLink>
+                <div class="contact-form-and-links">
+                    <div class="contact-links">
+                        <p>{data.contact.text[$Lang]}</p>
+                        {#each data.contact.links as link}
+                            <ExternalLink to={link.url} icon={getIconFromString(link.icon)}>
+                                {link.text[$Lang]}
+                            </ExternalLink>
+                        {/each}
                     </div>
+                    <hr>
                     <ContactForm fieldNames={data.contact.form_fields}/>
                 </div>
             </div>
@@ -174,8 +175,13 @@
             </p>
         </div>
     </footer>
-    <div class="menu-box-phone" bind:this={menuWrapperEl}>
-        <div>
+    <!--
+    svelte-ignore
+        a11y-no-noninteractive-element-interactions a11y-click-events-have-key-events
+        a11y-no-static-element-interactions
+    -->
+    <div class="menu-box-phone-wrapper" bind:this={menuWrapperEl} on:click={handleClick}>
+        <div class="menu-box-phone" bind:this={menuEl}>
             <div class="menu-header" style="margin-bottom: var(--medium-spacing)">
                 <h2 class="no-margin">Menu</h2>
                 <button class="burger close" on:click={closeMobileMenu}><Fa icon={faXmark}/></button>

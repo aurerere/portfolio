@@ -51,7 +51,15 @@ export function formatTimeLaps(dates: [string, string?], lang: Formal.Lang): str
     }
 }
 
-import {faBezierCurve, faDatabase, faEarthAfrica, faFile, faFileCode, faTag} from "@fortawesome/free-solid-svg-icons";
+import {
+    faBezierCurve,
+    faDatabase,
+    faEarthAfrica,
+    faEnvelope,
+    faFile,
+    faFileCode,
+    faTag
+} from "@fortawesome/free-solid-svg-icons";
 import {faCss3, faFigma, faGithub, faLinkedin, faNodeJs, faPhp, faVuejs} from "@fortawesome/free-brands-svg-icons";
 
 export function getIconFromString(str: string, context: "tag" | "link" = "link"): IconDefinition
@@ -83,6 +91,8 @@ export function getIconFromString(str: string, context: "tag" | "link" = "link")
             return faCss3;
         case "PHP":
             return faPhp;
+        case "envelope":
+            return faEnvelope;
         default:
             return context === "link" ? faEarthAfrica : faTag;
     }

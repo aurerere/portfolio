@@ -46,6 +46,7 @@ type Project = {
     tags: string[],
     done: boolean,
     links: Link[],
+    slug: string
 };
 
 export default function vitePluginJson(): PluginOption {
@@ -69,9 +70,32 @@ export default function vitePluginJson(): PluginOption {
     }
 }
 
-function dirToJson(path: string, to: FileTree)
+function dirToJson(path: string, to: FileTree, parentContext?: fs.Stats)
 {
     const content = fs.readdirSync(path);
+    const context = fs.statSync(path);
+
+    to["."] = {
+        type: "folder",
+        role: "folder",
+        hidden: true,
+        nlink: context.nlink,
+        blksize: context.blksize,
+        mtime: context.mtime,
+        children: {}
+    }
+
+    if (parentContext !== undefined) {
+        to[".."] = {
+            type: "folder",
+            role: "folder",
+            hidden: true,
+            nlink: parentContext.nlink,
+            blksize: parentContext.blksize,
+            mtime: parentContext.mtime,
+            children: {}
+        }
+    }
 
     for (let element of content) {
         const elementMeta = fs.statSync(path + element);
@@ -86,7 +110,7 @@ function dirToJson(path: string, to: FileTree)
                 mtime: elementMeta.mtime,
                 children: {}
             };
-            dirToJson(path + element + "/", (to[element] as Folder).children);
+            dirToJson(path + element + "/", (to[element] as Folder).children, context);
         }
         else {
             to[element] = {
@@ -114,6 +138,8 @@ function projectFilesToJson()
             if (fs.existsSync(projectsPath + project + "/metadata.yml")) {
                 const projectData =
                     YAML.parse(fs.readFileSync(projectsPath + project + "/metadata.yml", "utf-8")) as Project;
+
+                projectData.slug = project
 
                 if (
                     projectData?.name &&

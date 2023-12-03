@@ -45,6 +45,24 @@ landing:
         text: GitHub
 
 contact:
+  text:
+    fr: >
+      N'hésitez pas à me contacter en utilisant le formulaire ou via les liens ci-dessous. 
+      J'attends de vos nouvelles avec impatience !
+    en: >
+      Please don't hesitate to contact me using the form provided or through the links below. 
+      I look forward to hearing from you!
+  links:
+    - url: mailto:hello@aureliendumay.me
+      icon: envelope
+      text:
+        fr: hello@aureliendumay.me
+        en: hello@aureliendumay.me
+    - url: https://linkedin.com/in/aureliendumay
+      icon: linkedin
+      text:
+        fr: Linkedin
+        en: Linkedin
   form_fields:
     name:
       fr: Nom

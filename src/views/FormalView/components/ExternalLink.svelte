@@ -14,3 +14,9 @@
     {/if}
     <slot/>
 </a>
+
+<style>
+    a {
+        width: fit-content;
+    }
+</style>

@@ -82,27 +82,37 @@ NAVIGATION
     color: var(--muted-text-color);
 }
 
-.menu-box-phone {
+.menu-box-phone-wrapper {
     position: fixed;
-    top: calc(var(--medium-spacing) - var(--small-spacing) - var(--border-width));
-    right: calc(var(--global-padding) - var(--small-spacing) - var(--border-width));
+    top: 0;
+    right: 0;
+    height: 100vh;
+    width: 100vw;
+    box-sizing: border-box;
+    padding-top: calc(var(--medium-spacing) - var(--small-spacing) - var(--border-width));
+    padding-right: calc(var(--global-padding) - var(--small-spacing) - var(--border-width));
     z-index: 11;
-    border: var(--border);
-    border-radius: var(--border-radius);
-    background: var(--background-color);
     transform: scale(1);
     transform-origin: top right;
-    transition: .2s;
+    transition: .3s;
     display: none;
 }
 
-.menu-box-phone:not(.opened) {
+.menu-box-phone-wrapper:not(.opened) {
     transform: scale(0);
-    top: calc(var(--medium-spacing) + .5em);
-    right: calc(var(--global-padding) + .5em);
+    top: calc(var(--medium-spacing) + 1em);
+    right: calc(var(--global-padding));
 }
 
-.menu-box-phone > div {
+.menu-box-phone {
+    float: right;
+    border: var(--border);
+    border-radius: var(--border-radius);
+    background: var(--background-color);
+    width: fit-content;
+}
+
+.menu-box-phone {
     position: relative;
     padding: calc(var(--medium-spacing) - var(--border-width));
 }
@@ -111,6 +121,12 @@ NAVIGATION
     position: absolute;
     top: var(--small-spacing);
     right: var(--small-spacing);
+    transform: scale(1) rotate(0);
+    transition: .4s;
+}
+
+.menu-box-phone-wrapper:not(.opened) .burger.close {
+    transform: scale(0) rotate(90deg);
 }
 
 
@@ -202,6 +218,17 @@ h2.section {
 
 
 /***********************************************************************************************************************
+CONTACT
+***********************************************************************************************************************/
+.contact-links {
+    display: flex;
+    flex-direction: column;
+    gap: var(--small-spacing);
+}
+
+
+
+/***********************************************************************************************************************
 RESPONSIVENESS
 ***********************************************************************************************************************/
 @media (max-width: 1200px) {
@@ -219,7 +246,7 @@ RESPONSIVENESS
         display: block;
     }
 
-    .menu-box-phone {
+    .menu-box-phone-wrapper {
         display: block;
     }
 }

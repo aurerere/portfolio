@@ -1,54 +1,84 @@
 <script lang="ts">
-import {Lang} from "@stores";
-import {faPaperPlane} from "@fortawesome/free-solid-svg-icons";
-import LoadingIndicator from "@core-components/LoadingIndicator.svelte";
-import Fa from "svelte-fa";
+    import Fa from "svelte-fa";
 
-// props
-export let
-    fieldNames: Formal.Data["contact"]["form_fields"];
+    import {Lang} from "@stores";
+    import {faCheck, faPaperPlane} from "@fortawesome/free-solid-svg-icons";
+    import LoadingIndicator from "@core-components/LoadingIndicator.svelte";
+    import {WEB3FORMS_TOKEN} from "@utils/const";
 
-let isBusy: boolean = false;
+    // props
+    export let
+        fieldNames: Formal.Data["contact"]["form_fields"];
 
-async function sendMessage(data: SubmitEvent)
-{
-    isBusy = true;
-    // const formData = new FormData(data.currentTarget as HTMLFormElement);
-    // const body = Object.fromEntries(formData);
-    //
-    // const res = await fetch("https://api.web3forms.com/submit", {
-    //     method: "POST",
-    //     headers: {
-    //        "Content-type": "application/json",
-    //        Accept: "application/json"
-    //     },
-    //     body: JSON.stringify(body)
-    // });
-    //
-    // if (res.ok) {
-    //
-    // }
-}
+    let formEl: HTMLFormElement;
+
+    let isBusy: boolean = false;
+    let hasBeenSent: boolean = false;
+
+    async function sendMessage(data: SubmitEvent)
+    {
+        isBusy = true;
+        const formData = new FormData(data.currentTarget as HTMLFormElement);
+        const body = Object.fromEntries(formData);
+
+        const res = await fetch("https://api.web3forms.com/submit", {
+            method: "POST",
+            headers: {
+               "Content-type": "application/json",
+               Accept: "application/json"
+            },
+            body: JSON.stringify(body)
+        });
+
+        if (res.ok) {
+            formEl.reset();
+            isBusy = false;
+            hasBeenSent = true;
+        }
+    }
 </script>
 
-<form on:submit|preventDefault={sendMessage}>
-    <input type="hidden" name="access_key" value="bda200a1-f720-4963-87d6-151c68aeaa6d">
+<form on:submit|preventDefault={sendMessage} bind:this={formEl}>
+    <input type="hidden" name="access_key" value={WEB3FORMS_TOKEN}>
 
     <label for="name">
         {fieldNames.name[$Lang]}
-        <input disabled={isBusy} type="text" name="name" placeholder="John Doe" required />
+        <input
+            disabled={isBusy}
+            type="text"
+            name="name"
+            placeholder="John Doe"
+            required
+            on:focus={() => hasBeenSent = false}
+        />
     </label>
     <label for="email">
         {fieldNames.email[$Lang]}
-        <input disabled={isBusy} type="email" name="email" placeholder="johndoe@example.com" required />
+        <input
+            disabled={isBusy}
+            type="email"
+            name="email"
+            placeholder="johndoe@example.com"
+            required
+            on:focus={() => hasBeenSent = false}
+        />
     </label>
     <label for="message">
         {fieldNames.message[$Lang]}
-        <textarea disabled={isBusy} name="message" placeholder="Lorem ipsum" required rows="3"></textarea>
+        <textarea
+            disabled={isBusy}
+            name="message"
+            placeholder="Lorem ipsum"
+            required
+            rows="3"
+            on:focus={() => hasBeenSent = false}
+        ></textarea>
     </label>
     <button type="submit" disabled={isBusy}>
         {#if isBusy}
             <LoadingIndicator/>
+        {:else if hasBeenSent}
+            <Fa icon={faCheck}/> {fieldNames.thanks[$Lang]}
         {:else}
             <Fa icon={faPaperPlane}/> {fieldNames.send[$Lang]}
         {/if}
@@ -60,6 +90,7 @@ async function sendMessage(data: SubmitEvent)
         display: flex;
         gap: var(--medium-spacing);
         flex-direction: column;
+        min-width: 50%;
     }
 
     input, textarea {

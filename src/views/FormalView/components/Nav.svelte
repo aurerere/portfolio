@@ -83,12 +83,12 @@
         transition: .2s;
     }
 
-    .lang-selector:hover {
+    .lang-selector:hover, .lang-selector:focus {
         background: var(--very-dark-gray);
         border-color: var(--focus-or-hover-border-color);
     }
 
-    .lang-selector:hover .selection-highlighter {
+    .lang-selector:hover .selection-highlighter, .lang-selector:focus .selection-highlighter {
         border-color: var(--focus-or-hover-border-color);
         background: var(--focus-or-hover-bg-color);
     }
