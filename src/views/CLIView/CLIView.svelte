@@ -100,7 +100,6 @@
 
     async function handlePaste(e: ClipboardEvent)
     {
-        console.log(e.clipboardData.getData('Text'))
         if (!e.clipboardData)
             return;
 
