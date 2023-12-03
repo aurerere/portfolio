@@ -18,10 +18,15 @@ export default defineConfig({
   build: {
     rollupOptions: {
       output: {
-        assetFileNames: (assetInfo) => {
-          return "assets/" + assetInfo.name;
+        assetFileNames: (assetFileInfo) => {
+          return "assets/" + assetFileInfo.name;
         },
-        entryFileNames: 'assets/index.js',
+        entryFileNames: (entryFileInfo) => {
+          return "assets/" + entryFileInfo.name + ".js";
+        },
+        chunkFileNames: (chunkFileInfo) => {
+          return "assets/" + chunkFileInfo.name + ".js";
+        }
       }
     }
   },
