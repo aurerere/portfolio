@@ -39,8 +39,8 @@ export default async function cat(args: string[]): Promise<CLI.BinOutput>
         const b = options
             .findIndex(val => val.option === "b") !== -1;
 
-        const v = options
-            .findIndex(val => val.option === "v" || val.option === "A") !== -1;
+        // const v = options
+        //     .findIndex(val => val.option === "v" || val.option === "A") !== -1;
 
         const t = options
             .findIndex(val => val.option === "t" || val.option === "A") !== -1;
@@ -51,8 +51,8 @@ export default async function cat(args: string[]): Promise<CLI.BinOutput>
         return {
             component: Cat,
             data: {
-                result: result.split(/[\r\n]+/gm),
-                n, b, v, t, e
+                result: result.split(/\n+/gm),
+                n, b, t, e
             }
         }
     }

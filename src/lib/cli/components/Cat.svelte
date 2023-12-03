@@ -3,7 +3,6 @@
         result: string[],
         n: boolean,
         b: boolean,
-        // v: boolean,
         t: boolean,
         e: boolean;
 
@@ -11,13 +10,14 @@
 
     function getLineNumber(line: string): number | string
     {
-        if (b && line === "")
+        if (b && (line === "\r" || line === ""))
             return "&nbsp;";
         return ++lineNumber;
     }
 
     function transformLine(line: string)
     {
+        line = line.replaceAll(/\r+/g, "")
         if (t)
             line = line.replaceAll(/\t+/g, "^T");
         if (e)
