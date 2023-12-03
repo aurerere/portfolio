@@ -1,0 +1,242 @@
+<script lang="ts">
+    import {afterUpdate, onMount} from "svelte";
+
+    import {Cleared, DeviceInfo, InputHistoryStack, ExecutionHistory, FileTree} from "@stores";
+    import clear from "@cli/bin/clear";
+
+    import WelcomeText from "./components/WelcomeText.svelte";
+    import PromptText from "./components/PromptText.svelte";
+    import OutputParser from "./components/OutputParser.svelte";
+    import LoadingIndicator from "@core-components/LoadingIndicator.svelte";
+
+    import run from "@cli/core/run";
+    import {AURE_CLI_ASCII_ART} from "@utils/const";
+
+    // A span element with contenteditable property set to true -> gets input
+    let inputEl: HTMLSpanElement;
+
+    // Disables the input when set to false
+    let loading: boolean = true;
+
+    // To navigate through the input history stack
+    let currentHistoryStackIndex: number = -1;
+    // The last saved value -> saved when incrementing currentHistoryStackIndex
+    // and displayed when currentHistoryStackIndex is back to -1
+    let inputSavedValue: string = "";
+
+    /**
+     * On key down anywhere on the page
+     * @param e
+     */
+    async function handleKeyDown(e: Event): Promise<void>
+    {
+        const key = (e as KeyboardEvent).key;
+        const isControlDown = (e as KeyboardEvent).ctrlKey;
+        const isCommandDown = $DeviceInfo?.keyboard === "apple"
+            ? (e as KeyboardEvent).metaKey
+            : (e as KeyboardEvent).ctrlKey;
+        const isShiftDown = (e as KeyboardEvent).shiftKey;
+
+        // Whether the input is focused or not
+        switch (key.toLowerCase()) {
+            // Prevents the tab key from updating the focus
+            case "tab":
+                e.preventDefault();
+                return;
+            // May clear the history when control is pressed
+            case "l":
+                if (isControlDown && !isShiftDown) {
+                    e.preventDefault();
+                    clear();
+                }
+                break;
+            case "b":
+            case "u":
+            case "i":
+                if (isCommandDown)
+                    e.preventDefault();
+                break;
+        }
+        // if the input is NOT focused
+        if (document.activeElement !== inputEl) {
+
+            const isCopyingText = isCommandDown && key.toLowerCase() === "c";
+            const isSelectingText = isShiftDown && key.startsWith("Arrow");
+
+            if (!loading && !isCopyingText && !isSelectingText) {
+                focusInputAndMoveCaretAtTheEnd();
+                window.scrollTo(0, document.body.scrollHeight);
+            }
+        }
+        // if the input IS focused
+        else {
+            // Sets the currentHistoryStackIndex back to -1 on previous input edition
+            if (currentHistoryStackIndex !== -1 && inputEl.innerText !== $InputHistoryStack[currentHistoryStackIndex])
+                currentHistoryStackIndex = -1;
+
+            if (key === "ArrowUp" || key === "ArrowDown") {
+                e.preventDefault();
+                navigateThroughHistoryStack(key);
+            }
+
+            // RUNS A COMMAND
+            if (key === "Enter") {
+                e.preventDefault();
+                // isLoading animation + disables the input
+                loading = true;
+                // Runs the input (sends the current path)
+                await run(inputEl.innerText);
+                // So we need to reset the currentHistoryStackIndex
+                currentHistoryStackIndex = -1;
+                loading = false;
+            }
+
+        }
+    }
+
+    async function handlePaste(e: ClipboardEvent)
+    {
+        if (!e.clipboardData)
+            return;
+
+        const data = e.clipboardData.getData('Text').replaceAll('\r', '');
+
+        if (data.includes('\n')) {
+            const inputs = data.split('\n');
+            const inputLastIdx = inputs.length - 1;
+
+            for (let i = 0; i < inputLastIdx; i++) {
+                await run(inputs[i]);
+            }
+
+            inputEl.innerText = inputs[inputLastIdx];
+            focusInputAndMoveCaretAtTheEnd();
+        }
+
+        e.preventDefault();
+    }
+
+    function navigateThroughHistoryStack(key: "ArrowUp" | "ArrowDown")
+    {
+        if (key === "ArrowUp") { // moves backward in the input history
+            if (currentHistoryStackIndex + 1 < $InputHistoryStack.length) {
+                if (currentHistoryStackIndex === -1)
+                    inputSavedValue = inputEl.innerText;
+
+                inputEl.innerText = $InputHistoryStack[++currentHistoryStackIndex];
+            }
+        }
+        else { // ArrowDown - moves forward in the input history
+            if (currentHistoryStackIndex > 0)
+                inputEl.innerText = $InputHistoryStack[--currentHistoryStackIndex];
+
+            else if (currentHistoryStackIndex === 0) {
+                inputEl.innerText = inputSavedValue;
+                currentHistoryStackIndex = -1;
+            }
+        }
+
+        focusInputAndMoveCaretAtTheEnd();
+    }
+
+
+    function focusInputAndMoveCaretAtTheEnd()
+    {
+        //https://stackoverflow.com/questions/1125292/how-to-move-cursor-to-end-of-contenteditable-entity
+        const range = document.createRange();
+        const sel = window.getSelection();
+
+        if (!sel)
+            return;
+
+        range.selectNodeContents(inputEl);
+        range.collapse(false);
+        sel.removeAllRanges();
+        sel.addRange(range);
+        inputEl.focus();
+        range.detach(); // optimization
+
+        // set scroll to the end if multiline
+        inputEl.scrollTop = inputEl.scrollHeight;
+    }
+
+    onMount(async () => {
+        console.info("%c" + AURE_CLI_ASCII_ART + import.meta.env.VITE_VERSION, 'color: cyan');
+
+        try {
+            const res = await fetch("/fileTree.json");
+            $FileTree = await res.json() as CLI.FileTree;
+            loading = false;
+        }
+        catch (e) {}
+    })
+
+    afterUpdate(() => {
+        if (inputEl) {
+            window.scrollTo(0, document.body.scrollHeight);
+            inputEl.focus();
+        }
+    });
+</script>
+
+<svelte:window on:keydown={handleKeyDown}/>
+<main id="cli">
+    {#if !$Cleared}
+        <WelcomeText/>
+    {/if}
+    {#each $ExecutionHistory as previousElement}
+        <div>
+            <PromptText path={previousElement.path}/><!--
+            --><span class="previous-input">{previousElement.input}</span>
+            {#if previousElement.output}
+                {#each previousElement.output as output, index (index)}
+                    <OutputParser {output}/>
+                {/each}
+            {/if}
+        </div>
+    {/each}
+    {#if (loading)}
+        <LoadingIndicator withMargin/>
+    {:else}
+        <!-- svelte-ignore a11y-no-static-element-interactions a11y-click-events-have-key-events -->
+        <div class="prompt-wrapper" on:click={() => inputEl.focus()}>
+            <!-- Workaround: Using HTML comments to prevent unwanted spaces -->
+            <PromptText/><!--
+            --><span
+                on:paste={handlePaste}
+                bind:this={inputEl}
+                contenteditable="true"
+                spellcheck="false"
+                class="input"
+            ></span>
+        </div>
+    {/if}
+</main>
+
+<style>
+    main {
+        padding: var(--medium-padding) var(--medium-padding) 0 var(--medium-padding);
+        font-size: var(--text-font-size);
+        display: flex;
+        flex-direction: column;
+        box-sizing: border-box;
+        min-height: 100vh;
+    }
+
+    .input {
+        caret-color: var(--cyan);
+        outline: none;
+        word-break: break-all;
+        word-wrap: break-word;
+        white-space: break-spaces;
+    }
+
+    .prompt-wrapper {
+        flex: 1;
+        padding-bottom: var(--medium-spacing);
+    }
+
+    .previous-input {
+        white-space: break-spaces;
+    }
+</style>

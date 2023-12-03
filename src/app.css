@@ -1,0 +1,211 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Luckiest+Guy&display=swap');
+
+:root {
+    --header-height: 99px;
+
+    --global-padding: 48px;
+
+    --medium-padding: 24px;
+    --small-padding: 12px;
+    --micro-padding: 6px;
+
+    --medium-spacing: 24px;
+    --small-spacing: 12px;
+    --micro-spacing: 6px;
+
+    --border-width: 2px;
+    --border-radius: 12px;
+    --border: var(--border-width) solid var(--dark-gray);
+
+    --h1-font-size: 2rem;
+    --h2-font-size: 1.8rem;
+    --h3-font-size: 1.6rem;
+    --h4-font-size: 1.4rem;
+    --h5-font-size: 1.2rem;
+    --text-font-size: 1rem;
+
+    --green: #4aa84a;
+    --cyan: cyan;
+    --red: lightcoral;
+    --focus-or-hover-border-color: #8d8e93;
+    --focus-or-hover-bg-color: #323438;
+    --gray: rgb(128, 128, 128);
+    --dark-gray: #3f4148;
+    --very-dark-gray: #26282c;
+
+    --background-color: #1e1f22;
+    --text-color: white;
+    --muted-text-color: var(--gray);
+}
+
+::-moz-selection {
+    color: var(--background-color);
+    background: var(--text-color);
+}
+
+::selection {
+    color: var(--background-color);
+    background: var(--text-color);
+}
+
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--dark-gray);
+    border-radius: var(--border-radius);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--dark-gray);
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: white;
+    -webkit-box-shadow: 0 0 0px 1000px var(--very-dark-gray) inset;
+}
+
+input:-webkit-autofill[disabled] {
+    -webkit-text-fill-color: var(--gray);
+}
+
+html {
+    color-scheme: dark;
+    margin-left: calc(100vw - 100%);
+    font-weight: 300;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background: var(--background-color);
+    font-family: "JetBrains Mono", monospace;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-size: var(--text-font-size);
+}
+
+h1 { font-size: var(--h1-font-size) }
+h2 { font-size: var(--h2-font-size) }
+h3 { font-size: var(--h3-font-size) }
+h4 { font-size: var(--h4-font-size) }
+h5 { font-size: var(--h5-font-size) }
+
+p, pre {
+    font-family: inherit;
+    font-weight: 300;
+    font-size: var(--text-font-size);
+    margin: 0;
+    word-wrap: break-word;
+}
+
+button {
+    padding: var(--small-padding);
+    outline: none;
+    border: none;
+    font-size: var(--text-font-size);
+    font-family: "JetBrains Mono", monospace;
+    background: var(--very-dark-gray);
+    color: var(--text-color);
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    border: var(--border);
+    font-weight: 700;
+    transition: .2s;
+}
+
+button:hover, button:focus {
+    background: var(--focus-or-hover-bg-color);
+    border-color: var(--focus-or-hover-border-color);
+}
+
+a {
+    text-decoration: none;
+    color: var(--cyan);
+    white-space: nowrap;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+a.no-style {
+    text-decoration: none;
+    color: var(--text-color);
+}
+
+a.no-style:hover {
+    text-decoration: none;
+}
+
+
+
+.green {
+    color: var(--green);
+}
+
+.red {
+    color: var(--red);
+}
+
+.cyan {
+    color: var(--cyan);
+}
+
+#cli, #cli pre {
+    word-break: break-all;
+    word-wrap: break-word;
+}
+
+#cli pre {
+    white-space: break-spaces;
+}
+
+#cli a {
+    white-space: break-spaces;
+}
+
+h1, h2, h3, h4, h5 {
+    font-weight: 700;
+    outline: none;
+    margin: 0 0 var(--small-spacing);
+}
+
+hr {
+    border: calc(var(--border-width) / 2) solid var(--dark-gray);
+    margin-top: var(--small-spacing);
+    margin-bottom: var(--medium-spacing);
+}
+
+.no-margin {
+    margin: 0;
+}
+
+/*
+@keyframes maximes {
+  0% {
+    color: #ff0000;
+  }
+  25% {
+    color: #00ff00;
+  }
+  50% {
+    color: #0000ff;
+  }
+  75% {
+    color: #ffff00;
+  }
+  100% {
+    color: #ff00ff;
+  }
+}*/

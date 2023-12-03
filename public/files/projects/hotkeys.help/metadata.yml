@@ -1,0 +1,20 @@
+name: hotkeys.help
+
+tags:
+  - TypeScript
+  - Express.js
+  - PHP
+  - MySQL
+
+dates:
+  - 1 Jun 2021
+  - 1 Mar 2023
+
+status: paused
+
+description:
+  fr: >
+    Création d'un site web collaboratif et open source, 
+    listant des logiciels et les astuces & raccourcis claviers associés.
+  en: >
+    Development of a collaborative and open-source website, cataloging software along with tips and keyboard shortcuts.

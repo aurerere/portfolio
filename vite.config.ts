@@ -1,14 +1,28 @@
-import { fileURLToPath, URL } from 'node:url'
-
 import { defineConfig } from 'vite'
-import vue from '@vitejs/plugin-vue'
+import { svelte } from '@sveltejs/vite-plugin-svelte'
+import path from "path";
+import vitePluginJson from "./vite-plugin-json";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [vue()],
+  plugins: [vitePluginJson(), svelte()],
   resolve: {
     alias: {
-      '@': fileURLToPath(new URL('./src', import.meta.url))
+      '@cli': path.resolve('src/lib/cli/'),
+      '@core-components': path.resolve('src/lib/components/'),
+      '@utils': path.resolve('src/lib/utils/'),
+      '@stores': path.resolve('src/lib/stores/'),
+      '@views': path.resolve('src/views/')
     }
-  }
-})
+  },
+  build: {
+    rollupOptions: {
+      output: {
+        assetFileNames: (assetInfo) => {
+          return "assets/" + assetInfo.name;
+        },
+        entryFileNames: 'assets/index.js',
+      }
+    }
+  },
+});
