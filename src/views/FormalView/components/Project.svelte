@@ -27,7 +27,6 @@
     function handleKeyPress(e: Event) {
         if ((e as KeyboardEvent).key === " " || (e as KeyboardEvent).key === "Enter") {
             e.preventDefault();
-            console.log("here")
             openProjectDetails(project)();
         }
     }

@@ -103,10 +103,10 @@
         if (!e.clipboardData)
             return;
 
-        const data = e.clipboardData?.getData('Text').replaceAll('\r', '');
+        const data = e.clipboardData?.getData('Text').replaceAll(/\r/, '');
 
-        if (data.includes('\n')) {
-            const inputs = data.split('\n');
+        if (data.includes(/\n/)) {
+            const inputs = data.split(/\n/);
             const inputLastIdx = inputs.length - 1;
 
             for (let i = 0; i < inputLastIdx; i++) {

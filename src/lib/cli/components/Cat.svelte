@@ -17,9 +17,9 @@
 
     function transformLine(line: string)
     {
-        line = line.replaceAll(/\r+/g, "")
+        line = line.replaceAll(/\r/g, "")
         if (t)
-            line = line.replaceAll(/\t+/g, "^T");
+            line = line.replaceAll(/\t/g, "^T");
         if (e)
             line += "$";
 
