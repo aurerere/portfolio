@@ -34,14 +34,14 @@
 
         fetch(`files/projects/${project.slug}/${$Lang}.md`)
             .then(res => res.text())
-            .then(text => {
+            .then(async text => {
                 const renderer = new marked.Renderer();
 
                 renderer.image = function (href, title, text) {
                     return `<img src="files/projects/${project.slug}/${href}" alt="${text}"/>`
                 }
 
-                parsedMarkdown = marked(text, {renderer});
+                parsedMarkdown = await marked(text, {renderer});
 
                 loading = false;
             });
