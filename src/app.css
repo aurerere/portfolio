@@ -197,13 +197,16 @@ hr {
 /***********************************************************************************************************************
 MARKDOWN
 ***********************************************************************************************************************/
+.md h3:not(:first-child) {
+    margin-top: calc(var(--medium-spacing) * 2);
+}
+
 .md blockquote {
     margin: 0;
     padding: var(--small-spacing);
     padding-right: var(--medium-spacing);
     border-left: var(--border);
     background: var(--very-dark-gray);
-    font-style: italic;
 }
 
 .md hr {
@@ -219,7 +222,7 @@ MARKDOWN
     margin: 0;
 }
 
-.md p:last-child {
+.md :last-child {
     margin-bottom: 0 !important;
 }
 /*

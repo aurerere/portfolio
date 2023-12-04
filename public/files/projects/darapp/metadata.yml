@@ -4,6 +4,7 @@ tags:
   - Express.js
   - SurrealDB
   - TypeScript
+  - Server-sent events
   - Vue.js
   - GitHub Actions
 
@@ -15,7 +16,7 @@ status: paused
 
 description:
   fr: >
-    Création de petites plaques en plexi contenant des QR codes uniques,
+    Création de petites plaques en plexiglass contenant des QR codes uniques,
     distribuées dans le cadre d'un concert de musique ; création d'une application web associée
   en: >
     Creating small plexiglass plates containing unique QR codes distributed during a music concert,

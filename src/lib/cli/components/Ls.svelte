@@ -19,13 +19,13 @@
 
 <svelte:options immutable/>
 {#if !l}
-    <p class="short">
+    <div class="short">
         {#each Object.entries(result) as [name, metadata]}
             {#if a || !metadata.hidden}
                 <span style="color: {getElementColorByRole(metadata.role)}">{name}</span>
             {/if}
         {/each}
-    </p>
+    </div>
 {:else}
     <p class="long">
         {#each Object.entries(result) as [name, metadata]}
@@ -49,14 +49,17 @@
 {/if}
 
 <style>
-    .short span {
-        width: 180px;
+    /*.short span {*/
+    /*    width: 200px;*/
+    /*}*/
+    span, p {
+        width: fit-content;
     }
 
+    /* TODO: Real ls like display */
     .short {
         display: flex;
-        flex-wrap: wrap;
-        max-width: 800px;
+        flex-direction: column;
     }
 
     .long {

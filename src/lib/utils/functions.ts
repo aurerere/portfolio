@@ -57,7 +57,7 @@ import {
     faEarthAfrica,
     faEnvelope,
     faFile,
-    faFileCode,
+    faFileCode, faServer,
     faTag
 } from "@fortawesome/free-solid-svg-icons";
 import {faCss3, faFigma, faGithub, faLinkedin, faNodeJs, faPhp, faVuejs} from "@fortawesome/free-brands-svg-icons";
@@ -93,6 +93,8 @@ export function getIconFromString(str: string, context: "tag" | "link" = "link")
             return faPhp;
         case "envelope":
             return faEnvelope;
+        case "Server-sent events":
+            return faServer;
         default:
             return context === "link" ? faEarthAfrica : faTag;
     }
