@@ -24,7 +24,7 @@
             line += "$";
 
         if ((line === "" || line.trim() === "") && !n && !b)
-            line = "<br>";
+            line = "";
 
         return line;
     }
@@ -36,13 +36,18 @@
         <div class="counted-line">
             <div class="counter-counted-line">{@html getLineNumber(line)}</div>
             <div class="content-counted-line">
-                <pre>{@html transformLine(line)}</pre>
+                <pre>{transformLine(line)}</pre>
             </div>
         </div>
     {/each}
 {:else}
     {#each result as line, index (index)}
-        <pre>{@html transformLine(line)}</pre>
+        {@const transformedLine = transformLine(line)}
+        {#if transformedLine === ""}
+            <br>
+        {:else}
+            <pre>{transformedLine}</pre>
+        {/if}
     {/each}
 {/if}
 
