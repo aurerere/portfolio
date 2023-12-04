@@ -27,7 +27,7 @@ jobs:
         if: steps.check.outcome == 'success'
         run: |
           export VITE_VERSION=${GITHUB_REF#refs/heads/}/$(git rev-parse --short "$GITHUB_SHA")
-          npm run bui
+          npm run build
       - name: 🚀 Deploy
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
