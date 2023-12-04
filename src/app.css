@@ -12,6 +12,7 @@
     --medium-spacing: 24px;
     --small-spacing: 12px;
     --micro-spacing: 6px;
+    --scrollbar-width: 4px;
 
     --border-width: 2px;
     --border-radius: 12px;
@@ -49,8 +50,8 @@
 }
 
 ::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
+    width: var(--scrollbar-width);
+    height: var(--scrollbar-width);
 }
 
 ::-webkit-scrollbar-track {
@@ -191,6 +192,36 @@ hr {
     margin: 0;
 }
 
+
+
+/***********************************************************************************************************************
+MARKDOWN
+***********************************************************************************************************************/
+.md blockquote {
+    margin: 0;
+    padding: var(--small-spacing);
+    padding-right: var(--medium-spacing);
+    border-left: var(--border);
+    background: var(--very-dark-gray);
+    font-style: italic;
+}
+
+.md hr {
+    margin-top: var(--small-spacing);
+    margin-bottom: var(--medium-spacing);
+}
+
+.md p {
+    margin-bottom: var(--medium-spacing);
+}
+
+.md blockquote p {
+    margin: 0;
+}
+
+.md p:last-child {
+    margin-bottom: 0 !important;
+}
 /*
 @keyframes maximes {
   0% {

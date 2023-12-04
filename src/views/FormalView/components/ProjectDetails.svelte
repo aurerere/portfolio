@@ -7,12 +7,16 @@
     import ProjectStatus from "./ProjectStatus.svelte";
     import ExternalLink from "@views/FormalView/components/ExternalLink.svelte";
     import ProjectTag from "./ProjectTag.svelte";
+    import LoadingIndicator from "@core-components/LoadingIndicator.svelte";
+    import {marked} from "marked";
 
     export let
         closedCallback: () => void,
         project: Formal.Project;
 
     let dialogEl: HTMLDialogElement;
+    let loading: boolean = true;
+    let parsedMarkdown: null | string = null;
 
     function close() {
         dialogEl.close();
@@ -27,6 +31,20 @@
     onMount(() => {
         dialogEl.showModal();
         document.body.style.overflow = "hidden";
+
+        fetch(`files/projects/${project.slug}/${$Lang}.md`)
+            .then(res => res.text())
+            .then(text => {
+                const renderer = new marked.Renderer();
+
+                renderer.image = function (href, title, text) {
+                    return `<img src="files/projects/${project.slug}/${href}" alt="${text}"/>`
+                }
+
+                parsedMarkdown = marked(text, {renderer});
+
+                loading = false;
+            });
     });
 
     onDestroy(() => {
@@ -38,7 +56,7 @@
 <dialog bind:this={dialogEl} on:click|self={() => close()} on:keydown={handleKeyDown}>
     <article>
         <button class="close" on:click={close} aria-label="close"><Fa icon={faXmark}/></button>
-        <header>
+        <div class="header">
             <div class="heading">
                 <ProjectStatus status={project.status}/>
                 <h3 class="no-margin" style="margin-top: var(--small-spacing)">{project.name}</h3>
@@ -49,41 +67,68 @@
                     <ProjectTag tag={tag}/>
                 {/each}
             </div>
-        </header>
-        <main>
-            {project.description[$Lang]}
-            <hr>
-        </main>
+        </div>
+        <div class="main md">
+            {#if loading}
+                <div class="loading">
+                    <LoadingIndicator/>
+                </div>
+            {:else}
+                {@html parsedMarkdown}
+            {/if}
+        </div>
         {#if project.links && project.links.length > 0}
-            <footer>
+            <div class="footer">
                 {#each project.links as link}
                     <ExternalLink to={link.url} icon={getIconFromString(link.icon)}>
                         {link.text[$Lang]}
                     </ExternalLink>
                 {/each}
-            </footer>
+            </div>
         {/if}
     </article>
 </dialog>
 
 <style>
-    article {
-        position: relative;
+    dialog {
+        overflow-y: hidden;
+        height: 100%;
     }
 
-    header {
+    article {
+        position: relative;
+        display: flex;
+        height: 100%;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    .header {
         padding: var(--medium-padding);
         border-bottom: var(--border);
     }
 
-    main {
+    .main {
         padding: var(--medium-padding);
         overflow-y: scroll;
+        flex: 1;
     }
 
-    footer {
+    .loading {
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    :global(.main img) {
+        max-width: 100%;
+    }
+
+    .footer {
         border-top: var(--border);
         padding: var(--medium-padding);
+        flex: 0;
     }
 
     .close {
@@ -138,6 +183,10 @@
         .close {
             top: var(--small-spacing);
             right: var(--small-spacing);
+        }
+
+        .tags {
+            display: none;
         }
     }
 

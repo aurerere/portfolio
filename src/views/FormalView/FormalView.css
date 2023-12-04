@@ -259,6 +259,10 @@ RESPONSIVENESS
 }
 
 @media (max-width: 600px) {
+    :global(html) {
+        font-size: .9em;
+    }
+
     h1 {
         font-size: var(--h2-font-size);
     }
