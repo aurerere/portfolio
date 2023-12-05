@@ -41,24 +41,27 @@ export function parsePath(relativePath: string): string[]
 }
 
 
-class Options implements CLI.Options {
-    private options: Array<{ value: string, potentialArgument: string | null }>;
+class Options implements CLI.IOptions {
+    private readonly options: CLI.BinOption[];
 
     constructor() {
         this.options = [];
+    }
+
+    get value() {
+        return this.options;
     }
 
     public add(value: string, potentialValue: string | null = null) {
         this.options.push({value, potentialArgument: potentialValue});
     }
 
-    public includesOneOf(...value: string[]): boolean {
+    public includesOneOf(...values: string[]): boolean {
         return this
             .options
-            .findIndex(option => value.includes(option.value)) !== -1;
+            .findIndex(option => values.includes(option.value)) !== -1;
     }
 }
-
 
 export function parseArgs(
     args: string[],

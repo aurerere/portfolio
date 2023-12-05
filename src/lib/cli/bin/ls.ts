@@ -1,6 +1,7 @@
-import {fileTreeTraveler, parseArgs, parsePath} from "@cli/core/utils";
 import Ls from "@cli/components/Ls.svelte";
 import {MONTH_NAMES_SHORT_EN} from "@utils/const";
+import {parseArgs, parsePath} from "@cli/utils/helpers";
+import {fileTreeTraveler} from "@cli/utils/fileSystem";
 
 type LsOutput = {
     result: { [key: string]: CLI.File | CLI.FolderMetadata },
@@ -14,14 +15,11 @@ export default function ls(args: string[]): CLI.BinOutput<LsOutput>
         const {regularArgs, options} =
             parseArgs(args, ["a", "l", "all"], 1);
 
-        const a = options
-            .findIndex(val => val.option === "a" || val.option === "all") !== -1;
-
-        const l = options
-            .findIndex(val => val.option === "l") !== -1;
+        const a = options.includesOneOf("a", "all");
+        const l = options.includesOneOf("l");
 
         const relativePath = regularArgs.length > 0 ? regularArgs[0] : ".";
-        const to= parsePath(relativePath);
+        const to = parsePath(relativePath);
 
         const [dest, destType] = fileTreeTraveler(to);
 

@@ -12,9 +12,9 @@ status: done
 
 description:
   fr: >
-    Landing page dynamique répertoriant les projets d'une entreprise de production audiovisuelle.
+    Création d’une landing page dynamique répertoriant les projets d’une entreprise de production audiovisuelle.
   en: >
-    Dynamic landing page listing the projects of an audiovisual production company.
+    Creation of a dynamic landing page listing the projects of an audiovisual production company.
 
 links:
   - url: https://github.com/aurerere/providenceprod.tv

@@ -1,5 +1,6 @@
 import {CurrentPath} from "@stores";
-import {createError, fileTreeTraveler, parsePath} from "@cli/core/utils";
+import {createError, parsePath} from "@cli/utils/helpers";
+import {fileTreeTraveler} from "@cli/utils/fileSystem";
 
 export default function cd(args: string[]): CLI.BinOutput
 {

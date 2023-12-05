@@ -8,5 +8,5 @@ supplémentaire, car le délai dont ils disposaient était court et le budget d'
 ### En images
 
 ---
-![Home page](home.png)
-![Player page](player_page.png)
+![Page d'accueil](home.png)
+![Page projet / lecteur vidéo](player_page.png)

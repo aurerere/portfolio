@@ -1,7 +1,7 @@
 ### Pitch
 
 ---
-Pour un projet de fin d'année de NSI *(Numérique et sciences informatiques)* en terminale, nous avons, avec un ami
+Pour un projet de fin d'année de NSI _(Numérique et sciences informatiques)_ en terminale, nous avons, avec un ami
 développé un site collaboratif répertoriant des logiciels ainsi que des raccourcis claviers et conseils d'utilisations
 associés.<br> 
 Étant réellement impliqué dans le projet, je l'ai poursuivi sur mon temps libre, pendant mes études, enrichi de mes

@@ -2,7 +2,7 @@ import {InputHistoryStack, ExecutionHistory, CurrentPath} from "@stores";
 import parse from "@cli/core/parse";
 import RunError from "@cli/components/RunError.svelte";
 import bin from "@cli/index";
-import {exe} from "@cli/core/utils";
+import {executeFromFile} from "@cli/utils/fileSystem";
 
 export default async function run(input: string): Promise<void>
 {
@@ -42,7 +42,7 @@ export default async function run(input: string): Promise<void>
                     binNameOrPath.startsWith("/") ||
                     binNameOrPath.startsWith("../")
                 ) {
-                    const res = await exe(binNameOrPath, args);
+                    const res = await executeFromFile(binNameOrPath, args);
                     ExecutionHistory.update(value => {
                         if (value.length > 0 && !value[value.length -1].cancelled)
                             value[value.length - 1].output.push(res);

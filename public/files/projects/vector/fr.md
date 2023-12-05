@@ -10,4 +10,4 @@ client l'interface du logiciel en lui-même.
 ### En images
 
 ---
-![Home page](mockup.png)
+![Maquette du logicielle](mockup.png)
