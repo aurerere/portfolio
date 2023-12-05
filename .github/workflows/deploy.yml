@@ -23,8 +23,8 @@ jobs:
         run: npm run check
       - name: 🏗️ Build
         if: steps.check.outcome == 'success'
-        run: |
-          export VITE_VERSION=${GITHUB_REF#refs/heads/}/$(git rev-parse --short "$GITHUB_SHA")
+        run: | # https://gist.github.com/rponte/fdc0724dd984088606b0
+          export VITE_VERSION=v$(git tag --sort=committerdate | grep -E '[0-9]' | tail -1 | cut -b 2-7)
           npm run build
       - name: 🚀 Deploy
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
