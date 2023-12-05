@@ -1,31 +1,4 @@
-import {CurrentPath, FileTree} from "@stores";
-
-export default function fileTreeTraveler(path: string[]): [CLI.File, "file"] | [CLI.FileTree, "fileTree"]
-{
-    let element: CLI.FileTree | null = null;
-    // Just to assign element with the current FileTree value in the store
-    const unsubscribe = FileTree.subscribe(
-        value => element = value !== null ? {...value} : element
-    );
-    unsubscribe();
-
-
-    if (element === null)
-        throw new Error("Internal");
-
-    for (let i = 0; i < path.length; i++) {
-        if (element[path[i]] === undefined)
-            throw new Error(path[i] + ": No such file or directory");
-        else if (element[path[i]].type === "folder")
-            element = (element[path[i]] as CLI.Folder).children;
-        else if (i === path.length - 1)
-            return [element[path[i]] as CLI.File, "file"];
-        else
-            throw new Error(path[i] + ": Not a directory");
-    }
-
-    return [element, "fileTree"];
-}
+import {CurrentPath} from "@stores";
 
 export function parsePath(relativePath: string): string[]
 {
@@ -67,13 +40,33 @@ export function parsePath(relativePath: string): string[]
     return path;
 }
 
+
+class Options implements CLI.Options {
+    private options: Array<{ value: string, potentialArgument: string | null }>;
+
+    constructor() {
+        this.options = [];
+    }
+
+    public add(value: string, potentialValue: string | null = null) {
+        this.options.push({value, potentialArgument: potentialValue});
+    }
+
+    public includesOneOf(...value: string[]): boolean {
+        return this
+            .options
+            .findIndex(option => value.includes(option.value)) !== -1;
+    }
+}
+
+
 export function parseArgs(
     args: string[],
     expectedOptions?: string[],
     expectedMaxNumberOfArguments?: number,
     expectedMinNumberOfArguments?: number
 ): CLI.ParsedArgs {
-    const options: CLI.ParsedArgs["options"] = [];
+    const options = new Options();
     const regularArgs: CLI.ParsedArgs["regularArgs"] = [];
 
     for (let i = 0; i < args.length; i++) {
@@ -84,10 +77,10 @@ export function parseArgs(
             if (args[i].substring(2).length === 1)
                 throw new Error("option '" + args[i] + "' is ambiguous");
 
-            options.push({
-                option: args[i].substring(2),
-                potentialValue: args[i + 1] && args[i + 1].startsWith("-") ? null : args[i + 1]
-            });
+            options.add(
+                args[i].substring(2),
+                args[i + 1] && args[i + 1].startsWith("-") ? null : args[i + 1]
+            );
         }
         else if (args[i].startsWith("-")) {
             if (args[i] === "-")
@@ -99,12 +92,12 @@ export function parseArgs(
                 if (expectedOptions && !expectedOptions.includes(fragmentedOptions[j]))
                     throw new Error("Invalid option '-" + fragmentedOptions[j] + "'");
 
-                options.push({
-                    option: fragmentedOptions[j],
-                    potentialValue: j === fragmentedOptions.length - 1 && args[i + 1] && !args[i + 1].startsWith("-")
+                options.add(
+                    fragmentedOptions[j],
+                    fragmentedOptions.length - 1 && args[i + 1] && !args[i + 1].startsWith("-")
                         ? args[i + 1]
                         : null
-                });
+                );
             }
         }
         else {
@@ -121,26 +114,6 @@ export function parseArgs(
     return { options, regularArgs };
 }
 
-export async function exe(path: string, args: string[]): Promise<CLI.BinOutput>
-{
-    try {
-        const to= parsePath(path);
-        const [dest, destType] = fileTreeTraveler(to);
-
-        if (destType === "fileTree" || dest.role !== "bin")
-            createError("not found");
-
-        const res = await fetch("/files/" + to.join("/"));
-        const sourceCode = "{return " + await res.text() + "}";
-        const func = new Function(sourceCode);
-        const out = func.call(null).call(args);
-
-        return out === undefined ? "" : out;
-    }
-    catch (e) {
-        throw new Error(path + ": not found");
-    }
-}
 
 export function createError(message: string): CLI.BinOutput
 {

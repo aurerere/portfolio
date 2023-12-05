@@ -35,6 +35,7 @@
         fetch(`files/projects/${project.slug}/${$Lang}.md`)
             .then(res => res.text())
             .then(async text => {
+                console.log(text)
                 const renderer = new marked.Renderer();
 
                 renderer.image = function (href, title, text) {

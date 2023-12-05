@@ -120,11 +120,18 @@ namespace CLI {
 
     type Operator = ";" | "||";
 
+    type BinOption = {
+        option: string,
+        potentialValue: string | null
+    }
+
+    interface Options {
+        add(value: string, potentialValue: string | null = null);
+        includesOneOf(...value: string[]): boolean;
+    }
+
     type ParsedArgs = {
         regularArgs: string[],
-        options: Array<{
-            option: string,
-            potentialValue: string | null
-        }>
+        options: Options
     }
 }
