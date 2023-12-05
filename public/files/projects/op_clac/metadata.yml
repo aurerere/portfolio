@@ -7,6 +7,7 @@ tags:
   - GitHub Actions
   - MongoDB
   - Express.js
+  - Server-sent events
   - Front API
 
 dates:
@@ -16,7 +17,8 @@ status: ongoing
 
 description:
   fr: >
-    En stage puis en freelance chez Clac des Doigts - refonte complète et design d’un logiciel de gestion de commandes
+    En stage puis en freelance chez Clac des Doigts : refonte complète et design d’un logiciel de gestion de commandes
     lié à un outil de CRM (Front).
   en: >
-    Complete redesign of an order management software linked to a CRM tool (Front).
+    Internship and then freelance experience at Clac des Doigts: Complete overhaul and design of an order management
+    software linked to a CRM tool (Front).

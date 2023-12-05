@@ -35,10 +35,15 @@
         fetch(`files/projects/${project.slug}/${$Lang}.md`)
             .then(res => res.text())
             .then(async text => {
+                console.log(text)
                 const renderer = new marked.Renderer();
 
-                renderer.image = function (href, title, text) {
+                renderer.image = function (href, _, text) {
                     return `<img src="files/projects/${project.slug}/${href}" alt="${text}"/>`
+                }
+
+                renderer.link = function(href, _, text)  {
+                    return `<a href="${href}" target="_blank">${text}</a>`
                 }
 
                 parsedMarkdown = await marked(text, {renderer});

@@ -1,5 +1,6 @@
-import {createError, fileTreeTraveler, parseArgs, parsePath} from "@cli/core/utils";
 import Cat from "@cli/components/Cat.svelte";
+import {createError, parseArgs, parsePath} from "@cli/utils/helpers";
+import {fileTreeTraveler} from "@cli/utils/fileSystem";
 
 export default async function cat(args: string[]): Promise<CLI.BinOutput>
 {
@@ -11,6 +12,11 @@ export default async function cat(args: string[]): Promise<CLI.BinOutput>
             1
         );
 
+        const n = options.includesOneOf("n");
+        const b = options.includesOneOf("b");
+        const t = options.includesOneOf("t", "A");
+        const e = options.includesOneOf("e", "A");
+
         const toFetch = [];
 
         for (let i = 0; i < regularArgs.length; i++) {
@@ -18,7 +24,7 @@ export default async function cat(args: string[]): Promise<CLI.BinOutput>
             const [,destType] = fileTreeTraveler(to);
 
             if (destType === "fileTree") {
-                createError("'" + regularArgs[i] + "' is a directory")
+                createError("'" + regularArgs[i] + "' is a directory");
             }
 
             toFetch.push(to);
@@ -33,28 +39,13 @@ export default async function cat(args: string[]): Promise<CLI.BinOutput>
 
         result = result.join("\r\n");
 
-        const n = options
-            .findIndex(val => val.option === "n") !== -1;
-
-        const b = options
-            .findIndex(val => val.option === "b") !== -1;
-
-        // const v = options
-        //     .findIndex(val => val.option === "v" || val.option === "A") !== -1;
-
-        const t = options
-            .findIndex(val => val.option === "t" || val.option === "A") !== -1;
-
-        const e = options
-            .findIndex(val => val.option === "e" || val.option === "A") !== -1;
-
         return {
             component: Cat,
             data: {
                 result: result.split(/\n/gm),
                 n, b, t, e
             }
-        }
+        };
     }
     catch (e) {
         switch ((e as Error).message) {

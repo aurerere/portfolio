@@ -87,10 +87,10 @@
 
 <style>
     form {
+        flex: 1;
         display: flex;
         gap: var(--medium-spacing);
         flex-direction: column;
-        min-width: 50%;
     }
 
     input, textarea {

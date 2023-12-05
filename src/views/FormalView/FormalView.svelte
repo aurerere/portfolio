@@ -148,7 +148,7 @@
             </div>
         </section>
         <section id="contact">
-            <div class="container">
+            <div class="container" style="max-width: 800px">
                 <h2 class="section">{data.menu.contact[$Lang]}</h2>
                 <div class="contact-form-and-links">
                     <div class="contact-links">

@@ -5,6 +5,7 @@ import history from "@cli/bin/history";
 import cat from "@cli/bin/cat";
 import pwd from "@cli/bin/pwd";
 import echo from "@cli/bin/echo";
+import help from "@cli/bin/help";
 
 const bin: { [key: string]: (args: string[]) => Promise<CLI.BinOutput> | CLI.BinOutput } = {
     clear,
@@ -14,11 +15,7 @@ const bin: { [key: string]: (args: string[]) => Promise<CLI.BinOutput> | CLI.Bin
     cat,
     pwd,
     echo,
-    ping: async () => {
-        return new Promise((resolve) => {
-            setTimeout(() => resolve, 5000)
-        })
-    }
+    help
 }
 
 bin["cls"] = bin["clear"];

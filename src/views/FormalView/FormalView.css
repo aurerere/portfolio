@@ -225,6 +225,7 @@ CONTACT
     display: flex;
     flex-direction: column;
     gap: var(--small-spacing);
+    max-width: 800px;
 }
 
 
