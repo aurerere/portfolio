@@ -135,20 +135,18 @@ NAVIGATION
 /***********************************************************************************************************************
 PRESENTATION / LANDING / HOME
 ***********************************************************************************************************************/
-h2.hello {
-    font-size: calc(var(--h1-font-size) + 1rem);
-}
-
 .links {
     display: flex;
     gap: var(--medium-spacing);
     margin-top: var(--medium-spacing);
     flex-wrap: wrap;
+    width: 100%;
+    justify-content: center;
 }
 
 .scroll-suggestion {
     position: fixed;
-    bottom: var(--medium-spacing);
+    bottom: calc(var(--medium-spacing));
     color: var(--gray);
     transition: .2s;
     transform: scale(1);
@@ -158,13 +156,24 @@ h2.hello {
     animation: infinite ease-in-out 1.5s breathing;
 }
 
-.container.landing {
+.landing-wrapper {
     display: flex;
-    align-items: center;
-    gap: var(--medium-spacing);
+    justify-content: center;
 }
 
-section#home {
+.landing {
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    max-width: 500px;
+    text-align: center;
+}
+
+.part:first-child {
+    width: 100%;
+}
+
+section#hero {
     min-height: 100vh;
     padding: 0;
     justify-content: center;
@@ -221,6 +230,10 @@ h2.section {
 /***********************************************************************************************************************
 CONTACT
 ***********************************************************************************************************************/
+#contact {
+    margin-top: calc(5 * var(--medium-spacing));
+}
+
 .contact-links {
     display: flex;
     flex-direction: column;
@@ -256,6 +269,12 @@ RESPONSIVENESS
 @media (max-width: 900px) {
     .project-grid {
         grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: calc(800px)) {
+    #contact {
+        margin-top: 0;
     }
 }
 
@@ -304,7 +323,15 @@ RESPONSIVENESS
     }
 
     .avatar {
-        display: none;
+        max-height: 15vh;
+    }
+
+    .links {
+        justify-content: flex-start;
+    }
+
+    .landing {
+        text-align: left;
     }
 }
 
