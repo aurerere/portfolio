@@ -8,14 +8,14 @@ import echo from "@cli/bin/echo";
 import help from "@cli/bin/help";
 
 const bin: { [key: string]: (args: string[]) => Promise<CLI.BinOutput> | CLI.BinOutput } = {
-    clear,
-    cd,
+    help,
     ls,
-    history,
+    cd,
     cat,
     pwd,
     echo,
-    help
+    history,
+    clear
 }
 
 bin["cls"] = bin["clear"];

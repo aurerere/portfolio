@@ -103,7 +103,7 @@
 {:else}
     <header bind:offsetHeight={headerHeight}>
         <div class="container nav-bar">
-            <a class="no-style" href="#home" on:click|preventDefault={scrollTo("home")}>
+            <a class="no-style" href="#hero" on:click|preventDefault={scrollTo("hero")}>
                 <h1 class="no-margin">{data.title}</h1>
             </a>
             <div class="menu-desktop">
@@ -117,20 +117,22 @@
         </div>
     </header>
     <main>
-        <section id="home">
-            <div class="container landing">
-                <div class="part">
-                    <img src="/hello.png" alt="hello!" class="avatar"/>
-                </div>
-                <div class="part">
-                    <h2 class="hello">{data.landing.heading[$Lang]}</h2>
-                    <p>{data.landing.paragraph[$Lang]}</p>
-                    <div class="links">
-                        {#each data.landing.links as link}
-                            <ExternalLink to={link[$Lang].url} icon={getIconFromString(link.icon)}>
-                                {link[$Lang].text}
-                            </ExternalLink>
-                        {/each}
+        <section id="hero">
+            <div class="container landing-wrapper">
+                <div class="landing">
+                    <div class="part">
+                        <img src="/hello.png" alt="hello!" class="avatar"/>
+                    </div>
+                    <div class="part">
+                        <h2 class="hello">{data.landing.heading[$Lang]}</h2>
+                        <p>{data.landing.paragraph[$Lang]}</p>
+                        <div class="links">
+                            {#each data.landing.links as link}
+                                <ExternalLink to={link[$Lang].url} icon={getIconFromString(link.icon)}>
+                                    {link[$Lang].text}
+                                </ExternalLink>
+                            {/each}
+                        </div>
                     </div>
                 </div>
             </div>

@@ -29,7 +29,7 @@
 <nav class:phone={phoneVersion}>
     <ul>
         <li class="section">
-            <a class="no-style" href="#home" on:click|preventDefault={scrollTo("home")}>
+            <a class="no-style" href="#hero" on:click|preventDefault={scrollTo("hero")}>
                 <Fa icon={faAddressCard}/> {data.landing[$Lang]}
             </a>
         </li>

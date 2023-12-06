@@ -6,7 +6,7 @@
     import {DeviceInfo} from "@stores";
 </script>
 
-<pre style="color: var(--gray); font-weight: 700">
+<pre style="color: var(--gray)">
 {AURE_CLI_ASCII_ART}v{import.meta.env.VITE_VERSION}
 </pre>
 <p>
