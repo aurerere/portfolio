@@ -1,13 +1,12 @@
 ### Pitch
 
 ---
-_[Clac des Doigts](https://clacdesdoigts.com/)_ is a digital concierge company. It eases the daily lives of its users by
-offering a multitude of services, responding to any request as long as it is legal and feasible.<br>
-During my internship, I had the opportunity to work on their order management software with considerable autonomy.
-I continue to work on it as a freelancer to this day.
+_[Clac des Doigts](https://clacdesdoigts.com/)_ is a digital concierge company. It makes the daily lives of its users 
+easier by offering them a multitude of services; it responds to any request as long as it is legal and feasible.<br>
+As part of my internship, I had the chance to work on their order management software, with a fairly large autonomy. 
+I continue, even today, to work on it as a freelancer.
 
-The application is constructed as an extension of the CRM software _[Front](https://front.com/)_,
-used by _Clac des Doigts_.
+The application is built as an extension of the _[Front](https://front.com/)_ CRM software, used by _Clac des Doigts_.
 
 ### Pictures
 
