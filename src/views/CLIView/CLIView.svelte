@@ -6,7 +6,7 @@
 
     import WelcomeText from "./components/WelcomeText.svelte";
     import PromptText from "./components/PromptText.svelte";
-    import OutputParser from "./components/OutputParser.svelte";
+    import OutputMapper from "./components/OutputMapper.svelte";
     import LoadingIndicator from "@core-components/LoadingIndicator.svelte";
 
     import run from "@cli/core/run";
@@ -198,7 +198,7 @@
             --><span class="previous-input">{previousElement.input}</span>
             {#if previousElement.output}
                 {#each previousElement.output as output, index (index)}
-                    <OutputParser {output}/>
+                    <OutputMapper {output}/>
                 {/each}
             {/if}
         </div>
