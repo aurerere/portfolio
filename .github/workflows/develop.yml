@@ -1,0 +1,27 @@
+# https://github.com/marketplace/actions/ftp-deploy
+name: 🚀 Deploy
+on:
+  push:
+    branches:
+      - develop
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🚚 Checkout
+        uses: actions/checkout@v3
+      - name: 🍃 Set up node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20.x
+          cache: "npm"
+      - name: 📦 Install dependencies
+        run: npm install
+      - name: 🔎 Type check
+        id: check
+        run: npm run check
+      - name: 🖊️ Set env
+        if: steps.check.outcome == 'success'
+        id: vars
+        run: echo $(git tag --sort=committerdate | tail -1)
