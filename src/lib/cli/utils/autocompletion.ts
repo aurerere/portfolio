@@ -71,8 +71,7 @@ export function getSuggestions(input: string): [string[], number]
             return [[], 0];
         }
     }
-    catch (e) {
-        console.log(e)
+    catch {
         return [[], 0];
     }
 }
