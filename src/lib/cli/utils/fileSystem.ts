@@ -1,20 +1,15 @@
+import {get} from "svelte/store";
+
 import {FileTree} from "@stores";
 import {createError, parsePath} from "@cli/utils/helpers";
 
 export function fileTreeTraveler(path: string[]): [CLI.File, "file"] | [CLI.FileTree, "fileTree"]
 {
-    let element: CLI.FileTree | null = null;
-    // Just to assign element with the current FileTree value in the store
-    const unsubscribe = FileTree.subscribe(
-        value => element = value !== null ? {...value} : element
-    );
-    unsubscribe();
-
-
-    if (element === null)
-        throw new Error("Internal");
+    let element = {...get(FileTree)};
 
     for (let i = 0; i < path.length; i++) {
+        if (path[i] === "" && i === path.length -1)
+            break;
         if (element[path[i]] === undefined)
             throw new Error(path[i] + ": No such file or directory");
         else if (element[path[i]].type === "folder")
@@ -36,7 +31,7 @@ export async function executeFromFile(path: string, args: string[]): Promise<CLI
         const [dest, destType] = fileTreeTraveler(to);
 
         if (destType === "fileTree" || dest.role !== "bin")
-            createError("not found");
+            return createError("not found");
 
         const res = await fetch("/files/" + to.join("/"));
 

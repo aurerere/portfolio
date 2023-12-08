@@ -11,6 +11,7 @@
 
     import run from "@cli/core/run";
     import {AURE_CLI_ASCII_ART} from "@utils/const";
+    import {getSuggestions} from "@cli/utils/autocompletion";
 
     // A span element with contenteditable property set to true -> gets input
     let inputEl: HTMLSpanElement;
@@ -46,6 +47,7 @@
             // Prevents the tab key from updating the focus
             case "tab":
                 e.preventDefault();
+                console.log(getSuggestions(inputEl.innerText))
                 return;
             // May clear the history when control is pressed
             case "l":

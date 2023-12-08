@@ -6,7 +6,7 @@ export default function cd(args: string[]): CLI.BinOutput
 {
     try {
         if (args.length > 1)
-            createError("too many arguments");
+            return createError("too many arguments");
 
         if (args.length === 0) {
             CurrentPath.set(["~"]);
@@ -21,7 +21,7 @@ export default function cd(args: string[]): CLI.BinOutput
             CurrentPath.set(["~", ...to]);
         }
         else {
-            createError("Not a directory");
+            return createError("Not a directory");
         }
     }
     catch (e) {
