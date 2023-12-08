@@ -24,4 +24,4 @@ jobs:
       - name: 🖊️ Set env
         if: steps.check.outcome == 'success'
         id: vars
-        run: echo $(git tag --sort=committerdate | tail -1)
+        run: git tag --sort=committerdate | tail -1
