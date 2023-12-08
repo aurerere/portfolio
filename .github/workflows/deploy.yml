@@ -23,7 +23,7 @@ jobs:
         run: npm run check
       - name: 🖊️ Set version
         id: vars
-        run: echo "tag=${GITHUB_REF#refs/*/}" >> $GITHUB_OUTPUT
+        run: echo (git tag --sort=committerdate | tail -1) >> $GITHUB_OUTPUT
       - name: 🏗️ Build
         if: steps.check.outcome == 'success'
         env:
