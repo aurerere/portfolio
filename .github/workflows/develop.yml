@@ -11,16 +11,8 @@ jobs:
     steps:
       - name: 🚚 Checkout
         uses: actions/checkout@v3
-      - name: 🍃 Set up node
-        uses: actions/setup-node@v3
-        with:
-          node-version: 20.x
-          cache: "npm"
-      - name: 📦 Install dependencies
-        run: npm install
-      - name: 🔎 Type check
-        id: check
-        run: npm run check
       - name: Get Latest Tag
         uses: WyriHaximus/github-action-get-previous-tag@v1.3.0
+        with:
+          prefix: v
 
