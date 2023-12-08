@@ -21,7 +21,13 @@ export function getSuggestions(input: string): [string[], number]
         const currentInstructionSplit = currentInstruction.split(" ");
 
         // it means that the user is looking for a command autocompletion
-        if (currentInstructionSplit.length === 1) {
+        if (
+            currentInstructionSplit.length === 1 && !(
+                currentInstruction.startsWith("../") ||
+                currentInstruction.startsWith("./") ||
+                currentInstruction.startsWith("/")
+            )
+        ) {
             return [
                 Object.keys(bin).filter(binName => binName.startsWith(currentInstructionSplit[0])),
                 currentInstructionSplit[0].length
@@ -65,8 +71,7 @@ export function getSuggestions(input: string): [string[], number]
             return [[], 0];
         }
     }
-    catch (e) {
-        console.log(e)
+    catch {
         return [[], 0];
     }
 }
