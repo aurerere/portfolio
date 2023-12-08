@@ -1,5 +1,5 @@
 # https://github.com/marketplace/actions/ftp-deploy
-name: 🚀 Deploy
+name: 📖 Dev test workflow
 on:
   push:
     branches:
