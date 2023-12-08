@@ -18,6 +18,8 @@ export default function cd(args: string[]): CLI.BinOutput
         const [,destType] = fileTreeTraveler(to);
 
         if (destType === "fileTree") {
+            if (to[to.length - 1] === "")
+                to.pop();
             CurrentPath.set(["~", ...to]);
         }
         else {

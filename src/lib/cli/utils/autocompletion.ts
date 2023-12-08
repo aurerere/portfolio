@@ -5,7 +5,7 @@ import {CurrentPath} from "@stores";
 import {fileTreeTraveler} from "@cli/utils/fileSystem";
 import {parsePath} from "@cli/utils/helpers";
 
-export function getSuggestions(input: string): string[]
+export function getSuggestions(input: string): [string[], number]
 {
     try {
         // splits the input to get the last instruction
@@ -14,7 +14,7 @@ export function getSuggestions(input: string): string[]
 
         // it means that nothing was yet inputted in the last instruction => nothing to show
         if (currentInstruction === "") {
-            return [];
+            return [[], 0];
         }
 
         // sees were we are in the last instruction
@@ -22,84 +22,62 @@ export function getSuggestions(input: string): string[]
 
         // it means that the user is looking for a command autocompletion
         if (currentInstructionSplit.length === 1) {
-            console.log(currentInstructionSplit[0])
-            return Object
-                .keys(bin)
-                .filter(binName => binName.startsWith(currentInstructionSplit[0]))
+            return [
+                Object.keys(bin).filter(binName => binName.startsWith(currentInstructionSplit[0])),
+                currentInstructionSplit[0].length
+            ]
         }
 
         // gets the current path
         const path = [...get(CurrentPath)];
-        path.pop();
+        path.shift();
 
         // it means that the user is looking for a path autocompletion, but nothing was yet inputted
         if (currentInstruction.endsWith(" ")) {
             const [dest, destType] = fileTreeTraveler(path);
 
             if (destType === "fileTree")
-                return formatResponse(dest);
+                return [getFileTreeSuggestions(dest), 0];
         }
 
         // extracts what the user began to type
-        const inputtedPath = currentInstructionSplit[currentInstructionSplit.length - 1];
-        const inputtedPathSplit = inputtedPath.split("/")
+        const pathStartsWith = currentInstructionSplit[currentInstructionSplit.length - 1];
+        const pathStartsWithSplit = pathStartsWith.split("/")
 
         // it means the input ends by / so we search for an element in the provided folder path
-        if (inputtedPathSplit[inputtedPath.length - 1] === "") {
-            const [dest, destType] = fileTreeTraveler(parsePath(inputtedPath));
+        if (pathStartsWithSplit[pathStartsWith.length - 1] === "") {
+            const [dest, destType] = fileTreeTraveler(parsePath(pathStartsWith));
 
-            if (destType === "fileTree") {
-                let res = []
-                for (const element of Object.keys(dest)) {
-                    if (dest[element].type === "folder")
-                        res.push(element + "/")
-                    else
-                        res.push(element + " ")
-                }
+            if (destType === "fileTree")
+                return [getFileTreeSuggestions(dest), 0];
 
-                return res;
-            }
-
-            return [];
+            return [[], 0];
         }
         else {
+            const last = pathStartsWithSplit.pop();
+            const [dest, destType] = fileTreeTraveler(
+                parsePath(pathStartsWithSplit.join('/'))
+            );
 
+            if (destType === "fileTree")
+                return [getFileTreeSuggestions(dest, last), last?.length ?? 0];
+
+            return [[], 0];
         }
-
-
-        /*
-        * dir => "dir/"
-        * file => "file "
-        * */
-
-        // else if (workingOn.endsWith(" ") || workingOn.split) {
-        //     let path: string[] | null = null;
-        //     const unsubscribe = CurrentPath.subscribe(value => path = value);
-        //     unsubscribe();
-        //
-        //     if (path === null)
-        //         return [];
-        //
-        //     return Object.keys()
-        // }
-
-        return [];
     }
     catch (e) {
         console.log(e)
-        return [];
+        return [[], 0];
     }
 }
 
-function formatResponse(fileTree: CLI.FileTree): string[] {
-    let res = [];
-
-    for (const element of Object.keys(fileTree)) {
-        if (fileTree[element].type === "folder")
-            res.push(element + "/")
-        else
-            res.push(element + " ")
-    }
-
-    return res;
+function getFileTreeSuggestions(fileTree: CLI.FileTree, startsWith: string = ""): string[] {
+    return Object.keys(fileTree)
+        .filter(value =>
+            value.toLowerCase().startsWith(startsWith.toLowerCase()) && value !== "." && value !== "..")
+        .map(value => {
+            if (fileTree[value].type === "folder")
+                return value + "/";
+            return value + " ";
+        });
 }

@@ -25,6 +25,9 @@
     // and displayed when currentHistoryStackIndex is back to -1
     let inputSavedValue: string = "";
 
+    let autocompleteSuggestionIndex: number = -1;
+    let autocompleteSuggestions: string[] | null = null;
+
     /**
      * On key down anywhere on the page
      * @param e
@@ -47,7 +50,7 @@
             // Prevents the tab key from updating the focus
             case "tab":
                 e.preventDefault();
-                console.log(getSuggestions(inputEl.innerText))
+                handleTab();
                 return;
             // May clear the history when control is pressed
             case "l":
@@ -170,6 +173,49 @@
         inputEl.scrollTop = inputEl.scrollHeight;
     }
 
+    function handleInput()
+    {
+        autocompleteSuggestionIndex = -1;
+        autocompleteSuggestions = [];
+    }
+
+    function handleTab()
+    {
+        if (autocompleteSuggestionIndex !== -1 && autocompleteSuggestions !== null) {
+            const replaceFrom =
+                inputEl.innerText.length - autocompleteSuggestions[autocompleteSuggestionIndex].length
+
+            if (autocompleteSuggestionIndex + 1 <= autocompleteSuggestions.length - 1) {
+                inputEl.innerText =
+                    inputEl.innerText.substring(0, replaceFrom) +
+                    autocompleteSuggestions[++autocompleteSuggestionIndex];
+            }
+            else {
+                autocompleteSuggestionIndex = 0;
+
+                inputEl.innerText =
+                    inputEl.innerText.substring(0, replaceFrom) +
+                    autocompleteSuggestions[0];
+            }
+        }
+        else {
+            const [suggestions, replaceAmount] = getSuggestions(inputEl.innerText);
+
+            if (suggestions.length >= 1) {
+                if (suggestions.length > 1) {
+                    autocompleteSuggestions = suggestions;
+                    autocompleteSuggestionIndex = 0;
+                }
+
+                inputEl.innerText =
+                    inputEl.innerText.substring(0, inputEl.innerText.length - replaceAmount) +
+                    suggestions[0];
+            }
+        }
+
+        focusInputAndMoveCaretAtTheEnd();
+    }
+
     onMount(async () => {
         console.info("%c" + AURE_CLI_ASCII_ART + "v" + import.meta.env.VITE_VERSION, 'color: cyan');
 
@@ -214,6 +260,7 @@
             <PromptText/><!--
             --><span
                 on:paste={handlePaste}
+                on:input={handleInput}
                 bind:this={inputEl}
                 contenteditable="true"
                 spellcheck="false"
