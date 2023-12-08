@@ -21,7 +21,6 @@ jobs:
       - name: 🔎 Type check
         id: check
         run: npm run check
-      - name: 🖊️ Set env
-        if: steps.check.outcome == 'success'
-        id: vars
-        run: git tag --sort=committerdate | tail -1
+      - name: Get Latest Tag
+        uses: WyriHaximus/github-action-get-previous-tag@v1.3.0
+
