@@ -21,11 +21,11 @@ jobs:
       - name: 🔎 Type check
         id: check
         run: npm run check
-      - name: 🖊️ Set version
-        id: vars
-        run: echo (git tag --sort=committerdate | tail -1) >> $GITHUB_OUTPUT
-      - name: 🏗️ Build
+      - name: 🖊️ Set env
         if: steps.check.outcome == 'success'
+        id: vars
+        run: echo $(git tag --sort=committerdate | tail -1) >> $GITHUB_OUTPUT
+      - name: 🏗️ Build
         env:
           VITE_VERSION: ${{ steps.vars.outputs.tag }}
         run: npm run build
