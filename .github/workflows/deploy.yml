@@ -21,11 +21,14 @@ jobs:
       - name: 🔎 Type check
         id: check
         run: npm run check
+      - name: 🖊️ Set version
+        id: vars
+        run: echo "tag=${GITHUB_REF#refs/*/}" >> $GITHUB_OUTPUT
       - name: 🏗️ Build
         if: steps.check.outcome == 'success'
-        run: | # https://gist.github.com/rponte/fdc0724dd984088606b0
-          export VITE_VERSION=$(git tag --sort=committerdate | tail -1)
-          npm run build
+        env:
+          VITE_VERSION: ${{ steps.vars.outputs.tag }}
+        run: npm run build
       - name: 🚀 Deploy
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:

@@ -291,11 +291,6 @@ RESPONSIVENESS
         font-size: var(--h2-font-size);
     }
 
-    .container.landing {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
     :global(:root) {
         --global-padding: var(--small-spacing);
         /*--medium-spacing: 12px;*/

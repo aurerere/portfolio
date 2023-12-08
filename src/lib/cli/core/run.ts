@@ -3,13 +3,11 @@ import parse from "@cli/core/parse";
 import RunError from "@cli/components/RunError.svelte";
 import bin from "@cli/index";
 import {executeFromFile} from "@cli/utils/fileSystem";
+import {get} from "svelte/store";
 
 export default async function run(input: string): Promise<void>
 {
-    let path: string[];
-
-    const unsubscribe = CurrentPath.subscribe(value => path = [...value]);
-    unsubscribe();
+    const path = get(CurrentPath);
 
     ExecutionHistory.update(value => {
         value.push({ path, input, cancelled: false, output: [] });

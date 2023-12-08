@@ -1,3 +1,5 @@
+import {get} from "svelte/store";
+
 import {CurrentPath} from "@stores";
 
 export function parsePath(relativePath: string): string[]
@@ -8,10 +10,8 @@ export function parsePath(relativePath: string): string[]
         throw new Error("Permission denied");
 
     const relativePathSplit = relativePath.split("/");
-    let path: string[] = [];
-    // Just to assign path with the current CurrentPath value in the store
-    const unsubscribe = CurrentPath.subscribe(value => path = [...value]);
-    unsubscribe();
+
+    const path = [...get(CurrentPath)];
 
     if (relativePathSplit[0] === "~") {
         relativePathSplit.shift();
@@ -29,8 +29,6 @@ export function parsePath(relativePath: string): string[]
                 case ".":
                     break;
                 default:
-                    if (!relativePathSplit[i])
-                        break;
                     path.push(relativePathSplit[i])
             }
         }
@@ -118,7 +116,7 @@ export function parseArgs(
 }
 
 
-export function createError(message: string): CLI.BinOutput
+export function createError(message: string): any
 {
     throw new Error(message);
 }

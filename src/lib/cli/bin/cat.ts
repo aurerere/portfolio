@@ -24,7 +24,7 @@ export default async function cat(args: string[]): Promise<CLI.BinOutput>
             const [,destType] = fileTreeTraveler(to);
 
             if (destType === "fileTree") {
-                createError("'" + regularArgs[i] + "' is a directory");
+                return createError("'" + regularArgs[i] + "' is a directory");
             }
 
             toFetch.push(to);
