@@ -7,7 +7,7 @@
 </script>
 
 <pre style="color: var(--gray)">
-{AURE_CLI_ASCII_ART}{import.meta.env.VITE_VERSION}
+{AURE_CLI_ASCII_ART}
 </pre>
 <p>
     <br>
