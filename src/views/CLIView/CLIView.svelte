@@ -217,7 +217,7 @@
     }
 
     onMount(async () => {
-        console.info("%c" + AURE_CLI_ASCII_ART + "v" + import.meta.env.VITE_VERSION, 'color: cyan');
+        console.info("%c" + AURE_CLI_ASCII_ART, 'color: cyan');
 
         try {
             const res = await fetch("/fileTree.json");

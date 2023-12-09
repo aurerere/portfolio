@@ -23,8 +23,6 @@ jobs:
         run: npm run check
       - name: 🏗️ Build
         if: steps.check.outcome == 'success'
-        env:
-          VITE_VERSION: ${{ steps.vars.outputs.tag }}
         run: npm run build
       - name: 🚀 Deploy
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
