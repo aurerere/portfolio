@@ -193,7 +193,7 @@
         inputEl.focus();
         window.scrollTo(0, document.body.scrollHeight);
         focusInputAndMoveCaretAtTheEnd();
-    })
+    });
 </script>
 
 <svelte:window on:keydown={handleKeyDown}/>

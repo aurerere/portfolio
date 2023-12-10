@@ -30,7 +30,7 @@
 
     onMount(() => {
         dialogEl.showModal();
-        document.body.style.overflow = "hidden";
+        document.body.classList.add('modal-open');
 
         fetch(`files/projects/${project.slug}/${$Lang}.md`)
             .then(res => res.text())
@@ -53,8 +53,8 @@
     });
 
     onDestroy(() => {
-        document.body.style.overflow = "auto";
-    })
+        document.body.classList.remove('modal-open');
+    });
 </script>
 
 <!-- svelte-ignore a11y-click-events-have-key-events a11y-no-noninteractive-element-interactions -->

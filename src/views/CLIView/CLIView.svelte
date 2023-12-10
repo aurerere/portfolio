@@ -42,6 +42,10 @@
         $FileTree = await res.json() as CLI.FileTree;
         loading = false;
     });
+
+    afterUpdate(() => {
+        window.scrollTo(0, document.body.scrollHeight);
+    })
 </script>
 
 <!-- Workaround: Using HTML comments to prevent unwanted spaces -->
@@ -78,6 +82,7 @@
         flex-direction: column;
         box-sizing: border-box;
         min-height: 100vh;
+        overflow-x: hidden;
     }
 
     .prompt-wrapper {
