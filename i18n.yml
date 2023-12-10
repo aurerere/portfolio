@@ -24,10 +24,10 @@ landing:
   links:
     - icon: file
       fr:
-        url: /files/cv_fr.pdf
+        url: /files/cv_aurelien_dumay.pdf
         text: CV
       en:
-        url: /files/cv_en.pdf
+        url: /files/resume_aurelien_dumay.pdf
         text: Resume
     - icon: linkedin
       fr:

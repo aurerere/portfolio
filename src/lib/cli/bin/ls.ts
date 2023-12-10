@@ -33,19 +33,7 @@ export default function ls(args: string[]): CLI.BinOutput<LsOutput>
                     metadata.mtime = `${MONTH_NAMES_SHORT_EN[mtime.getMonth()]} ${mtime.getDate()} ${mtime.getFullYear()}`;
                 }
 
-
-                if (metadata.type === "file")
-                    result[name] = metadata;
-                else {
-                    result[name] = {
-                        type: "folder",
-                        role: "folder",
-                        hidden: metadata.hidden,
-                        nlink: metadata.nlink,
-                        blksize: metadata.blksize,
-                        mtime: metadata.mtime
-                    };
-                }
+                result[name] = metadata;
             }
 
             return {
@@ -57,16 +45,7 @@ export default function ls(args: string[]): CLI.BinOutput<LsOutput>
             return {
                 component: Ls,
                 data: {
-                    result: {
-                        [to[to.length -1]]: {
-                            type: "file",
-                            role: dest.role,
-                            hidden: dest.hidden,
-                            nlink: dest.nlink,
-                            blksize: dest.blksize,
-                            mtime: dest.mtime
-                        }
-                    },
+                    result: { [to[to.length -1]]: dest },
                     a, l
                 }
             };
