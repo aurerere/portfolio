@@ -150,10 +150,11 @@
 
     async function handlePaste(e: ClipboardEvent)
     {
+        console.log("here")
         if (!e.clipboardData)
             return;
 
-        const data = e.clipboardData?.getData('Text').replaceAll(/\r/, '');
+        const data = e.clipboardData?.getData('Text').replaceAll(/\r/gm, '');
 
         if (data.match(/\n/)) {
             const inputs = data.split(/\n/);
@@ -191,6 +192,7 @@
     onMount(() => {
         inputEl.focus();
         window.scrollTo(0, document.body.scrollHeight);
+        focusInputAndMoveCaretAtTheEnd();
     })
 </script>
 
