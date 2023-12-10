@@ -12,230 +12,39 @@
     import run from "@cli/core/run";
     import {AURE_CLI_ASCII_ART} from "@utils/const";
     import {getSuggestions} from "@cli/utils/autocompletion";
+    import PromptInput from "@views/CLIView/components/PromptInput.svelte"
 
-    // A span element with contenteditable property set to true -> gets input
-    let inputEl: HTMLSpanElement;
 
-    // Disables the input when set to false
     let loading: boolean = true;
+    let focusPromptInput: () => void;
+    let inputValue: string = "";
 
-    // To navigate through the input history stack
-    let currentHistoryStackIndex: number = -1;
-    // The last saved value -> saved when incrementing currentHistoryStackIndex
-    // and displayed when currentHistoryStackIndex is back to -1
-    let inputSavedValue: string = "";
+    async function runCommands(...commands: string[]) {
+        loading = true;
+        inputValue = "";
 
-    let autocompleteSuggestionIndex: number = -1;
-    let autocompleteSuggestions: string[] | null = null;
+        if (commands.length > 1) {
+            for (let i = 0; i < commands.length - 1; i++)
+                await run(commands[i]);
 
-    /**
-     * On key down anywhere on the page
-     * @param e
-     */
-    async function handleKeyDown(e: Event): Promise<void>
-    {
-        const key = (e as KeyboardEvent).key;
-        const isControlDown = (e as KeyboardEvent).ctrlKey;
-        const isCommandDown = $DeviceInfo?.keyboard === "apple"
-            ? (e as KeyboardEvent).metaKey
-            : (e as KeyboardEvent).ctrlKey;
-        const isShiftDown = (e as KeyboardEvent).shiftKey;
-
-        // Whether the input is focused or not
-        switch (key.toLowerCase()) {
-            case "control":
-            case "command":
-            case "shift":
-                return;
-            // Prevents the tab key from updating the focus
-            case "tab":
-                e.preventDefault();
-                handleTab();
-                return;
-            // May clear the history when control is pressed
-            case "l":
-                if (isControlDown && !isShiftDown) {
-                    e.preventDefault();
-                    clear();
-                }
-                break;
-            case "b":
-            case "u":
-            case "i":
-                if (isCommandDown)
-                    e.preventDefault();
-                break;
+            inputValue = commands[commands.length - 1];
         }
-        // if the input is NOT focused
-        if (document.activeElement !== inputEl) {
+        else
+            await run(commands[0])
 
-            const isCopyingText = isCommandDown && key.toLowerCase() === "c";
-            const isSelectingText = isShiftDown && key.startsWith("Arrow");
-
-            if (!loading && !isCopyingText && !isSelectingText) {
-                focusInputAndMoveCaretAtTheEnd();
-                window.scrollTo(0, document.body.scrollHeight);
-            }
-        }
-        // if the input IS focused
-        else {
-            // Sets the currentHistoryStackIndex back to -1 on previous input edition
-            if (currentHistoryStackIndex !== -1 && inputEl.innerText !== $InputHistoryStack[currentHistoryStackIndex])
-                currentHistoryStackIndex = -1;
-
-            if (key === "ArrowUp" || key === "ArrowDown") {
-                e.preventDefault();
-                navigateThroughHistoryStack(key);
-            }
-
-            // RUNS A COMMAND
-            if (key === "Enter") {
-                e.preventDefault();
-                // isLoading animation + disables the input
-                loading = true;
-                // Runs the input (sends the current path)
-                await run(inputEl.innerText);
-                // So we need to reset the currentHistoryStackIndex
-                currentHistoryStackIndex = -1;
-                loading = false;
-            }
-
-        }
-    }
-
-    async function handlePaste(e: ClipboardEvent)
-    {
-        if (!e.clipboardData)
-            return;
-
-        const data = e.clipboardData?.getData('Text').replaceAll(/\r/, '');
-
-        if (data.match(/\n/)) {
-            const inputs = data.split(/\n/);
-            const inputLastIdx = inputs.length - 1;
-
-            for (let i = 0; i < inputLastIdx; i++) {
-                await run(inputs[i]);
-            }
-
-            inputEl.innerText = inputs[inputLastIdx];
-            focusInputAndMoveCaretAtTheEnd();
-        }
-        else if (data) {
-            inputEl.innerText = data;
-            focusInputAndMoveCaretAtTheEnd();
-        }
-
-        e.preventDefault();
-    }
-
-    function navigateThroughHistoryStack(key: "ArrowUp" | "ArrowDown")
-    {
-        if (key === "ArrowUp") { // moves backward in the input history
-            if (currentHistoryStackIndex + 1 < $InputHistoryStack.length) {
-                if (currentHistoryStackIndex === -1)
-                    inputSavedValue = inputEl.innerText;
-
-                inputEl.innerText = $InputHistoryStack[++currentHistoryStackIndex];
-            }
-        }
-        else { // ArrowDown - moves forward in the input history
-            if (currentHistoryStackIndex > 0)
-                inputEl.innerText = $InputHistoryStack[--currentHistoryStackIndex];
-
-            else if (currentHistoryStackIndex === 0) {
-                inputEl.innerText = inputSavedValue;
-                currentHistoryStackIndex = -1;
-            }
-        }
-
-        focusInputAndMoveCaretAtTheEnd();
-    }
-
-
-    function focusInputAndMoveCaretAtTheEnd()
-    {
-        //https://stackoverflow.com/questions/1125292/how-to-move-cursor-to-end-of-contenteditable-entity
-        const range = document.createRange();
-        const sel = window.getSelection();
-
-        if (!sel)
-            return;
-
-        range.selectNodeContents(inputEl);
-        range.collapse(false);
-        sel.removeAllRanges();
-        sel.addRange(range);
-        inputEl.focus();
-        range.detach(); // optimization
-
-        // set scroll to the end if multiline
-        inputEl.scrollTop = inputEl.scrollHeight;
-    }
-
-    function handleInput()
-    {
-        autocompleteSuggestionIndex = -1;
-        autocompleteSuggestions = [];
-    }
-
-    function handleTab()
-    {
-        if (autocompleteSuggestionIndex !== -1 && autocompleteSuggestions !== null) {
-            const replaceFrom =
-                inputEl.innerText.length - autocompleteSuggestions[autocompleteSuggestionIndex].length
-
-            if (autocompleteSuggestionIndex + 1 <= autocompleteSuggestions.length - 1) {
-                inputEl.innerText =
-                    inputEl.innerText.substring(0, replaceFrom) +
-                    autocompleteSuggestions[++autocompleteSuggestionIndex];
-            }
-            else {
-                autocompleteSuggestionIndex = 0;
-
-                inputEl.innerText =
-                    inputEl.innerText.substring(0, replaceFrom) +
-                    autocompleteSuggestions[0];
-            }
-        }
-        else {
-            const [suggestions, replaceAmount] = getSuggestions(inputEl.innerText);
-
-            if (suggestions.length >= 1) {
-                if (suggestions.length > 1) {
-                    autocompleteSuggestions = suggestions;
-                    autocompleteSuggestionIndex = 0;
-                }
-
-                inputEl.innerText =
-                    inputEl.innerText.substring(0, inputEl.innerText.length - replaceAmount) +
-                    suggestions[0];
-            }
-        }
-
-        focusInputAndMoveCaretAtTheEnd();
+        loading = false;
     }
 
     onMount(async () => {
         console.info("%c" + AURE_CLI_ASCII_ART, 'color: cyan');
 
-        try {
-            const res = await fetch("/fileTree.json");
-            $FileTree = await res.json() as CLI.FileTree;
-            loading = false;
-        }
-        catch (e) {}
-    })
-
-    afterUpdate(() => {
-        if (inputEl) {
-            window.scrollTo(0, document.body.scrollHeight);
-            inputEl.focus();
-        }
+        const res = await fetch("/fileTree.json");
+        $FileTree = await res.json() as CLI.FileTree;
+        loading = false;
     });
 </script>
 
-<svelte:window on:keydown={handleKeyDown}/>
+<!-- Workaround: Using HTML comments to prevent unwanted spaces -->
 <main id="cli">
     {#if !$Cleared}
         <WelcomeText/>
@@ -255,17 +64,8 @@
         <LoadingIndicator withMargin/>
     {:else}
         <!-- svelte-ignore a11y-no-static-element-interactions a11y-click-events-have-key-events -->
-        <div class="prompt-wrapper" on:click={() => inputEl.focus()}>
-            <!-- Workaround: Using HTML comments to prevent unwanted spaces -->
-            <PromptText/><!--
-            --><span
-                on:paste={handlePaste}
-                on:input={handleInput}
-                bind:this={inputEl}
-                contenteditable="true"
-                spellcheck="false"
-                class="input"
-            ></span>
+        <div class="prompt-wrapper" on:click={focusPromptInput}>
+            <PromptText/><PromptInput {runCommands} bind:focus={focusPromptInput} value={inputValue}/>
         </div>
     {/if}
 </main>
@@ -278,14 +78,6 @@
         flex-direction: column;
         box-sizing: border-box;
         min-height: 100vh;
-    }
-
-    .input {
-        caret-color: var(--cyan);
-        outline: none;
-        word-break: break-all;
-        word-wrap: break-word;
-        white-space: break-spaces;
     }
 
     .prompt-wrapper {
