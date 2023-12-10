@@ -69,6 +69,10 @@
         grid-template-columns: repeat(7, auto);
     }
 
+    .long span {
+        width: 100%;
+    }
+
     .long span:not(.left){
         text-align: right;
     }
