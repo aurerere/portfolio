@@ -30,7 +30,7 @@
 
     onMount(() => {
         dialogEl.showModal();
-        document.body.classList.add('modal-open');
+        document.body.style.overflowY = "hidden";
 
         fetch(`files/projects/${project.slug}/${$Lang}.md`)
             .then(res => res.text())
@@ -53,7 +53,7 @@
     });
 
     onDestroy(() => {
-        document.body.classList.remove('modal-open');
+        document.body.style.overflowY = "auto";
     });
 </script>
 
@@ -117,6 +117,11 @@
         padding: var(--medium-padding);
         overflow-y: scroll;
         flex: 1;
+    }
+
+    .main::-webkit-scrollbar {
+        width: 4px;
+        height: 4px;
     }
 
     .loading {

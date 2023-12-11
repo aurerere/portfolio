@@ -14,10 +14,10 @@
     import {getSuggestions} from "@cli/utils/autocompletion";
     import PromptInput from "@views/CLIView/components/PromptInput.svelte"
 
-
     let loading: boolean = true;
-    let focusPromptInput: () => void;
     let inputValue: string = "";
+
+    let focusInput: () => void;
 
     async function runCommands(...commands: string[]) {
         loading = true;
@@ -68,8 +68,8 @@
         <LoadingIndicator withMargin/>
     {:else}
         <!-- svelte-ignore a11y-no-static-element-interactions a11y-click-events-have-key-events -->
-        <div class="prompt-wrapper" on:click={focusPromptInput}>
-            <PromptText/><PromptInput {runCommands} bind:focus={focusPromptInput} value={inputValue}/>
+        <div class="prompt-wrapper" on:click={focusInput}>
+            <PromptText/><PromptInput bind:focusInput {runCommands} value={inputValue}/>
         </div>
     {/if}
 </main>

@@ -14,101 +14,60 @@
     let autocompleteSuggestionIndex: number = -1;
     let autocompleteSuggestions: string[] | null = null;
 
-    export const focus = () => inputEl.focus();
-
-    /**
-     * On key down anywhere on the page
-     * @param e
-     */
     async function handleKeyDown(e: Event): Promise<void>
     {
+        // getCaretPositon();
         const key = (e as KeyboardEvent).key;
         const isControlDown = (e as KeyboardEvent).ctrlKey;
+        const isShiftDown = (e as KeyboardEvent).shiftKey;
         const isCommandDown = $DeviceInfo?.keyboard === "apple"
             ? (e as KeyboardEvent).metaKey
             : (e as KeyboardEvent).ctrlKey;
-        const isShiftDown = (e as KeyboardEvent).shiftKey;
 
         // Whether the input is focused or not
-        switch (key.toLowerCase()) {
-            case "control":
-            case "command":
-            case "shift":
-                return;
-            // Prevents the tab key from updating the focus
-            case "tab":
-                e.preventDefault();
-                handleTab();
-                return;
-            // May clear the history when control is pressed
-            case "l":
+        switch (key) {
+            case "Tab":
+                if (document.activeElement === inputEl) {
+                    e.preventDefault();
+                    handleTab();
+                    return;
+                }
+                break;
+            case "L":
                 if (isControlDown && !isShiftDown) {
                     e.preventDefault();
                     clear();
                 }
                 break;
-            case "b":
-            case "u":
-            case "i":
+            case "Enter":
+                e.preventDefault();
+                runCommands(inputEl.innerText).then();
+                return;
+            case "ArrowUp":
+            case "ArrowDown":
+                if (document.activeElement === inputEl) {
+                    e.preventDefault();
+                    navigateThroughHistoryStack(key);
+                }
+                break;
+            case "B":
+            case "U":
+            case "I":
                 if (isCommandDown)
                     e.preventDefault();
-                break;
+                return;
+            case "Control":
+            case "Command":
+            case "Shift":
+                return;
         }
         // if the input is NOT focused
         if (document.activeElement !== inputEl) {
-
-            const isCopyingText = isCommandDown && key.toLowerCase() === "c";
             const isSelectingText = isShiftDown && key.startsWith("Arrow");
 
-            if (!isCopyingText && !isSelectingText) {
-                focusInputAndMoveCaretAtTheEnd();
-                window.scrollTo(0, document.body.scrollHeight);
-            }
+            if (!isCommandDown && !isSelectingText)
+                moveCaret(-1);
         }
-        // if the input IS focused
-        else {
-            if (key === "ArrowUp" || key === "ArrowDown") {
-                e.preventDefault();
-                navigateThroughHistoryStack(key);
-            }
-
-            // RUNS A COMMAND
-            if (key === "Enter") {
-                e.preventDefault();
-                runCommands(inputEl.innerText).then();
-            }
-
-        }
-    }
-
-    function handleInput()
-    {
-        currentHistoryStackIndex = -1;
-        autocompleteSuggestionIndex = -1;
-        autocompleteSuggestions = [];
-    }
-
-    function navigateThroughHistoryStack(key: "ArrowUp" | "ArrowDown")
-    {
-        if (key === "ArrowUp") { // moves backward in the input history
-            if (currentHistoryStackIndex + 1 < $InputHistoryStack.length) {
-                if (currentHistoryStackIndex === -1)
-                    inputSavedValue = inputEl.innerText;
-
-                inputEl.innerText = $InputHistoryStack[++currentHistoryStackIndex];
-            }
-        }
-        else { // ArrowDown - moves forward in the input history
-            if (currentHistoryStackIndex > 0)
-                inputEl.innerText = $InputHistoryStack[--currentHistoryStackIndex];
-
-            else if (currentHistoryStackIndex === 0) {
-                inputEl.innerText = inputSavedValue;
-                currentHistoryStackIndex = -1;
-            }
-        }
-
-        focusInputAndMoveCaretAtTheEnd();
     }
 
     function handleTab()
@@ -145,54 +104,122 @@
             }
         }
 
-        focusInputAndMoveCaretAtTheEnd();
+        moveCaret(-1);
+    }
+
+    function handleInput()
+    {
+        currentHistoryStackIndex = -1;
+        autocompleteSuggestionIndex = -1;
+        autocompleteSuggestions = [];
+    }
+
+    function navigateThroughHistoryStack(key: "ArrowUp" | "ArrowDown")
+    {
+        if (key === "ArrowUp") { // moves backward in the input history
+            if (currentHistoryStackIndex + 1 < $InputHistoryStack.length) {
+                if (currentHistoryStackIndex === -1)
+                    inputSavedValue = inputEl.innerText;
+
+                inputEl.innerText = $InputHistoryStack[++currentHistoryStackIndex];
+            }
+        }
+        else { // ArrowDown - moves forward in the input history
+            if (currentHistoryStackIndex > 0)
+                inputEl.innerText = $InputHistoryStack[--currentHistoryStackIndex];
+
+            else if (currentHistoryStackIndex === 0) {
+                inputEl.innerText = inputSavedValue;
+                currentHistoryStackIndex = -1;
+            }
+        }
+
+        moveCaret(-1);
     }
 
     async function handlePaste(e: ClipboardEvent)
     {
-        console.log("here")
+        e.preventDefault();
         if (!e.clipboardData)
             return;
 
-        const data = e.clipboardData?.getData('Text').replaceAll(/\r/gm, '');
+        const data = e.clipboardData.getData("Text").replaceAll(/\r/gm, "");
 
         if (data.match(/\n/)) {
-            const inputs = data.split(/\n/);
+            const inputs = (inputEl.innerText + data).split(/\n/);
 
             runCommands(...inputs).then();
         }
         else if (data) {
-            inputEl.innerText = data;
-            focusInputAndMoveCaretAtTheEnd();
+            console.log("here")
+            const textNode = document.createTextNode(data);
+            // insérer le texte nettoyé à la position actuelle du curseur
+            const selection = window.getSelection();
+            if (selection?.rangeCount) {
+                const range = selection.getRangeAt(0);
+                range.deleteContents();
+                range.insertNode(textNode);
+                range.setStartAfter(textNode);
+                selection.removeAllRanges();
+                selection.addRange(range);
+            }
         }
 
-        e.preventDefault();
+        inputEl.normalize();
     }
 
-    function focusInputAndMoveCaretAtTheEnd()
+    /*
+    * TODO: WHY ???? PromptInput.svelte:184 <PromptInput> was created with unknown prop 'focusInput'
+    * */
+    export function focusInput() {
+        inputEl.focus();
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+
+    function moveCaret(to: number)
     {
-        //https://stackoverflow.com/questions/1125292/how-to-move-cursor-to-end-of-contenteditable-entity
         const range = document.createRange();
         const sel = window.getSelection();
 
         if (!sel)
             return;
 
-        range.selectNodeContents(inputEl);
-        range.collapse(false);
+        if (to === -1) {
+            range.selectNodeContents(inputEl);
+            range.collapse(false);
+        }
+        else {
+            inputEl.normalize();
+            const text = inputEl.childNodes[0];
+
+            if (!text)
+                return;
+            if (!text.textContent || text.textContent.length < to || to < 0)
+                return;
+
+            range.setStart(text, to);
+            range.collapse(true);
+        }
+
         sel.removeAllRanges();
         sel.addRange(range);
-        inputEl.focus();
         range.detach(); // optimization
-
-        // set scroll to the end if multiline
-        inputEl.scrollTop = inputEl.scrollHeight;
     }
 
+    /*
+    * TODO: https://codepen.io/neoux/pen/OVzMor
+    * */
+    // function getCaretPositon() {
+    //     // inputEl.normalize();
+    //     console.log(inputEl.childNodes)
+    //     const range = window.getSelection()?.getRangeAt(0)?.startOffset;
+    //
+    //     console.log(range)
+    // }
+
     onMount(() => {
-        inputEl.focus();
-        window.scrollTo(0, document.body.scrollHeight);
-        focusInputAndMoveCaretAtTheEnd();
+        focusInput();
     });
 </script>
 

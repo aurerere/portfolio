@@ -12,7 +12,7 @@
     --medium-spacing: 24px;
     --small-spacing: 12px;
     --micro-spacing: 6px;
-    --scrollbar-width: 4px;
+    --scrollbar-width: 8px;
 
     --border-width: 2px;
     --border-radius: 12px;
@@ -73,7 +73,7 @@ input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
     -webkit-background-clip: text;
     -webkit-text-fill-color: white;
-    -webkit-box-shadow: 0 0 0px 1000px var(--very-dark-gray) inset;
+    -webkit-box-shadow: 0 0 0 1000px var(--very-dark-gray) inset;
 }
 
 input:-webkit-autofill[disabled] {
@@ -93,11 +93,7 @@ body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     font-size: var(--text-font-size);
-}
-
-body.modal-open {
-    overflow: hidden;
-    padding-right: calc(100vw - 100%);
+    overflow-x: hidden;
 }
 
 h1 { font-size: var(--h1-font-size) }

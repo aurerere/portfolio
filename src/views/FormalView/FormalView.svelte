@@ -101,94 +101,96 @@
         <LoadingIndicator/>
     </main>
 {:else}
-    <header bind:offsetHeight={headerHeight}>
-        <div class="container nav-bar">
-            <a class="no-style" href="#hero" on:click|preventDefault={scrollTo("hero")}>
-                <h1 class="no-margin">{data.title}</h1>
-            </a>
-            <div class="menu-desktop">
-                <Nav data={data.menu} {scrollTo}/>
+    <div id="page">
+        <header bind:offsetHeight={headerHeight}>
+            <div class="container nav-bar">
+                <a class="no-style" href="#hero" on:click|preventDefault={scrollTo("hero")}>
+                    <h1 class="no-margin">{data.title}</h1>
+                </a>
+                <div class="menu-desktop">
+                    <Nav data={data.menu} {scrollTo}/>
+                </div>
+                <div class="menu-phone">
+                    <button class="burger opener" bind:this={burgerButtonEl} on:click={openMobileMenu} aria-label="menu">
+                        <Fa icon={faBars}/>
+                    </button>
+                </div>
             </div>
-            <div class="menu-phone">
-                <button class="burger opener" bind:this={burgerButtonEl} on:click={openMobileMenu} aria-label="menu">
-                    <Fa icon={faBars}/>
-                </button>
-            </div>
-        </div>
-    </header>
-    <main>
-        <section id="hero">
-            <div class="container landing-wrapper">
-                <div class="landing">
-                    <div class="part">
-                        <img src="/hello.png" alt="hello!" class="avatar"/>
-                    </div>
-                    <div class="part">
-                        <h2 class="hello">{data.landing.heading[$Lang]}</h2>
-                        <p>{data.landing.paragraph[$Lang]}</p>
-                        <div class="links">
-                            {#each data.landing.links as link}
-                                <ExternalLink to={link[$Lang].url} icon={getIconFromString(link.icon)}>
-                                    {link[$Lang].text}
-                                </ExternalLink>
-                            {/each}
+        </header>
+        <main>
+            <section id="hero">
+                <div class="container landing-wrapper">
+                    <div class="landing">
+                        <div class="part">
+                            <img src="/hello.png" alt="hello!" class="avatar"/>
+                        </div>
+                        <div class="part">
+                            <h2 class="hello">{data.landing.heading[$Lang]}</h2>
+                            <p>{data.landing.paragraph[$Lang]}</p>
+                            <div class="links">
+                                {#each data.landing.links as link}
+                                    <ExternalLink to={link[$Lang].url} icon={getIconFromString(link.icon)}>
+                                        {link[$Lang].text}
+                                    </ExternalLink>
+                                {/each}
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="scroll-suggestion" class:hidden={scrollY > 20}><p>↓ Scroll ↓</p></div>
-        </section>
-        <section id="projects">
-            <div class="container">
-                <h2 class="section">{data.menu.projects[$Lang]}</h2>
-                <!-- svelte-ignore a11y-no-static-element-interactions a11y-mouse-events-have-key-events -->
-                <div class="project-grid" on:mousemove={handleMouseMoveOnProjectCards}>
-                    {#each data.projects as project, index}
-                        <Project {project} {openProjectDetails} bind:setMousePos={projectCardsMousePosSetters[index]}/>
-                    {/each}
-                </div>
-            </div>
-        </section>
-        <section id="contact">
-            <div class="container" style="max-width: 800px">
-                <h2 class="section">{data.menu.contact[$Lang]}</h2>
-                <div class="contact-form-and-links">
-                    <div class="contact-links">
-                        <p>{data.contact.text[$Lang]}</p>
-                        {#each data.contact.links as link}
-                            <ExternalLink to={link.url} icon={getIconFromString(link.icon)}>
-                                {link.text[$Lang]}
-                            </ExternalLink>
+                <div class="scroll-suggestion" class:hidden={scrollY > 20}><p>↓ Scroll ↓</p></div>
+            </section>
+            <section id="projects">
+                <div class="container">
+                    <h2 class="section">{data.menu.projects[$Lang]}</h2>
+                    <!-- svelte-ignore a11y-no-static-element-interactions a11y-mouse-events-have-key-events -->
+                    <div class="project-grid" on:mousemove={handleMouseMoveOnProjectCards}>
+                        {#each data.projects as project, index}
+                            <Project {project} {openProjectDetails} bind:setMousePos={projectCardsMousePosSetters[index]}/>
                         {/each}
                     </div>
-                    <hr>
-                    <ContactForm fieldNames={data.contact.form_fields}/>
                 </div>
+            </section>
+            <section id="contact">
+                <div class="container" style="max-width: 800px">
+                    <h2 class="section">{data.menu.contact[$Lang]}</h2>
+                    <div class="contact-form-and-links">
+                        <div class="contact-links">
+                            <p>{data.contact.text[$Lang]}</p>
+                            {#each data.contact.links as link}
+                                <ExternalLink to={link.url} icon={getIconFromString(link.icon)}>
+                                    {link.text[$Lang]}
+                                </ExternalLink>
+                            {/each}
+                        </div>
+                        <hr>
+                        <ContactForm fieldNames={data.contact.form_fields}/>
+                    </div>
+                </div>
+            </section>
+        </main>
+        <footer>
+            <div class="container footer">
+                <p>{data.footer.love[$Lang]}</p>
+                <p>
+                    <a href="https://github.com/aurerere/portfolio" target="_blank">
+                        <Fa icon={faGithub}/>/aurerere/portfolio
+                    </a>
+                </p>
             </div>
-        </section>
-    </main>
-    <footer>
-        <div class="container footer">
-            <p>{data.footer.love[$Lang]}</p>
-            <p>
-                <a href="https://github.com/aurerere/portfolio" target="_blank">
-                    <Fa icon={faGithub}/>/aurerere/portfolio
-                </a>
-            </p>
-        </div>
-    </footer>
-    <!--
-    svelte-ignore
-        a11y-no-noninteractive-element-interactions a11y-click-events-have-key-events
-        a11y-no-static-element-interactions
-    -->
-    <div class="menu-box-phone-wrapper" bind:this={menuWrapperEl} on:click={handleClick}>
-        <div class="menu-box-phone" bind:this={menuEl}>
-            <div class="menu-header" style="margin-bottom: var(--medium-spacing)">
-                <h2 class="no-margin">Menu</h2>
-                <button class="burger close" on:click={closeMobileMenu} aria-label="close"><Fa icon={faXmark}/></button>
+        </footer>
+        <!--
+        svelte-ignore
+            a11y-no-noninteractive-element-interactions a11y-click-events-have-key-events
+            a11y-no-static-element-interactions
+        -->
+        <div class="menu-box-phone-wrapper" bind:this={menuWrapperEl} on:click={handleClick}>
+            <div class="menu-box-phone" bind:this={menuEl}>
+                <div class="menu-header" style="margin-bottom: var(--medium-spacing)">
+                    <h2 class="no-margin">Menu</h2>
+                    <button class="burger close" on:click={closeMobileMenu} aria-label="close"><Fa icon={faXmark}/></button>
+                </div>
+                <Nav data={data.menu} {scrollTo} phoneVersion/>
             </div>
-            <Nav data={data.menu} {scrollTo} phoneVersion/>
         </div>
     </div>
     {#if focusedProject !== null}

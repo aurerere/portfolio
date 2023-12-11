@@ -1,6 +1,14 @@
 /***********************************************************************************************************************
 GLOBAL ELEMENTS
 ***********************************************************************************************************************/
+#page {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100vw;
+}
+
 header {
     display: flex;
     justify-content: center;
@@ -8,7 +16,7 @@ header {
     border-bottom: var(--border);
     padding: var(--medium-padding) 0;
     position: fixed;
-    width: 100%;
+    width: 100vw;
     top: 0;
     left: 0;
     z-index: 5;
