@@ -1,5 +1,7 @@
 # aurere's Portfolio
+
 ## Quick start
+
 ### Installation
 ```sh
 npm i
