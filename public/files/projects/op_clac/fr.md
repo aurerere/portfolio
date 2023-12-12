@@ -15,5 +15,5 @@ utilisé par _Clac des Doigts_.
 ### En images
 
 ---
-![Une sélection de vues](views1.png)
-![Une autre sélection de vues](views2.png)
+![Une autre sélection de vues](views1.png)
+![Une sélection de vues](views2.png)

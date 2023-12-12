@@ -12,5 +12,5 @@ The application is built as an extension of the _[Front](https://front.com/)_ CR
 ### Pictures
 
 ---
-![A selection of views](views1.png)
-![Another selection of views](views2.png)
+![Another selection of views](views1.png)
+![A selection of views](views2.png)
