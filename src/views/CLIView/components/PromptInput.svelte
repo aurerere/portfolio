@@ -14,9 +14,16 @@
     let autocompleteSuggestionIndex: number = -1;
     let autocompleteSuggestions: string[] | null = null;
 
+    function handleInput()
+    {
+        currentHistoryStackIndex = -1;
+        autocompleteSuggestionIndex = -1;
+        autocompleteSuggestions = [];
+    }
+
     async function handleKeyDown(e: Event): Promise<void>
     {
-        // getCaretPositon();
+        getCaretPositon();
         const key = (e as KeyboardEvent).key;
         const isControlDown = (e as KeyboardEvent).ctrlKey;
         const isShiftDown = (e as KeyboardEvent).shiftKey;
@@ -70,50 +77,6 @@
         }
     }
 
-    function handleTab()
-    {
-        if (autocompleteSuggestionIndex !== -1 && autocompleteSuggestions !== null) {
-            const replaceFrom =
-                inputEl.innerText.length - autocompleteSuggestions[autocompleteSuggestionIndex].length
-
-            if (autocompleteSuggestionIndex + 1 <= autocompleteSuggestions.length - 1) {
-                inputEl.innerText =
-                    inputEl.innerText.substring(0, replaceFrom) +
-                    autocompleteSuggestions[++autocompleteSuggestionIndex];
-            }
-            else {
-                autocompleteSuggestionIndex = 0;
-
-                inputEl.innerText =
-                    inputEl.innerText.substring(0, replaceFrom) +
-                    autocompleteSuggestions[0];
-            }
-        }
-        else {
-            const [suggestions, replaceAmount] = getSuggestions(inputEl.innerText);
-
-            if (suggestions.length >= 1) {
-                if (suggestions.length > 1) {
-                    autocompleteSuggestions = suggestions;
-                    autocompleteSuggestionIndex = 0;
-                }
-
-                inputEl.innerText =
-                    inputEl.innerText.substring(0, inputEl.innerText.length - replaceAmount) +
-                    suggestions[0];
-            }
-        }
-
-        moveCaret(-1);
-    }
-
-    function handleInput()
-    {
-        currentHistoryStackIndex = -1;
-        autocompleteSuggestionIndex = -1;
-        autocompleteSuggestions = [];
-    }
-
     function navigateThroughHistoryStack(key: "ArrowUp" | "ArrowDown")
     {
         if (key === "ArrowUp") { // moves backward in the input history
@@ -137,6 +100,44 @@
         moveCaret(-1);
     }
 
+    function handleTab()
+    {
+        const caretPos = getCaretPositon();
+
+        let offset: number;
+        let before: string;
+        let value: string;
+        const after = inputEl.innerText.substring(caretPos);
+
+        if (autocompleteSuggestionIndex !== -1 && autocompleteSuggestions !== null) {
+            offset = autocompleteSuggestions[autocompleteSuggestionIndex].length;
+
+             before = inputEl.innerText.substring(0, caretPos - offset);
+
+            if (autocompleteSuggestionIndex + 1 <= autocompleteSuggestions.length - 1)
+                value = autocompleteSuggestions[++autocompleteSuggestionIndex];
+            else
+                value = autocompleteSuggestions[autocompleteSuggestionIndex = 0];
+        }
+        else {
+            const [suggestions, replaceAmount] = getSuggestions(inputEl.innerText, caretPos);
+
+            if (suggestions.length > 1) {
+                autocompleteSuggestions = suggestions;
+                autocompleteSuggestionIndex = 0;
+            }
+            if (suggestions.length === 0)
+                return;
+
+            offset = replaceAmount;
+            before = inputEl.innerText.substring(0, caretPos - offset);
+            value = suggestions[0];
+        }
+
+        inputEl.innerText = before + value + after;
+        moveCaret(caretPos - offset + value.length);
+    }
+
     async function handlePaste(e: ClipboardEvent)
     {
         e.preventDefault();
@@ -151,10 +152,9 @@
             runCommands(...inputs).then();
         }
         else if (data) {
-            console.log("here")
             const textNode = document.createTextNode(data);
-            // insérer le texte nettoyé à la position actuelle du curseur
             const selection = window.getSelection();
+
             if (selection?.rangeCount) {
                 const range = selection.getRangeAt(0);
                 range.deleteContents();
@@ -171,7 +171,8 @@
     /*
     * TODO: WHY ???? PromptInput.svelte:184 <PromptInput> was created with unknown prop 'focusInput'
     * */
-    export function focusInput() {
+    export function focusInput()
+    {
         inputEl.focus();
         window.scrollTo(0, document.body.scrollHeight);
     }
@@ -207,16 +208,23 @@
         range.detach(); // optimization
     }
 
-    /*
-    * TODO: https://codepen.io/neoux/pen/OVzMor
-    * */
-    // function getCaretPositon() {
-    //     // inputEl.normalize();
-    //     console.log(inputEl.childNodes)
-    //     const range = window.getSelection()?.getRangeAt(0)?.startOffset;
-    //
-    //     console.log(range)
-    // }
+    function getCaretPositon(): number
+    {
+        inputEl.normalize();
+
+        const sel = window.getSelection();
+
+        if (!sel)
+            return -1;
+
+        const range = sel.getRangeAt(0);
+        const preCaretRange = range.cloneRange();
+
+        preCaretRange.selectNodeContents(inputEl);
+        preCaretRange.setEnd(range.endContainer, range.endOffset);
+
+        return preCaretRange.toString().length;
+    }
 
     onMount(() => {
         focusInput();
