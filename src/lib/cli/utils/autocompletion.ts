@@ -5,10 +5,11 @@ import {CurrentPath} from "@stores";
 import {fileTreeTraveler} from "@cli/utils/fileSystem";
 import {parsePath} from "@cli/utils/helpers";
 
-export function getSuggestions(input: string): [string[], number]
+export function getSuggestions(input: string, caretPos: number): [string[], number]
 {
     try {
         // splits the input to get the last instruction
+        input = input.substring(0, caretPos)
         const splitInput = input.split(/\|\||;/);
         const currentInstruction = splitInput[splitInput.length - 1].trimStart();
 

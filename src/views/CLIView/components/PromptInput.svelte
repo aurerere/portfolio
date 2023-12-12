@@ -16,7 +16,7 @@
 
     async function handleKeyDown(e: Event): Promise<void>
     {
-        // getCaretPositon();
+        getCaretPositon();
         const key = (e as KeyboardEvent).key;
         const isControlDown = (e as KeyboardEvent).ctrlKey;
         const isShiftDown = (e as KeyboardEvent).shiftKey;
@@ -72,9 +72,15 @@
 
     function handleTab()
     {
+        const caretPos = getCaretPositon();
+
+        const const berforeInput
+
         if (autocompleteSuggestionIndex !== -1 && autocompleteSuggestions !== null) {
-            const replaceFrom =
-                inputEl.innerText.length - autocompleteSuggestions[autocompleteSuggestionIndex].length
+            const replaceFrom = inputEl
+                .innerText
+                .length - autocompleteSuggestions[autocompleteSuggestionIndex]
+                .length;
 
             if (autocompleteSuggestionIndex + 1 <= autocompleteSuggestions.length - 1) {
                 inputEl.innerText =
@@ -90,7 +96,7 @@
             }
         }
         else {
-            const [suggestions, replaceAmount] = getSuggestions(inputEl.innerText);
+            const [suggestions, replaceAmount] = getSuggestions(inputEl.innerText, caretPos);
 
             if (suggestions.length >= 1) {
                 if (suggestions.length > 1) {
@@ -171,7 +177,8 @@
     /*
     * TODO: WHY ???? PromptInput.svelte:184 <PromptInput> was created with unknown prop 'focusInput'
     * */
-    export function focusInput() {
+    export function focusInput()
+    {
         inputEl.focus();
         window.scrollTo(0, document.body.scrollHeight);
     }
@@ -207,16 +214,23 @@
         range.detach(); // optimization
     }
 
-    /*
-    * TODO: https://codepen.io/neoux/pen/OVzMor
-    * */
-    // function getCaretPositon() {
-    //     // inputEl.normalize();
-    //     console.log(inputEl.childNodes)
-    //     const range = window.getSelection()?.getRangeAt(0)?.startOffset;
-    //
-    //     console.log(range)
-    // }
+    function getCaretPositon(): number
+    {
+        inputEl.normalize();
+
+        const sel = window.getSelection();
+
+        if (!sel)
+            return -1;
+
+        const range = sel.getRangeAt(0);
+        const preCaretRange = range.cloneRange();
+
+        preCaretRange.selectNodeContents(inputEl);
+        preCaretRange.setEnd(range.endContainer, range.endOffset);
+
+        return preCaretRange.toString().length;
+    }
 
     onMount(() => {
         focusInput();
