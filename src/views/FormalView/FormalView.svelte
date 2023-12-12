@@ -1,6 +1,5 @@
 <script lang="ts">
     import {onDestroy, onMount} from "svelte";
-    import {slide} from "svelte/transition";
 
     import {getIconFromString} from "@utils/functions";
     import {Lang} from "@stores";
@@ -8,11 +7,11 @@
     import ExternalLink from "@views/FormalView/components/ExternalLink.svelte";
     import LoadingIndicator from "@core-components/LoadingIndicator.svelte";
     import Nav from "./components/Nav.svelte";
-    import {faGithub, faLinkedin} from "@fortawesome/free-brands-svg-icons";
+    import {faGithub} from "@fortawesome/free-brands-svg-icons";
+    import {faBars, faXmark} from "@fortawesome/free-solid-svg-icons";
     import Fa from "svelte-fa";
     import Project from "./components/Project.svelte";
     import ProjectDetails from "./components/ProjectDetails.svelte";
-    import {faBars, faEnvelope, faPaperPlane, faXmark} from "@fortawesome/free-solid-svg-icons";
     import ContactForm from "@views/FormalView/components/ContactForm.svelte";
 
     $: (document.querySelector(":root") as HTMLElement).style.setProperty("--header-height", headerHeight + "px");
