@@ -34,11 +34,13 @@
 
     let focusedProject: Formal.Project | null = null;
 
+    let activeSection: Formal.Section = "hero";
+
     function scrollHook() {
         closeMobileMenu();
     }
 
-    function scrollTo(to: string) {
+    function scrollTo(to: Formal.Section) {
         return () => {
             closeMobileMenu();
             document.getElementById(to)?.scrollIntoView(true);
@@ -108,7 +110,7 @@
                     <h1 class="no-margin">{data.title}</h1>
                 </a>
                 <div class="menu-desktop">
-                    <Nav data={data.menu} {scrollTo}/>
+                    <Nav data={data.menu} {scrollTo} active={activeSection}/>
                 </div>
                 <div class="menu-phone">
                     <button class="burger opener" bind:this={burgerButtonEl} on:click={openMobileMenu} aria-label="menu">

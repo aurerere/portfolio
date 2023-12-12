@@ -9,7 +9,8 @@
     export let
         phoneVersion: boolean = false,
         data: Formal.Data["menu"],
-        scrollTo: (sectionId: string) => () => void;
+        active: Formal.Section,
+        scrollTo: (sectionId: Formal.Section) => () => void;
 
     function openCLI() {
         window.open("/cli", "", "width=1000,height=1000");
@@ -29,17 +30,17 @@
 <nav class:phone={phoneVersion}>
     <ul>
         <li class="section">
-            <a class="no-style" href="#hero" on:click|preventDefault={scrollTo("hero")}>
+            <a class:active={active === "hero"} href="#hero" on:click|preventDefault={scrollTo("hero")}>
                 <Fa icon={faAddressCard}/> {data.landing[$Lang]}
             </a>
         </li>
         <li class="section">
-            <a class="no-style" href="#projects" on:click|preventDefault={scrollTo("projects")}>
+            <a class:active={active === "projects"} href="#projects" on:click|preventDefault={scrollTo("projects")}>
                 <Fa icon={faFileCode}/> {data.projects[$Lang]}
             </a>
         </li>
         <li class="section">
-            <a class="no-style" href="#contact" on:click|preventDefault={scrollTo("contact")}>
+            <a class:active={active === "contact"} href="#contact" on:click|preventDefault={scrollTo("contact")}>
                 <Fa icon={faEnvelope}/> {data.contact[$Lang]}
             </a>
         </li>
@@ -121,10 +122,12 @@
     }
 
     .section a {
-        color: var(--text-color);
+        color: #b9b9b9;
+        transition: .2s;
     }
 
-    .section a:hover {
+    .section a:hover, .section a.active{
+        color: white;
         text-decoration: none;
     }
 </style>

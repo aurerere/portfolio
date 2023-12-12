@@ -12,6 +12,8 @@ namespace Core {
 namespace Formal {
     type Lang = "fr" | "en";
 
+    type Section = "hero" | "projects" | "contact";
+
     type LanguageSensitiveString = Record<Lang, string>;
 
     type Link = {
