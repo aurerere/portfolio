@@ -107,7 +107,7 @@ namespace CLI {
     type BinOutput<T = Record<string, any>> = string | ComponentDependentBinOutput<T>;
 
     type ComponentDependentBinOutput<T> = {
-        component: typeof import("svelte").SvelteComponent,
+        component: typeof import("svelte").SvelteComponent<any>,
         data: T,
     }
 
