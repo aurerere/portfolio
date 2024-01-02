@@ -1,8 +1,7 @@
 <script lang="ts">
     import {afterUpdate, onMount} from "svelte";
 
-    import {Cleared, DeviceInfo, InputHistoryStack, ExecutionHistory, FileTree} from "@stores";
-    import clear from "@cli/bin/clear";
+    import {Cleared, ExecutionHistory, FileTree} from "@stores";
 
     import WelcomeText from "./components/WelcomeText.svelte";
     import PromptText from "./components/PromptText.svelte";
@@ -11,13 +10,12 @@
 
     import run from "@cli/core/run";
     import {AURE_CLI_ASCII_ART} from "@utils/const";
-    import {getSuggestions} from "@cli/utils/autocompletion";
     import PromptInput from "@views/CLIView/components/PromptInput.svelte"
 
     let loading: boolean = true;
     let inputValue: string = "";
 
-    let focusInput: () => void;
+    let focusInput: (() => void) | null = null;
 
     async function runCommands(...commands: string[]) {
         loading = true;
@@ -68,7 +66,7 @@
         <LoadingIndicator withMargin/>
     {:else}
         <!-- svelte-ignore a11y-no-static-element-interactions a11y-click-events-have-key-events -->
-        <div class="prompt-wrapper" on:click={focusInput}>
+        <div class="prompt-wrapper" on:click={focusInput ?? focusInput}>
             <PromptText/><PromptInput bind:focusInput {runCommands} value={inputValue}/>
         </div>
     {/if}

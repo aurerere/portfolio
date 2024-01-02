@@ -2,8 +2,7 @@ import type {IconDefinition} from "@fortawesome/fontawesome-common-types";
 import {MONTH_NAMES_SHORT_EN, MONTH_NAMES_SHORT_FR, PREFERRED_LANG_LOCAL_STORAGE_KEY} from "@utils/const";
 import {DeviceInfo, Lang} from "@stores";
 
-export function setDeviceInfo(): void
-{
+export function setDeviceInfo(): void {
     const userAgent = navigator.userAgent.toLowerCase();
     let device: Core.DeviceInfo["device"] = "mobile";
     let keyboard: Core.DeviceInfo["keyboard"] = "default";
@@ -20,8 +19,7 @@ export function setDeviceInfo(): void
     DeviceInfo.set({ device, keyboard });
 }
 
-export function setLang(): void
-{
+export function setLang(): void {
     const preferredLang = localStorage.getItem(PREFERRED_LANG_LOCAL_STORAGE_KEY);
 
     if (preferredLang === "fr" || preferredLang === "en") {
@@ -32,8 +30,7 @@ export function setLang(): void
     }
 }
 
-export function formatTimeLaps(dates: [string, string?], lang: Formal.Lang): string
-{
+export function formatTimeLaps(dates: [string, string?], lang: Formal.Lang): string {
     let mns = lang === "fr" ? MONTH_NAMES_SHORT_FR : MONTH_NAMES_SHORT_EN;
 
     const from = new Date(dates[0]);
@@ -62,8 +59,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import {faCss3, faFigma, faGithub, faLinkedin, faNodeJs, faPhp, faVuejs} from "@fortawesome/free-brands-svg-icons";
 
-export function getIconFromString(str: string, context: "tag" | "link" = "link"): IconDefinition
-{
+export function getIconFromString(str: string, context: "tag" | "link" = "link"): IconDefinition {
     switch (str) {
         case "file":
             return faFile;

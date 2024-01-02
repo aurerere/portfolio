@@ -7,7 +7,7 @@ import pwd from "@cli/bin/pwd";
 import echo from "@cli/bin/echo";
 import help from "@cli/bin/help";
 
-const bin: { [key: string]: (args: string[]) => Promise<CLI.BinOutput> | CLI.BinOutput } = {
+export const bin: Record<string, (args: string[]) => Promise<CLI.BinOutput> | CLI.BinOutput> = {
     help,
     ls,
     cd,
@@ -18,7 +18,9 @@ const bin: { [key: string]: (args: string[]) => Promise<CLI.BinOutput> | CLI.Bin
     clear
 }
 
-bin["cls"] = bin["clear"];
-bin["c"] = bin["clear"];
-
-export default bin;
+export const aliases: Record<string, string> = {
+    cls: "clear",
+    c: "clear",
+    l: "ls -la",
+    ll: "ls -la",
+}

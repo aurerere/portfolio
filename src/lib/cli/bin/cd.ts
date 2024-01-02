@@ -2,8 +2,7 @@ import {CurrentPath} from "@stores";
 import {createError, parsePath} from "@cli/utils/helpers";
 import {fileTreeTraveler} from "@cli/utils/fileSystem";
 
-export default function cd(args: string[]): CLI.BinOutput
-{
+export default function cd(args: string[]): CLI.BinOutput {
     try {
         if (args.length > 1)
             return createError("too many arguments");

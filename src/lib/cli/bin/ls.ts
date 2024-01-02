@@ -9,8 +9,7 @@ type LsOutput = {
     l: boolean
 }
 
-export default function ls(args: string[]): CLI.BinOutput<LsOutput>
-{
+export default function ls(args: string[]): CLI.BinOutput<LsOutput> {
     try {
         const {regularArgs, options} =
             parseArgs(args, ["a", "l", "all"], 1);

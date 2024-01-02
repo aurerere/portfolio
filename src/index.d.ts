@@ -12,8 +12,6 @@ namespace Core {
 namespace Formal {
     type Lang = "fr" | "en";
 
-    type Section = "hero" | "projects" | "contact";
-
     type LanguageSensitiveString = Record<Lang, string>;
 
     type Link = {
@@ -71,12 +69,12 @@ namespace Formal {
             love: LanguageSensitiveString
         }
     }
+
+    type Section = "hero" | "projects" | "contact";
 }
 
 namespace CLI {
-    type FileTree = {
-        [key: string]: File | Folder
-    };
+    type FileTree = Record<string, File | Folder>
 
     type Folder = {
         type: "folder",
@@ -106,10 +104,10 @@ namespace CLI {
         mtime?: Date | string
     }
 
-    type BinOutput<T = { [key: string]: any }> = string | ComponentDependentBinOutput<T>;
+    type BinOutput<T = Record<string, any>> = string | ComponentDependentBinOutput<T>;
 
     type ComponentDependentBinOutput<T> = {
-        component: typeof import("svelte").SvelteComponent<any>,
+        component: typeof import("svelte").SvelteComponent,
         data: T,
     }
 

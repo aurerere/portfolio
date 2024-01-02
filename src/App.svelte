@@ -4,7 +4,7 @@
 
     import LazyLoadedComponent from "@core-components/LazyLoadedComponent.svelte";
 
-    import {setDeviceInfo, setLang} from "@utils/functions";
+    import {setDeviceInfo, setLang} from "@utils/misc";
 
     let url = window.location.pathname;
 

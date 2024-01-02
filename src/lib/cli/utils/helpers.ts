@@ -2,8 +2,7 @@ import {get} from "svelte/store";
 
 import {CurrentPath} from "@stores";
 
-export function parsePath(relativePath: string): string[]
-{
+export function parsePath(relativePath: string): string[] {
     relativePath = relativePath.replace("/home/aureliendumay.me", "~");
 
     if (relativePath.startsWith("/"))
@@ -116,7 +115,6 @@ export function parseArgs(
 }
 
 
-export function createError(message: string): any
-{
+export function createError(message: string): any {
     throw new Error(message);
 }

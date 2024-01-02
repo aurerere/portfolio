@@ -1,12 +1,11 @@
 import {get} from "svelte/store";
 
-import bin from "@cli/index";
+import {aliases, bin} from "@cli/index";
 import {CurrentPath} from "@stores";
 import {fileTreeTraveler} from "@cli/utils/fileSystem";
 import {parsePath} from "@cli/utils/helpers";
 
-export function getSuggestions(input: string, caretPos: number): [string[], number]
-{
+export function getSuggestions(input: string, caretPos: number): [string[], number] {
     try {
         // splits the input to get the last instruction
         input = input.substring(0, caretPos)
@@ -30,7 +29,8 @@ export function getSuggestions(input: string, caretPos: number): [string[], numb
             )
         ) {
             return [
-                Object.keys(bin).filter(binName => binName.startsWith(currentInstructionSplit[0])),
+                [...Object.keys(bin), ...Object.keys(aliases)]
+                    .filter(value => value.startsWith(currentInstructionSplit[0])),
                 currentInstructionSplit[0].length
             ]
         }

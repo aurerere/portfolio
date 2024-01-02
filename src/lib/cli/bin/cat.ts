@@ -2,8 +2,7 @@ import Cat from "@cli/components/Cat.svelte";
 import {createError, parseArgs, parsePath} from "@cli/utils/helpers";
 import {fileTreeTraveler} from "@cli/utils/fileSystem";
 
-export default async function cat(args: string[]): Promise<CLI.BinOutput>
-{
+export default async function cat(args: string[]): Promise<CLI.BinOutput> {
     try {
         const { regularArgs, options } = parseArgs(
             args,

@@ -2,9 +2,7 @@ import fs, {readFileSync, writeFileSync} from "fs";
 import {PluginOption} from "vite";
 import YAML from "yaml";
 
-type FileTree = {
-    [key: string]: File | Folder
-};
+type FileTree = Record<string, File | Folder>
 
 type Folder = {
     type: "folder",
@@ -70,8 +68,7 @@ export default function vitePluginJson(): PluginOption {
     }
 }
 
-function dirToJson(path: string, to: FileTree, parentContext?: fs.Stats)
-{
+function dirToJson(path: string, to: FileTree, parentContext?: fs.Stats)  {
     const content = fs.readdirSync(path);
     const context = fs.statSync(path);
 
@@ -125,15 +122,13 @@ function dirToJson(path: string, to: FileTree, parentContext?: fs.Stats)
     }
 }
 
-function projectFilesToJson()
-{
+function projectFilesToJson() {
     const projectsPath = "./public/files/projects/";
     const projectsDir = fs.readdirSync(projectsPath);
     const projects = [];
 
 
-    for (let project of projectsDir)
-    {
+    for (let project of projectsDir) {
         try {
             if (fs.existsSync(projectsPath + project + "/metadata.yml")) {
                 const projectData =

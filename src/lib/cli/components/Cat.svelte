@@ -1,4 +1,6 @@
 <script lang="ts">
+    import {onMount} from "svelte";
+
     export let
         result: string[],
         n: boolean,
@@ -8,15 +10,13 @@
 
     let lineNumber: number = 0;
 
-    function getLineNumber(line: string): number | string
-    {
+    function getLineNumber(line: string): number | string {
         if (b && (line === "\r" || line === ""))
             return "&nbsp;";
         return ++lineNumber;
     }
 
-    function transformLine(line: string)
-    {
+    function transformLine(line: string) {
         line = line.replaceAll(/\r/g, "")
         if (t)
             line = line.replaceAll(/\t/g, "^T");
@@ -32,7 +32,8 @@
 
 <svelte:options immutable/>
 {#if n || b}
-    {#each result as line, index (index)}
+    {#each result as line}
+        {@debug line}
         <div class="counted-line">
             <div class="counter-counted-line">{@html getLineNumber(line)}</div>
             <div class="content-counted-line">
@@ -41,7 +42,7 @@
         </div>
     {/each}
 {:else}
-    {#each result as line, index (index)}
+    {#each result as line}
         {@const transformedLine = transformLine(line)}
         {#if transformedLine === ""}
             <br>

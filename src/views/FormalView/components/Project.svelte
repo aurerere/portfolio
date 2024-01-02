@@ -6,13 +6,12 @@
     import ProjectStatus from "./ProjectStatus.svelte";
 
     import {Lang} from "@stores";
-    import {formatTimeLaps} from "@utils/functions";
+    import {formatTimeLaps} from "@utils/misc";
 
     export let project: Formal.Project;
     export let openProjectDetails: (project: Formal.Project) => () => void;
 
-    export function setMousePos(x: number, y: number)
-    {
+    export function setMousePos(x: number, y: number) {
         const rect = cardEl.getBoundingClientRect();
 
         x = x - rect.left;

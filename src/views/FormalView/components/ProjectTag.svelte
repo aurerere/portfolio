@@ -1,6 +1,6 @@
 <script lang="ts">
     import Fa from "svelte-fa";
-    import {getIconFromString} from "@utils/functions";
+    import {getIconFromString} from "@utils/misc";
 
     export let tag: string;
 </script>

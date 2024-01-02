@@ -3,7 +3,7 @@
     import {faXmark} from "@fortawesome/free-solid-svg-icons";
     import Fa from "svelte-fa";
     import {Lang} from "@stores";
-    import {formatTimeLaps, getIconFromString} from "@utils/functions";
+    import {formatTimeLaps, getIconFromString} from "@utils/misc";
     import ProjectStatus from "./ProjectStatus.svelte";
     import ExternalLink from "@views/FormalView/components/ExternalLink.svelte";
     import ProjectTag from "./ProjectTag.svelte";

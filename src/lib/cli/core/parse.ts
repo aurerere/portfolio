@@ -1,5 +1,4 @@
-export default function parse(input: string): (string[] | string)[]
-{
+export default function parse(input: string): (string[] | string)[] {
     input = input.trim();
 
     if (input === "")

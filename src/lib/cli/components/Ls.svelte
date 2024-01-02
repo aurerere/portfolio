@@ -4,8 +4,7 @@
         a: boolean,
         l: boolean;
 
-    function getElementColorByRole(role: string)
-    {
+    function getElementColorByRole(role: string) {
         switch (role) {
             case "folder":
                 return "#3b78ff";

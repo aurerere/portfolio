@@ -3,8 +3,7 @@ import {get} from "svelte/store";
 import {FileTree} from "@stores";
 import {createError, parsePath} from "@cli/utils/helpers";
 
-export function fileTreeTraveler(path: string[]): [CLI.File, "file"] | [CLI.FileTree, "fileTree"]
-{
+export function fileTreeTraveler(path: string[]): [CLI.File, "file"] | [CLI.FileTree, "fileTree"] {
     let element = {...get(FileTree)};
 
     for (let i = 0; i < path.length; i++) {
@@ -24,8 +23,7 @@ export function fileTreeTraveler(path: string[]): [CLI.File, "file"] | [CLI.File
 }
 
 
-export async function executeFromFile(path: string, args: string[]): Promise<CLI.BinOutput>
-{
+export async function executeFromFile(path: string, args: string[]): Promise<CLI.BinOutput> {
     try {
         const to= parsePath(path);
         const [dest, destType] = fileTreeTraveler(to);

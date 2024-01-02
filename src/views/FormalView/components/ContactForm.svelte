@@ -15,8 +15,7 @@
     let isBusy: boolean = false;
     let hasBeenSent: boolean = false;
 
-    async function sendMessage(data: SubmitEvent)
-    {
+    async function sendMessage(data: SubmitEvent) {
         isBusy = true;
         const formData = new FormData(data.currentTarget as HTMLFormElement);
         const body = Object.fromEntries(formData);

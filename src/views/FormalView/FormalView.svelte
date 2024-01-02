@@ -1,17 +1,17 @@
 <script lang="ts">
+    import Fa from "svelte-fa";
     import {onDestroy, onMount} from "svelte";
 
-    import {getIconFromString} from "@utils/functions";
+    import {getIconFromString} from "@utils/misc";
     import {Lang} from "@stores";
 
     import ExternalLink from "@views/FormalView/components/ExternalLink.svelte";
     import LoadingIndicator from "@core-components/LoadingIndicator.svelte";
     import Nav from "./components/Nav.svelte";
     import {faGithub} from "@fortawesome/free-brands-svg-icons";
-    import {faBars, faXmark} from "@fortawesome/free-solid-svg-icons";
-    import Fa from "svelte-fa";
     import Project from "./components/Project.svelte";
     import ProjectDetails from "./components/ProjectDetails.svelte";
+    import {faBars, faXmark} from "@fortawesome/free-solid-svg-icons";
     import ContactForm from "@views/FormalView/components/ContactForm.svelte";
 
     $: (document.querySelector(":root") as HTMLElement).style.setProperty("--header-height", headerHeight + "px");
@@ -31,30 +31,38 @@
     let menuEl: HTMLDivElement;
     let burgerButtonEl: HTMLButtonElement;
 
+    const sectionElements: Record<Formal.Section, HTMLElement> = {} as any;
+
     let focusedProject: Formal.Project | null = null;
 
-    let activeSection: Formal.Section = "hero";
+    let currentViewedSection: Formal.Section = "hero";
 
     function scrollHook() {
+
+        if (scrollY >= sectionElements.contact.offsetTop - 10)
+            currentViewedSection = "contact";
+        else if (scrollY >= sectionElements.projects.offsetTop - 10)
+            currentViewedSection = "projects";
+        else
+            currentViewedSection = "hero";
+
         closeMobileMenu();
     }
 
     function scrollTo(to: Formal.Section) {
         return () => {
             closeMobileMenu();
-            document.getElementById(to)?.scrollIntoView(true);
+            sectionElements[to].scrollIntoView(true);
         }
     }
 
-    function handleMouseMoveOnProjectCards(e: Event)
-    {
+    function handleMouseMoveOnProjectCards(e: Event) {
         for (const setPos of projectCardsMousePosSetters) {
             setPos((e as MouseEvent).clientX, (e as MouseEvent).clientY);
         }
     }
 
-    function handleClick(e: Event)
-    {
+    function handleClick(e: Event) {
         if (e.target !== menuEl && !menuEl.contains(e.target as HTMLElement))
             closeMobileMenu();
     }
@@ -66,14 +74,12 @@
         }
     }
 
-    function openMobileMenu()
-    {
+    function openMobileMenu() {
         menuWrapperEl.classList.add("opened");
         burgerButtonEl.classList.add("opened");
     }
 
-    function closeMobileMenu()
-    {
+    function closeMobileMenu() {
         menuWrapperEl.classList.remove("opened");
         burgerButtonEl.classList.remove("opened");
     }
@@ -109,7 +115,7 @@
                     <h1 class="no-margin">{data.title}</h1>
                 </a>
                 <div class="menu-desktop">
-                    <Nav data={data.menu} {scrollTo} active={activeSection}/>
+                    <Nav data={data.menu} {scrollTo} active={currentViewedSection}/>
                 </div>
                 <div class="menu-phone">
                     <button class="burger opener" bind:this={burgerButtonEl} on:click={openMobileMenu} aria-label="menu">
@@ -119,7 +125,7 @@
             </div>
         </header>
         <main>
-            <section id="hero">
+            <section id="hero" bind:this={sectionElements["hero"]}>
                 <div class="container landing-wrapper">
                     <div class="landing">
                         <div class="part">
@@ -140,18 +146,22 @@
                 </div>
                 <div class="scroll-suggestion" class:hidden={scrollY > 20}><p>↓ Scroll ↓</p></div>
             </section>
-            <section id="projects">
+            <section id="projects" bind:this={sectionElements["projects"]}>
                 <div class="container">
                     <h2 class="section">{data.menu.projects[$Lang]}</h2>
                     <!-- svelte-ignore a11y-no-static-element-interactions a11y-mouse-events-have-key-events -->
                     <div class="project-grid" on:mousemove={handleMouseMoveOnProjectCards}>
                         {#each data.projects as project, index}
-                            <Project {project} {openProjectDetails} bind:setMousePos={projectCardsMousePosSetters[index]}/>
+                            <Project
+                                {project}
+                                {openProjectDetails}
+                                bind:setMousePos={projectCardsMousePosSetters[index]}
+                            />
                         {/each}
                     </div>
                 </div>
             </section>
-            <section id="contact">
+            <section id="contact" bind:this={sectionElements["contact"]}>
                 <div class="container" style="max-width: 800px">
                     <h2 class="section">{data.menu.contact[$Lang]}</h2>
                     <div class="contact-form-and-links">
@@ -190,7 +200,7 @@
                     <h2 class="no-margin">Menu</h2>
                     <button class="burger close" on:click={closeMobileMenu} aria-label="close"><Fa icon={faXmark}/></button>
                 </div>
-                <Nav data={data.menu} {scrollTo} phoneVersion/>
+                <Nav data={data.menu} {scrollTo} active={currentViewedSection} phoneVersion/>
             </div>
         </div>
     </div>

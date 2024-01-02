@@ -1,9 +1,10 @@
 <script lang="ts">
-    import {faAddressCard, faEnvelope, faFileCode, faTerminal} from "@fortawesome/free-solid-svg-icons";
     import Fa from "svelte-fa";
+    import {faAddressCard, faEnvelope, faFileCode, faTerminal} from "@fortawesome/free-solid-svg-icons";
 
     import {Lang} from "@stores";
     import {PREFERRED_LANG_LOCAL_STORAGE_KEY} from "@utils/const";
+    import {onMount} from "svelte";
 
     // props
     export let
@@ -25,22 +26,38 @@
         if ((e as KeyboardEvent).key === " " || (e as KeyboardEvent).key === "Enter")
             changeLang();
     }
+
+    onMount(() => {
+        console.log(active)
+    })
 </script>
 
 <nav class:phone={phoneVersion}>
     <ul>
         <li class="section">
-            <a class:active={active === "hero"} href="#hero" on:click|preventDefault={scrollTo("hero")}>
+            <a
+                class={active === "hero" ? "active" : ""}
+                href="#hero"
+                on:click|preventDefault={scrollTo("hero")}
+            >
                 <Fa icon={faAddressCard}/> {data.landing[$Lang]}
             </a>
         </li>
         <li class="section">
-            <a class:active={active === "projects"} href="#projects" on:click|preventDefault={scrollTo("projects")}>
+            <a
+                class={active === "projects" ? "active" : ""}
+                href="#projects"
+                on:click|preventDefault={scrollTo("projects")}
+            >
                 <Fa icon={faFileCode}/> {data.projects[$Lang]}
             </a>
         </li>
         <li class="section">
-            <a class:active={active === "contact"} href="#contact" on:click|preventDefault={scrollTo("contact")}>
+            <a
+                class={active === "contact" ? "active" : ""}
+                href="#contact"
+                on:click|preventDefault={scrollTo("contact")}
+            >
                 <Fa icon={faEnvelope}/> {data.contact[$Lang]}
             </a>
         </li>
@@ -126,8 +143,12 @@
         transition: .2s;
     }
 
-    .section a:hover, .section a.active{
+    .section a:hover {
         color: white;
         text-decoration: none;
+    }
+
+    .section a.active {
+        color: var(--cyan);
     }
 </style>

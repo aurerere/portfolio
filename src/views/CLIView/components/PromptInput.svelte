@@ -1,5 +1,5 @@
 <script lang="ts">
-    import {onMount} from "svelte";
+    import {onDestroy, onMount} from "svelte";
     import {DeviceInfo, InputHistoryStack} from "@stores";
     import clear from "@cli/bin/clear";
     import {getSuggestions} from "@cli/utils/autocompletion";
@@ -8,21 +8,21 @@
         runCommands: (...command: string[]) => Promise<void>,
         value: string;
 
+    export let focusInput: (() => void) | null = null;
+
     let inputEl: HTMLSpanElement;
     let inputSavedValue: string = "";
     let currentHistoryStackIndex: number = -1;
     let autocompleteSuggestionIndex: number = -1;
     let autocompleteSuggestions: string[] | null = null;
 
-    function handleInput()
-    {
+    function handleInput() {
         currentHistoryStackIndex = -1;
         autocompleteSuggestionIndex = -1;
         autocompleteSuggestions = [];
     }
 
-    async function handleKeyDown(e: Event): Promise<void>
-    {
+    async function handleKeyDown(e: Event): Promise<void> {
         getCaretPositon();
         const key = (e as KeyboardEvent).key;
         const isControlDown = (e as KeyboardEvent).ctrlKey;
@@ -77,8 +77,7 @@
         }
     }
 
-    function navigateThroughHistoryStack(key: "ArrowUp" | "ArrowDown")
-    {
+    function navigateThroughHistoryStack(key: "ArrowUp" | "ArrowDown") {
         if (key === "ArrowUp") { // moves backward in the input history
             if (currentHistoryStackIndex + 1 < $InputHistoryStack.length) {
                 if (currentHistoryStackIndex === -1)
@@ -100,8 +99,7 @@
         moveCaret(-1);
     }
 
-    function handleTab()
-    {
+    function handleTab() {
         const caretPos = getCaretPositon();
 
         let offset: number;
@@ -138,8 +136,7 @@
         moveCaret(caretPos - offset + value.length);
     }
 
-    async function handlePaste(e: ClipboardEvent)
-    {
+    async function handlePaste(e: ClipboardEvent) {
         e.preventDefault();
         if (!e.clipboardData)
             return;
@@ -168,18 +165,12 @@
         inputEl.normalize();
     }
 
-    /*
-    * TODO: WHY ???? PromptInput.svelte:184 <PromptInput> was created with unknown prop 'focusInput'
-    * */
-    export function focusInput()
-    {
+    function focus() {
         inputEl.focus();
         window.scrollTo(0, document.body.scrollHeight);
     }
 
-
-    function moveCaret(to: number)
-    {
+    function moveCaret(to: number) {
         const range = document.createRange();
         const sel = window.getSelection();
 
@@ -227,8 +218,13 @@
     }
 
     onMount(() => {
-        focusInput();
+        focusInput = focus;
+        focus();
     });
+
+    onDestroy(() => {
+        focusInput = null;
+    })
 </script>
 
 <svelte:window on:keydown={handleKeyDown}/>
